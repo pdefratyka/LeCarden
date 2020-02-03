@@ -1,0 +1,30 @@
+DROP DATABASE IF EXISTS lecarden;
+CREATE DATABASE lecarden DEFAULT CHARACTER SET UTF8MB4 ;
+USE lecarden;
+
+CREATE TABLE lecarden.user(
+	id INT NOT NULL AUTO_INCREMENT,
+    login VARCHAR(50) NOT NULL,
+    password VARCHAR(250) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    role_id INT NOT NULL,
+    secretary_phone VARCHAR(25) NOT NULL,
+    PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE lecarden.role(
+	id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+ALTER TABLE lecarden.user
+	ADD CONSTRAINT fk_role
+ 		FOREIGN KEY (role_id)
+ 		REFERENCES lecarden.role (id)
+		ON DELETE NO ACTION ON UPDATE NO ACTION;
+
