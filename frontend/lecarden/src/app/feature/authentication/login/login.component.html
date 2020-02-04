@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="container frame">
+  <div class="form">
+    <input
+      type="text"
+      class="form-control"
+      id="login-input"
+      placeholder="Login"
+    />
+    <input
+      type="password"
+      class="form-control"
+      id="password-input"
+      placeholder="Password"
+    />
+    <button type="submit" class="btn btn-success">Login</button>
+    <button type="button" class="btn btn-danger" [routerLink]="['/register']">
+      Register
+    </button>
+  </div>
+</div>

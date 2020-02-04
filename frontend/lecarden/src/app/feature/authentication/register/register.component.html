@@ -1,1 +1,50 @@
-<p>register works!</p>
+<form
+  [formGroup]="registerForm"
+  class="container frame"
+  (ngSubmit)="register()"
+>
+  <div class="form">
+    <input
+      type="text"
+      formControlName="login"
+      [ngClass]="{ 'is-invalid': login.invalid && login.touched }"
+      class="form-control"
+      id="login-input"
+      placeholder="Login"
+    />
+    <input
+      type="email"
+      formControlName="email"
+      [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
+      class="form-control"
+      id="email-input"
+      placeholder="Email"
+    />
+    <input
+      type="password"
+      formControlName="password"
+      [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
+      class="form-control"
+      id="password-input"
+      placeholder="Password"
+    />
+    <input
+      type="password"
+      formControlName="confirmPassword"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': confirmPassword.invalid && confirmPassword.touched }"
+      id="confirm-password-input"
+      placeholder="Confirm password"
+    />
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="registerForm.invalid"
+    >
+      Submit
+    </button>
+    <button type="button" class="btn btn-danger" [routerLink]="['/login']">
+      Cancel
+    </button>
+  </div>
+</form>
