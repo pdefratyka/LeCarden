@@ -1,6 +1,6 @@
 package lecarden.email.controller;
 
-import lecarden.email.entity.Email;
+import lecarden.email.entity.User;
 import lecarden.email.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("email")
 public class EmailController {
+
     private EmailService emailService;
 
     @Autowired
@@ -16,9 +17,8 @@ public class EmailController {
         this.emailService=emailService;
     }
 
-    @PostMapping()
-    public Email sendEmail(@RequestBody Email email){
-        emailService.sendEmail(email);
-        return email;
+    @PostMapping("registerConfirmation")
+    public void sendConfirmationRegisterEmail(@RequestBody User user){
+        emailService.sendConfirmationRegisterEmail(user);
     }
 }
