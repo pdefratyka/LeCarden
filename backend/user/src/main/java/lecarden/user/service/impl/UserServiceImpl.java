@@ -8,6 +8,7 @@ import lecarden.user.persistence.to.UserTO;
 import lecarden.user.common.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,13 +29,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserTO addUser(UserTO userTO) {
         userValidator.validateUser(userTO);
-        UserTO userTo=null;
-        try{
-            userTo=userMapper.mapToUserTO(userRepository.save(userMapper.mapToUser(userTO)));
-        }catch (DataIntegrityViolationException e){
-            userValidator.validateDataUnique(e);
-        }
-        return userTo;
+        userTO.setPassword(encodePassword(userTO.getPassword()));
+        return saveUserIfUnique(userTO);
     }
 
     @Override
@@ -45,5 +41,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserTO> getAllUsers() {
         return userMapper.mapToUserTos(userRepository.findAll());
+    }
+
+    private String encodePassword(String password){
+        return new BCryptPasswordEncoder().encode(password);
+    }
+
+    private UserTO saveUserIfUnique(UserTO userTO){
+        try{
+            userTO=userMapper.mapToUserTO(userRepository.save(userMapper.mapToUser(userTO)));
+        }catch (DataIntegrityViolationException e){
+            userValidator.validateDataUnique(e);
+        }
+        return userTO;
     }
 }
