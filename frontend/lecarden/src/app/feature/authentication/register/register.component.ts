@@ -1,5 +1,8 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/core/services/api/user.service';
+import { take } from 'rxjs/operators';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-register',
@@ -8,8 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-
-  constructor(private readonly formBuilder: FormBuilder) {
+  user: User;
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly userService: UserService
+  ) {
     this.registerForm = this.formBuilder.group({
       login: ['', [Validators.required]],
       email: ['', [Validators.required]],
@@ -19,8 +25,18 @@ export class RegisterComponent {
   }
 
   register(): void {
-    console.log('Allright');
-    console.log(this.registerForm.get('login').value);
+    this.userService
+      .registerUser(this.getUserFromForm())
+      .pipe(take(1))
+      .subscribe(response => console.log(response));
+  }
+
+  private getUserFromForm(): User {
+    return {
+      login: this.registerForm.get('login').value,
+      password: this.registerForm.get('password').value,
+      email: this.registerForm.get('email').value
+    } as User;
   }
 
   get login() {
