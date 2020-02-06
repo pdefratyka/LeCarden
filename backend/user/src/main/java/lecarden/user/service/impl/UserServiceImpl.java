@@ -7,6 +7,8 @@ import lecarden.user.service.UserService;
 import lecarden.user.persistence.to.UserTO;
 import lecarden.user.common.validator.UserValidator;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpEntity;
@@ -14,11 +16,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor=Exception.class)
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserRepository userRepository;
     private UserMapper userMapper;
     private UserValidator userValidator;
@@ -33,6 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public UserTO addUser(UserTO userTO) {
         userValidator.validateUser(userTO);
         userTO.setPassword(encodePassword(userTO.getPassword()));
