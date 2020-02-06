@@ -1,0 +1,29 @@
+<div class="container-fluid" [ngClass]="{ 'double-container ': wordsClicked }">
+  <div class="row">
+    <div class="container col-md-6">
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="changeSubcategory('Words')"
+        >
+          Words
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-secondary">Learning</button>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-secondary">Games</button>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-secondary">Statistics</button>
+      </div>
+    </div>
+    <ng-container *ngIf="wordsClicked">
+      <div class="container col-md-6 ">
+        <app-menu-sub-categories></app-menu-sub-categories>
+      </div>
+    </ng-container>
+  </div>
+</div>
