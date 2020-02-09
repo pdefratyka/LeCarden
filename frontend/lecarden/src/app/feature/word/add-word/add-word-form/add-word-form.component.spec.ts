@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuSubCategoriesComponent } from './menu-sub-categories.component';
+import { AddWordFormComponent } from './add-word-form.component';
 
-describe('MenuSubCategoriesComponent', () => {
-  let component: MenuSubCategoriesComponent;
-  let fixture: ComponentFixture<MenuSubCategoriesComponent>;
+describe('AddWordFormComponent', () => {
+  let component: AddWordFormComponent;
+  let fixture: ComponentFixture<AddWordFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuSubCategoriesComponent ]
+      declarations: [ AddWordFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuSubCategoriesComponent);
+    fixture = TestBed.createComponent(AddWordFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

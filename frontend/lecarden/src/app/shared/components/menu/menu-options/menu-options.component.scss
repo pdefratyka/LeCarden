@@ -1,17 +1,19 @@
+$base-font: 1em;
+$base-font-hover-multiplier: 1.2;
 .container-fluid {
-  border: 1px solid #dadce0;
-  border-radius: 8px;
-  width: 12%;
-  margin-left: 2%;
-  margin-top: 2%;
-  box-shadow: 10px 10px grey;
+  margin-top: 2rem;
 }
-button {
-  margin: 0 auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  width: 90%;
+h2 {
+  font-family: sans-serif;
 }
-.double-container {
-  width: 24%;
+li {
+  list-style-type: none;
+  font-family: sans-serif;
+  font-size: $base-font;
+}
+h2,
+li:hover {
+  font-style: normal;
+  font-size: $base-font-hover-multiplier * $base-font;
+  cursor: pointer;
 }

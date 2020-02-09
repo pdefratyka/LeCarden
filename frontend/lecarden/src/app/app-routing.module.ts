@@ -3,17 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './feature/authentication/register/register.component';
 import { LoginComponent } from './feature/authentication/login/login.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
-
+import { AddWordComponent } from './feature/word/add-word/add-word.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'menu', component: MenuComponent },
-  { path: '**', redirectTo: 'login' },
+  { path: 'add-word', component: AddWordComponent },
+  { path: '**', redirectTo: 'login' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
