@@ -4,6 +4,7 @@ import { RegisterComponent } from './feature/authentication/register/register.co
 import { LoginComponent } from './feature/authentication/login/login.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { AddWordComponent } from './feature/word/add-word/add-word.component';
+import { DisplayWordComponent } from './feature/word/display-word/display-word.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'add-word', component: AddWordComponent },
+  { path: 'display-word', component: DisplayWordComponent },
   { path: '**', redirectTo: 'login' }
 ];
 @NgModule({
