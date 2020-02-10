@@ -1,6 +1,6 @@
 <form
   [formGroup]="registerForm"
-  class="container frame"
+  class="container frame col-md-4"
   (ngSubmit)="register()"
 >
   <div class="form">
@@ -9,7 +9,6 @@
       formControlName="login"
       [ngClass]="{ 'is-invalid': login.invalid && login.touched }"
       class="form-control"
-      id="login-input"
       placeholder="Login"
     />
     <input
@@ -17,7 +16,6 @@
       formControlName="email"
       [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
       class="form-control"
-      id="email-input"
       placeholder="Email"
     />
     <input
@@ -25,26 +23,28 @@
       formControlName="password"
       [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
       class="form-control"
-      id="password-input"
       placeholder="Password"
     />
     <input
       type="password"
       formControlName="confirmPassword"
       class="form-control"
-      [ngClass]="{ 'is-invalid': confirmPassword.invalid && confirmPassword.touched }"
-      id="confirm-password-input"
+      [ngClass]="{
+        'is-invalid': confirmPassword.invalid && confirmPassword.touched
+      }"
       placeholder="Confirm password"
     />
-    <button
-      type="submit"
-      class="btn btn-success"
-      [disabled]="registerForm.invalid"
-    >
-      Submit
-    </button>
-    <button type="button" class="btn btn-danger" [routerLink]="['/login']">
-      Cancel
-    </button>
+    <div class="row justify-content-end">
+      <button
+        type="submit"
+        class="btn btn-success mr-4"
+        [disabled]="registerForm.invalid"
+      >
+        Submit
+      </button>
+      <button type="button" class="btn btn-danger mr-4" [routerLink]="['/login']">
+        Cancel
+      </button>
+    </div>
   </div>
 </form>

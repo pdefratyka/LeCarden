@@ -7,7 +7,10 @@ import { User } from 'src/app/shared/models/user';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: [
+    './../../../shared/styles/global.scss',
+    './register.component.scss'
+  ]
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -29,7 +32,7 @@ export class RegisterComponent {
       .registerUser(this.getUserFromForm())
       .pipe(take(1))
       .subscribe(response => console.log(response));
-      //should redirect to login page
+    //should redirect to login page
   }
 
   private getUserFromForm(): User {
