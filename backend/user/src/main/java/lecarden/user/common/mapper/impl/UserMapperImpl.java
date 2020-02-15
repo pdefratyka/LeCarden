@@ -1,7 +1,7 @@
 package lecarden.user.common.mapper.impl;
 
-import lecarden.user.persistence.entity.User;
 import lecarden.user.common.mapper.UserMapper;
+import lecarden.user.persistence.entity.User;
 import lecarden.user.persistence.to.UserTO;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +36,8 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public List<UserTO> mapToUserTos(List<User> users) {
-        List<UserTO> usersTO=new ArrayList<>();
-        for(User user:users){
-            usersTO.add(mapToUserTO(user));
-        }
+        List<UserTO> usersTO = new ArrayList<>();
+        users.forEach(u -> usersTO.add(mapToUserTO(u)));
 
         return usersTO;
     }
