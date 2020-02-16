@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './feature/authentication/authentication.module';
 import { SharedModule } from './shared/shared.module';
 import { WordModule } from './feature/word/word.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,9 +15,10 @@ import { WordModule } from './feature/word/word.module';
     AppRoutingModule,
     AuthenticationModule,
     SharedModule,
+    CoreModule,
     WordModule
   ],
-  providers: [],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {}

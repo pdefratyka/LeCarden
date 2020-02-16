@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/security/token-interceptor.service';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule, HttpClientModule
-  ]
+  imports: [CommonModule, HttpClientModule]
 })
-export class CoreModule { }
+export class CoreModule {}

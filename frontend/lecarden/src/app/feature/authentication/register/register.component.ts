@@ -32,7 +32,6 @@ export class RegisterComponent {
       .registerUser(this.getUserFromForm())
       .pipe(take(1))
       .subscribe(response => console.log(response));
-    //should redirect to login page
   }
 
   private getUserFromForm(): User {

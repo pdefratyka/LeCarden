@@ -5,12 +5,13 @@ import { LoginComponent } from './feature/authentication/login/login.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { AddWordComponent } from './feature/word/add-word/add-word.component';
 import { DisplayWordComponent } from './feature/word/display-word/display-word.component';
+import { AuthGuardService } from './core/services/security/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
   { path: 'add-word', component: AddWordComponent },
   { path: 'display-word', component: DisplayWordComponent },
   { path: '**', redirectTo: 'login' }
