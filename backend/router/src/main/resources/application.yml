@@ -1,0 +1,25 @@
+server:
+  port: 8085
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+zuul:
+  sensitiveHeaders:
+    ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  #Service will be mapped under the /api URI
+  prefix:
+#  Uncomment to disable auto-registering all services read from Eureka
+#  ignoredServices: '*'
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000000
+spring:
+  application:
+    name: zuul-api-gateway-server
