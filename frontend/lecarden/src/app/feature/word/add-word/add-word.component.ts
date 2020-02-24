@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { WordService } from 'src/app/core/services/api/word.service';
+import { Word } from 'src/app/shared/models/word';
 
 @Component({
   selector: 'app-add-word',
@@ -9,7 +11,12 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class AddWordComponent implements OnInit {
-  constructor() {}
+  constructor(private readonly wordService: WordService) {}
 
   ngOnInit() {}
+  saveWord(word: Word): void {
+    this.wordService
+      .saveWord(word)
+      .subscribe(response => console.log(response));
+  }
 }

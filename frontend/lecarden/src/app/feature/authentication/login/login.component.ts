@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginCredentials } from 'src/app/shared/models/LoginCredentials';
+import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
 
 @Component({

@@ -4,6 +4,7 @@ import lecarden.user.utils.security.JwtUtil;
 import lecarden.user.utils.security.models.AuthenticationRequest;
 import lecarden.user.utils.security.models.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("authenticate")
-    public String createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -43,6 +44,6 @@ public class AuthenticationController {
                 authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return new AuthenticationResponse(jwt).getJwt();
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 }

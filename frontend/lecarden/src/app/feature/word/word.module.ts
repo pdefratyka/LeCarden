@@ -14,6 +14,10 @@ import { WordTableComponent } from './display-word/word-table/word-table.compone
 import { PacketNameComponent } from './add-packet/packet-menu/packet-name/packet-name.component';
 import { WordsListComponent } from './add-packet/packet-menu/words-list/words-list.component';
 import { AddPacketButtonPanelComponent } from './add-packet/packet-menu/add-packet-button-panel/add-packet-button-panel.component';
+import { DisplayPacketComponent } from './display-packet/display-packet.component';
+import { PacketFilterComponent } from './display-packet/packet-filter/packet-filter.component';
+import { PacketTableComponent } from './display-packet/packet-table/packet-table.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,8 +33,11 @@ import { AddPacketButtonPanelComponent } from './add-packet/packet-menu/add-pack
     AddPacketWordFilterComponent,
     PacketNameComponent,
     WordsListComponent,
-    AddPacketButtonPanelComponent
+    AddPacketButtonPanelComponent,
+    DisplayPacketComponent,
+    PacketFilterComponent,
+    PacketTableComponent
   ],
-  imports: [CommonModule, SharedModule]
+  imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule]
 })
 export class WordModule {}

@@ -1,13 +1,14 @@
 <div class="container">
-  <form>
+  <form (ngSubmit)="emitSaveWord()" [formGroup]="addWordForm">
     <div class="form-group">
       <label for="german-word-input">German Word</label>
       <input
         type="text"
         class="form-control"
         id="german-word-input"
-        aria-describedby="german-word-help-label"
         placeholder="Enter word"
+        formControlName="name"
+        [ngClass]="{ 'is-invalid': name.invalid && name.touched }"
       />
       <small id="german-word-help-label" class="form-text text-muted"
         >Po średniku możesz dodać synonimy</small
@@ -20,6 +21,8 @@
         class="form-control"
         id="plural-input"
         placeholder="Plural"
+        formControlName="plural"
+        [ngClass]="{ 'is-invalid': plural.invalid && plural.touched }"
       />
     </div>
     <div class="form-group">
@@ -29,7 +32,8 @@
         class="form-control"
         id="meaning-input"
         placeholder="Meaning"
-        aria-describedby="meaning-help-label"
+        formControlName="translation"
+        [ngClass]="{ 'is-invalid': translation.invalid && translation.touched }"
       />
     </div>
     <small id="meaning-help-label" class="form-text text-muted"
@@ -42,9 +46,16 @@
         class="form-control"
         id="category-input"
         placeholder="Category"
+        formControlName="category"
+        [ngClass]="{ 'is-invalid': category.invalid && category.touched }"
       />
     </div>
-    <button type="submit" class="btn btn-primary" id="submit-button">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      id="submit-button"
+      [disabled]="addWordForm.invalid"
+    >
       Submit
     </button>
   </form>

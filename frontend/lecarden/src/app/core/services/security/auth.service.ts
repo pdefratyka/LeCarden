@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from 'src/app/shared/models/LoginCredentials';
+import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
