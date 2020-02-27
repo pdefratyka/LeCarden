@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
@@ -10,15 +10,14 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class AddWordFormComponent {
   @Output()
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Input()
+  wordHasBeenSaved;
+  @Input()
+  wordHasNotBeenSaved;
 
   addWordForm: FormGroup;
   constructor(private readonly formBuilder: FormBuilder) {
-    this.addWordForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      translation: ['', [Validators.required]],
-      plural: [''],
-      category: ['']
-    });
+    this.initAddWordForm();
   }
 
   emitSaveWord(): void {
@@ -29,6 +28,15 @@ export class AddWordFormComponent {
       plural: this.plural.value
     } as Word);
     this.addWordForm.reset();
+  }
+
+  private initAddWordForm(): void {
+    this.addWordForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      translation: ['', [Validators.required]],
+      plural: [''],
+      category: ['']
+    });
   }
 
   get name() {
