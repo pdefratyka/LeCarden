@@ -1,0 +1,9 @@
+<div
+  class="container"
+  [ngClass]="{
+    'error-message': errorMessage(),
+    'sucess-message': successMessage()
+  }"
+>
+  <p>{{ message.getMessage() }}</p>
+</div>

@@ -1,10 +1,4 @@
 <div class="container">
-  <div class="add-word-confirmation-div" *ngIf="wordHasBeenSaved">
-    <span>Word has been saved</span>
-  </div>
-  <div class="add-word-confirmation-div fail" *ngIf="wordHasNotBeenSaved">
-    <span>Word has not been saved. Try later.</span>
-  </div>
   <form (ngSubmit)="emitSaveWord()" [formGroup]="addWordForm">
     <div class="form-group">
       <label for="german-word-input">Word*</label>
@@ -14,12 +8,17 @@
         id="german-word-input"
         placeholder="Enter word"
         formControlName="name"
-        [ngClass]="{ 'is-invalid': name.invalid && name.touched }"
+        [ngClass]="{
+          'is-invalid': name.invalid && (name.touched || formInvalidSubmitted)
+        }"
       />
       <small id="german-word-help-label" class="form-text text-muted"
         >Po średniku możesz dodać synonimy</small
       >
-      <div class="alert alert-danger" *ngIf="name.invalid && name.touched">
+      <div
+        class="alert alert-danger"
+        *ngIf="name.invalid && (name.touched || formInvalidSubmitted)"
+      >
         Name is required
       </div>
     </div>
@@ -42,14 +41,19 @@
         id="meaning-input"
         placeholder="Meaning"
         formControlName="translation"
-        [ngClass]="{ 'is-invalid': translation.invalid && translation.touched }"
+        [ngClass]="{
+          'is-invalid':
+            translation.invalid && (translation.touched || formInvalidSubmitted)
+        }"
       />
       <small id="meaning-help-label" class="form-text text-muted"
         >Po średniku możesz dodać synonimy</small
       >
       <div
         class="alert alert-danger"
-        *ngIf="translation.invalid && translation.touched"
+        *ngIf="
+          translation.invalid && (translation.touched || formInvalidSubmitted)
+        "
       >
         Meaning is required
       </div>
@@ -70,7 +74,7 @@
       type="submit"
       class="btn btn-primary"
       id="submit-button"
-      [disabled]="addWordForm.invalid"
+      [ngClass]="{ 'invalid-form-button': addWordForm.invalid }"
     >
       Submit
     </button>

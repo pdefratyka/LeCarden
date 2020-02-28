@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { WordService } from 'src/app/core/services/api/word.service';
 import { Word } from 'src/app/shared/models/word';
 import { take } from 'rxjs/operators';
-
+import { Message } from 'src/app/shared/models/message';
+import { MessageType } from 'src/app/shared/models/messageTypes';
 @Component({
   selector: 'app-add-word',
   templateUrl: './add-word.component.html',
@@ -12,35 +13,30 @@ import { take } from 'rxjs/operators';
   ]
 })
 export class AddWordComponent {
-  wordHasBeenSaved = false;
-  wordHasNotBeenSaved = false;
+  message: Message = new Message();
   constructor(private readonly wordService: WordService) {}
 
   saveWord(word: Word): void {
-    const that = this;
     this.wordService
       .saveWord(word)
       .pipe(take(1))
       .subscribe(
-        response => {
-          console.log(response);
-          that.showAddWordConfirmation();
+        () => {
+          this.showConfirmation(word.name); // Success
         },
         () => this.showError() // Error handling
       );
   }
 
-  private showAddWordConfirmation(): void {
-    const displayTime = 4 * 1000;
-    this.wordHasBeenSaved = true;
-    const that = this;
-    setTimeout(() => {
-      that.wordHasBeenSaved = false;
-      that.wordHasNotBeenSaved = false;
-    }, displayTime);
+  private showError(): void {
+    this.message = new Message();
+    this.message.setMessageType(MessageType.ERROR);
+    this.message.setMessage('ERROR');
   }
 
-  private showError(): void {
-    this.wordHasNotBeenSaved = true;
+  private showConfirmation(word: string): void {
+    this.message = new Message();
+    this.message.setMessageType(MessageType.SUCCESS);
+    this.message.setMessage(`Word: ${word} has been saved`);
   }
 }

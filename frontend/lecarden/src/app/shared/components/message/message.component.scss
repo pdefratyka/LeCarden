@@ -1,0 +1,22 @@
+.container {
+  height: 2rem;
+
+  p {
+    font-style: italic;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 2rem;
+  }
+}
+
+.error-message {
+  color: red;
+}
+
+.sucess-message {
+  color: green;
+}
+
+.info-message {
+  color: yellow;
+}
