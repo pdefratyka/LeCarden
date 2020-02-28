@@ -8,6 +8,7 @@ import { DisplayWordComponent } from './feature/word/display-word/display-word.c
 import { AuthGuardService } from './core/services/security/auth-guard.service';
 import { AddPacketComponent } from './feature/word/add-packet/add-packet.component';
 import { DisplayPacketComponent } from './feature/word/display-packet/display-packet.component';
+import { WordsResolverService } from './core/services/resolvers/words-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,7 +16,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
   { path: 'add-word', component: AddWordComponent },
-  { path: 'display-word', component: DisplayWordComponent },
+  {
+    path: 'display-word',
+    component: DisplayWordComponent,
+    resolve: { words: WordsResolverService }
+  },
   { path: 'display-packet', component: DisplayPacketComponent },
   { path: 'add-packet', component: AddPacketComponent },
   { path: '**', redirectTo: 'login' }

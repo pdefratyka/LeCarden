@@ -2,7 +2,6 @@
   <table class="table" aria-describedby="Word table">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Word</th>
         <th scope="col">Plural</th>
         <th scope="col">Meaning</th>
@@ -10,11 +9,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>-</td>
-        <td>Obojętnie</td>
+      <tr *ngFor="let word of words">
+        <td>{{ word.name }}</td>
+        <td>{{ word.plural }}</td>
+        <td>{{ word.translation }}</td>
+        <td>{{ word.category }}</td>
       </tr>
     </tbody>
   </table>
