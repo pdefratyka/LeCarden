@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Word } from 'src/app/shared/models/word';
 
 @Component({
   selector: 'app-words-list',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./words-list.component.scss']
 })
 export class WordsListComponent implements OnInit {
+  @Input()
+  wordsInPacket: Word[];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  removeWord(word: Word): void {
+    const index: number = this.wordsInPacket.indexOf(word);
+    if (index !== -1) {
+      this.wordsInPacket.splice(index, 1);
+    }
   }
-
 }

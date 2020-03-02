@@ -10,133 +10,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
+      <tr *ngFor="let word of wordsInPacket; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ word.name }}</td>
+        <td>{{ word.translation }}</td>
+        <td>{{ word.category }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="removeWord(word)">-</button>
+        </td>
       </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Egal</td>
-        <td>Obojętnie</td>
-        <td>Sport</td>
-        <td><button class="btn btn-danger">-</button></td>
-      </tr>
-      
     </tbody>
   </table>
 </div>

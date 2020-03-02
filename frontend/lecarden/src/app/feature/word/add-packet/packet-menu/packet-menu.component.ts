@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Word } from 'src/app/shared/models/word';
 
 @Component({
   selector: 'app-packet-menu',
@@ -9,6 +10,9 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class PacketMenuComponent implements OnInit {
+  @Input()
+  wordsInPacket: Word[];
+
   constructor() {}
 
   ngOnInit() {}

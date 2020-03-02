@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Message } from '../../models/message';
 import { MessageType } from '../../models/messageTypes';
 
@@ -7,10 +7,16 @@ import { MessageType } from '../../models/messageTypes';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnChanges {
+export class MessageComponent implements OnChanges, OnInit {
   @Input()
   message: Message;
   constructor() {}
+
+  ngOnInit(): void {
+    if (this.message === undefined) {
+      this.message = new Message();
+    }
+  }
 
   ngOnChanges(): void {
     const that = this;

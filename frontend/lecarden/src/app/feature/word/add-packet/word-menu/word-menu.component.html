@@ -8,7 +8,10 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <app-add-packet-word-table></app-add-packet-word-table>
+          <app-add-packet-word-table
+            (addWord)="emitAddWord($event)"
+            [words]="words"
+          ></app-add-packet-word-table>
         </div>
       </div>
     </div>

@@ -2,3 +2,8 @@
   max-height: 80vh;
   overflow: auto;
 }
+thead {
+  th {
+    border-top: 0px;
+  }
+}

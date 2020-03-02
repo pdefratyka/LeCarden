@@ -27,6 +27,6 @@ export class WordService {
   }
 
   handleError() {
-    return throwError('Word has been not added. There was some Error.');
+    return throwError('There was some problem with the server.');
   }
 }

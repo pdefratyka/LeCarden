@@ -5,11 +5,13 @@
     </div>
   </div>
   <div class="row">
-    <app-words-list></app-words-list>
+    <div class="col-md-12">
+      <app-words-list [wordsInPacket]="wordsInPacket"></app-words-list>
+    </div>
   </div>
   <div class="row mb-2">
     <div class="col-md-12">
-      <hr>
+      <hr />
       <app-add-packet-button-panel></app-add-packet-button-panel>
     </div>
   </div>
