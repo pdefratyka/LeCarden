@@ -14,4 +14,6 @@ public class Word {
     private String plural;
     private String category;
     //private Long userId;
+
+
 }
