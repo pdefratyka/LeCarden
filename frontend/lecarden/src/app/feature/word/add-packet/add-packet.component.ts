@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { ActivatedRoute } from '@angular/router';
 import { map, take } from 'rxjs/operators';
+import { PacketService } from 'src/app/core/services/api/packet.service';
 
 @Component({
   selector: 'app-add-packet',
@@ -15,7 +16,10 @@ export class AddPacketComponent implements OnInit {
   wordsInPacket: Word[] = [];
   words: Word[];
   addedWordsIndex: Map<number, boolean> = new Map<number, boolean>();
-  constructor(private readonly route: ActivatedRoute) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly packetService: PacketService
+  ) {}
 
   ngOnInit() {
     this.route.data
@@ -43,5 +47,9 @@ export class AddPacketComponent implements OnInit {
       this.wordsInPacket.splice(index, 1);
       this.addedWordsIndex.set(word.id, false);
     }
+  }
+
+  savePacket(packetName: string): void {
+    this.packetService.savePacket(packetName, this.wordsInPacket);
   }
 }

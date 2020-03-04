@@ -3,6 +3,7 @@
     <button
       type="submit"
       class="btn btn-success mr-4"
+      (click)="emitSavePacket()"
       [disabled]="addPacketForm.invalid"
     >
       Save

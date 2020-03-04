@@ -15,6 +15,8 @@ export class PacketMenuComponent {
   wordsInPacket: Word[];
   @Output()
   removeWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Output()
+  savePacket: EventEmitter<string> = new EventEmitter<string>();
   addPacketForm: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder) {
@@ -39,5 +41,9 @@ export class PacketMenuComponent {
 
   emitRemoveWord(word: Word): void {
     this.removeWord.emit(word);
+  }
+
+  emitSavePacket(packetName: string): void {
+    this.savePacket.emit(packetName);
   }
 }

@@ -11,9 +11,16 @@ export class AddPacketButtonPanelComponent {
   addPacketForm: FormGroup;
   @Output()
   clearForm = new EventEmitter<void>();
-  constructor() {}
+  @Output()
+  savePacket = new EventEmitter<string>();
 
   emitClearForm(): void {
     this.clearForm.emit();
+  }
+
+  emitSavePacket(): void {
+    this.savePacket.emit(
+      this.addPacketForm.get('name').get('packetName').value
+    );
   }
 }
