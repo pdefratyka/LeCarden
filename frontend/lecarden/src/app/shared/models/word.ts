@@ -1,5 +1,5 @@
 export interface Word {
-  index: number;
+  id: number;
   name: string;
   translation: string;
   plural: string;

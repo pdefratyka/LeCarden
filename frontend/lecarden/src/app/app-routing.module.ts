@@ -22,7 +22,11 @@ const routes: Routes = [
     resolve: { words: WordsResolverService }
   },
   { path: 'display-packet', component: DisplayPacketComponent },
-  { path: 'add-packet', component: AddPacketComponent },
+  {
+    path: 'add-packet',
+    component: AddPacketComponent,
+    resolve: { words: WordsResolverService }
+  },
   { path: '**', redirectTo: 'login' }
 ];
 @NgModule({

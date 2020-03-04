@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
+import { ActivatedRoute } from '@angular/router';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-packet',
@@ -10,38 +12,36 @@ import { Word } from 'src/app/shared/models/word';
   ]
 })
 export class AddPacketComponent implements OnInit {
-  wordsInPacket: Word[];
-  words: Word[]; // They will be loaded by resolver
-  constructor() {}
+  wordsInPacket: Word[] = [];
+  words: Word[];
+  addedWordsIndex: Map<number, boolean> = new Map<number, boolean>();
+  constructor(private readonly route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.wordsInPacket = [];
-    this.words = [];
-    this.words.push({
-      name: 'der Hund',
-      translation: 'Pies',
-      plural: '-',
-      category: 'Tiere'
-    } as Word);
-    this.words.push({
-      name: 'die Katze',
-      translation: 'Kot',
-      plural: '-',
-      category: 'Tiere'
-    } as Word);
-    this.words.push({
-      name: 'das Pferd',
-      translation: 'Koń',
-      plural: '-',
-      category: 'Tiere'
-    } as Word);
+    this.route.data
+      .pipe(
+        map(data => data.words),
+        take(1)
+      )
+      .subscribe(val => {
+        this.words = val;
+        this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
+      });
   }
 
   addWordToPacket(word: Word): void {
     const index: number = this.wordsInPacket.indexOf(word);
     if (index === -1) {
       this.wordsInPacket.push(word);
+      this.addedWordsIndex.set(word.id, true);
     }
-    //
+  }
+
+  removeWord(word: Word): void {
+    const index: number = this.wordsInPacket.indexOf(word);
+    if (index !== -1) {
+      this.wordsInPacket.splice(index, 1);
+      this.addedWordsIndex.set(word.id, false);
+    }
   }
 }

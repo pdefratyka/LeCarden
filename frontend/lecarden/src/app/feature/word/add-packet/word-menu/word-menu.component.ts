@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 
 @Component({
@@ -9,14 +9,14 @@ import { Word } from 'src/app/shared/models/word';
     './word-menu.component.scss'
   ]
 })
-export class WordMenuComponent implements OnInit {
+export class WordMenuComponent {
   @Input()
   words: Word[];
+  @Input()
+  addedWordsIndex: Map<number, boolean>;
   @Output()
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
   constructor() {}
-
-  ngOnInit() {}
 
   emitAddWord(word: Word): void {
     this.addWord.emit(word);

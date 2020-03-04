@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 
 @Component({
@@ -6,18 +6,15 @@ import { Word } from 'src/app/shared/models/word';
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.scss']
 })
-export class WordsListComponent implements OnInit {
+export class WordsListComponent {
   @Input()
   wordsInPacket: Word[];
+  @Output()
+  removeWord: EventEmitter<Word> = new EventEmitter<Word>();
 
   constructor() {}
 
-  ngOnInit() {}
-
-  removeWord(word: Word): void {
-    const index: number = this.wordsInPacket.indexOf(word);
-    if (index !== -1) {
-      this.wordsInPacket.splice(index, 1);
-    }
+  emitRemoveWord(word: Word): void {
+    this.removeWord.emit(word);
   }
 }

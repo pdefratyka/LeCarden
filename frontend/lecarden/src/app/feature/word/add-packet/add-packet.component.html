@@ -13,13 +13,20 @@
         <div class="container col-md-5 frame">
           <div class="row">
             <div class="col-md-12 word-table">
-              <app-word-menu [words]="words" (addWord)="addWordToPacket($event)"></app-word-menu>
+              <app-word-menu
+                [words]="words"
+                [addedWordsIndex]="addedWordsIndex"
+                (addWord)="addWordToPacket($event)"
+              ></app-word-menu>
             </div>
           </div>
         </div>
         <div class="container col-md-6 frame">
           <div class="col-md-12">
-            <app-packet-menu [wordsInPacket]="wordsInPacket"></app-packet-menu>
+            <app-packet-menu
+              (removeWord)="removeWord($event)"
+              [wordsInPacket]="wordsInPacket"
+            ></app-packet-menu>
           </div>
         </div>
       </div>

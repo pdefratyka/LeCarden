@@ -1,5 +1,5 @@
 <div class="container">
-  <table class="table">
+  <table class="table" aria-describedby="Add packet table">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -16,7 +16,13 @@
         <td>{{ word.translation }}</td>
         <td>{{ word.category }}</td>
         <td>
-          <button class="btn btn-success" (click)="emitAddWord(word)">+</button>
+          <button
+            class="btn btn-success"
+            (click)="emitAddWord(word)"
+            [disabled]="addedWordsIndex.get(word.id)"
+          >
+            +
+          </button>
         </td>
       </tr>
     </tbody>

@@ -1,6 +1,14 @@
-<input
-  type="text"
-  class="form-control"
-  id="packet-name-input"
-  placeholder="Packet name"
-/>
+<div [formGroup]="name">
+  <input
+    type="text"
+    class="form-control"
+    id="packet-name-input"
+    formControlName="packetName"
+    placeholder="Packet name"
+    [ngClass]="{
+      'is-invalid':
+        name.get('packetName').invalid &&
+        name.get('packetName').touched
+    }"
+  />
+</div>

@@ -1,18 +1,24 @@
-<div class="container-fluid">
+<div class="container-fluid" [formGroup]="addPacketForm">
   <div class="row packet-name">
     <div class="col-md-12">
-      <app-packet-name></app-packet-name>
+      <app-packet-name [name]="addPacketForm.get('name')"></app-packet-name>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <app-words-list [wordsInPacket]="wordsInPacket"></app-words-list>
+      <app-words-list
+        (removeWord)="emitRemoveWord($event)"
+        [wordsInPacket]="wordsInPacket"
+      ></app-words-list>
     </div>
   </div>
   <div class="row mb-2">
     <div class="col-md-12">
       <hr />
-      <app-add-packet-button-panel></app-add-packet-button-panel>
+      <app-add-packet-button-panel
+        (clearForm)="clearForm()"
+        [addPacketForm]="addPacketForm"
+      ></app-add-packet-button-panel>
     </div>
   </div>
 </div>

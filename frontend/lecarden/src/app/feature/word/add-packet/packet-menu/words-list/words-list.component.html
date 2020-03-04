@@ -16,7 +16,9 @@
         <td>{{ word.translation }}</td>
         <td>{{ word.category }}</td>
         <td>
-          <button class="btn btn-danger" (click)="removeWord(word)">-</button>
+          <button class="btn btn-danger" (click)="emitRemoveWord(word)">
+            -
+          </button>
         </td>
       </tr>
     </tbody>

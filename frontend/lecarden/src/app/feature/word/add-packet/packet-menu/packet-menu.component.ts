@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-packet-menu',
@@ -9,11 +10,34 @@ import { Word } from 'src/app/shared/models/word';
     './packet-menu.component.scss'
   ]
 })
-export class PacketMenuComponent implements OnInit {
+export class PacketMenuComponent {
   @Input()
   wordsInPacket: Word[];
+  @Output()
+  removeWord: EventEmitter<Word> = new EventEmitter<Word>();
+  addPacketForm: FormGroup;
 
-  constructor() {}
+  constructor(private readonly formBuilder: FormBuilder) {
+    this.initAddPacketForm();
+  }
 
-  ngOnInit() {}
+  private initAddPacketForm(): void {
+    this.addPacketForm = this.formBuilder.group({
+      name: this.formBuilder.group({
+        packetName: ['', [Validators.required]]
+      })
+    });
+  }
+
+  clearForm(): void {
+    this.addPacketForm
+      .get('name')
+      .get('packetName')
+      .setValue('');
+    this.wordsInPacket.length = 0;
+  }
+
+  emitRemoveWord(word: Word): void {
+    this.removeWord.emit(word);
+  }
 }
