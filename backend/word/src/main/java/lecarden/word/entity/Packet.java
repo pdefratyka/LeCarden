@@ -4,14 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class Word {
+public class Packet {
     private Long id;
     private String name;
-    private String translation;
-    private String plural;
-    private String category;
-    //private Long userId;
+    private List<Word> words;
 }

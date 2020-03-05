@@ -1,1 +1,28 @@
-<p>packet-table works!</p>
+<div class="container">
+  <table class="table" aria-describedby="show packet table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Words</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let packet of packets; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ packet.name }}</td>
+        <td>{{ packet.words ? packet.words.length : 0 }}</td>
+        <td>
+          <button class="btn btn-success" (click)="editPacket(packet.id)">+</button>
+        </td>
+        <td>
+          <button class="btn btn-danger">
+            -
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

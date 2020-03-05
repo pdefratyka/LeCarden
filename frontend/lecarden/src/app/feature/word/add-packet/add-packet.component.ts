@@ -15,6 +15,7 @@ import { PacketService } from 'src/app/core/services/api/packet.service';
 export class AddPacketComponent implements OnInit {
   wordsInPacket: Word[] = [];
   words: Word[];
+  packetName: string;
   addedWordsIndex: Map<number, boolean> = new Map<number, boolean>();
   constructor(
     private readonly route: ActivatedRoute,
@@ -30,6 +31,17 @@ export class AddPacketComponent implements OnInit {
       .subscribe(val => {
         this.words = val;
         this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
+      });
+    this.route.data
+      .pipe(
+        map(data => data.packet),
+        take(1)
+      )
+      .subscribe(val => {
+        if (val !== undefined) {
+          this.wordsInPacket = val.words;
+          this.packetName = val.name;
+        }
       });
   }
 
@@ -51,5 +63,10 @@ export class AddPacketComponent implements OnInit {
 
   savePacket(packetName: string): void {
     this.packetService.savePacket(packetName, this.wordsInPacket);
+  }
+
+  clearWordsInPacket(): void {
+    this.wordsInPacket.length = 0;
+    this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
   }
 }

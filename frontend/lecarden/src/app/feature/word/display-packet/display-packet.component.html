@@ -1,19 +1,26 @@
 <div class="container-fluid">
   <div class="row">
-    <app-menu></app-menu>
-    <div class="col-md-2"></div>
-    <div class="container col-md-5 frame">
-      <div class="row">
-        <div class="col-md-12 filter">
-          <app-packet-filter></app-packet-filter>
-        </div>
+    <div class="col-md-4">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-md-8">
+      <div class="row static-row-3">
+        <div class="col-md-6"></div>
       </div>
-      <div class="row">
-        <div class="col-md-12 word-table">
-          <app-packet-table></app-packet-table>
+      <div class="row mb-5">
+        <div class="container col-md-8 frame">
+          <div class="row">
+            <div class="col-md-12 filter">
+              <app-packet-filter></app-packet-filter>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 word-table">
+              <app-packet-table [packets]="packets"></app-packet-table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3"></div>
   </div>
 </div>

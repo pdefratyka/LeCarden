@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Packet } from 'src/app/shared/models/packet';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-display-packet',
@@ -9,7 +12,17 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DisplayPacketComponent implements OnInit {
-  constructor() {}
+  packets: Packet[];
+  constructor(private readonly route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.data
+    .pipe(
+      map(data => data.packets),
+      take(1)
+    )
+    .subscribe(val => {
+      this.packets = val;
+    });
+  }
 }

@@ -26,6 +26,7 @@
             <app-packet-menu
               (savePacket)="savePacket($event)"
               (removeWord)="removeWord($event)"
+              (cancelPacket)="clearWordsInPacket()"
               [wordsInPacket]="wordsInPacket"
             ></app-packet-menu>
           </div>

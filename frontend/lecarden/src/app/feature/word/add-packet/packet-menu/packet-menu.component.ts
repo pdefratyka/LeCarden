@@ -17,6 +17,8 @@ export class PacketMenuComponent {
   removeWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()
   savePacket: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  cancelPacket: EventEmitter<void> = new EventEmitter<void>();
   addPacketForm: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder) {
@@ -32,11 +34,10 @@ export class PacketMenuComponent {
   }
 
   clearForm(): void {
-    this.addPacketForm
-      .get('name')
-      .get('packetName')
-      .setValue('');
-    this.wordsInPacket.length = 0;
+    const nameControllForm = this.addPacketForm.get('name').get('packetName');
+    nameControllForm.setValue('');
+    nameControllForm.markAsUntouched();
+    this.emitCancelPacket();
   }
 
   emitRemoveWord(word: Word): void {
@@ -45,5 +46,9 @@ export class PacketMenuComponent {
 
   emitSavePacket(packetName: string): void {
     this.savePacket.emit(packetName);
+  }
+
+  emitCancelPacket(): void {
+    this.cancelPacket.emit();
   }
 }

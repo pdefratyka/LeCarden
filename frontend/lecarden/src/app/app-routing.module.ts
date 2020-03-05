@@ -9,23 +9,45 @@ import { AuthGuardService } from './core/services/security/auth-guard.service';
 import { AddPacketComponent } from './feature/word/add-packet/add-packet.component';
 import { DisplayPacketComponent } from './feature/word/display-packet/display-packet.component';
 import { WordsResolverService } from './core/services/resolvers/words-resolver.service';
+import { PacketsResolverService } from './core/services/resolvers/packets-resolver.service';
+import { SinglePacketResolverService } from './core/services/resolvers/single-packet-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
-  { path: 'add-word', component: AddWordComponent },
+  {
+    path: 'add-word',
+    component: AddWordComponent
+  },
   {
     path: 'display-word',
     component: DisplayWordComponent,
     resolve: { words: WordsResolverService }
   },
-  { path: 'display-packet', component: DisplayPacketComponent },
+  {
+    path: 'display-packet',
+    component: DisplayPacketComponent,
+    resolve: { packets: PacketsResolverService }
+  },
   {
     path: 'add-packet',
-    component: AddPacketComponent,
-    resolve: { words: WordsResolverService }
+    children: [
+      {
+        path: '',
+        component: AddPacketComponent,
+        resolve: { words: WordsResolverService }
+      },
+      {
+        path: ':id',
+        component: AddPacketComponent,
+        resolve: {
+          packet: SinglePacketResolverService,
+          words: WordsResolverService
+        }
+      }
+    ]
   },
   { path: '**', redirectTo: 'login' }
 ];
