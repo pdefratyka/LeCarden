@@ -12,7 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class PacketService {
-  private readonly url = 'http://localhost:8080/packets';
+  private readonly url = '/api/packets';
   constructor(private readonly httpClient: HttpClient) {}
 
   savePacket(packetName: string, words: Word[]): Observable<Word[]> {
@@ -22,9 +22,8 @@ export class PacketService {
   }
 
   getAllPackets(): Observable<Packet[]> {
-    return this.httpClient
-      .get<Packet[]>(this.url)
-      .pipe(catchError(this.handleError));
+    console.log('get all');
+    return this.httpClient.get<Packet[]>(this.url);
   }
 
   getPacketById(id: string): Observable<Packet> {

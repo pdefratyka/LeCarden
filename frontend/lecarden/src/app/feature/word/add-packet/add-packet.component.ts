@@ -41,6 +41,7 @@ export class AddPacketComponent implements OnInit {
         if (val !== undefined) {
           this.wordsInPacket = val.words;
           this.packetName = val.name;
+          console.log('#1. ' + this.packetName);
         }
       });
   }

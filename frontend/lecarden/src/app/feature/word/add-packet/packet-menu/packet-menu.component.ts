@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
@@ -13,6 +13,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class PacketMenuComponent {
   @Input()
   wordsInPacket: Word[];
+  @Input()
+  packetName: string;
   @Output()
   removeWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()

@@ -1,7 +1,10 @@
 <div class="container-fluid" [formGroup]="addPacketForm">
   <div class="row packet-name">
     <div class="col-md-12">
-      <app-packet-name [name]="addPacketForm.get('name')"></app-packet-name>
+      <app-packet-name
+        [name]="addPacketForm.get('name')"
+        [packetName]="packetName"
+      ></app-packet-name>
     </div>
   </div>
   <div class="row">

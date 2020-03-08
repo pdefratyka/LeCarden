@@ -12,7 +12,7 @@ const httpOptions = {
 })
 export class WordService {
   //private readonly url = 'http://localhost:8085/word-service/words';
-  private readonly url = 'http://localhost:8080/words';
+  private readonly url = 'http://localhost:9098/words';
   constructor(private readonly httpClient: HttpClient) {}
 
   saveWord(word: Word): Observable<Word> {

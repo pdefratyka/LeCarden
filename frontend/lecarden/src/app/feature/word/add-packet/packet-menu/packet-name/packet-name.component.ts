@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,8 +6,15 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './packet-name.component.html',
   styleUrls: ['./packet-name.component.scss']
 })
-export class PacketNameComponent {
+export class PacketNameComponent implements OnInit {
   @Input()
   name: FormGroup;
+  @Input()
+  packetName: string;
   constructor() {}
+
+  ngOnInit(): void {
+    console.log(this.name);
+    this.name.get('packetName').setValue(this.packetName);
+  }
 }

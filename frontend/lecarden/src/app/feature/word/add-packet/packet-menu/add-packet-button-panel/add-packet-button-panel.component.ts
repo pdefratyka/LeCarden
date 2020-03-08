@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
+import { Location } from '@angular/common';
+import { Router, NavigationEnd, RoutesRecognized } from '@angular/router';
+import { filter, pairwise } from 'rxjs/operators';
 @Component({
   selector: 'app-add-packet-button-panel',
   templateUrl: './add-packet-button-panel.component.html',
@@ -14,8 +16,15 @@ export class AddPacketButtonPanelComponent {
   @Output()
   savePacket = new EventEmitter<string>();
 
-  emitClearForm(): void {
-    this.clearForm.emit();
+  constructor(private router: Router, private location: Location) {}
+
+  handleCancelButton(): void {
+    const regex = new RegExp('add-packet/');
+    if (regex.test(this.router.url)) {
+      this.location.back();
+    } else {
+      this.clearForm.emit();
+    }
   }
 
   emitSavePacket(): void {

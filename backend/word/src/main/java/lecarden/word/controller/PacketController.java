@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("packets")
+@RequestMapping("api/packets")
 public class PacketController {
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -26,9 +27,9 @@ public class PacketController {
         words.add(new Word(3L,"die Katze", "Kot", "-", "-"));
         words.add(new Word(4L,"das Haus", "Dom", "-", "-"));
 
-        packets.add(new Packet(1L,"Tier",words));
-        packets.add(new Packet(2L,"Lands",words));
-        packets.add(new Packet(3L,"House",words));
+        packets.add(new Packet(0L,"Tier",words));
+        packets.add(new Packet(1L,"Lands", Arrays.asList(words.get(0),words.get(1))));
+        packets.add(new Packet(2L,"House",Arrays.asList(words.get(3),words.get(2))));
 
         return packets;
     }
@@ -37,17 +38,21 @@ public class PacketController {
     public Packet getPacketById(@PathVariable String id) {
         System.out.println("Packet by id");
         List<Packet> packets = new ArrayList();
-        List<Word> words = new ArrayList();
-        words.add(new Word(1L,"Egal", "Obojętnie", "-", "-"));
-        words.add(new Word(2L,"der Hund", "Pies", "-", "Zwierzęta"));
-        words.add(new Word(3L,"die Katze", "Kot", "-", "-"));
-        words.add(new Word(4L,"das Haus", "Dom", "-", "-"));
+        List<List<Word>> words = new ArrayList<>();
 
-        packets.add(new Packet(1L,"Tier",words));
-        packets.add(new Packet(2L,"Lands",words));
-        packets.add(new Packet(3L,"House",words));
 
-        return packets.get(0);
+        words.add(Arrays.asList(new Word(1L,"Egal", "Obojętnie", "-", "-"),
+                new Word(2L,"der Hund", "Pies", "-", "Zwierzęta")));
+        words.add(Arrays.asList(new Word(1L,"Egal", "Obojętnie", "-", "-"),
+                new Word(2L,"der Hund", "Pies", "-", "Zwierzęta"),
+                new Word(2L,"der Hund", "Pies", "-", "Zwierzęta")));
+        words.add(Arrays.asList(new Word(1L,"Egal", "Obojętnie", "-", "-")));
+
+        packets.add(new Packet(0L,"Tier",words.get(0)));
+        packets.add(new Packet(1L,"Lands",words.get(1)));
+        packets.add(new Packet(2L,"House",words.get(2)));
+
+        return packets.get(Integer.parseInt(id));
     }
 
 }
