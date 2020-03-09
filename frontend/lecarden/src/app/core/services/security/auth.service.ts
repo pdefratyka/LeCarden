@@ -26,7 +26,7 @@ export class AuthService {
       .pipe(take(1))
       .subscribe(response => {
         localStorage.setItem('TOKEN', response[jwt]);
-        this.router.navigate(['menu']);
+        this.router.navigate(['add-word']);
       });
   }
   isLoggedIn(): boolean {

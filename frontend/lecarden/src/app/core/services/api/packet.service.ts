@@ -12,18 +12,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class PacketService {
-  private readonly url = '/api/packets';
+  private readonly url = '/api/word-service/packets';
   constructor(private readonly httpClient: HttpClient) {}
 
   savePacket(packetName: string, words: Word[]): Observable<Word[]> {
-    console.log(packetName);
-    console.log(words);
     return null;
   }
 
   getAllPackets(): Observable<Packet[]> {
-    console.log('get all');
-    return this.httpClient.get<Packet[]>(this.url);
+    return this.httpClient
+      .get<Packet[]>(this.url)
+      .pipe(catchError(this.handleError));
   }
 
   getPacketById(id: string): Observable<Packet> {

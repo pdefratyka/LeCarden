@@ -10,7 +10,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  private readonly url = 'http://localhost:9092/users';
+  private readonly url = 'api/user-service/users';
   constructor(private readonly httpClient: HttpClient) {}
 
   registerUser(user: User): Observable<User> {
