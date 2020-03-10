@@ -1,7 +1,31 @@
-.form-control {
+/* APPLICATION TITLE */
+.application-title {
+  margin-top: 7rem;
+  p {
+    font-size: 2em;
+    text-align: center;
+    user-select: none;
+  }
+}
+.row {
   margin-top: 1rem;
+}
+label {
+  text-align: right;
+  user-select: none;
 }
 button {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.frame {
+  margin-top: 0rem;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
 }

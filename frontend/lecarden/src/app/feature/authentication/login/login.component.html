@@ -1,36 +1,65 @@
+<div class="container application-title">
+  <div class="justify-content-center">
+    <p>LeCarden</p>
+  </div>
+</div>
 <form
   class="container frame col-md-4"
   [formGroup]="loginForm"
   (ngSubmit)="loginAction()"
 >
-  <div class="form">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Login"
-      formControlName="login"
-    />
-    <input
-      type="password"
-      class="form-control"
-      placeholder="Password"
-      formControlName="password"
-    />
-    <div class="row justify-content-end">
-      <button
-        type="submit"
-        class="btn btn-success mr-4"
-        [disabled]="loginForm.invalid"
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        class="btn btn-danger mr-4"
-        [routerLink]="['/register']"
-      >
-        Register
-      </button>
+  <div class="form-group row">
+    <label for="inputLogin" class="offset-md-1 col-md-3 col-form-label"
+      >Login:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Login"
+        formControlName="login"
+        id="inputLogin"
+      />
     </div>
+  </div>
+  <div class="form-group row">
+    <label for="passwordInput" class="offset-md-1 col-md-3 col-form-label"
+      >Password:</label
+    >
+    <div class="col-md-7">
+      <div class="input-group">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          formControlName="password"
+          id="passwordInput"
+          #inputPassword
+        />
+        <div class="input-group-append" (click)="changePasswordVisibility()">
+          <div class="input-group-text">
+            <em
+              [ngClass]="isPasswordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'"
+            ></em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row justify-content-end">
+    <button
+      type="submit"
+      class="btn btn-success mr-4"
+      [disabled]="loginForm.invalid"
+    >
+      Login
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger mr-4"
+      [routerLink]="['/register']"
+    >
+      Register
+    </button>
   </div>
 </form>
