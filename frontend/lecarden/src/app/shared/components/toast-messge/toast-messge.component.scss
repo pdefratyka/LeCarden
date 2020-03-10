@@ -1,0 +1,12 @@
+.toast-visible {
+  opacity: 1;
+  box-shadow: 10px 10px grey;
+  .toast-header {
+    height: 10vh;
+    p {
+      font-size: 1.2rem;
+      color: green !important;
+      font-weight: bold;
+    }
+  }
+}

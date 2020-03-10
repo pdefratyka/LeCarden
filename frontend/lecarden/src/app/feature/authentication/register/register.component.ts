@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/core/services/api/user.service';
 import { take } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,12 @@ export class RegisterComponent {
   user: User;
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly router: Router
   ) {
     this.registerForm = this.formBuilder.group({
       login: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     });
@@ -31,7 +33,11 @@ export class RegisterComponent {
     this.userService
       .registerUser(this.getUserFromForm())
       .pipe(take(1))
-      .subscribe(response => console.log(response));
+      .subscribe(response => {
+        console.log(response);
+        // this.router.navigate(['/login#created']);
+        this.router.navigateByUrl('/login#created');
+      });
   }
 
   private getUserFromForm(): User {

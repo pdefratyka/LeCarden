@@ -1,36 +1,43 @@
-<form
-  class="container frame col-md-4"
-  [formGroup]="loginForm"
-  (ngSubmit)="loginAction()"
->
-  <div class="form">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Login"
-      formControlName="login"
-    />
-    <input
-      type="password"
-      class="form-control"
-      placeholder="Password"
-      formControlName="password"
-    />
-    <div class="row justify-content-end">
-      <button
-        type="submit"
-        class="btn btn-success mr-4"
-        [disabled]="loginForm.invalid"
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        class="btn btn-danger mr-4"
-        [routerLink]="['/register']"
-      >
-        Register
-      </button>
-    </div>
+<div class="container-fluid">
+  <div class="row toast-message">
+    <app-toast-messge *ngIf="isRegistered"></app-toast-messge>
   </div>
-</form>
+  <div class="row">
+    <form
+      class="container frame col-md-4"
+      [formGroup]="loginForm"
+      (ngSubmit)="loginAction()"
+    >
+      <div class="form">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Login"
+          formControlName="login"
+        />
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <div class="row justify-content-end">
+          <button
+            type="submit"
+            class="btn btn-success mr-4"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger mr-4"
+            [routerLink]="['/register']"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

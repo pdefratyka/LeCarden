@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +11,28 @@ import { AuthService } from 'src/app/core/services/security/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isRegistered = false;
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: ActivatedRoute
   ) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+
+    if (this.router.snapshot.fragment === 'created') {
+      this.displayToastMessage();
+    }
+  }
+
+  private displayToastMessage(): void {
+    this.isRegistered = true;
+    const that = this;
+    setTimeout(() => {
+      that.isRegistered = false;
+    }, 4 * 1000);
   }
 
   get login() {
@@ -29,9 +44,9 @@ export class LoginComponent {
   }
 
   loginAction(): void {
-    this.authService.login({
+    /*this.authService.login({
       username: this.login.value,
       password: this.password.value
-    } as LoginCredentials);
+    } as LoginCredentials);*/
   }
 }

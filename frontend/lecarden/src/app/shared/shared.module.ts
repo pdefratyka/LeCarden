@@ -5,15 +5,17 @@ import { MenuOptionsComponent } from './components/menu/menu-options/menu-option
 import { RouterModule } from '@angular/router';
 import { MenuUserComponent } from './components/menu/menu-user/menu-user.component';
 import { MessageComponent } from './components/message/message.component';
+import { ToastMessgeComponent } from './components/toast-messge/toast-messge.component';
 
 @NgModule({
   declarations: [
     MenuComponent,
     MenuOptionsComponent,
     MenuUserComponent,
-    MessageComponent
+    MessageComponent,
+    ToastMessgeComponent
   ],
   imports: [CommonModule, RouterModule],
-  exports: [MenuComponent, MessageComponent]
+  exports: [MenuComponent, MessageComponent, ToastMessgeComponent]
 })
 export class SharedModule {}
