@@ -39,13 +39,10 @@ export class LoginComponent {
   }
 
   changePasswordVisibility(): void {
-    console.log('1');
     if (this.passwordInput.nativeElement.getAttribute('type') === 'password') {
       this.passwordInput.nativeElement.setAttribute('type', 'text');
-      console.log('2');
       this.isPasswordVisible = true;
     } else {
-      console.log('3');
       this.passwordInput.nativeElement.setAttribute('type', 'password');
       this.isPasswordVisible = false;
     }
