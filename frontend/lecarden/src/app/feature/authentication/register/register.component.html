@@ -1,50 +1,85 @@
+<div class="container application-title">
+  <div class="justify-content-center">
+    <p>LeCarden</p>
+  </div>
+</div>
 <form
-  [formGroup]="registerForm"
   class="container frame col-md-4"
+  [formGroup]="registerForm"
   (ngSubmit)="register()"
 >
-  <div class="form">
-    <input
-      type="text"
-      formControlName="login"
-      [ngClass]="{ 'is-invalid': login.invalid && login.touched }"
-      class="form-control"
-      placeholder="Login"
-    />
-    <input
-      type="email"
-      formControlName="email"
-      [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
-      class="form-control"
-      placeholder="Email"
-    />
-    <input
-      type="password"
-      formControlName="password"
-      [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
-      class="form-control"
-      placeholder="Password"
-    />
-    <input
-      type="password"
-      formControlName="confirmPassword"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid': confirmPassword.invalid && confirmPassword.touched
-      }"
-      placeholder="Confirm password"
-    />
-    <div class="row justify-content-end">
-      <button
-        type="submit"
-        class="btn btn-success mr-4"
-        [disabled]="registerForm.invalid"
-      >
-        Submit
-      </button>
-      <button type="button" class="btn btn-danger mr-4" [routerLink]="['/login']">
-        Cancel
-      </button>
+  <div class="form-group row">
+    <label for="login" class="offset-md-1 col-md-3 col-form-label"
+      >Login:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="text"
+        formControlName="login"
+        id="login"
+        [ngClass]="{ 'is-invalid': login.invalid && login.touched }"
+        class="form-control"
+        placeholder="Login"
+      />
     </div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="offset-md-1 col-md-3 col-form-label"
+      >Email:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="email"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
+        class="form-control"
+        placeholder="Email"
+        id="email"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="password" class="offset-md-1 col-md-3 col-form-label"
+      >Password:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="password"
+        formControlName="password"
+        [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="confirmPassword" class="offset-md-1 col-md-3 col-form-label"
+      >Password:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': confirmPassword.invalid && confirmPassword.touched
+        }"
+        placeholder="Confirm password"
+        id="confirmPassword"
+      />
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <button
+      type="submit"
+      class="btn btn-success mr-4"
+      [disabled]="registerForm.invalid"
+    >
+      Submit
+    </button>
+    <button type="button" class="btn btn-danger mr-4" [routerLink]="['/login']">
+      Cancel
+    </button>
   </div>
 </form>

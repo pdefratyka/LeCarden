@@ -1,5 +1,18 @@
-.form-control {
+/* APPLICATION TITLE */
+.application-title {
+  margin-top: 7rem;
+  p {
+    font-size: 2em;
+    text-align: center;
+    user-select: none;
+  }
+}
+.row {
   margin-top: 1rem;
+}
+label {
+  text-align: right;
+  user-select: none;
 }
 button {
   margin-top: 1rem;
@@ -7,4 +20,15 @@ button {
 }
 .toast-message{
   height: 10vh;
+}
+.frame {
+  margin-top: 0rem;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
 }

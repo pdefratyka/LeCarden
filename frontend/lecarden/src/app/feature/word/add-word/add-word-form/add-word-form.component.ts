@@ -11,7 +11,6 @@ export class AddWordFormComponent {
   @Output()
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
   formInvalidSubmitted = false;
-
   addWordForm: FormGroup;
   constructor(private readonly formBuilder: FormBuilder) {
     this.initAddWordForm();
