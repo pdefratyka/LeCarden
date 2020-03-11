@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -7,6 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TranslationConfigModule } from 'src/app/config/translation-config/translation-config.module';
+
+// Calling load to get configuration + translation
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -16,7 +19,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    TranslationConfigModule
   ],
   providers: [
     //{

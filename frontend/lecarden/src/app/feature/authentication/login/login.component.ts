@@ -1,9 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +16,7 @@ export class LoginComponent {
 
   isRegistered = false;
   isPasswordVisible = false;
-
+  createdInformation = 'Your account has been created';
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
@@ -33,27 +32,11 @@ export class LoginComponent {
     }
   }
 
-  private displayToastMessage(): void {
-    this.isRegistered = true;
-    const that = this;
-    setTimeout(() => {
-      that.isRegistered = false;
-    }, 4 * 1000);
-  }
-
-  get login() {
-    return this.loginForm.get('login');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
-  }
-
   loginAction(): void {
-    /*this.authService.login({
-      username: this.login.value,
-      password: this.password.value
-    } as LoginCredentials);*/
+    this.authService.login({
+      username: this.loginForm.get('login').value,
+      password: this.loginForm.get('password').value
+    } as LoginCredentials);
   }
 
   changePasswordVisibility(): void {
@@ -64,5 +47,14 @@ export class LoginComponent {
       this.passwordInput.nativeElement.setAttribute('type', 'password');
       this.isPasswordVisible = false;
     }
+  }
+
+  private displayToastMessage(): void {
+    const time = 4 * 1000;
+    this.isRegistered = true;
+    const that = this;
+    setTimeout(() => {
+      that.isRegistered = false;
+    }, time);
   }
 }

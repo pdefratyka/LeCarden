@@ -1,0 +1,15 @@
+{
+  "INFO": {
+    "ACCOUNT_CREATED": "Accout has been created bro"
+  },
+  "LABEL": {
+    "LOGIN": "Login",
+    "PASSWORD": "Password",
+    "EMAIL": "Email",
+    "REGISTER": "Register",
+    "CONFIRM": "Confirm",
+    "SUBMIT": "Submit",
+    "CANCEL": "Cancel",
+    "CONFIRM_PASSWORD": "Confirm Password"
+  }
+}
