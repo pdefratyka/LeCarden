@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { AppConfig } from 'src/app/shared/config/app-config';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +14,15 @@ export class LoginComponent {
   @ViewChild('inputPassword', { static: false })
   private readonly passwordInput: ElementRef;
   loginForm: FormGroup;
-
   isRegistered = false;
   isPasswordVisible = false;
-  createdInformation = 'Your account has been created';
+  createdInformation: string;
+
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: ActivatedRoute
+    private readonly router: ActivatedRoute,
+    private readonly appConfig: AppConfig
   ) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required]],
@@ -30,6 +32,10 @@ export class LoginComponent {
     if (this.router.snapshot.fragment === 'created') {
       this.displayToastMessage();
     }
+
+    this.appConfig.getJSON().subscribe(response => {
+      this.createdInformation = response.INFO.ACCOUNT_CREATED;
+    });
   }
 
   loginAction(): void {

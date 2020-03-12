@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MenuUserComponent } from './components/menu/menu-user/menu-user.component';
 import { MessageComponent } from './components/message/message.component';
 import { ToastMessgeComponent } from './components/toast-messge/toast-messge.component';
+import { ApplicationTitleComponent } from './components/application-title/application-title.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -13,9 +15,15 @@ import { ToastMessgeComponent } from './components/toast-messge/toast-messge.com
     MenuOptionsComponent,
     MenuUserComponent,
     MessageComponent,
-    ToastMessgeComponent
+    ToastMessgeComponent,
+    ApplicationTitleComponent
   ],
-  imports: [CommonModule, RouterModule],
-  exports: [MenuComponent, MessageComponent, ToastMessgeComponent]
+  imports: [CommonModule, RouterModule, CoreModule],
+  exports: [
+    MenuComponent,
+    MessageComponent,
+    ToastMessgeComponent,
+    ApplicationTitleComponent
+  ]
 })
 export class SharedModule {}

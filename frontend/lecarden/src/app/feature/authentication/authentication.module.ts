@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { TranslationConfigModule } from 'src/app/config/translation-config/translation-config.module';
+import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 
 // Calling load to get configuration + translation
 

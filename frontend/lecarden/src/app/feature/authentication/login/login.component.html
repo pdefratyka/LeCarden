@@ -1,18 +1,13 @@
-<div class="container-fluid mt-0">
+<div class="container-fluid">
   <div class="row toast-message">
     <app-toast-messge
       class="col-md-5"
-      *ngIf="isRegistered"
+      *ngIf="isRegistered && createdInformation"
       [text]="createdInformation"
     ></app-toast-messge>
-    <div class="col-md-7"></div>
   </div>
 </div>
-<div class="container application-title">
-  <div class="justify-content-center">
-    <p>LeCarden</p>
-  </div>
-</div>
+<app-application-title></app-application-title>
 <form
   class="container frame col-md-4"
   [formGroup]="loginForm"

@@ -5,10 +5,8 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './toast-messge.component.html',
   styleUrls: ['./toast-messge.component.scss']
 })
-export class ToastMessgeComponent implements OnInit {
+export class ToastMessgeComponent {
   @Input()
   text: string;
   constructor() {}
-
-  ngOnInit() {}
 }
