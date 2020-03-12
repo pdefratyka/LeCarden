@@ -8,10 +8,14 @@ import { AppConfig } from 'src/app/shared/config/app-config';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./../../../shared/styles/global.scss', './login.component.scss']
+  styleUrls: [
+    './../../../shared/styles/global.scss',
+    './../styles/authentication.scss',
+    './login.component.scss'
+  ]
 })
 export class LoginComponent {
-  @ViewChild('inputPassword', { static: false })
+  @ViewChild('passwordInput', { static: false })
   private readonly passwordInput: ElementRef;
   loginForm: FormGroup;
   isRegistered = false;
@@ -24,18 +28,10 @@ export class LoginComponent {
     private readonly router: ActivatedRoute,
     private readonly appConfig: AppConfig
   ) {
-    this.loginForm = this.formBuilder.group({
-      login: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
-
+    this.initLoginForm();
     if (this.router.snapshot.fragment === 'created') {
       this.displayToastMessage();
     }
-
-    this.appConfig.getJSON().subscribe(response => {
-      this.createdInformation = response.INFO.ACCOUNT_CREATED;
-    });
   }
 
   loginAction(): void {
@@ -55,9 +51,23 @@ export class LoginComponent {
     }
   }
 
+  private initLoginForm(): void {
+    this.loginForm = this.formBuilder.group({
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+  }
+
   private displayToastMessage(): void {
     const time = 4 * 1000;
-    this.isRegistered = true;
+    this.appConfig.getJSON().subscribe(response => {
+      this.createdInformation = response.INFO.ACCOUNT_CREATED;
+      this.isRegistered = true;
+    });
+    this.resetIsRegisteredWithDelay(time);
+  }
+
+  private resetIsRegisteredWithDelay(time: number): void {
     const that = this;
     setTimeout(() => {
       that.isRegistered = false;

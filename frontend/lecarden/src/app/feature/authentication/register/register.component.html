@@ -16,7 +16,11 @@
         type="text"
         formControlName="login"
         id="login"
-        [ngClass]="{ 'is-invalid': login.invalid && login.touched }"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.get('login').invalid &&
+            registerForm.get('login').touched
+        }"
         class="form-control"
         placeholder="{{ 'LABEL.LOGIN' | translate }}"
       />
@@ -30,7 +34,11 @@
       <input
         type="email"
         formControlName="email"
-        [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
+        [ngClass]="{
+          'is-invalid':
+            this.registerForm.get('email').invalid &&
+            this.registerForm.get('email').touched
+        }"
         class="form-control"
         placeholder="{{ 'LABEL.EMAIL' | translate }}"
         id="email"
@@ -45,7 +53,11 @@
       <input
         type="password"
         formControlName="password"
-        [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
+        [ngClass]="{
+          'is-invalid':
+            this.registerForm.get('password').invalid &&
+            this.registerForm.get('password').touched
+        }"
         class="form-control"
         id="password"
         placeholder="{{ 'LABEL.PASSWORD' | translate }}"
@@ -62,7 +74,9 @@
         formControlName="confirmPassword"
         class="form-control"
         [ngClass]="{
-          'is-invalid': confirmPassword.invalid && confirmPassword.touched
+          'is-invalid':
+            this.registerForm.get('confirmPassword').invalid &&
+            this.registerForm.get('confirmPassword').touched
         }"
         placeholder="{{ 'LABEL.CONFIRM_PASSWORD' | translate }}"
         id="confirmPassword"

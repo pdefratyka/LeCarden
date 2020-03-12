@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row toast-message">
     <app-toast-messge
-      class="col-md-5"
-      *ngIf="isRegistered && createdInformation"
+      class="ml-2"
+      *ngIf="isRegistered"
       [text]="createdInformation"
     ></app-toast-messge>
   </div>
@@ -48,7 +48,7 @@
               loginForm.get('password').invalid &&
               loginForm.get('password').touched
           }"
-          #inputPassword
+          #passwordInput
         />
         <div class="input-group-append" (click)="changePasswordVisibility()">
           <div class="input-group-text">
