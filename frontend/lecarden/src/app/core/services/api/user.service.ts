@@ -11,10 +11,11 @@ const httpOptions = {
 })
 export class UserService {
   private readonly url = 'api/user-service/users';
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient
+  ) {}
 
   registerUser(user: User): Observable<User> {
-    return of({} as User);
-    //return this.httpClient.post<User>(this.url, user, httpOptions);
+    return this.httpClient.post<User>(this.url, user, httpOptions);
   }
 }

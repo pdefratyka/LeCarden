@@ -10,12 +10,9 @@ import {
   providedIn: 'root'
 })
 export class CustomValidatorService implements Validators {
-  static forbiddenValidator(
-    forbidden: string[],
-    exception: string
-  ): ValidatorFn {
+  static acceptedValue(value: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      return forbidden.find(x => x !== exception && x === control.value)
+      return value !== control.value
         ? { forbidden: 'You cant use this value' }
         : null;
     };

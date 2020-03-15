@@ -32,7 +32,7 @@ public class AccessLogFilter extends ZuulFilter {
     public Object run() {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
         HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
-
+        logger.info("HEADER :: "+request.getHeader("Authorization"));
         logger.info("REQUEST :: < " + request.getScheme() + " " + request.getLocalAddr() + ":" + request.getLocalPort());
         logger.info("REQUEST :: < " + request.getMethod() + " " + request.getRequestURI() + " " + request.getProtocol());
         logger.info("RESPONSE:: > HTTP:" + response.getStatus());

@@ -3,6 +3,8 @@ package lecarden.user.utils.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lecarden.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
     private static final String SECRET_KEY = "secret_key_ler_17";
+    @Autowired
+    private UserService userService;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -38,6 +42,7 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId",userService.getUserByLogin(userDetails.getUsername()).getId());
         return createToken(claims, userDetails.getUsername());
     }
 

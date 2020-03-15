@@ -4,6 +4,8 @@ import { Word } from 'src/app/shared/models/word';
 import { take } from 'rxjs/operators';
 import { Message } from 'src/app/shared/models/message';
 import { MessageType } from 'src/app/shared/models/messageTypes';
+import { TokenService } from 'src/app/core/services/security/token.service';
+
 @Component({
   selector: 'app-add-word',
   templateUrl: './add-word.component.html',

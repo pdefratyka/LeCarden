@@ -8,7 +8,7 @@ eureka:
 
 zuul:
   sensitiveHeaders:
-    ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+    #gnored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   #Service will be mapped under the /api URI
   prefix:
 #  Uncomment to disable auto-registering all services read from Eureka

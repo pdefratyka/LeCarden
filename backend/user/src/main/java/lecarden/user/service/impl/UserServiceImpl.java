@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         userValidator.validateUser(userTO);
         userTO.setPassword(passwordEncoder.encode(userTO.getPassword()));
         UserTO userTo = saveUserIfUnique(userTO);
-        sendConfirmationEmail(userTO);
+        //sendConfirmationEmail(userTO);
         return userTo;
     }
 

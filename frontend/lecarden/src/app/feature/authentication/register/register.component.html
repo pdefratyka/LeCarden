@@ -61,6 +61,7 @@
         class="form-control"
         id="password"
         placeholder="{{ 'LABEL.PASSWORD' | translate }}"
+        (change)="updateConfirmPasswordValidator()"
       />
     </div>
   </div>

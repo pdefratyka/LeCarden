@@ -14,8 +14,10 @@ public class WordController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
-    public Word saveWord(@RequestBody Word word) {
+    @RequestMapping("/userId/{userId}")
+    public Word saveWord(@RequestBody Word word, @PathVariable Long userId) {
         log.info(word);
+        log.info(userId);
         return word;
     }
 

@@ -49,13 +49,22 @@ export class RegisterComponent {
       login: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      confirmPassword: [
-        '',
-        [
-          Validators.required,
-          CustomValidatorService.forbiddenValidator(['qwe', 'asd'], 'ddd')
-        ]
-      ]
+      confirmPassword: ['', [Validators.required]]
     });
+    this.updateConfirmPasswordValidator();
+  }
+
+  updateConfirmPasswordValidator(): void {
+    this.registerForm
+      .get('confirmPassword')
+      .setValidators([
+        Validators.required,
+        CustomValidatorService.acceptedValue(
+          this.registerForm.get('password').value
+        )
+      ]);
+    this.registerForm
+      .get('confirmPassword')
+      .setValue(this.registerForm.get('confirmPassword').value);
   }
 }
