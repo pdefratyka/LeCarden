@@ -14,7 +14,6 @@ export class PacketNameComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.name);
     this.name.get('packetName').setValue(this.packetName);
   }
 }

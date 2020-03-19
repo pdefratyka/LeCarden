@@ -4,6 +4,7 @@ import { Word } from 'src/app/shared/models/word';
 import { Observable, throwError } from 'rxjs';
 import { Packet } from 'src/app/shared/models/packet';
 import { catchError } from 'rxjs/operators';
+import { TokenService } from '../security/token.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,15 +14,23 @@ const httpOptions = {
 })
 export class PacketService {
   private readonly url = '/api/word-service/packets';
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly tokenService: TokenService
+  ) {}
 
-  savePacket(packetName: string, words: Word[]): Observable<Word[]> {
-    return null;
+  savePacket(packet: Packet): Observable<Packet> {
+    packet.userId = Number(this.tokenService.getUserId());
+    return this.httpClient
+      .post<Packet>(this.url, packet)
+      .pipe(catchError(this.handleError));
   }
 
   getAllPackets(): Observable<Packet[]> {
     return this.httpClient
-      .get<Packet[]>(this.url)
+      .get<Packet[]>(
+        this.url + '/user-id/' + Number(this.tokenService.getUserId())
+      )
       .pipe(catchError(this.handleError));
   }
 

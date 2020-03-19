@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { PacketService } from 'src/app/core/services/api/packet.service';
+import { TokenService } from 'src/app/core/services/security/token.service';
+import { Packet } from 'src/app/shared/models/packet';
 
 @Component({
   selector: 'app-add-packet',
@@ -19,7 +21,9 @@ export class AddPacketComponent implements OnInit {
   addedWordsIndex: Map<number, boolean> = new Map<number, boolean>();
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly packetService: PacketService
+    private readonly packetService: PacketService,
+    private readonly tokenService: TokenService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -41,7 +45,6 @@ export class AddPacketComponent implements OnInit {
         if (val !== undefined) {
           this.wordsInPacket = val.words;
           this.packetName = val.name;
-          console.log('#1. ' + this.packetName);
         }
       });
   }
@@ -63,7 +66,27 @@ export class AddPacketComponent implements OnInit {
   }
 
   savePacket(packetName: string): void {
-    this.packetService.savePacket(packetName, this.wordsInPacket);
+    const packetId = this.route.snapshot.paramMap.get('id');
+    if (packetId !== undefined) {
+      this.packetService
+        .savePacket({
+          id: Number(packetId),
+          name: packetName,
+          userId: Number(this.tokenService.getUserId),
+          words: this.wordsInPacket
+        } as Packet)
+        .pipe(take(1))
+        .subscribe(() => this.router.navigate(['display-packet']));
+    } else {
+      this.packetService
+        .savePacket({
+          name: packetName,
+          userId: Number(this.tokenService.getUserId),
+          words: this.wordsInPacket
+        } as Packet)
+        .pipe(take(1))
+        .subscribe();
+    }
   }
 
   clearWordsInPacket(): void {

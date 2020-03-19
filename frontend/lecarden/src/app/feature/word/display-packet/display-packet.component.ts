@@ -17,12 +17,12 @@ export class DisplayPacketComponent implements OnInit {
 
   ngOnInit() {
     this.route.data
-    .pipe(
-      map(data => data.packets),
-      take(1)
-    )
-    .subscribe(val => {
-      this.packets = val;
-    });
+      .pipe(
+        map(data => data.packets),
+        take(1)
+      )
+      .subscribe(val => {
+        this.packets = val;
+      });
   }
 }

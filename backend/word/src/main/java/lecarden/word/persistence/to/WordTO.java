@@ -1,17 +1,17 @@
-package lecarden.word.entity;
+package lecarden.word.persistence.to;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
-public class Word {
+@NoArgsConstructor
+public class WordTO {
     private Long id;
     private String name;
     private String translation;
     private String plural;
     private String category;
-    //private Long userId;
+    private Long userId;
 }

@@ -23,6 +23,7 @@ export class WordService {
         Authorization: token
       })
     };*/
+    // word should have filed userId
     return this.httpClient
       .post<Word>(this.url + '/userId/' + this.tokenService.getUserId(), word)
       .pipe(catchError(this.handleError));
@@ -30,7 +31,7 @@ export class WordService {
 
   getAllWords(): Observable<Word[]> {
     return this.httpClient
-      .get<Word[]>(this.url)
+      .get<Word[]>(this.url + '/userId/' + this.tokenService.getUserId())
       .pipe(catchError(this.handleError));
   }
 

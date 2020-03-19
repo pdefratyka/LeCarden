@@ -1,7 +1,10 @@
 package lecarden.word.service;
 
-import lecarden.word.entity.Word;
+import lecarden.word.persistence.to.WordTO;
+
+import java.util.List;
 
 public interface WordService {
-    Word saveWord(Word word, String token);
+    WordTO saveWord(WordTO word);
+    List<WordTO> getWordsByUserId(Long userId);
 }

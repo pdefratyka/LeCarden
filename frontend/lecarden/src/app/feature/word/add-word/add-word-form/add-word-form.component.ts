@@ -12,6 +12,7 @@ export class AddWordFormComponent {
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
   formInvalidSubmitted = false;
   addWordForm: FormGroup;
+
   constructor(private readonly formBuilder: FormBuilder) {
     this.initAddWordForm();
   }
@@ -49,10 +50,10 @@ export class AddWordFormComponent {
   }
 
   get category() {
-    return this.addWordForm.get('plural');
+    return this.addWordForm.get('category');
   }
 
   get plural() {
-    return this.addWordForm.get('category');
+    return this.addWordForm.get('plural');
   }
 }
