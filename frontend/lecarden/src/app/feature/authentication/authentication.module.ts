@@ -8,11 +8,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
+import { LoginFormComponent } from './login/login-form/login-form.component';
+import { InvalidCredentialsComponent } from './login/invalid-credentials/invalid-credentials.component';
 
 // Calling load to get configuration + translation
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, LoginFormComponent, InvalidCredentialsComponent],
   imports: [
     CommonModule,
     RouterModule,

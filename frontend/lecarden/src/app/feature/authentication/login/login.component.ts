@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfig } from 'src/app/shared/config/app-config';
+import { take } from 'rxjs/operators';
+import { TokenService } from 'src/app/core/services/security/token.service';
 
 @Component({
   selector: 'app-login',
@@ -14,63 +15,55 @@ import { AppConfig } from 'src/app/shared/config/app-config';
     './login.component.scss'
   ]
 })
-export class LoginComponent {
-  @ViewChild('passwordInput', { static: false })
-  private readonly passwordInput: ElementRef;
-  loginForm: FormGroup;
-  isRegistered = false;
-  isPasswordVisible = false;
-  createdInformation: string;
+export class LoginComponent implements OnInit {
+  createdInformation = '';
+  invalidCredentials = false;
 
   constructor(
-    private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: ActivatedRoute,
-    private readonly appConfig: AppConfig
-  ) {
-    this.initLoginForm();
-    if (this.router.snapshot.fragment === 'created') {
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly appConfig: AppConfig,
+    private readonly router: Router,
+    private readonly tokenService: TokenService
+  ) {}
+
+  ngOnInit(): void {
+    if (this.activatedRoute.snapshot.fragment === 'created') {
       this.displayToastMessage();
     }
   }
 
-  loginAction(): void {
-    this.authService.login({
-      username: this.loginForm.get('login').value,
-      password: this.loginForm.get('password').value
-    } as LoginCredentials);
-  }
-
-  changePasswordVisibility(): void {
-    if (this.passwordInput.nativeElement.getAttribute('type') === 'password') {
-      this.passwordInput.nativeElement.setAttribute('type', 'text');
-      this.isPasswordVisible = true;
-    } else {
-      this.passwordInput.nativeElement.setAttribute('type', 'password');
-      this.isPasswordVisible = false;
-    }
-  }
-
-  private initLoginForm(): void {
-    this.loginForm = this.formBuilder.group({
-      login: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
+  loginAction(loginCredentials: LoginCredentials): void {
+    this.authService
+      .login(loginCredentials)
+      .pipe(take(1))
+      .subscribe(
+        response => this.handleSuccessfulLogin(response),
+        () => (this.invalidCredentials = true)
+      );
   }
 
   private displayToastMessage(): void {
     const time = 4 * 1000;
-    this.appConfig.getJSON().subscribe(response => {
-      this.createdInformation = response.INFO.ACCOUNT_CREATED;
-      this.isRegistered = true;
-    });
+    this.appConfig
+      .getJSON()
+      .pipe(take(1))
+      .subscribe(response => {
+        this.createdInformation = response.INFO.ACCOUNT_CREATED;
+      });
     this.resetIsRegisteredWithDelay(time);
   }
 
   private resetIsRegisteredWithDelay(time: number): void {
     const that = this;
     setTimeout(() => {
-      that.isRegistered = false;
+      that.createdInformation = '';
     }, time);
+  }
+
+  private handleSuccessfulLogin(response: string): void {
+    const jwt = 'jwt';
+    this.tokenService.setToken(response[jwt]);
+    this.router.navigate(['add-word']);
   }
 }

@@ -5,7 +5,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class TokenService {
-
   constructor() {}
 
   getUserName(): string {
@@ -22,5 +21,9 @@ export class TokenService {
 
   getToken(): string {
     return localStorage.getItem('TOKEN');
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('TOKEN', token);
   }
 }

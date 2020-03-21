@@ -2,6 +2,9 @@
   "INFO": {
     "ACCOUNT_CREATED": "Accout has been created"
   },
+  "ERROR": {
+    "WRONG_CREDENTIALS": "Login or password is incorrect"
+  },
   "LABEL": {
     "LOGIN": "Login",
     "PASSWORD": "Password",
