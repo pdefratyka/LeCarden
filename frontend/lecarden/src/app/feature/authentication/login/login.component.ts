@@ -9,11 +9,7 @@ import { TokenService } from 'src/app/core/services/security/token.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [
-    './../../../shared/styles/global.scss',
-    './../styles/authentication.scss',
-    './login.component.scss'
-  ]
+  styleUrls: ['./../styles/authentication.scss', './login.component.scss']
 })
 export class LoginComponent implements OnInit {
   createdInformation = '';

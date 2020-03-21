@@ -1,0 +1,95 @@
+<form
+  class="container frame col-md-4"
+  [formGroup]="registerForm"
+  (ngSubmit)="emitRegisterUser()"
+>
+  <div class="form-group row">
+    <label for="login" class="offset-md-1 col-md-3 col-form-label"
+      >{{ 'LABEL.LOGIN' | translate }}:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="text"
+        formControlName="login"
+        id="login"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.get('login').invalid &&
+            registerForm.get('login').touched
+        }"
+        class="form-control"
+        placeholder="{{ 'LABEL.LOGIN' | translate }}"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="offset-md-1 col-md-3 col-form-label"
+      >{{ 'LABEL.EMAIL' | translate }}:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="email"
+        formControlName="email"
+        [ngClass]="{
+          'is-invalid':
+            this.registerForm.get('email').invalid &&
+            this.registerForm.get('email').touched
+        }"
+        class="form-control"
+        placeholder="{{ 'LABEL.EMAIL' | translate }}"
+        id="email"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="password" class="offset-md-1 col-md-3 col-form-label"
+      >{{ 'LABEL.PASSWORD' | translate }}:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="password"
+        formControlName="password"
+        [ngClass]="{
+          'is-invalid':
+            this.registerForm.get('password').invalid &&
+            this.registerForm.get('password').touched
+        }"
+        class="form-control"
+        id="password"
+        placeholder="{{ 'LABEL.PASSWORD' | translate }}"
+        (change)="updateConfirmPasswordValidator()"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="confirmPassword" class="offset-md-1 col-md-3 col-form-label"
+      >{{ 'LABEL.CONFIRM' | translate }}:</label
+    >
+    <div class="col-md-7">
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            this.registerForm.get('confirmPassword').invalid &&
+            this.registerForm.get('confirmPassword').touched
+        }"
+        placeholder="{{ 'LABEL.CONFIRM_PASSWORD' | translate }}"
+        id="confirmPassword"
+      />
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <button
+      type="submit"
+      class="btn btn-success mr-4"
+      [disabled]="registerForm.invalid"
+    >
+      {{ 'LABEL.SUBMIT' | translate }}
+    </button>
+    <button type="button" class="btn btn-danger mr-4" [routerLink]="['/login']">
+      {{ 'LABEL.CANCEL' | translate }}
+    </button>
+  </div>
+</form>

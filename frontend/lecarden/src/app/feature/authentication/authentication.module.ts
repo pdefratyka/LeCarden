@@ -10,11 +10,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { InvalidCredentialsComponent } from './login/invalid-credentials/invalid-credentials.component';
+import { RegisterFormComponent } from './register/register-form/register-form.component';
+import { InvalidDataComponent } from './register/invalid-data/invalid-data.component';
 
 // Calling load to get configuration + translation
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, LoginFormComponent, InvalidCredentialsComponent],
+  declarations: [RegisterComponent, LoginComponent, LoginFormComponent, InvalidCredentialsComponent, RegisterFormComponent, InvalidDataComponent],
   imports: [
     CommonModule,
     RouterModule,
