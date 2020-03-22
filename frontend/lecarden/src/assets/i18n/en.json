@@ -4,7 +4,7 @@
   },
   "ERROR": {
     "WRONG_CREDENTIALS": "Login or password is incorrect",
-    "WRONG_REGISTER_DATA": "User with this id or email already exists"
+    "WRONG_REGISTER_DATA": "User with this login or email already exists"
   },
   "LABEL": {
     "LOGIN": "Login",

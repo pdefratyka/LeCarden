@@ -29,4 +29,9 @@ public class WordServiceImpl implements WordService {
     public List<WordTO> getWordsByUserId(Long userId) {
         return wordMapper.mapToWordTOs(wordRepository.getWordsByUserId(userId));
     }
+
+    @Override
+    public List<String> getAllCategoriesByUserId(Long userId) {
+        return wordRepository.getAllCategoriesByUserId(userId);
+    }
 }

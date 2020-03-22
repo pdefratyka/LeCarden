@@ -11,7 +11,10 @@
       </div>
       <div class="row">
         <div class="col-md-6 frame">
-          <app-add-word-form (saveWord)="saveWord($event)"></app-add-word-form>
+          <app-add-word-form
+            (saveWord)="saveWord($event)"
+            [categories]="categories"
+          ></app-add-word-form>
         </div>
       </div>
     </div>

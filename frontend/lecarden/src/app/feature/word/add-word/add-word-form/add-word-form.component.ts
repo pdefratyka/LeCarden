@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-word-form',
@@ -10,6 +11,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class AddWordFormComponent {
   @Output()
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Input()
+  categories: string[];
   formInvalidSubmitted = false;
   addWordForm: FormGroup;
 

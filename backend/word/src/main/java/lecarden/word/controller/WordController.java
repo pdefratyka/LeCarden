@@ -22,15 +22,21 @@ public class WordController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
-    @RequestMapping("/userId/{userId}")
+    @RequestMapping("/user-id/{userId}")
     public WordTO saveWord(@RequestBody WordTO word, @PathVariable Long userId) {
         word.setUserId(userId);
         return wordService.saveWord(word);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/userId/{userId}")
+    @GetMapping("/user-id/{userId}")
     public List<WordTO> getAllWords(@PathVariable Long userId) {
         return wordService.getWordsByUserId(userId);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("categories/user-id/{userId}")
+    public List<String> getAllCategoriesByUserId(@PathVariable Long userId) {
+        return wordService.getAllCategoriesByUserId(userId);
     }
 }

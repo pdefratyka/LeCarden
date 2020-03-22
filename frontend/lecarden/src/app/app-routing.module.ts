@@ -11,6 +11,7 @@ import { DisplayPacketComponent } from './feature/word/display-packet/display-pa
 import { WordsResolverService } from './core/services/resolvers/words-resolver.service';
 import { PacketsResolverService } from './core/services/resolvers/packets-resolver.service';
 import { SinglePacketResolverService } from './core/services/resolvers/single-packet-resolver.service';
+import { CategoriesResolverService } from './core/services/resolvers/categories-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
   {
     path: 'add-word',
-    component: AddWordComponent
+    component: AddWordComponent,
+    resolve: { categories: CategoriesResolverService }
   },
   {
     path: 'display-word',

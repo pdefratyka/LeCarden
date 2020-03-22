@@ -12,4 +12,7 @@ import java.util.List;
 public interface WordRepository extends JpaRepository<Word, Long> {
     @Query(value = "from Word w where w.userId=:userId")
     List<Word> getWordsByUserId(@Param("userId") Long userId);
+
+    @Query(value="select distinct category from Word w where w.userId=:userId")
+    List<String> getAllCategoriesByUserId(@Param("userId") Long userId);
 }

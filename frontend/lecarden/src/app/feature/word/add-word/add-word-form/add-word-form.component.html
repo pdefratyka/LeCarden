@@ -63,12 +63,14 @@
       <label for="category-input">Category</label>
       <input
         type="text"
+        list="category"
         class="form-control"
-        id="category-input"
-        placeholder="Category"
         formControlName="category"
-        [ngClass]="{ 'is-invalid': category.invalid && category.touched }"
+        placeholder="Category"
       />
+      <datalist id="category">
+        <option *ngFor="let category of categories">{{ category }}</option>
+      </datalist>
     </div>
     <button
       type="submit"

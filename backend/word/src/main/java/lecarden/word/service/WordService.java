@@ -7,4 +7,5 @@ import java.util.List;
 public interface WordService {
     WordTO saveWord(WordTO word);
     List<WordTO> getWordsByUserId(Long userId);
+    List<String> getAllCategoriesByUserId(Long userId);
 }
