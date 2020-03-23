@@ -14,8 +14,6 @@ export class AddPacketWordTableComponent {
   @Output()
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
 
-  constructor() {}
-
   emitAddWord(word: Word): void {
     this.addWord.emit(word);
   }

@@ -1,72 +1,72 @@
 <div class="container">
   <form (ngSubmit)="emitSaveWord()" [formGroup]="addWordForm">
     <div class="form-group">
-      <label for="german-word-input">Word*</label>
+      <label for="german-word-input">{{ 'LABEL.WORD' | translate }}*</label>
       <input
         type="text"
         class="form-control"
         id="german-word-input"
-        placeholder="Enter word"
+        placeholder="{{ 'INFO.ENTER_WORD' | translate }}"
         formControlName="name"
         [ngClass]="{
           'is-invalid': name.invalid && (name.touched || formInvalidSubmitted)
         }"
       />
-      <small id="german-word-help-label" class="form-text text-muted"
-        >Po średniku możesz dodać synonimy</small
-      >
+      <small id="german-word-help-label" class="form-text text-muted">{{
+        'INFO.SYNONYMS_AFTER_SEMICOLN' | translate
+      }}</small>
       <div
         class="alert alert-danger"
         *ngIf="name.invalid && (name.touched || formInvalidSubmitted)"
       >
-        Name is required
+      {{ 'INFO.WORD_IS_REQUIRED' | translate }}
       </div>
     </div>
     <div class="form-group">
-      <label for="plural-input">Plural</label>
+      <label for="plural-input">{{ 'LABEL.PLURAL' | translate }}</label>
       <input
         type="text"
         class="form-control"
         id="plural-input"
-        placeholder="Plural"
+        placeholder="{{ 'LABEL.PLURAL' | translate }}"
         formControlName="plural"
         [ngClass]="{ 'is-invalid': plural.invalid && plural.touched }"
       />
     </div>
     <div class="form-group">
-      <label for="meaning-input">Meaning*</label>
+      <label for="meaning-input">{{ 'LABEL.MEANING' | translate }}*</label>
       <input
         type="text"
         class="form-control"
         id="meaning-input"
-        placeholder="Meaning"
+        placeholder="{{ 'LABEL.MEANING' | translate }}"
         formControlName="translation"
         [ngClass]="{
           'is-invalid':
             translation.invalid && (translation.touched || formInvalidSubmitted)
         }"
       />
-      <small id="meaning-help-label" class="form-text text-muted"
-        >Po średniku możesz dodać synonimy</small
-      >
+      <small id="meaning-help-label" class="form-text text-muted">{{
+        'INFO.SYNONYMS_AFTER_SEMICOLN' | translate
+      }}</small>
       <div
         class="alert alert-danger"
         *ngIf="
           translation.invalid && (translation.touched || formInvalidSubmitted)
         "
       >
-        Meaning is required
+      {{ 'INFO.MEANING_IS_REQUIRED' | translate }}
       </div>
     </div>
 
     <div class="form-group">
-      <label for="category-input">Category</label>
+      <label for="category-input">{{ 'LABEL.CATEGORY' | translate }}</label>
       <input
         type="text"
         list="category"
         class="form-control"
         formControlName="category"
-        placeholder="Category"
+        placeholder="{{ 'LABEL.CATEGORY' | translate }}"
       />
       <datalist id="category">
         <option *ngFor="let category of categories">{{ category }}</option>
@@ -78,7 +78,7 @@
       id="submit-button"
       [ngClass]="{ 'invalid-form-button': addWordForm.invalid }"
     >
-      Submit
+      {{ 'LABEL.SUBMIT' | translate }}
     </button>
   </form>
 </div>

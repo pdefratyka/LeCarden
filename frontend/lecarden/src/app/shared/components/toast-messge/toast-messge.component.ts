@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-toast-messge',
@@ -8,5 +8,4 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ToastMessgeComponent {
   @Input()
   text: string;
-  constructor() {}
 }

@@ -9,5 +9,4 @@ import { Word } from 'src/app/shared/models/word';
 export class WordTableComponent {
   @Input()
   words: Word[];
-  constructor() {}
 }

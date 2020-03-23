@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ViewChild,
   ElementRef,
   Output,
@@ -12,13 +11,11 @@ import {
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   @ViewChild('filterInput', { static: false })
   private readonly filterInput: ElementRef;
   @Output()
   filter: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor() {}
 
   emitFilter(): void {
     console.log(this.filterInput.nativeElement);

@@ -16,6 +16,7 @@ import { DisplayPacketComponent } from './display-packet/display-packet.componen
 import { PacketTableComponent } from './display-packet/packet-table/packet-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
+import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,12 @@ import { SearchComponent } from './search/search.component';
     PacketTableComponent,
     SearchComponent
   ],
-  imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule]
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslationConfigModule
+  ]
 })
 export class WordModule {}

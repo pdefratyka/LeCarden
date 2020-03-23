@@ -8,6 +8,7 @@ import { MessageComponent } from './components/message/message.component';
 import { ToastMessgeComponent } from './components/toast-messge/toast-messge.component';
 import { ApplicationTitleComponent } from './components/application-title/application-title.component';
 import { CoreModule } from '../core/core.module';
+import { TranslationConfigModule } from './config/translation-config.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { CoreModule } from '../core/core.module';
     ToastMessgeComponent,
     ApplicationTitleComponent
   ],
-  imports: [CommonModule, RouterModule, CoreModule],
+  imports: [CommonModule, RouterModule, CoreModule, TranslationConfigModule],
   exports: [
     MenuComponent,
     MessageComponent,

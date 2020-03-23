@@ -18,7 +18,6 @@ export class WordMenuComponent {
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()
   filter: EventEmitter<string> = new EventEmitter<string>();
-  constructor() {}
 
   emitAddWord(word: Word): void {
     this.addWord.emit(word);

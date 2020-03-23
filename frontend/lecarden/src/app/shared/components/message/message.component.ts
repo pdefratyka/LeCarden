@@ -10,12 +10,9 @@ import { MessageType } from '../../models/messageTypes';
 export class MessageComponent implements OnChanges, OnInit {
   @Input()
   message: Message;
-  constructor() {}
 
   ngOnInit(): void {
-    if (this.message === undefined) {
-      this.message = new Message();
-    }
+    this.initMessage();
   }
 
   ngOnChanges(): void {
@@ -31,5 +28,11 @@ export class MessageComponent implements OnChanges, OnInit {
 
   successMessage(): boolean {
     return this.message.getMessageType() === MessageType.SUCCESS;
+  }
+
+  private initMessage(): void {
+    if (this.message === undefined) {
+      this.message = new Message();
+    }
   }
 }

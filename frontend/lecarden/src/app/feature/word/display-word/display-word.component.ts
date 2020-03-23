@@ -15,11 +15,21 @@ import { WordHelperService } from 'src/app/core/services/helpers/word-helper.ser
 export class DisplayWordComponent implements OnInit {
   words: Word[];
   filteredWords: Word[];
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly wordHelperService: WordHelperService
   ) {}
+
   ngOnInit(): void {
+    this.getWordsFromResolver();
+  }
+
+  filterWords(filter: string): void {
+    this.filteredWords = this.wordHelperService.filterWords(this.words, filter);
+  }
+
+  private getWordsFromResolver(): void {
     this.route.data
       .pipe(
         map(data => data.words),
@@ -29,9 +39,5 @@ export class DisplayWordComponent implements OnInit {
         this.words = val;
         this.filteredWords = val;
       });
-  }
-
-  filterWords(filter: string): void {
-    this.filteredWords = this.wordHelperService.filterWords(this.words, filter);
   }
 }

@@ -15,12 +15,24 @@ import { PacketHelperService } from 'src/app/core/services/helpers/packet-helper
 export class DisplayPacketComponent implements OnInit {
   packets: Packet[];
   filteredPackets: Packet[];
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly packetHelperService: PacketHelperService
   ) {}
 
   ngOnInit() {
+    this.getPacketsFromResolver();
+  }
+
+  filterPackets(filter: string): void {
+    this.filteredPackets = this.packetHelperService.filterPackets(
+      this.packets,
+      filter
+    );
+  }
+
+  private getPacketsFromResolver(): void {
     this.route.data
       .pipe(
         map(data => data.packets),
@@ -30,12 +42,5 @@ export class DisplayPacketComponent implements OnInit {
         this.packets = val;
         this.filteredPackets = val;
       });
-  }
-
-  filterPackets(filter: string): void {
-    this.filteredPackets = this.packetHelperService.filterPackets(
-      this.packets,
-      filter
-    );
   }
 }

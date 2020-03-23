@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/user';
 import { CustomValidatorService } from 'src/app/core/services/validators/custom-validator-service.service';
@@ -12,15 +12,14 @@ import { CustomValidatorService } from 'src/app/core/services/validators/custom-
     './register-form.component.scss'
   ]
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent {
   @Output()
   registerUser: EventEmitter<User> = new EventEmitter<User>();
   registerForm: FormGroup;
+
   constructor(private readonly formBuilder: FormBuilder) {
     this.initRegisterForm();
   }
-
-  ngOnInit() {}
 
   private initRegisterForm(): void {
     this.registerForm = this.formBuilder.group({

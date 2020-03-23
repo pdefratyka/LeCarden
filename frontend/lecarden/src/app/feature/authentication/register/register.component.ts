@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   invalidData = false;
+
   constructor(
     private readonly userService: UserService,
     private readonly router: Router

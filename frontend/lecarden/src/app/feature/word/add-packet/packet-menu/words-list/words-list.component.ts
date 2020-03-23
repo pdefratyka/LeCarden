@@ -12,8 +12,6 @@ export class WordsListComponent {
   @Output()
   removeWord: EventEmitter<Word> = new EventEmitter<Word>();
 
-  constructor() {}
-
   emitRemoveWord(word: Word): void {
     this.removeWord.emit(word);
   }

@@ -24,9 +24,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.fragment === 'created') {
-      this.displayToastMessage();
-    }
+    this.displayToastMessageIfCreatedAccount();
   }
 
   loginAction(loginCredentials: LoginCredentials): void {
@@ -61,5 +59,11 @@ export class LoginComponent implements OnInit {
     const jwt = 'jwt';
     this.tokenService.setToken(response[jwt]);
     this.router.navigate(['add-word']);
+  }
+
+  private displayToastMessageIfCreatedAccount(): void {
+    if (this.activatedRoute.snapshot.fragment === 'created') {
+      this.displayToastMessage();
+    }
   }
 }

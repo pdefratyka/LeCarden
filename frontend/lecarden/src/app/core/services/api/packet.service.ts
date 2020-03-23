@@ -20,6 +20,7 @@ export class PacketService {
   ) {}
 
   savePacket(packet: Packet): Observable<Packet> {
+    console.log(packet);
     packet.userId = Number(this.tokenService.getUserId());
     return this.httpClient
       .post<Packet>(this.url, packet)

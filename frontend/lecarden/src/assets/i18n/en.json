@@ -1,6 +1,10 @@
 {
   "INFO": {
-    "ACCOUNT_CREATED": "Accout has been created"
+    "ACCOUNT_CREATED": "Accout has been created",
+    "ENTER_WORD":"Enter word",
+    "SYNONYMS_AFTER_SEMICOLN":"You can add synonyms after the semicolon",
+    "MEANING_IS_REQUIRED":"Meaning is required",
+    "WORD_IS_REQUIRED":"Word is required"
   },
   "ERROR": {
     "WRONG_CREDENTIALS": "Login or password is incorrect",
@@ -14,6 +18,23 @@
     "CONFIRM": "Confirm",
     "SUBMIT": "Submit",
     "CANCEL": "Cancel",
-    "CONFIRM_PASSWORD": "Confirm Password"
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "WORD":"Word",
+    "MEANING":"Meaning",
+    "CATEGORY":"Category",
+    "REMOVE":"Remove",
+    "ADD":"Add",
+    "PLURAL":"Plural",
+    "SEARCH":"Search",
+    "NAME":"Name",
+    "WORDS":"Words",
+    "EDIT":"Edit",
+    "DISPLAY_WORDS":"Display Words",
+    "ADD_WORDS":"Add Words",
+    "CREATE_PACKET":"Create Packet",
+    "DISPLAY_PACKETS":"Display Packets",
+    "STATISTICS":"Statistics",
+    "LEARNING":"Learning",
+    "GAMES":"Games"
   }
 }

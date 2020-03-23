@@ -26,11 +26,20 @@ export class LoginFormComponent {
   >();
   isPasswordVisible = false;
   loginForm: FormGroup;
+
   constructor(private readonly formBuilder: FormBuilder) {
     this.initLoginForm();
   }
 
-  private changePasswordVisibility(): void {
+  login(): void {
+    this.loginEvent.emit({
+      username: this.loginForm.get('login').value,
+      password: this.loginForm.get('password').value
+    } as LoginCredentials);
+    this.initLoginForm();
+  }
+
+  changePasswordVisibility(): void {
     if (this.passwordInput.nativeElement.getAttribute('type') === 'password') {
       this.passwordInput.nativeElement.setAttribute('type', 'text');
       this.isPasswordVisible = true;
@@ -45,13 +54,5 @@ export class LoginFormComponent {
       login: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-  }
-
-  private login(): void {
-    this.loginEvent.emit({
-      username: this.loginForm.get('login').value,
-      password: this.loginForm.get('password').value
-    } as LoginCredentials);
-    this.initLoginForm();
   }
 }

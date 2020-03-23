@@ -1,12 +1,18 @@
 <div class="container-fluid">
-  <h2>Words</h2>
+  <h2>{{ 'LABEL.WORDS' | translate }}</h2>
   <ul>
-    <li [routerLink]="['/add-word']">Add Word</li>
-    <li [routerLink]="['/display-word']">Display words</li>
-    <li [routerLink]="['/add-packet']">Create packet</li>
-    <li [routerLink]="['/display-packet']">Display packets</li>
+    <li [routerLink]="['/add-word']">{{ 'LABEL.ADD_WORDS' | translate }}</li>
+    <li [routerLink]="['/display-word']">
+      {{ 'LABEL.DISPLAY_WORDS' | translate }}
+    </li>
+    <li [routerLink]="['/add-packet']">
+      {{ 'LABEL.CREATE_PACKET' | translate }}
+    </li>
+    <li [routerLink]="['/display-packet']">
+      {{ 'LABEL.DISPLAY_PACKETS' | translate }}
+    </li>
   </ul>
-  <h2>Learning</h2>
-  <h2>Games</h2>
-  <h2>Statistics</h2>
+  <h2>{{ 'LABEL.LEARNING' | translate }}</h2>
+  <h2>{{ 'LABEL.GAMES' | translate }}</h2>
+  <h2>{{ 'LABEL.STATISTICS' | translate }}</h2>
 </div>

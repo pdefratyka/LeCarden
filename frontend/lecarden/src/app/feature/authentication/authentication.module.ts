@@ -16,7 +16,14 @@ import { InvalidDataComponent } from './register/invalid-data/invalid-data.compo
 // Calling load to get configuration + translation
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, LoginFormComponent, InvalidCredentialsComponent, RegisterFormComponent, InvalidDataComponent],
+  declarations: [
+    RegisterComponent,
+    LoginComponent,
+    LoginFormComponent,
+    InvalidCredentialsComponent,
+    RegisterFormComponent,
+    InvalidDataComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,

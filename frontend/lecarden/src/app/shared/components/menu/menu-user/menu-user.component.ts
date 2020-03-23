@@ -9,6 +9,7 @@ import { TokenService } from 'src/app/core/services/security/token.service';
 })
 export class MenuUserComponent implements OnInit {
   userName: string;
+
   constructor(
     private readonly authService: AuthService,
     private readonly tokenService: TokenService

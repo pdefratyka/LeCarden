@@ -17,18 +17,14 @@ import { ActivatedRoute } from '@angular/router';
 export class AddWordComponent implements OnInit {
   message: Message = new Message();
   categories: string[];
+
   constructor(
     private readonly wordService: WordService,
     private readonly route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.route.data
-      .pipe(
-        map(data => data.categories),
-        take(1)
-      )
-      .subscribe(response => (this.categories = response));
+    this.getCategoriesFromResolver();
   }
 
   saveWord(word: Word): void {
@@ -60,5 +56,14 @@ export class AddWordComponent implements OnInit {
     if (!this.categories.includes(category)) {
       this.categories.push(category);
     }
+  }
+
+  private getCategoriesFromResolver(): void {
+    this.route.data
+      .pipe(
+        map(data => data.categories),
+        take(1)
+      )
+      .subscribe(response => (this.categories = response));
   }
 }

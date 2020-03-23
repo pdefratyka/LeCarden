@@ -6,14 +6,14 @@
       (click)="emitSavePacket()"
       [disabled]="addPacketForm.invalid"
     >
-      Save
+      {{ 'LABEL.SUBMIT' | translate }}
     </button>
     <button
       type="button"
       (click)="handleCancelButton()"
       class="btn btn-danger mr-4"
     >
-      Cancel
+      {{ 'LABEL.CANCEL' | translate }}
     </button>
   </div>
 </div>
