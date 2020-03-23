@@ -14,9 +14,10 @@
           <div class="row">
             <div class="col-md-12 word-table">
               <app-word-menu
-                [words]="words"
+                [words]="filteredWords"
                 [addedWordsIndex]="addedWordsIndex"
                 (addWord)="addWordToPacket($event)"
+                (filter)="filterWords($event)"
               ></app-word-menu>
             </div>
           </div>

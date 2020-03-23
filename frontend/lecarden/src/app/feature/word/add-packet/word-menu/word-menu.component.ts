@@ -16,9 +16,14 @@ export class WordMenuComponent {
   addedWordsIndex: Map<number, boolean>;
   @Output()
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Output()
+  filter: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
 
   emitAddWord(word: Word): void {
     this.addWord.emit(word);
+  }
+  emitFilter(filter: string): void {
+    this.filter.emit(filter);
   }
 }

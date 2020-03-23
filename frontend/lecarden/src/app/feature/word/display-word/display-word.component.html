@@ -11,12 +11,12 @@
         <div class="container col-md-8 frame">
           <div class="row">
             <div class="col-md-12 filter">
-              <app-word-filter></app-word-filter>
+              <app-search (filter)="filterWords($event)"></app-search>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 word-table">
-              <app-word-table [words]="words"></app-word-table>
+              <app-word-table [words]="filteredWords"></app-word-table>
             </div>
           </div>
         </div>

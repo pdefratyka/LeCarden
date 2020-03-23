@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { take, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { WordHelperService } from 'src/app/core/services/helpers/word-helper.service';
 
 @Component({
   selector: 'app-display-word',
@@ -13,9 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DisplayWordComponent implements OnInit {
   words: Word[];
-  constructor(private readonly route: ActivatedRoute) {}
+  filteredWords: Word[];
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly wordHelperService: WordHelperService
+  ) {}
   ngOnInit(): void {
-    // We shouldn't load all words at once, let's load just 100 and the rest after scroll
     this.route.data
       .pipe(
         map(data => data.words),
@@ -23,6 +27,11 @@ export class DisplayWordComponent implements OnInit {
       )
       .subscribe(val => {
         this.words = val;
+        this.filteredWords = val;
       });
+  }
+
+  filterWords(filter: string): void {
+    this.filteredWords = this.wordHelperService.filterWords(this.words, filter);
   }
 }

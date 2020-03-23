@@ -5,6 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { PacketService } from 'src/app/core/services/api/packet.service';
 import { TokenService } from 'src/app/core/services/security/token.service';
 import { Packet } from 'src/app/shared/models/packet';
+import { WordHelperService } from 'src/app/core/services/helpers/word-helper.service';
 
 @Component({
   selector: 'app-add-packet',
@@ -17,13 +18,15 @@ import { Packet } from 'src/app/shared/models/packet';
 export class AddPacketComponent implements OnInit {
   wordsInPacket: Word[] = [];
   words: Word[];
+  filteredWords: Word[];
   packetName: string;
   addedWordsIndex: Map<number, boolean> = new Map<number, boolean>();
   constructor(
     private readonly route: ActivatedRoute,
     private readonly packetService: PacketService,
     private readonly tokenService: TokenService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly wordHelperService: WordHelperService
   ) {}
 
   ngOnInit() {
@@ -34,6 +37,7 @@ export class AddPacketComponent implements OnInit {
       )
       .subscribe(val => {
         this.words = val;
+        this.filteredWords = val;
         this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
       });
     this.route.data
@@ -92,5 +96,9 @@ export class AddPacketComponent implements OnInit {
   clearWordsInPacket(): void {
     this.wordsInPacket.length = 0;
     this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
+  }
+
+  filterWords(filter: string): void {
+    this.filteredWords = this.wordHelperService.filterWords(this.words, filter);
   }
 }

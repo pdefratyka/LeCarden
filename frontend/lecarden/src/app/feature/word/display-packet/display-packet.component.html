@@ -11,12 +11,12 @@
         <div class="container col-md-8 frame">
           <div class="row">
             <div class="col-md-12 filter">
-              <app-packet-filter></app-packet-filter>
+              <app-search (filter)="filterPackets($event)"></app-search>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 word-table">
-              <app-packet-table [packets]="packets"></app-packet-table>
+              <app-packet-table [packets]="filteredPackets"></app-packet-table>
             </div>
           </div>
         </div>
