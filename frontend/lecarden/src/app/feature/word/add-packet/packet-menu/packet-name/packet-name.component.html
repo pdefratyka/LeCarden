@@ -4,7 +4,7 @@
     class="form-control"
     id="packet-name-input"
     formControlName="packetName"
-    placeholder="Packet name"
+    placeholder="{{ 'LABEL.PACKET_NAME' | translate }}"
     [ngClass]="{
       'is-invalid':
         name.get('packetName').invalid && name.get('packetName').touched

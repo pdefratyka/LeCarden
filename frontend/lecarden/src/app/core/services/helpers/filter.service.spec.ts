@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PacketHelperService } from './packet-helper.service';
+import { FilterService } from './filter.service';
 
-describe('PacketHelperService', () => {
+describe('FilterService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: PacketHelperService = TestBed.get(PacketHelperService);
+    const service: FilterService = TestBed.get(FilterService);
     expect(service).toBeTruthy();
   });
 });

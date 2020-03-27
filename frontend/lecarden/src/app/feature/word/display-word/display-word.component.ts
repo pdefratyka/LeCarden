@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { take, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { WordHelperService } from 'src/app/core/services/helpers/word-helper.service';
+import { FilterService } from 'src/app/core/services/helpers/filter.service';
 
 @Component({
   selector: 'app-display-word',
@@ -18,7 +18,7 @@ export class DisplayWordComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly wordHelperService: WordHelperService
+    private readonly filterService: FilterService
   ) {}
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class DisplayWordComponent implements OnInit {
   }
 
   filterWords(filter: string): void {
-    this.filteredWords = this.wordHelperService.filterWords(this.words, filter);
+    this.filteredWords = this.filterService.filterWords(this.words, filter);
   }
 
   private getWordsFromResolver(): void {

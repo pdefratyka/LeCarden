@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { PacketService } from 'src/app/core/services/api/packet.service';
 import { Packet } from 'src/app/shared/models/packet';
-import { WordHelperService } from 'src/app/core/services/helpers/word-helper.service';
+import { FilterService } from 'src/app/core/services/helpers/filter.service';
 
 @Component({
   selector: 'app-add-packet',
@@ -25,7 +25,7 @@ export class AddPacketComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly packetService: PacketService,
     private readonly router: Router,
-    private readonly wordHelperService: WordHelperService
+    private readonly filterService: FilterService
   ) {}
 
   ngOnInit() {
@@ -67,7 +67,7 @@ export class AddPacketComponent implements OnInit {
   }
 
   filterWords(filter: string): void {
-    this.filteredWords = this.wordHelperService.filterWords(this.words, filter);
+    this.filteredWords = this.filterService.filterWords(this.words, filter);
   }
 
   private getWordsFromResolver(): void {

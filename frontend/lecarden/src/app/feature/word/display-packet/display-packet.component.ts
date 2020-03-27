@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
 import { map, take } from 'rxjs/operators';
-import { PacketHelperService } from 'src/app/core/services/helpers/packet-helper.service';
+import { FilterService } from 'src/app/core/services/helpers/filter.service';
 
 @Component({
   selector: 'app-display-packet',
@@ -18,7 +18,7 @@ export class DisplayPacketComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly packetHelperService: PacketHelperService
+    private readonly filterService: FilterService
   ) {}
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class DisplayPacketComponent implements OnInit {
   }
 
   filterPackets(filter: string): void {
-    this.filteredPackets = this.packetHelperService.filterPackets(
+    this.filteredPackets = this.filterService.filterPackets(
       this.packets,
       filter
     );

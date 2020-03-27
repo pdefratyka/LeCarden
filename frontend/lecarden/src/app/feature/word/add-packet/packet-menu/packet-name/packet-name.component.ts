@@ -11,7 +11,6 @@ export class PacketNameComponent implements OnInit {
   name: FormGroup;
   @Input()
   packetName: string;
-  constructor() {}
 
   ngOnInit(): void {
     this.name.get('packetName').setValue(this.packetName);

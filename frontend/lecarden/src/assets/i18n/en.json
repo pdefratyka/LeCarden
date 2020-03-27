@@ -35,6 +35,8 @@
     "DISPLAY_PACKETS":"Display Packets",
     "STATISTICS":"Statistics",
     "LEARNING":"Learning",
-    "GAMES":"Games"
+    "GAMES":"Games",
+    "LOGOUT":"Logout",
+    "PACKET_NAME":"Packet Name"
   }
 }

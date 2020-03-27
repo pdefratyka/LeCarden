@@ -13,7 +13,7 @@ export class TokenService {
     return decodedToken.sub;
   }
 
-  getUserId(): string {
+  getUserId(): number {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(localStorage.getItem('TOKEN'));
     return decodedToken.userId;

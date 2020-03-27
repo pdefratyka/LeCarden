@@ -20,8 +20,7 @@ import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 export class LoginFormComponent {
   @ViewChild('passwordInput', { static: false })
   private readonly passwordInput: ElementRef;
-  @Output()
-  loginEvent: EventEmitter<LoginCredentials> = new EventEmitter<
+  @Output() loginEvent: EventEmitter<LoginCredentials> = new EventEmitter<
     LoginCredentials
   >();
   isPasswordVisible = false;

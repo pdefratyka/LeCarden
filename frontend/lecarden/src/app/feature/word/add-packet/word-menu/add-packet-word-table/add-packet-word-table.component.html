@@ -1,21 +1,21 @@
 <div class="container">
   <table class="table" aria-describedby="Add packet table">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">{{ 'LABEL.WORD' | translate }}</th>
-        <th scope="col">{{ 'LABEL.MEANING' | translate }}</th>
-        <th scope="col">{{ 'LABEL.CATEGORY' | translate }}</th>
-        <th scope="col">{{ 'LABEL.ADD' | translate }}</th>
+      <tr class="row">
+        <th scope="col" class="col-md-1">#</th>
+        <th scope="col" class="col-md-3">{{ 'LABEL.WORD' | translate }}</th>
+        <th scope="col" class="col-md-3">{{ 'LABEL.MEANING' | translate }}</th>
+        <th scope="col" class="col-md-3">{{ 'LABEL.CATEGORY' | translate }}</th>
+        <th scope="col" class="col-md-2">{{ 'LABEL.ADD' | translate }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let word of words; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ word.name }}</td>
-        <td>{{ word.translation }}</td>
-        <td>{{ word.category }}</td>
-        <td>
+      <tr *ngFor="let word of words; index as i" class="row">
+        <th scope="row" class="col-md-1">{{ i + 1 }}</th>
+        <td class="col-md-3">{{ word.name }}</td>
+        <td class="col-md-3 dots">{{ word.translation }}</td>
+        <td class="col-md-3">{{ word.category }}</td>
+        <td class="col-md-2">
           <button
             class="btn btn-success"
             (click)="emitAddWord(word)"

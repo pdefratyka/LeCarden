@@ -1,43 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Word } from 'src/app/shared/models/word';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Packet } from 'src/app/shared/models/packet';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 @Injectable({
   providedIn: 'root'
 })
 export class PacketService {
   private readonly url = '/api/word-service/packets';
+
   constructor(
     private readonly httpClient: HttpClient,
     private readonly tokenService: TokenService
   ) {}
 
   savePacket(packet: Packet): Observable<Packet> {
-    console.log(packet);
-    packet.userId = Number(this.tokenService.getUserId());
+    packet.userId = this.tokenService.getUserId();
     return this.httpClient
       .post<Packet>(this.url, packet)
       .pipe(catchError(this.handleError));
   }
 
-  getAllPackets(): Observable<Packet[]> {
+  getAllPacketsForUser(userId: number): Observable<Packet[]> {
     return this.httpClient
-      .get<Packet[]>(
-        this.url + '/user-id/' + Number(this.tokenService.getUserId())
-      )
+      .get<Packet[]>(`${this.url}/user-id/${userId}`)
       .pipe(catchError(this.handleError));
   }
 
   getPacketById(id: string): Observable<Packet> {
     return this.httpClient
-      .get<Packet>(this.url + '/' + id)
+      .get<Packet>(`${this.url}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
