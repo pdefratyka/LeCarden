@@ -38,4 +38,10 @@ public class PacketController {
         return this.packetService.getPacketById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/{id}")
+    public void deletePacketById(@PathVariable Long id) {
+        this.packetService.deletePacketById(id);
+    }
+
 }

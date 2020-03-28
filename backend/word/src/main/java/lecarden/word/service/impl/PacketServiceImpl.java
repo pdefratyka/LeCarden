@@ -40,4 +40,9 @@ public class PacketServiceImpl implements PacketService {
     public List<PacketTO> getPacketsByUserId(Long userId) {
         return packetMapper.mapToPacketTOs(packetRepository.getPacketsByUserId(userId));
     }
+
+    @Override
+    public void deletePacketById(Long packetId) {
+        this.packetRepository.deleteById(packetId);
+    }
 }

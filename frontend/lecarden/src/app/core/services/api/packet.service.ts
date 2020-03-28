@@ -35,6 +35,12 @@ export class PacketService {
       .pipe(catchError(this.handleError));
   }
 
+  deletePacketById(packetId: number) {
+    return this.httpClient
+      .delete(`${this.url}/${packetId}`)
+      .pipe(catchError(this.handleError));
+  }
+  
   handleError() {
     return throwError('There was some problem with the server.');
   }

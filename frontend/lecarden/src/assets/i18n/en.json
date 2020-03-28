@@ -1,7 +1,7 @@
 {
   "INFO": {
     "ACCOUNT_CREATED": "Accout has been created",
-    "ENTER_WORD":"Enter word",
+    "ENTER_WORD":"Enter word in foregin language",
     "SYNONYMS_AFTER_SEMICOLN":"You can add synonyms after the semicolon",
     "MEANING_IS_REQUIRED":"Meaning is required",
     "WORD_IS_REQUIRED":"Word is required"

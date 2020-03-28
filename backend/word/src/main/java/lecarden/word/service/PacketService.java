@@ -12,4 +12,6 @@ public interface PacketService {
     List<PacketTO> getAllPackets();
 
     List<PacketTO> getPacketsByUserId(Long userId);
+
+    void deletePacketById(Long packetId);
 }
