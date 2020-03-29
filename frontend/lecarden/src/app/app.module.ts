@@ -6,6 +6,7 @@ import { AuthenticationModule } from './feature/authentication/authentication.mo
 import { SharedModule } from './shared/shared.module';
 import { WordModule } from './feature/word/word.module';
 import { CoreModule } from './core/core.module';
+import { LearningModule } from './feature/learning/learning.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,8 @@ import { CoreModule } from './core/core.module';
     AuthenticationModule,
     SharedModule,
     CoreModule,
-    WordModule
+    WordModule,
+    LearningModule
   ],
 
   bootstrap: [AppComponent]

@@ -37,6 +37,8 @@
     "LEARNING":"Learning",
     "GAMES":"Games",
     "LOGOUT":"Logout",
-    "PACKET_NAME":"Packet Name"
+    "PACKET_NAME":"Packet Name",
+    "FOREGIN_TO_KNOWN":"Foregin to Known",
+    "KNOWN_TO_FOREGIN":"Known to Foregin"
   }
 }

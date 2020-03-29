@@ -13,6 +13,12 @@
     </li>
   </ul>
   <h2>{{ 'LABEL.LEARNING' | translate }}</h2>
+  <li [routerLink]="['/learn/foregin-mode']">
+    {{ 'LABEL.FOREGIN_TO_KNOWN' | translate }}
+  </li>
+  <li [routerLink]="['/add-word']">
+    {{ 'LABEL.KNOWN_TO_FOREGIN' | translate }}
+  </li>
   <h2>{{ 'LABEL.GAMES' | translate }}</h2>
   <h2>{{ 'LABEL.STATISTICS' | translate }}</h2>
 </div>
