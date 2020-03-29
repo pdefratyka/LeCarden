@@ -29,6 +29,14 @@ public class WordController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping
+    @RequestMapping("/list/user-id/{userId}")
+    public List<WordTO> saveWordsList(@RequestBody List<WordTO> words, @PathVariable Long userId) {
+        words.forEach(w->w.setUserId(userId));
+        return wordService.saveWords(words);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/user-id/{userId}")
     public List<WordTO> getAllWords(@PathVariable Long userId) {
         return wordService.getWordsByUserId(userId);

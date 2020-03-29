@@ -26,6 +26,11 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
+    public List<WordTO> saveWords(List<WordTO> words) {
+        return wordMapper.mapToWordTOs(wordRepository.saveAll(wordMapper.mapToWords(words)));
+    }
+
+    @Override
     public List<WordTO> getWordsByUserId(Long userId) {
         return wordMapper.mapToWordTOs(wordRepository.getWordsByUserId(userId));
     }
