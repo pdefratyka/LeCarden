@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PacketSelectorComponent } from './packet-selector.component';
+import { LearningModeComponent } from './learning-mode.component';
 
-describe('PacketSelectorComponent', () => {
-  let component: PacketSelectorComponent;
-  let fixture: ComponentFixture<PacketSelectorComponent>;
+describe('LearningModeComponent', () => {
+  let component: LearningModeComponent;
+  let fixture: ComponentFixture<LearningModeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PacketSelectorComponent ]
+      declarations: [ LearningModeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PacketSelectorComponent);
+    fixture = TestBed.createComponent(LearningModeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

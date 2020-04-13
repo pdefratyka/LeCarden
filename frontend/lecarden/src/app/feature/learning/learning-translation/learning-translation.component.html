@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <app-examination
+        *ngIf="packet.words.length > 0"
+        [word]="packet.words[wordIterator].translation"
+        (answer)="checkAnswer($event)"
+      ></app-examination>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

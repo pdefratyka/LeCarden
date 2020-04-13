@@ -30,6 +30,7 @@ export class PacketService {
   }
 
   getPacketById(id: string): Observable<Packet> {
+    console.log(id);
     return this.httpClient
       .get<Packet>(`${this.url}/${id}`)
       .pipe(catchError(this.handleError));
@@ -40,7 +41,7 @@ export class PacketService {
       .delete(`${this.url}/${packetId}`)
       .pipe(catchError(this.handleError));
   }
-  
+
   handleError() {
     return throwError('There was some problem with the server.');
   }

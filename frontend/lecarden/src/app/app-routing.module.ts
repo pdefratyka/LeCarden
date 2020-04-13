@@ -12,7 +12,8 @@ import { WordsResolverService } from './core/services/resolvers/words-resolver.s
 import { PacketsResolverService } from './core/services/resolvers/packets-resolver.service';
 import { SinglePacketResolverService } from './core/services/resolvers/single-packet-resolver.service';
 import { CategoriesResolverService } from './core/services/resolvers/categories-resolver.service';
-import { ForeginModeComponent } from './feature/learning/foregin-mode/foregin-mode.component';
+import { LearningModeComponent } from './feature/learning/learning-mode/learning-mode.component';
+import { LearningTranslationComponent } from './feature/learning/learning-translation/learning-translation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -53,8 +54,19 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'learn/foregin-mode',
-    component: ForeginModeComponent
+    path: 'learn',
+    children: [
+      {
+        path: '',
+        component: LearningModeComponent,
+        resolve: { packets: PacketsResolverService }
+      },
+      {
+        path: 'translation/:id',
+        component: LearningTranslationComponent,
+        resolve: { packet: SinglePacketResolverService }
+      }
+    ]
   },
   { path: '**', redirectTo: 'login' }
 ];

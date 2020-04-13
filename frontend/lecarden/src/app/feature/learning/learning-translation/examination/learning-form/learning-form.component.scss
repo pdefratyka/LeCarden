@@ -1,0 +1,16 @@
+.frame {
+  height: 15rem;
+  .row {
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+    #inputLogin {
+      height: 4rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+    button {
+      font-size: 2rem;
+    }
+  }
+}

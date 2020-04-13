@@ -1,11 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ForeginModeComponent } from './foregin-mode/foregin-mode.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PacketSelectorComponent } from './foregin-mode/packet-selector/packet-selector.component';
+import { LearningModeComponent } from './learning-mode/learning-mode.component';
+import { PacketTableComponent } from './learning-mode/packet-table/packet-table.component';
+import { LearningModeSelectorComponent } from './learning-mode/learning-mode-selector/learning-mode-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LearningTranslationComponent } from './learning-translation/learning-translation.component';
+import { RouterModule } from '@angular/router';
+import { LearningResultComponent } from './learning-translation/learning-result/learning-result.component';
+import { GermanShortcutsComponent } from './learning-translation/german-shortcuts/german-shortcuts.component';
+import { LearningPhaseResultComponent } from './learning-translation/learning-phase-result/learning-phase-result.component';
+import { LearningFormComponent } from './learning-translation/examination/learning-form/learning-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExaminationComponent } from './learning-translation/examination/examination.component';
+import { CurrentWordComponent } from './learning-translation/examination/current-word/current-word.component';
 
 @NgModule({
-  declarations: [ForeginModeComponent, PacketSelectorComponent],
-  imports: [CommonModule, SharedModule]
+  declarations: [
+    LearningModeComponent,
+    PacketTableComponent,
+    LearningModeSelectorComponent,
+    LearningTranslationComponent,
+    LearningResultComponent,
+    GermanShortcutsComponent,
+    LearningPhaseResultComponent,
+    LearningFormComponent,
+    CurrentWordComponent,
+    ExaminationComponent,
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    TranslateModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class LearningModule {}

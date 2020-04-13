@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-md-3">
+      <div class="row mb-5">
+        <div class="container col-md-12 frame">
+          <div class="row"></div>
+          <div class="row">
+            <div class="col-md-12 word-table">
+              <app-packet-table
+                [packets]="packets"
+                [selectedPacket]="selectedPacket"
+                (selectPacket)="assignSelectedPacket($event)"
+              ></app-packet-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+    <ng-container *ngIf="selectedPacket > -1">
+      <div class="col-md-3">
+        <div class="row mb-5">
+          <div class="container col-md-12 frame">
+            <div class="row"></div>
+            <div class="row">
+              <div class="col-md-12 word-table">
+                <app-learning-mode-selector
+                  [selectedMode]="selectedMode"
+                  (selectMode)="assignSelectedMode($event)"
+                ></app-learning-mode-selector>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="row">
+    <ng-container *ngIf="selectedMode !== ''">
+      <div class="col-md-5"></div>
+      <div class="col-md-3">
+        <button
+          class="btn btn-secondary"
+          [routerLink]="['/learn/translation/', selectedPacket]"
+          [queryParams]="{ selectedMode: selectedMode }"
+        >
+          Start learning
+        </button>
+      </div>
+      <div class="col-md-4"></div>
+    </ng-container>
+  </div>
+</div>

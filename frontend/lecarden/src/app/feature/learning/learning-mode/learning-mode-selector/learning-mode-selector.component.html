@@ -1,0 +1,29 @@
+<div class="container">
+  <table class="table" aria-describedby="show packet table">
+    <thead>
+      <tr>
+        <th scope="col">MODE</th>
+        <th>Last</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        (click)="emitSelectMode('foreginToKnown')"
+        [ngClass]="{ selected: selectedMode === 'foreginToKnown' }"
+      >
+        <td>
+          Foregin to Known
+        </td>
+      </tr>
+      <tr
+        (click)="emitSelectMode('knownToForegin')"
+        [ngClass]="{ selected: selectedMode === 'knownToForegin' }"
+      >
+        <td>
+          Known to Foregin
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

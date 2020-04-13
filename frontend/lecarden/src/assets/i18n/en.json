@@ -39,6 +39,7 @@
     "LOGOUT":"Logout",
     "PACKET_NAME":"Packet Name",
     "FOREGIN_TO_KNOWN":"Foregin to Known",
-    "KNOWN_TO_FOREGIN":"Known to Foregin"
+    "KNOWN_TO_FOREGIN":"Known to Foregin",
+    "LAST_DATE":"Last"
   }
 }

@@ -1,0 +1,24 @@
+<form
+  class="container frame col-md-12"
+  [formGroup]="learningForm"
+  (ngSubmit)="emitAnswer()"
+>
+  <div class="form-group row">
+    <div class="col-md-8">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Answer"
+        formControlName="answer"
+        (keypress)="keyPress($event)"
+        id="inputLogin"
+        autocomplete="off"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <button type="submit" class="btn btn-success">
+      Submit
+    </button>
+  </div>
+</form>

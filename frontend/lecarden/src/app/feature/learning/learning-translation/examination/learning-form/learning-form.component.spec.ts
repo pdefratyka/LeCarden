@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForeginModeComponent } from './foregin-mode.component';
+import { LearningFormComponent } from './learning-form.component';
 
-describe('ForeginModeComponent', () => {
-  let component: ForeginModeComponent;
-  let fixture: ComponentFixture<ForeginModeComponent>;
+describe('LearningFormComponent', () => {
+  let component: LearningFormComponent;
+  let fixture: ComponentFixture<LearningFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForeginModeComponent ]
+      declarations: [ LearningFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForeginModeComponent);
+    fixture = TestBed.createComponent(LearningFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
