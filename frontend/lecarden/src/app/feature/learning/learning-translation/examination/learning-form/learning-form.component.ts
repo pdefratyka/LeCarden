@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -9,7 +17,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     './learning-form.component.scss',
   ],
 })
-export class LearningFormComponent {
+export class LearningFormComponent implements AfterViewInit {
+  @ViewChild('answerInput', { static: false })
+  answerInput: ElementRef;
   @Input()
   word: string;
   @Output()
@@ -18,6 +28,10 @@ export class LearningFormComponent {
 
   constructor(private readonly formBuilder: FormBuilder) {
     this.initLearningForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.answerInput.nativeElement.focus();
   }
 
   emitAnswer(): void {

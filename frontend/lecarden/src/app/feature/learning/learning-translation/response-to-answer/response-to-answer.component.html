@@ -1,0 +1,17 @@
+<form
+  [formGroup]="answerForm"
+  (ngSubmit)="emitContinue()"
+  class="container frame col-md-12"
+>
+  <div class="row col-md-12">
+    <p>Correct: {{ correctAnswer }}</p>
+  </div>
+  <div class="row col-md-12">
+    <p>Your: {{ usersAnswer }}</p>
+  </div>
+  <div class="row">
+    <button #submitButton type="submit" class="btn btn-success">
+      Continue
+    </button>
+  </div>
+</form>

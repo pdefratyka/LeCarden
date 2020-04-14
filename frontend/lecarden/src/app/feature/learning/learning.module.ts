@@ -14,6 +14,8 @@ import { LearningFormComponent } from './learning-translation/examination/learni
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExaminationComponent } from './learning-translation/examination/examination.component';
 import { CurrentWordComponent } from './learning-translation/examination/current-word/current-word.component';
+import { ResponseToAnswerComponent } from './learning-translation/response-to-answer/response-to-answer.component';
+import { ScoreComponent } from './learning-translation/score/score.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { CurrentWordComponent } from './learning-translation/examination/current
     LearningFormComponent,
     CurrentWordComponent,
     ExaminationComponent,
+    ResponseToAnswerComponent,
+    ScoreComponent,
   ],
   imports: [
     CommonModule,

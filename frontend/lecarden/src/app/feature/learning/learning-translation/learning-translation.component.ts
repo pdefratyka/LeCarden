@@ -13,11 +13,35 @@ export class LearningTranslationComponent implements OnInit {
   packet: Packet;
   selectedMode: '';
   wordIterator = 0;
+  correctAnswer = '';
+  isCorrectAnswer = true;
+  usersAnswer: string;
+  numberOfGoodAnswers = 0;
+  numberOfAttempts = 0;
+  packetSize: number;
   constructor(private readonly route: ActivatedRoute) {}
 
   ngOnInit() {
     this.getPacketFromResolver();
     this.getSelectedMode();
+  }
+
+  checkAnswer(answer: string): void {
+    this.numberOfAttempts++;
+    this.usersAnswer = answer;
+    if (this.isWordMatch(answer, this.packet.words[this.wordIterator].name)) {
+      this.deleteWordFromArray(this.packet.words[this.wordIterator]);
+      this.correctAnswer = '';
+      this.numberOfGoodAnswers++;
+    } else {
+      this.correctAnswer = this.packet.words[this.wordIterator].name;
+      this.nextWord();
+      this.isCorrectAnswer = false;
+    }
+  }
+
+  continue(): void {
+    this.isCorrectAnswer = true;
   }
 
   private getPacketFromResolver(): void {
@@ -28,6 +52,7 @@ export class LearningTranslationComponent implements OnInit {
       )
       .subscribe((val) => {
         this.packet = val;
+        this.packetSize = this.packet.words.length;
       });
   }
 
@@ -38,15 +63,6 @@ export class LearningTranslationComponent implements OnInit {
     });
   }
 
-  checkAnswer(answer: string): void {
-    if (this.isWordMatch(answer, this.packet.words[this.wordIterator].name)) {
-      this.deleteWordFromArray(this.packet.words[this.wordIterator]);
-    } else {
-      console.log(this.packet.words[this.wordIterator].name);
-      //this.nextWord();
-    }
-  }
-
   private nextWord(): void {
     this.wordIterator++;
     if (this.wordIterator === this.packet.words.length) {
@@ -55,15 +71,17 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   private isWordMatch(answer: string, correct: string): boolean {
-    const correctWithoutSpace = correct.replace(/\s*$/, '');
-
-    return answer === correctWithoutSpace;
+    // replace removes space from end
+    return answer === correct.replace(/\s*$/, '');
   }
 
   private deleteWordFromArray(word: Word): void {
     const index: number = this.packet.words.indexOf(word);
     if (index !== -1) {
       this.packet.words.splice(index, 1);
+    }
+    if (this.wordIterator === this.packet.words.length) {
+      this.wordIterator = 0;
     }
   }
 }

@@ -3,10 +3,30 @@
     <div class="col-md-3">
       <app-menu></app-menu>
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-1">
+      <div class="row">
+        <app-learning-result
+          [packetSize]="packetSize"
+          [numberOfGoodAnswers]="numberOfGoodAnswers"
+        ></app-learning-result>
+      </div>
+      <div class="row">
+        <app-score
+          [numberOfGoodAnswers]="numberOfGoodAnswers"
+          [numberOfAttempts]="numberOfAttempts"
+        >
+        </app-score>
+      </div>
+    </div>
     <div class="col-md-5">
+      <app-response-to-answer
+        *ngIf="!isCorrectAnswer"
+        [correctAnswer]="correctAnswer"
+        [usersAnswer]="usersAnswer"
+        (continue)="continue()"
+      ></app-response-to-answer>
       <app-examination
-        *ngIf="packet.words.length > 0"
+        *ngIf="packet.words.length > 0 && isCorrectAnswer"
         [word]="packet.words[wordIterator].translation"
         (answer)="checkAnswer($event)"
       ></app-examination>
