@@ -31,6 +31,15 @@
         (answer)="checkAnswer($event)"
       ></app-examination>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <div class="row">
+        <app-german-shortcuts></app-german-shortcuts>
+      </div>
+      <app-learning-phase-result
+        *ngIf="scoreAfterRound.length > 0"
+        [scores]="scoreAfterRound"
+        [packetSize]="packetSize"
+      ></app-learning-phase-result>
+    </div>
   </div>
 </div>

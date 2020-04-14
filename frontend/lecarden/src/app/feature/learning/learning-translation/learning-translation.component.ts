@@ -19,6 +19,7 @@ export class LearningTranslationComponent implements OnInit {
   numberOfGoodAnswers = 0;
   numberOfAttempts = 0;
   packetSize: number;
+  scoreAfterRound: number[] = [];
   constructor(private readonly route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -30,9 +31,9 @@ export class LearningTranslationComponent implements OnInit {
     this.numberOfAttempts++;
     this.usersAnswer = answer;
     if (this.isWordMatch(answer, this.packet.words[this.wordIterator].name)) {
+      this.numberOfGoodAnswers++;
       this.deleteWordFromArray(this.packet.words[this.wordIterator]);
       this.correctAnswer = '';
-      this.numberOfGoodAnswers++;
     } else {
       this.correctAnswer = this.packet.words[this.wordIterator].name;
       this.nextWord();
@@ -67,6 +68,8 @@ export class LearningTranslationComponent implements OnInit {
     this.wordIterator++;
     if (this.wordIterator === this.packet.words.length) {
       this.wordIterator = 0;
+      console.log('next Word');
+      this.scoreAfterRound.push(this.getScoreFromLastRound());
     }
   }
 
@@ -82,6 +85,17 @@ export class LearningTranslationComponent implements OnInit {
     }
     if (this.wordIterator === this.packet.words.length) {
       this.wordIterator = 0;
+      console.log('Delete word');
+      this.scoreAfterRound.push(this.getScoreFromLastRound());
     }
+  }
+
+  private getScoreFromLastRound(): number {
+    let result = this.numberOfGoodAnswers;
+    for (const score of this.scoreAfterRound) {
+      result -= score;
+    }
+    console.log(result);
+    return result;
   }
 }

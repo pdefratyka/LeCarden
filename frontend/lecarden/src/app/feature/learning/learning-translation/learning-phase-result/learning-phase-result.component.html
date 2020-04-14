@@ -1,1 +1,5 @@
-<p>learning-phase-result works!</p>
+<div class="container-fluid frame">
+  <div *ngFor="let score of scores; let i = index" class="row">
+    <h2>{{ i + 1 }}. {{ score }}/{{ getPacketForResult(i) }}</h2>
+  </div>
+</div>
