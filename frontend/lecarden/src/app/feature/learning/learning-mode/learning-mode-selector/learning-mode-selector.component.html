@@ -2,26 +2,26 @@
   <table class="table" aria-describedby="show packet table">
     <thead>
       <tr>
-        <th scope="col">MODE</th>
-        <th>Last</th>
-        <th>Score</th>
+        <th scope="col">{{ 'LABEL.MODE' | translate }}</th>
+        <th>{{ 'LABEL.LAST_DATE' | translate }}</th>
+        <th>{{ 'LABEL.SCORE' | translate }}</th>
       </tr>
     </thead>
     <tbody>
       <tr
         (click)="emitSelectMode('foreginToKnown')"
-        [ngClass]="{ selected: selectedMode === 'foreginToKnown' }"
+        [ngClass]="{ selected: isModeSelected('foreginToKnown') }"
       >
         <td>
-          Foregin to Known
+          {{ 'LABEL.FOREGIN_TO_KNOWN' | translate }}
         </td>
       </tr>
       <tr
         (click)="emitSelectMode('knownToForegin')"
-        [ngClass]="{ selected: selectedMode === 'knownToForegin' }"
+        [ngClass]="{ selected: isModeSelected('knownToForegin') }"
       >
         <td>
-          Known to Foregin
+          {{ 'LABEL.KNOWN_TO_FOREGIN' | translate }}
         </td>
       </tr>
     </tbody>

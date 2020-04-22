@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
 import { map, take } from 'rxjs/operators';
 import { Word } from 'src/app/shared/models/word';
+import { Result } from 'src/app/shared/models/result';
+import { WordResult } from 'src/app/shared/models/wordResult';
+import { ResultService } from 'src/app/core/services/api/result.service';
 
 @Component({
   selector: 'app-learning-translation',
@@ -20,7 +23,10 @@ export class LearningTranslationComponent implements OnInit {
   numberOfAttempts = 0;
   packetSize: number;
   scoreAfterRound: number[] = [];
-  constructor(private readonly route: ActivatedRoute) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly resultService: ResultService
+  ) {}
 
   ngOnInit() {
     this.getPacketFromResolver();
@@ -66,10 +72,11 @@ export class LearningTranslationComponent implements OnInit {
 
   private nextWord(): void {
     this.wordIterator++;
+
     if (this.wordIterator === this.packet.words.length) {
       this.wordIterator = 0;
-      console.log('next Word');
       this.scoreAfterRound.push(this.getScoreFromLastRound());
+      this.saveScore();
     }
   }
 
@@ -87,6 +94,9 @@ export class LearningTranslationComponent implements OnInit {
       this.wordIterator = 0;
       console.log('Delete word');
       this.scoreAfterRound.push(this.getScoreFromLastRound());
+      if(this.packet.words.length===0){
+        this.saveScore();
+      }
     }
   }
 
@@ -95,7 +105,24 @@ export class LearningTranslationComponent implements OnInit {
     for (const score of this.scoreAfterRound) {
       result -= score;
     }
-    console.log(result);
     return result;
+  }
+
+  private saveScore(): void {
+    console.log('SAVE SCORE!!');
+    const result = new Result();
+    result.packetId = this.packet.id;
+    result.userId = this.packet.userId;
+    result.score = this.packet.words.length;
+    result.wordsResultsTOs = [];
+    for (const word of this.packet.words) {
+      const wordResult = new WordResult();
+      wordResult.wordId = word.id;
+      wordResult.attempts = 3;
+      result.wordsResultsTOs.push(wordResult);
+    }
+    this.resultService.saveResult(result).subscribe((response) => {
+      console.log(response);
+    });
   }
 }

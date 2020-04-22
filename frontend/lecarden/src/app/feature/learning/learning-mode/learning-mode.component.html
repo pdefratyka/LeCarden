@@ -19,7 +19,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2"></div>
+    <ng-container *ngIf="selectedPacket > -1">
+      <div class="col-md-2"><p class="arrow">&#8680;</p></div>
+    </ng-container>
     <ng-container *ngIf="selectedPacket > -1">
       <div class="col-md-3">
         <div class="row mb-5">
@@ -35,22 +37,25 @@
             </div>
           </div>
         </div>
+        <ng-container *ngIf="selectedMode !== ''">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="arrow">&#8681;</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button
+                class="btn btn-success"
+                [routerLink]="['/learn/translation/', selectedPacket]"
+                [queryParams]="{ selectedMode: selectedMode }"
+              >
+                {{ 'LABEL.START_LEARNING' | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-  </div>
-  <div class="row">
-    <ng-container *ngIf="selectedMode !== ''">
-      <div class="col-md-5"></div>
-      <div class="col-md-3">
-        <button
-          class="btn btn-secondary"
-          [routerLink]="['/learn/translation/', selectedPacket]"
-          [queryParams]="{ selectedMode: selectedMode }"
-        >
-          Start learning
-        </button>
-      </div>
-      <div class="col-md-4"></div>
     </ng-container>
   </div>
 </div>
