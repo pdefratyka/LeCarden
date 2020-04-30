@@ -108,6 +108,7 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   private saveScore(): void {
+    this.result.score = this.getScore();
     this.resultService
       .saveResult(this.result)
       .pipe(take(1))
@@ -146,5 +147,12 @@ export class LearningTranslationComponent implements OnInit {
       wordResult.attempts = 0;
       this.result.wordsResultsTOs.push(wordResult);
     }
+  }
+
+  private getScore(): number {
+    if (this.numberOfAttempts > 0) {
+      return (this.numberOfGoodAnswers * 100) / this.numberOfAttempts;
+    }
+    return 0;
   }
 }

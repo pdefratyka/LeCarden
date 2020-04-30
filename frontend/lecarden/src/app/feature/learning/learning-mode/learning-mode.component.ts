@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
 import { map, take } from 'rxjs/operators';
 import { LearningMode } from 'src/app/shared/models/learningMode';
@@ -20,11 +20,13 @@ export class LearningModeComponent implements OnInit {
   selectedPacket = -1;
   selectedMode: any;
   lastResult: Result;
+  isLastResultMode = false;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly resultService: ResultService,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,7 +42,28 @@ export class LearningModeComponent implements OnInit {
     this.selectedMode = selectedMode;
   }
 
-  emitResultMode() {}
+  selectLastResult() {
+    console.log('Last result');
+    this.isLastResultMode = !this.isLastResultMode;
+  }
+
+  startLearning() {
+    if (this.isLastResultMode) {
+      this.router.navigate([
+        '/learn/translation/' +
+          this.lastResult.packetId +
+          '/result/' +
+          this.lastResult.id,
+        { selectedMode: this.selectedMode },
+      ]);
+    } else {
+      this.router.navigate([
+        '/learn/translation/',
+        this.selectedPacket,
+        { selectedMode: this.selectedMode },
+      ]);
+    }
+  }
 
   private getLastResultFromPacket(packageId: number): void {
     this.resultService
@@ -48,7 +71,6 @@ export class LearningModeComponent implements OnInit {
       .pipe(take(1))
       .subscribe((response) => {
         this.lastResult = response;
-        console.log(this.lastResult);
       });
   }
 

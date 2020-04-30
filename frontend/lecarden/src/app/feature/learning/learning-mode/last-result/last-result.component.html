@@ -1,1 +1,23 @@
-<button (click)="emitResultMode()">{{ numberOfWrongWords }}</button>
+<div class="container">
+  <table class="table" aria-describedby="show packet table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        (click)="emitResultMode()"
+        [ngClass]="{ selected: isLastResultModeSelected }"
+      >
+        <td>
+          {{ result.date }}
+        </td>
+        <td>
+          {{ result.score }}%
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

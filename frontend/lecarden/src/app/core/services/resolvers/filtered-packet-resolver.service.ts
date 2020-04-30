@@ -13,6 +13,6 @@ export class FilteredPacketResolverService implements Resolve<Packet> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Packet> {
-    return this.packetService.getFilteredPacket();
+    return this.packetService.getFilteredPacket(route.paramMap.get('id'), route.paramMap.get('result-id'));
   }
 }

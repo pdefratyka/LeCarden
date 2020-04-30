@@ -38,17 +38,21 @@
         </div>
         <ng-container *ngIf="selectedMode !== ''">
           <div class="row">
-            <div class="col-md-12">
-              <app-last-result *ngIf="lastResult" [result]="lastResult"></app-last-result>
+            <div class="container frame">
+              <div class="row">
+                <div class="col-md-12">
+                  <app-last-result
+                    *ngIf="lastResult"
+                    [result]="lastResult"
+                    (resultMode)="selectLastResult()"
+                  ></app-last-result>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-4">
             <div class="col-md-12">
-              <button
-                class="btn btn-success"
-                [routerLink]="['/learn/translation/', selectedPacket]"
-                [queryParams]="{ selectedMode: selectedMode }"
-              >
+              <button class="btn btn-success" (click)="startLearning()">
                 {{ 'LABEL.START_LEARNING' | translate }}
               </button>
             </div>

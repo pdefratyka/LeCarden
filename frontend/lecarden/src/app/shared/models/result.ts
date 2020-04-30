@@ -5,5 +5,6 @@ export class Result {
   userId: number;
   packetId: number;
   score: number;
+  date: Date;
   wordsResultsTOs: WordResult[];
 }

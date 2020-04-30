@@ -65,6 +65,9 @@ public class PacketServiceImpl implements PacketService {
                     packet.getWords().remove(wordTO);
                 }
             }
+            else{
+                packet.getWords().remove(wordTO);
+            }
 
         }
         return packet;

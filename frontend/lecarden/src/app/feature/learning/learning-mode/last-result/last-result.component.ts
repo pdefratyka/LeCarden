@@ -13,14 +13,17 @@ export class LastResultComponent implements OnInit {
   @Output()
   resultMode: EventEmitter<string> = new EventEmitter<string>();
   numberOfWrongWords: number;
+  isLastResultModeSelected = false;
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.result);
     this.numberOfWrongWords = this.filterWords(1).length;
   }
 
   emitResultMode() {
     this.resultMode.emit('lastResultMode');
+    this.isLastResultModeSelected = !this.isLastResultModeSelected;
   }
 
   private filterWords(attempts: number): WordResult[] {

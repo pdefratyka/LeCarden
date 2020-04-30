@@ -36,9 +36,9 @@ export class PacketService {
       .pipe(catchError(this.handleError));
   }
 
-  getFilteredPacket(): Observable<Packet> {
+  getFilteredPacket(packetId: string, resultId: string): Observable<Packet> {
     return this.httpClient
-      .get<Packet>(`${this.url}/1111/results/109`)
+      .get<Packet>(`${this.url}/${packetId}/results/${resultId}`)
       .pipe(catchError(this.handleError));
   }
 
