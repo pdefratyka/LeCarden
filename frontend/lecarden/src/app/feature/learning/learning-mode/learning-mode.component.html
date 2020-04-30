@@ -19,10 +19,9 @@
         </div>
       </div>
     </div>
+
     <ng-container *ngIf="selectedPacket > -1">
-      <div class="col-md-2"><p class="arrow">&#8680;</p></div>
-    </ng-container>
-    <ng-container *ngIf="selectedPacket > -1">
+      <div class="col-md-2"></div>
       <div class="col-md-3">
         <div class="row mb-5">
           <div class="container col-md-12 frame">
@@ -40,7 +39,7 @@
         <ng-container *ngIf="selectedMode !== ''">
           <div class="row">
             <div class="col-md-12">
-              <p class="arrow">&#8681;</p>
+              <app-last-result *ngIf="lastResult" [result]="lastResult"></app-last-result>
             </div>
           </div>
           <div class="row">

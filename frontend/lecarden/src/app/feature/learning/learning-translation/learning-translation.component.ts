@@ -14,6 +14,7 @@ import { ResultService } from 'src/app/core/services/api/result.service';
 })
 export class LearningTranslationComponent implements OnInit {
   packet: Packet;
+  result: Result;
   selectedMode: '';
   wordIterator = 0;
   correctAnswer = '';
@@ -23,6 +24,7 @@ export class LearningTranslationComponent implements OnInit {
   numberOfAttempts = 0;
   packetSize: number;
   scoreAfterRound: number[] = [];
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly resultService: ResultService
@@ -36,14 +38,11 @@ export class LearningTranslationComponent implements OnInit {
   checkAnswer(answer: string): void {
     this.numberOfAttempts++;
     this.usersAnswer = answer;
+    this.increamentWordAttempt();
     if (this.isWordMatch(answer, this.packet.words[this.wordIterator].name)) {
-      this.numberOfGoodAnswers++;
-      this.deleteWordFromArray(this.packet.words[this.wordIterator]);
-      this.correctAnswer = '';
+      this.correctAnswerResponse();
     } else {
-      this.correctAnswer = this.packet.words[this.wordIterator].name;
-      this.nextWord();
-      this.isCorrectAnswer = false;
+      this.wrongAnswerResponse();
     }
   }
 
@@ -60,6 +59,7 @@ export class LearningTranslationComponent implements OnInit {
       .subscribe((val) => {
         this.packet = val;
         this.packetSize = this.packet.words.length;
+        this.initResult();
       });
   }
 
@@ -92,9 +92,8 @@ export class LearningTranslationComponent implements OnInit {
     }
     if (this.wordIterator === this.packet.words.length) {
       this.wordIterator = 0;
-      console.log('Delete word');
       this.scoreAfterRound.push(this.getScoreFromLastRound());
-      if(this.packet.words.length===0){
+      if (this.packet.words.length === 0) {
         this.saveScore();
       }
     }
@@ -109,20 +108,43 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   private saveScore(): void {
-    console.log('SAVE SCORE!!');
-    const result = new Result();
-    result.packetId = this.packet.id;
-    result.userId = this.packet.userId;
-    result.score = this.packet.words.length;
-    result.wordsResultsTOs = [];
+    this.resultService
+      .saveResult(this.result)
+      .pipe(take(1))
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
+  private correctAnswerResponse(): void {
+    this.numberOfGoodAnswers++;
+    this.deleteWordFromArray(this.packet.words[this.wordIterator]);
+    this.correctAnswer = '';
+  }
+
+  private increamentWordAttempt() {
+    const wordResult = this.result.wordsResultsTOs.filter(
+      (w) => w.wordId === this.packet.words[this.wordIterator].id
+    );
+    wordResult[0].attempts++;
+  }
+
+  private wrongAnswerResponse(): void {
+    this.correctAnswer = this.packet.words[this.wordIterator].name;
+    this.nextWord();
+    this.isCorrectAnswer = false;
+  }
+
+  private initResult(): void {
+    this.result = new Result();
+    this.result.packetId = this.packet.id;
+    this.result.userId = this.packet.userId;
+    this.result.wordsResultsTOs = [];
     for (const word of this.packet.words) {
       const wordResult = new WordResult();
       wordResult.wordId = word.id;
-      wordResult.attempts = 3;
-      result.wordsResultsTOs.push(wordResult);
+      wordResult.attempts = 0;
+      this.result.wordsResultsTOs.push(wordResult);
     }
-    this.resultService.saveResult(result).subscribe((response) => {
-      console.log(response);
-    });
   }
 }

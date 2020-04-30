@@ -2,10 +2,8 @@
   <table class="table" aria-describedby="show packet table">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
         <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
-        <th scope="col">{{ 'LABEL.LAST_DATE' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -14,10 +12,8 @@
         [ngClass]="{ selected: packet.id === selectedPacket }"
         (click)="emitSelectPacket(packet.id)"
       >
-        <th scope="row">{{ i + 1 }}</th>
         <td>{{ packet.name }}</td>
         <td>{{ packet.words ? packet.words.length : 0 }}</td>
-        <td>Date</td>
       </tr>
     </tbody>
   </table>

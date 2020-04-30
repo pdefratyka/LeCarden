@@ -14,6 +14,7 @@ import { SinglePacketResolverService } from './core/services/resolvers/single-pa
 import { CategoriesResolverService } from './core/services/resolvers/categories-resolver.service';
 import { LearningModeComponent } from './feature/learning/learning-mode/learning-mode.component';
 import { LearningTranslationComponent } from './feature/learning/learning-translation/learning-translation.component';
+import { FilteredPacketResolverService } from './core/services/resolvers/filtered-packet-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -62,10 +63,16 @@ const routes: Routes = [
         resolve: { packets: PacketsResolverService }
       },
       {
+        path: 'translation/:id/result/:result-id',
+        component: LearningTranslationComponent,
+        resolve: { packet: FilteredPacketResolverService }
+      },
+      {
         path: 'translation/:id',
         component: LearningTranslationComponent,
         resolve: { packet: SinglePacketResolverService }
       }
+
     ]
   },
   { path: '**', redirectTo: 'login' }

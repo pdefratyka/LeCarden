@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PacketService {
   private readonly url = '/api/word-service/packets';
@@ -33,6 +33,12 @@ export class PacketService {
     console.log(id);
     return this.httpClient
       .get<Packet>(`${this.url}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getFilteredPacket(): Observable<Packet> {
+    return this.httpClient
+      .get<Packet>(`${this.url}/1111/results/109`)
       .pipe(catchError(this.handleError));
   }
 

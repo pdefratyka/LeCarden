@@ -14,4 +14,10 @@ export class ResultService {
   saveResult(result: Result): Observable<Result> {
     return this.httpClient.post<Result>(this.url, result);
   }
+
+  getLastResult(userId: number, packetId: number): Observable<Result> {
+    return this.httpClient.get<Result>(
+      `${this.url}/users/${userId}/packets/${packetId}`
+    );
+  }
 }

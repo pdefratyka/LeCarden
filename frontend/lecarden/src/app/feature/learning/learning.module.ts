@@ -16,6 +16,7 @@ import { ExaminationComponent } from './learning-translation/examination/examina
 import { CurrentWordComponent } from './learning-translation/examination/current-word/current-word.component';
 import { ResponseToAnswerComponent } from './learning-translation/response-to-answer/response-to-answer.component';
 import { ScoreComponent } from './learning-translation/score/score.component';
+import { LastResultComponent } from './learning-mode/last-result/last-result.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ScoreComponent } from './learning-translation/score/score.component';
     ExaminationComponent,
     ResponseToAnswerComponent,
     ScoreComponent,
+    LastResultComponent,
   ],
   imports: [
     CommonModule,

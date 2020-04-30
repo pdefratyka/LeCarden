@@ -34,8 +34,13 @@ public class PacketController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public PacketTO getPacketById(@PathVariable Long id) {
-
         return this.packetService.getPacketById(id);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/results/{resultId}")
+    public PacketTO getFilteredPacketById(@PathVariable Long id, @PathVariable Long resultId){
+        return this.packetService.getFilteredPacketById(id, resultId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

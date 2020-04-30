@@ -9,6 +9,8 @@ public interface PacketService {
 
     PacketTO getPacketById(Long id);
 
+    PacketTO getFilteredPacketById(Long id, Long resultId);
+
     List<PacketTO> getAllPackets();
 
     List<PacketTO> getPacketsByUserId(Long userId);
