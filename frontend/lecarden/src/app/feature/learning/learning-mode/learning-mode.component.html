@@ -38,11 +38,10 @@
         </div>
         <ng-container *ngIf="selectedMode !== ''">
           <div class="row">
-            <div class="container frame">
+            <div class="container frame" *ngIf="lastResult">
               <div class="row">
                 <div class="col-md-12">
                   <app-last-result
-                    *ngIf="lastResult"
                     [result]="lastResult"
                     [isLastResultMode]="isLastResultMode"
                     (resultMode)="selectLastResult()"

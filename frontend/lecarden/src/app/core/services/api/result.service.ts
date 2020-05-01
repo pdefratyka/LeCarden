@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Result } from 'src/app/shared/models/result';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,12 @@ export class ResultService {
   }
 
   getLastResult(userId: number, packetId: number): Observable<Result> {
-    return this.httpClient.get<Result>(
-      `${this.url}/users/${userId}/packets/${packetId}`
-    );
+    return this.httpClient
+      .get<Result>(`${this.url}/users/${userId}/packets/${packetId}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  handleError() {
+    return throwError('There was some problem with the server.');
   }
 }

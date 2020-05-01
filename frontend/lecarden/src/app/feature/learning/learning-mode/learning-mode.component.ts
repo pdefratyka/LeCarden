@@ -64,9 +64,14 @@ export class LearningModeComponent implements OnInit {
     this.resultService
       .getLastResult(this.tokenService.getUserId(), packageId)
       .pipe(take(1))
-      .subscribe((response) => {
-        this.lastResult = response;
-      });
+      .subscribe(
+        (response) => {
+          this.lastResult = response;
+        },
+        () => {
+          this.lastResult = null;
+        }
+      );
   }
 
   private getPacketsFromResolver(): void {
