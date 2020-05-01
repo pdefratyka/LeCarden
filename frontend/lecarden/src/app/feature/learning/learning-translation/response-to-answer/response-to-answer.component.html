@@ -4,14 +4,14 @@
   class="container frame col-md-12"
 >
   <div class="row col-md-12">
-    <p>Correct: {{ correctAnswer }}</p>
+    <p>{{ 'LABEL.CORRECT' | translate }}: {{ answer?.correctAnswer }}</p>
   </div>
   <div class="row col-md-12">
-    <p>Your: {{ usersAnswer }}</p>
+    <p>{{ 'LABEL.YOUR' | translate }}: {{ answer?.userAnswer }}</p>
   </div>
   <div class="row">
     <button #submitButton type="submit" class="btn btn-success">
-      Continue
+      {{ 'LABEL.CONTINUE' | translate }}
     </button>
   </div>
 </form>

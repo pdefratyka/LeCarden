@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ScoreService } from 'src/app/core/services/helpers/score.service';
 
 @Component({
   selector: 'app-score',
@@ -14,10 +15,12 @@ export class ScoreComponent {
   @Input()
   numberOfAttempts: number;
 
+  constructor(private readonly scoreService: ScoreService) {}
+
   getScore(): number {
-    if (this.numberOfAttempts > 0) {
-      return (this.numberOfGoodAnswers * 100) / this.numberOfAttempts;
-    }
-    return 0;
+    return this.scoreService.getScore(
+      this.numberOfAttempts,
+      this.numberOfGoodAnswers
+    );
   }
 }

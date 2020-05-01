@@ -7,16 +7,16 @@
     </thead>
     <tbody>
       <tr
-        (click)="emitSelectMode('foreginToKnown')"
-        [ngClass]="{ selected: isModeSelected('foreginToKnown') }"
+        (click)="emitSelectMode(LearningMode.FOREGIN_TO_KNOWN)"
+        [ngClass]="{ selected: isModeSelected(LearningMode.FOREGIN_TO_KNOWN) }"
       >
         <td>
           {{ 'LABEL.FOREGIN_TO_KNOWN' | translate }}
         </td>
       </tr>
       <tr
-        (click)="emitSelectMode('knownToForegin')"
-        [ngClass]="{ selected: isModeSelected('knownToForegin') }"
+        (click)="emitSelectMode(LearningMode.KNOWN_TO_FOREGIN)"
+        [ngClass]="{ selected: isModeSelected(LearningMode.KNOWN_TO_FOREGIN) }"
       >
         <td>
           {{ 'LABEL.KNOWN_TO_FOREGIN' | translate }}

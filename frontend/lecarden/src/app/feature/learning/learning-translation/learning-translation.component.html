@@ -6,27 +6,26 @@
     <div class="col-md-1">
       <div class="row">
         <app-learning-result
-          [packetSize]="packetSize"
-          [numberOfGoodAnswers]="numberOfGoodAnswers"
+          [packetSize]="result.wordsResultsTOs.length"
+          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
         ></app-learning-result>
       </div>
       <div class="row">
         <app-score
-          [numberOfGoodAnswers]="numberOfGoodAnswers"
-          [numberOfAttempts]="numberOfAttempts"
+          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+          [numberOfAttempts]="statistic.numberOfAttempts"
         >
         </app-score>
       </div>
     </div>
     <div class="col-md-5">
       <app-response-to-answer
-        *ngIf="!isCorrectAnswer"
-        [correctAnswer]="correctAnswer"
-        [usersAnswer]="usersAnswer"
-        (continue)="continue()"
+        *ngIf="!answer.isCorrectAnswer"
+        [answer]="answer"
+        (continue)="continueAfterAnswerResponse()"
       ></app-response-to-answer>
       <app-examination
-        *ngIf="packet.words.length > 0 && isCorrectAnswer"
+        *ngIf="packet.words.length > 0 && answer.isCorrectAnswer"
         [word]="packet.words[wordIterator].translation"
         (answer)="checkAnswer($event)"
       ></app-examination>
@@ -36,9 +35,9 @@
         <app-german-shortcuts></app-german-shortcuts>
       </div>
       <app-learning-phase-result
-        *ngIf="scoreAfterRound.length > 0"
-        [scores]="scoreAfterRound"
-        [packetSize]="packetSize"
+        *ngIf="statistic.scoreAfterRound.length > 0"
+        [scores]="statistic.scoreAfterRound"
+        [packetSize]="result.wordsResultsTOs.length"
       ></app-learning-phase-result>
     </div>
   </div>

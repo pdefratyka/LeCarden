@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-german-shortcuts',
@@ -8,8 +8,4 @@ import { Component, OnInit } from '@angular/core';
     './../../../../shared/styles/global.scss',
   ],
 })
-export class GermanShortcutsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class GermanShortcutsComponent {}

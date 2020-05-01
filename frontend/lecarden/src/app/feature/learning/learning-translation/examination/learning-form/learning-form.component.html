@@ -8,7 +8,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Answer"
+        placeholder="{{ 'LABEL.ANSWER' | translate }}"
         formControlName="answer"
         (keypress)="keyPress($event)"
         id="inputLogin"
@@ -19,7 +19,7 @@
   </div>
   <div class="row">
     <button type="submit" class="btn btn-success">
-      Submit
+      {{ 'LABEL.SUBMIT' | translate }}
     </button>
   </div>
 </form>

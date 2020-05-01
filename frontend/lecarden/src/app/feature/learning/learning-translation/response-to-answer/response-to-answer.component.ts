@@ -8,6 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Answer } from 'src/app/shared/models/answer';
 
 @Component({
   selector: 'app-response-to-answer',
@@ -21,9 +22,7 @@ export class ResponseToAnswerComponent implements AfterViewInit {
   @ViewChild('submitButton', { static: false })
   submitButton: ElementRef;
   @Input()
-  correctAnswer: string;
-  @Input()
-  usersAnswer: string;
+  answer: Answer;
   @Output()
   continue: EventEmitter<void> = new EventEmitter<void>();
   answerForm: FormGroup;

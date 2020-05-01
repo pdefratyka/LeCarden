@@ -7,4 +7,20 @@ export class Result {
   score: number;
   date: Date;
   wordsResultsTOs: WordResult[];
+
+  constructor(
+    packetId?: number,
+    userId?: number,
+    wordsResultsTOs?: WordResult[]
+  ) {
+    if (packetId) {
+      this.packetId = packetId;
+    }
+    if (userId) {
+      this.userId = userId;
+    }
+    if (wordsResultsTOs) {
+      this.wordsResultsTOs = wordsResultsTOs;
+    }
+  }
 }

@@ -43,6 +43,12 @@
     "LAST_DATE":"Last",
     "MODE":"Mode",
     "SCORE":"Score",
-    "START_LEARNING":"Start learning"
+    "START_LEARNING":"Start learning",
+    "DATE":"Date",
+    "LAST_RESULT":"Last Result",
+    "ANSWER":"Answer",
+    "YOUR":"Your",
+    "CORRECT":"Correct",
+    "CONTINUE":"Continue"
   }
 }

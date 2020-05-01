@@ -17,8 +17,8 @@ import { TokenService } from 'src/app/core/services/security/token.service';
 })
 export class LearningModeComponent implements OnInit {
   packets: Packet[];
-  selectedPacket = -1;
-  selectedMode: any;
+  selectedPacket: number;
+  selectedMode: LearningMode;
   lastResult: Result;
   isLastResultMode = false;
 
@@ -42,24 +42,19 @@ export class LearningModeComponent implements OnInit {
     this.selectedMode = selectedMode;
   }
 
-  selectLastResult() {
-    console.log('Last result');
+  selectLastResult(): void {
     this.isLastResultMode = !this.isLastResultMode;
   }
 
   startLearning() {
     if (this.isLastResultMode) {
       this.router.navigate([
-        '/learn/translation/' +
-          this.lastResult.packetId +
-          '/result/' +
-          this.lastResult.id,
+        `/learn/translation/${this.lastResult.packetId}/result/${this.lastResult.id}`,
         { selectedMode: this.selectedMode },
       ]);
     } else {
       this.router.navigate([
-        '/learn/translation/',
-        this.selectedPacket,
+        `/learn/translation/${this.selectedPacket}`,
         { selectedMode: this.selectedMode },
       ]);
     }

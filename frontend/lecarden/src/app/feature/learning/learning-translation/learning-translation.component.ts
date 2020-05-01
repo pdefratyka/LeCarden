@@ -6,6 +6,10 @@ import { Word } from 'src/app/shared/models/word';
 import { Result } from 'src/app/shared/models/result';
 import { WordResult } from 'src/app/shared/models/wordResult';
 import { ResultService } from 'src/app/core/services/api/result.service';
+import { ScoreService } from 'src/app/core/services/helpers/score.service';
+import { LearningService } from 'src/app/core/services/helpers/learning.service';
+import { Answer } from 'src/app/shared/models/answer';
+import { Statistic } from 'src/app/shared/models/statistic';
 
 @Component({
   selector: 'app-learning-translation',
@@ -15,19 +19,16 @@ import { ResultService } from 'src/app/core/services/api/result.service';
 export class LearningTranslationComponent implements OnInit {
   packet: Packet;
   result: Result;
+  answer: Answer = new Answer('', '', true);
+  statistic: Statistic = new Statistic(0, 0, []);
   selectedMode: '';
   wordIterator = 0;
-  correctAnswer = '';
-  isCorrectAnswer = true;
-  usersAnswer: string;
-  numberOfGoodAnswers = 0;
-  numberOfAttempts = 0;
-  packetSize: number;
-  scoreAfterRound: number[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly resultService: ResultService
+    private readonly resultService: ResultService,
+    private readonly scoreService: ScoreService,
+    private readonly learningService: LearningService
   ) {}
 
   ngOnInit() {
@@ -36,18 +37,21 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   checkAnswer(answer: string): void {
-    this.numberOfAttempts++;
-    this.usersAnswer = answer;
-    this.increamentWordAttempt();
-    if (this.isWordMatch(answer, this.packet.words[this.wordIterator].name)) {
-      this.correctAnswerResponse();
+    this.incrementAttempts();
+    if (
+      this.learningService.isWordMatch(
+        answer,
+        this.packet.words[this.wordIterator].name
+      )
+    ) {
+      this.correctAnswerAction();
     } else {
-      this.wrongAnswerResponse();
+      this.wrongAnswerAction(answer);
     }
   }
 
-  continue(): void {
-    this.isCorrectAnswer = true;
+  continueAfterAnswerResponse(): void {
+    this.answer.isCorrectAnswer = true;
   }
 
   private getPacketFromResolver(): void {
@@ -58,7 +62,6 @@ export class LearningTranslationComponent implements OnInit {
       )
       .subscribe((val) => {
         this.packet = val;
-        this.packetSize = this.packet.words.length;
         this.initResult();
       });
   }
@@ -72,17 +75,12 @@ export class LearningTranslationComponent implements OnInit {
 
   private nextWord(): void {
     this.wordIterator++;
-
     if (this.wordIterator === this.packet.words.length) {
       this.wordIterator = 0;
-      this.scoreAfterRound.push(this.getScoreFromLastRound());
-      this.saveScore();
+      this.statistic.scoreAfterRound.push(
+        this.scoreService.getScoreFromLastRound(this.statistic)
+      );
     }
-  }
-
-  private isWordMatch(answer: string, correct: string): boolean {
-    // replace removes space from end
-    return answer === correct.replace(/\s*$/, '');
   }
 
   private deleteWordFromArray(word: Word): void {
@@ -92,67 +90,55 @@ export class LearningTranslationComponent implements OnInit {
     }
     if (this.wordIterator === this.packet.words.length) {
       this.wordIterator = 0;
-      this.scoreAfterRound.push(this.getScoreFromLastRound());
+      this.statistic.scoreAfterRound.push(
+        this.scoreService.getScoreFromLastRound(this.statistic)
+      );
       if (this.packet.words.length === 0) {
         this.saveScore();
       }
     }
   }
 
-  private getScoreFromLastRound(): number {
-    let result = this.numberOfGoodAnswers;
-    for (const score of this.scoreAfterRound) {
-      result -= score;
-    }
-    return result;
-  }
-
   private saveScore(): void {
-    this.result.score = this.getScore();
-    this.resultService
-      .saveResult(this.result)
-      .pipe(take(1))
-      .subscribe((response) => {
-        console.log(response);
-      });
-  }
-
-  private correctAnswerResponse(): void {
-    this.numberOfGoodAnswers++;
-    this.deleteWordFromArray(this.packet.words[this.wordIterator]);
-    this.correctAnswer = '';
-  }
-
-  private increamentWordAttempt() {
-    const wordResult = this.result.wordsResultsTOs.filter(
-      (w) => w.wordId === this.packet.words[this.wordIterator].id
+    this.result.score = this.scoreService.getScore(
+      this.statistic.numberOfAttempts,
+      this.statistic.numberOfGoodAnswers
     );
-    wordResult[0].attempts++;
+    this.resultService.saveResult(this.result).pipe(take(1)).subscribe();
   }
 
-  private wrongAnswerResponse(): void {
-    this.correctAnswer = this.packet.words[this.wordIterator].name;
+  private correctAnswerAction(): void {
+    this.statistic.numberOfGoodAnswers++;
+    this.deleteWordFromArray(this.packet.words[this.wordIterator]);
+    this.answer.correctAnswer = '';
+  }
+
+  private incrementAttempts() {
+    this.statistic.numberOfAttempts++;
+    this.result.wordsResultsTOs.filter(
+      (w) => w.wordId === this.packet.words[this.wordIterator].id
+    )[0].attempts++;
+  }
+
+  private wrongAnswerAction(answer: string): void {
+    this.answer = new Answer(
+      answer,
+      this.packet.words[this.wordIterator].name,
+      false
+    );
     this.nextWord();
-    this.isCorrectAnswer = false;
   }
 
   private initResult(): void {
-    this.result = new Result();
-    this.result.packetId = this.packet.id;
-    this.result.userId = this.packet.userId;
-    this.result.wordsResultsTOs = [];
-    for (const word of this.packet.words) {
-      const wordResult = new WordResult();
-      wordResult.wordId = word.id;
-      wordResult.attempts = 0;
-      this.result.wordsResultsTOs.push(wordResult);
-    }
-  }
-
-  private getScore(): number {
-    if (this.numberOfAttempts > 0) {
-      return (this.numberOfGoodAnswers * 100) / this.numberOfAttempts;
-    }
-    return 0;
+    this.result = new Result(
+      this.packet.id,
+      this.packet.userId,
+      this.packet.words.map((w) => {
+        return {
+          wordId: w.id,
+          attempts: 0,
+        } as WordResult;
+      })
+    );
   }
 }

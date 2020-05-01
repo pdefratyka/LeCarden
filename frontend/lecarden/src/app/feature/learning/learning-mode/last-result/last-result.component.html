@@ -2,21 +2,19 @@
   <table class="table" aria-describedby="show packet table">
     <thead>
       <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Score</th>
+        <th>{{ 'LABEL.LAST_RESULT' | translate }}</th>
+      </tr>
+      <tr>
+        <th scope="col">{{ 'LABEL.DATE' | translate }}</th>
+        <th scope="col">{{ 'LABEL.SCORE' | translate }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        (click)="emitResultMode()"
-        [ngClass]="{ selected: isLastResultModeSelected }"
-      >
+      <tr (click)="emitResultMode()" [ngClass]="{ selected: isLastResultMode }">
         <td>
-          {{ result.date }}
+          {{ result.date | date: 'short' }}
         </td>
-        <td>
-          {{ result.score }}%
-        </td>
+        <td>{{ result.score }}%</td>
       </tr>
     </tbody>
   </table>

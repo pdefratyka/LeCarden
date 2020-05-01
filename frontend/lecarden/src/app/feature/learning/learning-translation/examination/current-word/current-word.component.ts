@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-current-word',
@@ -8,10 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
     './current-word.component.scss',
   ],
 })
-export class CurrentWordComponent implements OnInit {
+export class CurrentWordComponent {
   @Input()
   word: string;
-  constructor() {}
-
-  ngOnInit() {}
 }
