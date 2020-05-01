@@ -15,6 +15,7 @@ export class LearningModeSelectorComponent {
 
   emitSelectMode(mode: LearningMode): void {
     this.selectedMode = mode;
+    this.selectMode.emit(mode);
   }
 
   isModeSelected(mode: LearningMode): boolean {
