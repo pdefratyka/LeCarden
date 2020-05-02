@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WordService {
   private readonly url = 'api/word-service/words';
@@ -34,6 +34,12 @@ export class WordService {
         `${this.url}/categories/user-id/${this.tokenService.getUserId()}`
       )
       .pipe(catchError(this.handleError));
+  }
+
+  updateWord(wordId: number, name: string): Observable<Word> {
+    return this.httpClient.put<Word>(`${this.url}/${wordId}`, {
+      name: name,
+    } as Word);
   }
 
   handleError() {

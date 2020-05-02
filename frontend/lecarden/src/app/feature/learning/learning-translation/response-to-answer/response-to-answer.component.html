@@ -10,8 +10,21 @@
     <p>{{ 'LABEL.YOUR' | translate }}: {{ answer?.userAnswer }}</p>
   </div>
   <div class="row">
-    <button #submitButton type="submit" class="btn btn-success">
-      {{ 'LABEL.CONTINUE' | translate }}
-    </button>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <button #submitButton type="submit" class="btn btn-success">
+        {{ 'LABEL.CONTINUE' | translate }}
+      </button>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <input
+        type="button"
+        class="btn btn-secondary"
+        value="+"
+        (click)="emitUpdateWord()"
+      />
+    </div>
+    <div class="col-md-1"></div>
   </div>
 </form>

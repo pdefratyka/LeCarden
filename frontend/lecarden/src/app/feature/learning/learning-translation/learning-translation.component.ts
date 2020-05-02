@@ -10,6 +10,7 @@ import { ScoreService } from 'src/app/core/services/helpers/score.service';
 import { LearningService } from 'src/app/core/services/helpers/learning.service';
 import { Answer } from 'src/app/shared/models/answer';
 import { Statistic } from 'src/app/shared/models/statistic';
+import { WordService } from 'src/app/core/services/api/word.service';
 
 @Component({
   selector: 'app-learning-translation',
@@ -28,7 +29,8 @@ export class LearningTranslationComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly resultService: ResultService,
     private readonly scoreService: ScoreService,
-    private readonly learningService: LearningService
+    private readonly learningService: LearningService,
+    private readonly wordService: WordService
   ) {}
 
   ngOnInit() {
@@ -52,6 +54,18 @@ export class LearningTranslationComponent implements OnInit {
 
   continueAfterAnswerResponse(): void {
     this.answer.isCorrectAnswer = true;
+    this.nextWord();
+  }
+
+  addSynonymToWord(): void {
+    const name = this.answer.correctAnswer + ';' + this.answer.userAnswer;
+    this.wordService
+      .updateWord(this.packet.words[this.wordIterator].id, name)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.packet.words[this.wordIterator].name = name;
+        this.continueAfterAnswerResponse();
+      });
   }
 
   private getPacketFromResolver(): void {
@@ -61,7 +75,7 @@ export class LearningTranslationComponent implements OnInit {
         take(1)
       )
       .subscribe((val) => {
-        this.packet = val;
+        this.packet = this.learningService.shuffleWords(val);
         this.initResult();
       });
   }
@@ -123,10 +137,9 @@ export class LearningTranslationComponent implements OnInit {
   private wrongAnswerAction(answer: string): void {
     this.answer = new Answer(
       answer,
-      this.packet.words[this.wordIterator].name,
+      this.packet.words[this.wordIterator].name.split(';')[0],
       false
     );
-    this.nextWord();
   }
 
   private initResult(): void {

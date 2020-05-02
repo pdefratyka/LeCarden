@@ -25,6 +25,8 @@ export class ResponseToAnswerComponent implements AfterViewInit {
   answer: Answer;
   @Output()
   continue: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  updateWord: EventEmitter<void> = new EventEmitter<void>();
   answerForm: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder) {
@@ -37,6 +39,10 @@ export class ResponseToAnswerComponent implements AfterViewInit {
 
   emitContinue(): void {
     this.continue.emit();
+  }
+
+  emitUpdateWord(): void {
+    this.updateWord.emit();
   }
 
   private initAnswerForm(): void {

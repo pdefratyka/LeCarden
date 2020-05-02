@@ -10,7 +10,9 @@
     p {
       font-size: 2rem;
     }
-    button {
+    button,
+    input[type='button'] {
+      width: 100%;
       font-size: 2rem;
     }
   }

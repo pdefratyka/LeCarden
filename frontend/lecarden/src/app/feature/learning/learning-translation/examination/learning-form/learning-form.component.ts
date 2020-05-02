@@ -46,6 +46,8 @@ export class LearningFormComponent implements AfterViewInit {
       this.addLetterToAnswer(event, 'ä');
     } else if (event.key === '3') {
       this.addLetterToAnswer(event, 'ß');
+    } else if (event.key === '4') {
+      this.addLetterToAnswer(event, 'ö');
     }
   }
 

@@ -1,6 +1,7 @@
 package lecarden.word.service.impl;
 
 import lecarden.word.common.mapper.WordMapper;
+import lecarden.word.persistence.entity.Word;
 import lecarden.word.persistence.repository.WordRepository;
 import lecarden.word.persistence.to.WordTO;
 import lecarden.word.service.WordService;
@@ -23,6 +24,16 @@ public class WordServiceImpl implements WordService {
     @Override
     public WordTO saveWord(WordTO word) {
         return wordMapper.mapToWordTO(wordRepository.save(wordMapper.mapToWord(word)));
+    }
+
+    @Override
+    public WordTO updateWord(Long wordId, String name) {
+        Word word=wordRepository.findById(wordId).orElse(null);
+        if(word!=null){
+            word.setName(name);
+            wordRepository.save(word);
+        }
+        return wordMapper.mapToWordTO(word);
     }
 
     @Override
