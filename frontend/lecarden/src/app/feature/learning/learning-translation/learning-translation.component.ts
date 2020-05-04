@@ -24,6 +24,7 @@ export class LearningTranslationComponent implements OnInit {
   statistic: Statistic = new Statistic(0, 0, []);
   selectedMode: '';
   wordIterator = 0;
+  imageUrl = '';
 
   constructor(
     private readonly route: ActivatedRoute,

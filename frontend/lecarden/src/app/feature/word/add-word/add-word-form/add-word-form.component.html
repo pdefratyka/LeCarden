@@ -19,7 +19,7 @@
         class="alert alert-danger"
         *ngIf="name.invalid && (name.touched || formInvalidSubmitted)"
       >
-      {{ 'INFO.WORD_IS_REQUIRED' | translate }}
+        {{ 'INFO.WORD_IS_REQUIRED' | translate }}
       </div>
     </div>
     <div class="form-group">
@@ -55,7 +55,7 @@
           translation.invalid && (translation.touched || formInvalidSubmitted)
         "
       >
-      {{ 'INFO.MEANING_IS_REQUIRED' | translate }}
+        {{ 'INFO.MEANING_IS_REQUIRED' | translate }}
       </div>
     </div>
 
@@ -71,6 +71,17 @@
       <datalist id="category">
         <option *ngFor="let category of categories">{{ category }}</option>
       </datalist>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl-input">Image url</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imageUrl-input"
+        placeholder="Image url"
+        formControlName="imageUrl"
+        [ngClass]="{ 'is-invalid': imageUrl.invalid && imageUrl.touched }"
+      />
     </div>
     <button
       type="submit"

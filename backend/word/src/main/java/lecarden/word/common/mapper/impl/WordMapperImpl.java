@@ -20,6 +20,7 @@ public class WordMapperImpl implements WordMapper {
                 .plural(wordTO.getPlural())
                 .translation(wordTO.getTranslation())
                 .userId(wordTO.getUserId())
+                .imageUrl(wordTO.getImageUrl())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class WordMapperImpl implements WordMapper {
                 .plural(word.getPlural())
                 .translation(word.getTranslation())
                 .userId(word.getUserId())
+                .imageUrl(word.getImageUrl())
                 .build();
     }
 

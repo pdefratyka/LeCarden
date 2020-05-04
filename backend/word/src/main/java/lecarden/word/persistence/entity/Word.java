@@ -27,6 +27,8 @@ public class Word {
     private String category;
     @Column(name="USER_ID")
     private Long userId;
+    @Column(name="IMAGE_URL")
+    private String imageUrl;
 
     @ManyToMany(mappedBy = "words")
     private List<Packet> packets;

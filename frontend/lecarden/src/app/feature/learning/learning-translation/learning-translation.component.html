@@ -42,4 +42,14 @@
       ></app-learning-phase-result>
     </div>
   </div>
+  <div class="row image-row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <app-image
+        *ngIf="this.packet.words[this.wordIterator].imageUrl"
+        [imageUrl]="this.packet.words[this.wordIterator].imageUrl"
+      ></app-image>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
 </div>

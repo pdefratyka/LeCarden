@@ -4,4 +4,5 @@ export interface Word {
   translation: string;
   plural: string;
   category: string;
+  imageUrl: string;
 }

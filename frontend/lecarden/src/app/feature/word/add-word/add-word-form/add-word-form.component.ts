@@ -5,7 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-add-word-form',
   templateUrl: './add-word-form.component.html',
-  styleUrls: ['./add-word-form.component.scss']
+  styleUrls: ['./add-word-form.component.scss'],
 })
 export class AddWordFormComponent {
   @Output()
@@ -25,7 +25,8 @@ export class AddWordFormComponent {
         name: this.name.value,
         translation: this.translation.value,
         category: this.category.value,
-        plural: this.plural.value
+        plural: this.plural.value,
+        imageUrl: this.imageUrl.value,
       } as Word);
       this.formInvalidSubmitted = false;
       this.addWordForm.reset();
@@ -39,7 +40,8 @@ export class AddWordFormComponent {
       name: ['', [Validators.required]],
       translation: ['', [Validators.required]],
       plural: [''],
-      category: ['']
+      category: [''],
+      imageUrl: [''],
     });
   }
 
@@ -57,5 +59,9 @@ export class AddWordFormComponent {
 
   get plural() {
     return this.addWordForm.get('plural');
+  }
+
+  get imageUrl() {
+    return this.addWordForm.get('imageUrl');
   }
 }
