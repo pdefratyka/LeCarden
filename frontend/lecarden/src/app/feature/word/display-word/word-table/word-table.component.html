@@ -6,6 +6,7 @@
         <th scope="col">{{ 'LABEL.PLURAL' | translate }}</th>
         <th scope="col">{{ 'LABEL.MEANING' | translate }}</th>
         <th scope="col">{{ 'LABEL.CATEGORY' | translate }}</th>
+        <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,11 @@
         <td>{{ word.plural }}</td>
         <td>{{ word.translation }}</td>
         <td>{{ word.category }}</td>
+        <td>
+          <button class="btn btn-success" (click)="editWord(word.id)">
+            +
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

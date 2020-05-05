@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
@@ -7,11 +13,13 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   templateUrl: './add-word-form.component.html',
   styleUrls: ['./add-word-form.component.scss'],
 })
-export class AddWordFormComponent {
+export class AddWordFormComponent implements OnChanges {
   @Output()
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Input()
   categories: string[];
+  @Input()
+  word: Word;
   formInvalidSubmitted = false;
   addWordForm: FormGroup;
 
@@ -19,15 +27,24 @@ export class AddWordFormComponent {
     this.initAddWordForm();
   }
 
+  ngOnChanges(): void {
+    this.setValuesOnForm();
+  }
+
   emitSaveWord(): void {
     if (this.addWordForm.valid) {
-      this.saveWord.emit({
-        name: this.name.value,
-        translation: this.translation.value,
-        category: this.category.value,
-        plural: this.plural.value,
-        imageUrl: this.imageUrl.value,
-      } as Word);
+      if (this.word) {
+        this.emitWordInEditMode();
+      } else {
+        this.saveWord.emit({
+          name: this.name.value,
+          translation: this.translation.value,
+          category: this.category.value,
+          plural: this.plural.value,
+          imageUrl: this.imageUrl.value,
+        } as Word);
+      }
+
       this.formInvalidSubmitted = false;
       this.addWordForm.reset();
     } else {
@@ -43,6 +60,27 @@ export class AddWordFormComponent {
       category: [''],
       imageUrl: [''],
     });
+  }
+
+  private emitWordInEditMode(): void {
+    this.saveWord.emit({
+      id: this.word.id,
+      name: this.name.value,
+      translation: this.translation.value,
+      category: this.category.value,
+      plural: this.plural.value,
+      imageUrl: this.imageUrl.value,
+    } as Word);
+  }
+
+  private setValuesOnForm() {
+    if (this.word) {
+      this.addWordForm.get('name').setValue(this.word.name);
+      this.addWordForm.get('translation').setValue(this.word.translation);
+      this.addWordForm.get('category').setValue(this.word.category);
+      this.addWordForm.get('plural').setValue(this.word.plural);
+      this.addWordForm.get('imageUrl').setValue(this.word.imageUrl);
+    }
   }
 
   get name() {

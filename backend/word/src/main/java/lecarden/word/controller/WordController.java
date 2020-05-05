@@ -1,6 +1,5 @@
 package lecarden.word.controller;
 
-import com.fasterxml.jackson.databind.node.TextNode;
 import lecarden.word.persistence.to.WordTO;
 import lecarden.word.service.WordService;
 import lombok.extern.log4j.Log4j2;
@@ -41,6 +40,12 @@ public class WordController {
     public List<WordTO> saveWordsList(@RequestBody List<WordTO> words, @PathVariable Long userId) {
         words.forEach(w->w.setUserId(userId));
         return wordService.saveWords(words);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{wordId}")
+    public WordTO getWordById(@PathVariable Long wordId){
+        return wordService.getWordById(wordId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

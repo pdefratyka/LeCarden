@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { WordService } from 'src/app/core/services/api/word.service';
 import { Word } from 'src/app/shared/models/word';
-import { take, map } from 'rxjs/operators';
+import { take, map, throwIfEmpty } from 'rxjs/operators';
 import { Message } from 'src/app/shared/models/message';
 import { MessageType } from 'src/app/shared/models/messageTypes';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-word',
   templateUrl: './add-word.component.html',
   styleUrls: [
     './../../../shared/styles/global.scss',
-    './add-word.component.scss'
-  ]
+    './add-word.component.scss',
+  ],
 })
 export class AddWordComponent implements OnInit {
   message: Message = new Message();
   categories: string[];
-
+  word: Word;
   constructor(
     private readonly wordService: WordService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
     this.getCategoriesFromResolver();
+    this.getWordFromResolver();
   }
 
   saveWord(word: Word): void {
@@ -34,7 +36,11 @@ export class AddWordComponent implements OnInit {
       .subscribe(
         () => {
           this.showConfirmation(word.name);
-          this.addCategoryIfNotNotPresentYet(word.category);
+          if (word.id != null) {
+            this.router.navigate(['display-word']);
+          } else {
+            this.addCategoryIfNotNotPresentYet(word.category);
+          }
         },
         () => this.showError()
       );
@@ -61,9 +67,21 @@ export class AddWordComponent implements OnInit {
   private getCategoriesFromResolver(): void {
     this.route.data
       .pipe(
-        map(data => data.categories),
+        map((data) => data.categories),
         take(1)
       )
-      .subscribe(response => (this.categories = response));
+      .subscribe((response) => (this.categories = response));
+  }
+  private getWordFromResolver(): void {
+    this.route.data
+      .pipe(
+        map((data) => data.word),
+        take(1)
+      )
+      .subscribe((val) => {
+        if (val !== undefined) {
+          this.word = val;
+        }
+      });
   }
 }

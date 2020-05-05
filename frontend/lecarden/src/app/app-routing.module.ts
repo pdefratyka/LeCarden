@@ -15,6 +15,7 @@ import { CategoriesResolverService } from './core/services/resolvers/categories-
 import { LearningModeComponent } from './feature/learning/learning-mode/learning-mode.component';
 import { LearningTranslationComponent } from './feature/learning/learning-translation/learning-translation.component';
 import { FilteredPacketResolverService } from './core/services/resolvers/filtered-packet-resolver.service';
+import { SingleWordResolverService } from './core/services/resolvers/single-word-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,18 +24,30 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
   {
     path: 'add-word',
-    component: AddWordComponent,
-    resolve: { categories: CategoriesResolverService }
+    children: [
+      {
+        path: '',
+        component: AddWordComponent,
+        resolve: { categories: CategoriesResolverService },
+      },
+      {
+        path: ':id',
+        component: AddWordComponent,
+        resolve: {
+          word: SingleWordResolverService,
+        },
+      },
+    ],
   },
   {
     path: 'display-word',
     component: DisplayWordComponent,
-    resolve: { words: WordsResolverService }
+    resolve: { words: WordsResolverService },
   },
   {
     path: 'display-packet',
     component: DisplayPacketComponent,
-    resolve: { packets: PacketsResolverService }
+    resolve: { packets: PacketsResolverService },
   },
   {
     path: 'add-packet',
@@ -42,17 +55,17 @@ const routes: Routes = [
       {
         path: '',
         component: AddPacketComponent,
-        resolve: { words: WordsResolverService }
+        resolve: { words: WordsResolverService },
       },
       {
         path: ':id',
         component: AddPacketComponent,
         resolve: {
           packet: SinglePacketResolverService,
-          words: WordsResolverService
-        }
-      }
-    ]
+          words: WordsResolverService,
+        },
+      },
+    ],
   },
   {
     path: 'learn',
@@ -60,25 +73,24 @@ const routes: Routes = [
       {
         path: '',
         component: LearningModeComponent,
-        resolve: { packets: PacketsResolverService }
+        resolve: { packets: PacketsResolverService },
       },
       {
         path: 'translation/:id/result/:result-id',
         component: LearningTranslationComponent,
-        resolve: { packet: FilteredPacketResolverService }
+        resolve: { packet: FilteredPacketResolverService },
       },
       {
         path: 'translation/:id',
         component: LearningTranslationComponent,
-        resolve: { packet: SinglePacketResolverService }
-      }
-
-    ]
+        resolve: { packet: SinglePacketResolverService },
+      },
+    ],
   },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
