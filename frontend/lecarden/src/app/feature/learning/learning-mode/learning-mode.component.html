@@ -38,11 +38,11 @@
         </div>
         <ng-container *ngIf="selectedMode >= 0">
           <div class="row">
-            <div class="container frame" *ngIf="lastResult">
+            <div class="container frame" *ngIf="selectedLastResult">
               <div class="row">
                 <div class="col-md-12">
                   <app-last-result
-                    [result]="lastResult"
+                    [result]="selectedLastResult"
                     [isLastResultMode]="isLastResultMode"
                     (resultMode)="selectLastResult()"
                   ></app-last-result>
@@ -52,7 +52,25 @@
           </div>
           <div class="row mt-4">
             <div class="col-md-12">
-              <button class="btn btn-success" (click)="startLearning()">
+              <button
+                *ngIf="isLastResultMode"
+                class="btn btn-success"
+                [routerLink]="[
+                  '/learn/translation/' +
+                    selectedPacket +
+                    '/result/' +
+                    this.selectedLastResult.id
+                ]"
+                [queryParams]="{ selectedMode: selectedMode }"
+              >
+                {{ 'LABEL.START_LEARNING' | translate }}
+              </button>
+              <button
+                *ngIf="!isLastResultMode"
+                class="btn btn-success"
+                [routerLink]="['/learn/translation/' + selectedPacket]"
+                [queryParams]="{ selectedMode: selectedMode }"
+              >
                 {{ 'LABEL.START_LEARNING' | translate }}
               </button>
             </div>

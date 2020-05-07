@@ -1,4 +1,5 @@
 import { WordResult } from './wordResult';
+import { LearningMode } from './learningMode';
 
 export class Result {
   id: number;
@@ -6,21 +7,18 @@ export class Result {
   packetId: number;
   score: number;
   date: Date;
+  learningMode: LearningMode;
   wordsResultsTOs: WordResult[];
 
   constructor(
     packetId?: number,
     userId?: number,
+    learningMode?: LearningMode,
     wordsResultsTOs?: WordResult[]
   ) {
-    if (packetId) {
-      this.packetId = packetId;
-    }
-    if (userId) {
-      this.userId = userId;
-    }
-    if (wordsResultsTOs) {
-      this.wordsResultsTOs = wordsResultsTOs;
-    }
+    this.packetId = packetId;
+    this.userId = userId;
+    this.wordsResultsTOs = wordsResultsTOs;
+    this.learningMode = learningMode;
   }
 }

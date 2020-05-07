@@ -9,6 +9,7 @@ import { ToastMessgeComponent } from './components/toast-messge/toast-messge.com
 import { ApplicationTitleComponent } from './components/application-title/application-title.component';
 import { CoreModule } from '../core/core.module';
 import { TranslationConfigModule } from './config/translation-config.module';
+import { SynonymPipe } from './pipes/synonym-pipe';
 
 @NgModule({
   declarations: [
@@ -17,14 +18,16 @@ import { TranslationConfigModule } from './config/translation-config.module';
     MenuUserComponent,
     MessageComponent,
     ToastMessgeComponent,
-    ApplicationTitleComponent
+    ApplicationTitleComponent,
+    SynonymPipe,
   ],
   imports: [CommonModule, RouterModule, CoreModule, TranslationConfigModule],
   exports: [
     MenuComponent,
     MessageComponent,
     ToastMessgeComponent,
-    ApplicationTitleComponent
-  ]
+    ApplicationTitleComponent,
+    SynonymPipe,
+  ],
 })
 export class SharedModule {}

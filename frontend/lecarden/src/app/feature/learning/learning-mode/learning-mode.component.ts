@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
 import { map, take } from 'rxjs/operators';
 import { LearningMode } from 'src/app/shared/models/learningMode';
@@ -19,14 +19,14 @@ export class LearningModeComponent implements OnInit {
   packets: Packet[];
   selectedPacket: number;
   selectedMode: LearningMode;
-  lastResult: Result;
+  lastResults: Result[];
+  selectedLastResult: Result;
   isLastResultMode = false;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly resultService: ResultService,
-    private readonly tokenService: TokenService,
-    private router: Router
+    private readonly tokenService: TokenService
   ) {}
 
   ngOnInit() {
@@ -36,28 +36,30 @@ export class LearningModeComponent implements OnInit {
   assignSelectedPacket(packetId: number): void {
     this.selectedPacket = packetId;
     this.getLastResultFromPacket(packetId);
+    this.selectedLastResult = null;
+    this.selectedMode = null;
   }
 
   assignSelectedMode(selectedMode: LearningMode): void {
     this.selectedMode = selectedMode;
+    let mode;
+    if (this.selectedMode === 0) {
+      mode = 'FOREGIN_TO_KNOWN';
+    } else if (this.selectedMode === 1) {
+      mode = 'KNOWN_TO_FOREGIN';
+    }
+    const res = this.lastResults.filter(
+      (r) => r.learningMode.toString() === mode
+    );
+    if (res.length > 0) {
+      this.selectedLastResult = res[0];
+    } else {
+      this.selectedLastResult = null;
+    }
   }
 
   selectLastResult(): void {
     this.isLastResultMode = !this.isLastResultMode;
-  }
-
-  startLearning() {
-    if (this.isLastResultMode) {
-      this.router.navigate([
-        `/learn/translation/${this.lastResult.packetId}/result/${this.lastResult.id}`,
-        { selectedMode: this.selectedMode },
-      ]);
-    } else {
-      this.router.navigate([
-        `/learn/translation/${this.selectedPacket}`,
-        { selectedMode: this.selectedMode },
-      ]);
-    }
   }
 
   private getLastResultFromPacket(packageId: number): void {
@@ -66,10 +68,10 @@ export class LearningModeComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (response) => {
-          this.lastResult = response;
+          this.lastResults = response;
         },
         () => {
-          this.lastResult = null;
+          this.lastResults = null;
         }
       );
   }

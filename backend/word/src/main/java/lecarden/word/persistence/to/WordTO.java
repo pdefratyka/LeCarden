@@ -15,4 +15,5 @@ public class WordTO {
     private String category;
     private Long userId;
     private String imageUrl;
+    private String audioUrl;
 }

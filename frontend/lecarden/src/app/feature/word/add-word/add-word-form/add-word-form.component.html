@@ -83,6 +83,17 @@
         [ngClass]="{ 'is-invalid': imageUrl.invalid && imageUrl.touched }"
       />
     </div>
+    <div class="form-group">
+      <label for="audioUrl-input">Audio url</label>
+      <input
+        type="text"
+        class="form-control"
+        id="audioUrl-input"
+        placeholder="Audio url"
+        formControlName="audioUrl"
+        [ngClass]="{ 'is-invalid': audioUrl.invalid && audioUrl.touched }"
+      />
+    </div>
     <button
       type="submit"
       class="btn btn-primary"

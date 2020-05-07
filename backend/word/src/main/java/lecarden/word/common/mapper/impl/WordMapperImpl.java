@@ -21,6 +21,7 @@ public class WordMapperImpl implements WordMapper {
                 .translation(wordTO.getTranslation())
                 .userId(wordTO.getUserId())
                 .imageUrl(wordTO.getImageUrl())
+                .audioUrl(wordTO.getAudioUrl())
                 .build();
     }
 
@@ -34,6 +35,7 @@ public class WordMapperImpl implements WordMapper {
                 .translation(word.getTranslation())
                 .userId(word.getUserId())
                 .imageUrl(word.getImageUrl())
+                .audioUrl(word.getAudioUrl())
                 .build();
     }
 

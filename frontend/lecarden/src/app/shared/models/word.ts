@@ -5,4 +5,5 @@ export interface Word {
   plural: string;
   category: string;
   imageUrl: string;
+  audioUrl: string;
 }

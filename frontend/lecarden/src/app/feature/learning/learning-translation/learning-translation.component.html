@@ -26,7 +26,20 @@
         (updateWord)="addSynonymToWord()"
       ></app-response-to-answer>
       <app-examination
-        *ngIf="packet.words.length > 0 && answer.isCorrectAnswer"
+        *ngIf="
+          packet.words.length > 0 &&
+          answer.isCorrectAnswer &&
+          selectedMode == LearningMode.KNOWN_TO_FOREGIN
+        "
+        [word]="packet.words[wordIterator].name"
+        (answer)="checkAnswer($event)"
+      ></app-examination>
+      <app-examination
+        *ngIf="
+          packet.words.length > 0 &&
+          answer.isCorrectAnswer &&
+          selectedMode == LearningMode.FOREGIN_TO_KNOWN
+        "
         [word]="packet.words[wordIterator].translation"
         (answer)="checkAnswer($event)"
       ></app-examination>
@@ -46,7 +59,10 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <app-image
-        *ngIf="this.packet.words[this.wordIterator].imageUrl"
+        *ngIf="
+          this.packet.words[this.wordIterator] &&
+          this.packet.words[this.wordIterator].imageUrl
+        "
         [imageUrl]="this.packet.words[this.wordIterator].imageUrl"
       ></app-image>
     </div>

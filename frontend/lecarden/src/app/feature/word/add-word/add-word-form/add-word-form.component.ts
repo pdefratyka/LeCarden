@@ -42,6 +42,7 @@ export class AddWordFormComponent implements OnChanges {
           category: this.category.value,
           plural: this.plural.value,
           imageUrl: this.imageUrl.value,
+          audioUrl: this.audioUrl.value,
         } as Word);
       }
 
@@ -59,6 +60,7 @@ export class AddWordFormComponent implements OnChanges {
       plural: [''],
       category: [''],
       imageUrl: [''],
+      audioUrl: [''],
     });
   }
 
@@ -70,6 +72,7 @@ export class AddWordFormComponent implements OnChanges {
       category: this.category.value,
       plural: this.plural.value,
       imageUrl: this.imageUrl.value,
+      audioUrl: this.audioUrl.value,
     } as Word);
   }
 
@@ -80,6 +83,7 @@ export class AddWordFormComponent implements OnChanges {
       this.addWordForm.get('category').setValue(this.word.category);
       this.addWordForm.get('plural').setValue(this.word.plural);
       this.addWordForm.get('imageUrl').setValue(this.word.imageUrl);
+      this.addWordForm.get('audioUrl').setValue(this.word.audioUrl);
     }
   }
 
@@ -101,5 +105,9 @@ export class AddWordFormComponent implements OnChanges {
 
   get imageUrl() {
     return this.addWordForm.get('imageUrl');
+  }
+
+  get audioUrl() {
+    return this.addWordForm.get('audioUrl');
   }
 }

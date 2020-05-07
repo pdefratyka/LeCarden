@@ -11,6 +11,8 @@ import { LearningService } from 'src/app/core/services/helpers/learning.service'
 import { Answer } from 'src/app/shared/models/answer';
 import { Statistic } from 'src/app/shared/models/statistic';
 import { WordService } from 'src/app/core/services/api/word.service';
+import { AudioService } from 'src/app/core/services/helpers/audio.service';
+import { LearningMode } from 'src/app/shared/models/learningMode';
 
 @Component({
   selector: 'app-learning-translation',
@@ -18,11 +20,12 @@ import { WordService } from 'src/app/core/services/api/word.service';
   styleUrls: ['./learning-translation.component.scss'],
 })
 export class LearningTranslationComponent implements OnInit {
+  LearningMode = LearningMode;
   packet: Packet;
   result: Result;
   answer: Answer = new Answer('', '', true);
   statistic: Statistic = new Statistic(0, 0, []);
-  selectedMode: '';
+  selectedMode: LearningMode;
   wordIterator = 0;
   imageUrl = '';
 
@@ -31,7 +34,8 @@ export class LearningTranslationComponent implements OnInit {
     private readonly resultService: ResultService,
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
-    private readonly wordService: WordService
+    private readonly wordService: WordService,
+    private readonly audioService: AudioService
   ) {}
 
   ngOnInit() {
@@ -41,16 +45,19 @@ export class LearningTranslationComponent implements OnInit {
 
   checkAnswer(answer: string): void {
     this.incrementAttempts();
-    if (
-      this.learningService.isWordMatch(
-        answer,
-        this.packet.words[this.wordIterator].name
-      )
-    ) {
+    let properAnswer: string;
+    if (this.selectedMode == LearningMode.KNOWN_TO_FOREGIN) {
+      properAnswer = this.packet.words[this.wordIterator].translation;
+    } else {
+      properAnswer = this.packet.words[this.wordIterator].name;
+    }
+    if (this.learningService.isWordMatch(answer, properAnswer)) {
       this.correctAnswerAction();
     } else {
       this.wrongAnswerAction(answer);
     }
+
+    this.audioService.playAudio(this.packet.words[this.wordIterator].audioUrl);
   }
 
   continueAfterAnswerResponse(): void {
@@ -83,7 +90,7 @@ export class LearningTranslationComponent implements OnInit {
 
   private getSelectedMode(): void {
     const queryName = 'selectedMode';
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.selectedMode = params[queryName];
     });
   }
@@ -119,6 +126,7 @@ export class LearningTranslationComponent implements OnInit {
       this.statistic.numberOfAttempts,
       this.statistic.numberOfGoodAnswers
     );
+    this.result.learningMode = this.selectedMode;
     this.resultService.saveResult(this.result).pipe(take(1)).subscribe();
   }
 
@@ -136,17 +144,26 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   private wrongAnswerAction(answer: string): void {
-    this.answer = new Answer(
-      answer,
-      this.packet.words[this.wordIterator].name.split(';')[0],
-      false
-    );
+    if (this.selectedMode == LearningMode.FOREGIN_TO_KNOWN) {
+      this.answer = new Answer(
+        answer,
+        this.packet.words[this.wordIterator].name.split(';')[0],
+        false
+      );
+    } else {
+      this.answer = new Answer(
+        answer,
+        this.packet.words[this.wordIterator].translation.split(';')[0],
+        false
+      );
+    }
   }
 
   private initResult(): void {
     this.result = new Result(
       this.packet.id,
       this.packet.userId,
+      null,
       this.packet.words.map((w) => {
         return {
           wordId: w.id,

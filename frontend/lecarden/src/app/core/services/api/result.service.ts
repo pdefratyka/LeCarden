@@ -16,9 +16,9 @@ export class ResultService {
     return this.httpClient.post<Result>(this.url, result);
   }
 
-  getLastResult(userId: number, packetId: number): Observable<Result> {
+  getLastResult(userId: number, packetId: number): Observable<Result[]> {
     return this.httpClient
-      .get<Result>(`${this.url}/users/${userId}/packets/${packetId}`)
+      .get<Result[]>(`${this.url}/users/${userId}/packets/${packetId}`)
       .pipe(catchError(this.handleError));
   }
 

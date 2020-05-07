@@ -29,6 +29,8 @@ public class Word {
     private Long userId;
     @Column(name="IMAGE_URL")
     private String imageUrl;
+    @Column(name="AUDIO_URL")
+    private String audioUrl;
 
     @ManyToMany(mappedBy = "words")
     private List<Packet> packets;
