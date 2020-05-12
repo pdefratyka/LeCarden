@@ -1,11 +1,16 @@
 <div class="container-fluid">
   <div class="row">
-    <i class="fa fa-user" aria-hidden="true"></i>
-    <span class="user-name">{{ userName }}</span>
+    <div class="col-3">
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </div>
+    <div class="col-9">
+      <p class="user-name">{{ userName }}</p>
+    </div>
   </div>
   <div class="row">
     <button class="btn btn-danger" (click)="logout()">
-      <i class="fa fa-power-off"></i><span>{{ 'LABEL.LOGOUT' | translate }}</span>
+      <i class="fa fa-power-off"></i
+      ><span>{{ 'LABEL.LOGOUT' | translate }}</span>
     </button>
   </div>
 </div>

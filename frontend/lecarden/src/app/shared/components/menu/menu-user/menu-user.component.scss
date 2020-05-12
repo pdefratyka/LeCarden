@@ -5,10 +5,12 @@
   font-size: 1.5rem;
 }
 .user-name {
-  margin-left: 1rem;
-  margin-top: 1rem;
-  font-size: 2em;
+  margin-top: 0.5rem;
+  font-size: 2rem;
   font-family: fantasy;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .btn {
   margin-top: 1rem;

@@ -38,16 +38,19 @@ const routes: Routes = [
         },
       },
     ],
+    canActivate: [AuthGuardService],
   },
   {
     path: 'display-word',
     component: DisplayWordComponent,
     resolve: { words: WordsResolverService },
+    canActivate: [AuthGuardService],
   },
   {
     path: 'display-packet',
     component: DisplayPacketComponent,
     resolve: { packets: PacketsResolverService },
+    canActivate: [AuthGuardService],
   },
   {
     path: 'add-packet',
@@ -66,6 +69,7 @@ const routes: Routes = [
         },
       },
     ],
+    canActivate: [AuthGuardService],
   },
   {
     path: 'learn',
@@ -86,6 +90,7 @@ const routes: Routes = [
         resolve: { packet: SinglePacketResolverService },
       },
     ],
+    canActivate: [AuthGuardService],
   },
   { path: '**', redirectTo: 'login' },
 ];

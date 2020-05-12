@@ -1,24 +1,10 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-xl-2 col-md-2">
       <app-menu></app-menu>
     </div>
-    <div class="col-md-1">
-      <div class="row">
-        <app-learning-result
-          [packetSize]="result.wordsResultsTOs.length"
-          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-        ></app-learning-result>
-      </div>
-      <div class="row">
-        <app-score
-          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-          [numberOfAttempts]="statistic.numberOfAttempts"
-        >
-        </app-score>
-      </div>
-    </div>
-    <div class="col-md-5">
+    <div class="col-xl-1 col-md-2"></div>
+    <div class="col-xl-6 col-md-5">
       <app-response-to-answer
         *ngIf="!answer.isCorrectAnswer"
         [answer]="answer"
@@ -44,15 +30,27 @@
         (answer)="checkAnswer($event)"
       ></app-examination>
     </div>
-    <div class="col-md-2">
-      <div class="row">
-        <app-german-shortcuts></app-german-shortcuts>
+    <div class="col-xl-3 col-md-3">
+      <div class="row mt-4">
+        <app-learning-result
+          [packetSize]="result.wordsResultsTOs.length"
+          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+        ></app-learning-result>
       </div>
-      <app-learning-phase-result
-        *ngIf="statistic.scoreAfterRound.length > 0"
-        [scores]="statistic.scoreAfterRound"
-        [packetSize]="result.wordsResultsTOs.length"
-      ></app-learning-phase-result>
+      <div class="row mt-4">
+        <app-score
+          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+          [numberOfAttempts]="statistic.numberOfAttempts"
+        >
+        </app-score>
+      </div>
+      <div class="row">
+        <app-learning-phase-result
+          *ngIf="statistic.scoreAfterRound.length > 0"
+          [scores]="statistic.scoreAfterRound"
+          [packetSize]="result.wordsResultsTOs.length"
+        ></app-learning-phase-result>
+      </div>
     </div>
   </div>
   <div class="row image-row">

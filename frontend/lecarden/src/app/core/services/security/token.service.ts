@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
-  constructor() {}
+  constructor(private readonly authService: AuthService) {}
 
   getUserName(): string {
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(localStorage.getItem('TOKEN'));
-    return decodedToken.sub;
+    if (this.authService.isLoggedIn()) {
+      const helper = new JwtHelperService();
+      return helper.decodeToken(localStorage.getItem('TOKEN')).sub;
+    }
+    return '';
   }
 
   getUserId(): number {
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(localStorage.getItem('TOKEN'));
-    return decodedToken.userId;
+    if (this.authService.isLoggedIn()) {
+      const helper = new JwtHelperService();
+      return helper.decodeToken(localStorage.getItem('TOKEN')).userId;
+    }
+    return null;
   }
 
   getToken(): string {

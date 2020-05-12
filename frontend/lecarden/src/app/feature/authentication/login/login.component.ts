@@ -9,7 +9,7 @@ import { TokenService } from 'src/app/core/services/security/token.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./../styles/authentication.scss', './login.component.scss']
+  styleUrls: ['./../styles/authentication.scss', './login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   createdInformation = '';
@@ -28,11 +28,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginAction(loginCredentials: LoginCredentials): void {
+    this.invalidCredentials = false;
     this.authService
       .login(loginCredentials)
       .pipe(take(1))
       .subscribe(
-        response => this.handleSuccessfulLogin(response),
+        (response) => this.handleSuccessfulLogin(response),
         () => (this.invalidCredentials = true)
       );
   }
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.appConfig
       .getJSON()
       .pipe(take(1))
-      .subscribe(response => {
+      .subscribe((response) => {
         this.createdInformation = response.INFO.ACCOUNT_CREATED;
       });
     this.resetIsRegisteredWithDelay(time);

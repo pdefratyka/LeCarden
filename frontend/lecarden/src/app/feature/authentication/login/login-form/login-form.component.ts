@@ -3,7 +3,9 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input,
+  OnChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
@@ -14,15 +16,16 @@ import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
   styleUrls: [
     './../../../../shared/styles/global.scss',
     './../../styles/authentication.scss',
-    './login-form.component.scss'
-  ]
+    './login-form.component.scss',
+  ],
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnChanges {
   @ViewChild('passwordInput', { static: false })
   private readonly passwordInput: ElementRef;
   @Output() loginEvent: EventEmitter<LoginCredentials> = new EventEmitter<
     LoginCredentials
   >();
+  @Input() invalidCredentials: boolean;
   isPasswordVisible = false;
   loginForm: FormGroup;
 
@@ -30,12 +33,16 @@ export class LoginFormComponent {
     this.initLoginForm();
   }
 
+  ngOnChanges(): void {
+    if (this.invalidCredentials) {
+      this.initLoginForm();
+    }
+  }
   login(): void {
     this.loginEvent.emit({
       username: this.loginForm.get('login').value,
-      password: this.loginForm.get('password').value
+      password: this.loginForm.get('password').value,
     } as LoginCredentials);
-    this.initLoginForm();
   }
 
   changePasswordVisibility(): void {
@@ -51,7 +58,7 @@ export class LoginFormComponent {
   private initLoginForm(): void {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
   }
 }

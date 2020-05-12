@@ -1,69 +1,71 @@
-<form
-  class="container frame col-md-4"
-  [formGroup]="loginForm"
-  (ngSubmit)="login()"
->
-  <div class="form-group row">
-    <label for="inputLogin" class="offset-md-1 col-md-3 col-form-label"
-      >{{ 'LABEL.LOGIN' | translate }}:</label
-    >
-    <div class="col-md-7">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="{{ 'LABEL.LOGIN' | translate }}"
-        formControlName="login"
-        [ngClass]="{
-          'is-invalid':
-            loginForm.get('login').invalid && loginForm.get('login').touched
-        }"
-        id="inputLogin"
-      />
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="passwordInput" class="offset-md-1 col-md-3 col-form-label"
-      >{{ 'LABEL.PASSWORD' | translate }}:</label
-    >
-    <div class="col-md-7">
-      <div class="input-group">
+<div class="conainer-bg">
+  <form
+    class="container frame col-lg-4"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+    <div class="form-group row">
+      <label for="inputLogin" class="offset-md-1 col-md-3 col-form-label"
+        >{{ 'LABEL.LOGIN' | translate }}:</label
+      >
+      <div class="col-md-7">
         <input
-          type="password"
+          type="text"
           class="form-control"
-          placeholder="{{ 'LABEL.PASSWORD' | translate }}"
-          formControlName="password"
-          id="passwordInput"
+          placeholder="{{ 'LABEL.LOGIN' | translate }}"
+          formControlName="login"
           [ngClass]="{
             'is-invalid':
-              loginForm.get('password').invalid &&
-              loginForm.get('password').touched
+              loginForm.get('login').invalid && loginForm.get('login').touched
           }"
-          #passwordInput
+          id="inputLogin"
         />
-        <div class="input-group-append" (click)="changePasswordVisibility()">
-          <div class="input-group-text">
-            <em
-              [ngClass]="isPasswordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'"
-            ></em>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="passwordInput" class="offset-md-1 col-md-3 col-form-label"
+        >{{ 'LABEL.PASSWORD' | translate }}:</label
+      >
+      <div class="col-md-7">
+        <div class="input-group">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="{{ 'LABEL.PASSWORD' | translate }}"
+            formControlName="password"
+            id="passwordInput"
+            [ngClass]="{
+              'is-invalid':
+                loginForm.get('password').invalid &&
+                loginForm.get('password').touched
+            }"
+            #passwordInput
+          />
+          <div class="input-group-append" (click)="changePasswordVisibility()">
+            <div class="input-group-text">
+              <em
+                [ngClass]="isPasswordVisible ? 'fa fa-eye-slash' : 'fa fa-eye'"
+              ></em>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row justify-content-end">
-    <button
-      type="submit"
-      class="btn btn-success mr-4"
-      [disabled]="loginForm.invalid"
-    >
-      {{ 'LABEL.LOGIN' | translate }}
-    </button>
-    <button
-      type="button"
-      class="btn btn-danger mr-4"
-      [routerLink]="['/register']"
-    >
-      {{ 'LABEL.REGISTER' | translate }}
-    </button>
-  </div>
-</form>
+    <div class="row justify-content-end">
+      <button
+        type="submit"
+        class="btn btn-primary mr-4"
+        [disabled]="loginForm.invalid"
+      >
+        {{ 'LABEL.LOGIN' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger mr-4"
+        [routerLink]="['/register']"
+      >
+        {{ 'LABEL.REGISTER' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

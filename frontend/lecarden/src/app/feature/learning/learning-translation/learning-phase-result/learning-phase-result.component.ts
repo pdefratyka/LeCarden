@@ -4,8 +4,8 @@ import { Component, Input } from '@angular/core';
   selector: 'app-learning-phase-result',
   templateUrl: './learning-phase-result.component.html',
   styleUrls: [
-    './learning-phase-result.component.scss',
     './../../../../shared/styles/global.scss',
+    './learning-phase-result.component.scss',
   ],
 })
 export class LearningPhaseResultComponent {

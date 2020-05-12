@@ -1,4 +1,11 @@
+:host {
+  width: 100%;
+}
 .container-fluid {
   max-height: 70vh;
   overflow: auto;
+}
+
+.frame {
+  margin-top: 1rem;
 }

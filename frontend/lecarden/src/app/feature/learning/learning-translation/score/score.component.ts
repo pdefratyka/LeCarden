@@ -5,8 +5,8 @@ import { ScoreService } from 'src/app/core/services/helpers/score.service';
   selector: 'app-score',
   templateUrl: './score.component.html',
   styleUrls: [
-    './score.component.scss',
     './../../../../shared/styles/global.scss',
+    './score.component.scss',
   ],
 })
 export class ScoreComponent {

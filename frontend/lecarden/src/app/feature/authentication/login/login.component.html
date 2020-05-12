@@ -5,13 +5,16 @@
       *ngIf="createdInformation !== ''"
       [text]="createdInformation"
     ></app-toast-messge>
-    <div class="container-fluid col-md-6">
+    <div class="container-fluid col-lg-6">
       <app-invalid-credentials
-        class="offset-md-3 row"
+        class="offset-lg-3 row"
         *ngIf="invalidCredentials"
       ></app-invalid-credentials>
     </div>
   </div>
 </div>
 <app-application-title></app-application-title>
-<app-login-form (loginEvent)="loginAction($event)"></app-login-form>
+<app-login-form
+  (loginEvent)="loginAction($event)"
+  [invalidCredentials]="invalidCredentials"
+></app-login-form>

@@ -1,5 +1,11 @@
-<div class="container-fluid frame">
-  <div *ngFor="let score of scores; let i = index" class="row">
-    <h2>{{ i + 1 }}. {{ score }}/{{ getPacketForResult(i) }}</h2>
+<div class="container-fluid">
+  <h4>Score after round:</h4>
+  <div class="row">
+    <div class="col-xl-4"></div>
+    <div class="col-xl-3 frame">
+      <div *ngFor="let score of scores; let i = index" class="row">
+        <h2>{{ i + 1 }}. {{ score }}/{{ getPacketForResult(i) }}</h2>
+      </div>
+    </div>
   </div>
 </div>
