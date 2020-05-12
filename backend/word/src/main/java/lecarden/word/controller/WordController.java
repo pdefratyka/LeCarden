@@ -29,9 +29,8 @@ public class WordController {
     }
 
     @PutMapping
-    @RequestMapping("/{wordId}")
-    public WordTO updateWord(@RequestBody WordTO word, @PathVariable Long wordId){
-        return wordService.updateWord(wordId, word.getName());
+    public WordTO updateWord(@RequestBody WordTO word){
+        return wordService.updateWord(word);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

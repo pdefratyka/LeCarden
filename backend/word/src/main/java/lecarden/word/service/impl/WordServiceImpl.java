@@ -27,13 +27,14 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public WordTO updateWord(Long wordId, String name) {
-        Word word=wordRepository.findById(wordId).orElse(null);
+    public WordTO updateWord(WordTO wordTO) {
+        /*Word word=wordRepository.findById(wordId).orElse(null);
         if(word!=null){
             word.setName(name);
             wordRepository.save(word);
-        }
-        return wordMapper.mapToWordTO(word);
+        }*/
+
+        return wordMapper.mapToWordTO(wordRepository.save(wordMapper.mapToWord(wordTO)));
     }
 
     @Override

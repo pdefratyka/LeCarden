@@ -66,12 +66,18 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   addSynonymToWord(): void {
-    const name = this.answer.correctAnswer + ';' + this.answer.userAnswer;
+    if (this.selectedMode == LearningMode.FOREGIN_TO_KNOWN) {
+      this.packet.words[this.wordIterator].name =
+        this.answer.correctAnswer + ';' + this.answer.userAnswer;
+    } else {
+      this.packet.words[this.wordIterator].translation =
+        this.answer.correctAnswer + ';' + this.answer.userAnswer;
+    }
+
     this.wordService
-      .updateWord(this.packet.words[this.wordIterator].id, name)
+      .updateWord(this.packet.words[this.wordIterator])
       .pipe(take(1))
       .subscribe(() => {
-        this.packet.words[this.wordIterator].name = name;
         this.continueAfterAnswerResponse();
       });
   }

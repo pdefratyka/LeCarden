@@ -42,10 +42,8 @@ export class WordService {
       .pipe(catchError(this.handleError));
   }
 
-  updateWord(wordId: number, name: string): Observable<Word> {
-    return this.httpClient.put<Word>(`${this.url}/${wordId}`, {
-      name: name,
-    } as Word);
+  updateWord(word: Word): Observable<Word> {
+    return this.httpClient.put<Word>(`${this.url}`, word);
   }
 
   handleError() {
