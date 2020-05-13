@@ -56,8 +56,6 @@ export class LearningTranslationComponent implements OnInit {
     } else {
       this.wrongAnswerAction(answer);
     }
-
-    this.audioService.playAudio(this.packet.words[this.wordIterator].audioUrl);
   }
 
   continueAfterAnswerResponse(): void {
@@ -137,6 +135,7 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   private correctAnswerAction(): void {
+    this.audioService.playAudio(this.packet.words[this.wordIterator].audioUrl);
     this.statistic.numberOfGoodAnswers++;
     this.deleteWordFromArray(this.packet.words[this.wordIterator]);
     this.answer.correctAnswer = '';
@@ -163,6 +162,7 @@ export class LearningTranslationComponent implements OnInit {
         false
       );
     }
+    this.audioService.playAudio(this.packet.words[this.wordIterator].audioUrl);
   }
 
   private initResult(): void {
