@@ -44,10 +44,10 @@ export class AddWordFormComponent implements OnChanges {
           imageUrl: this.imageUrl.value,
           audioUrl: this.audioUrl.value,
         } as Word);
+        this.addWordForm.reset();
       }
 
       this.formInvalidSubmitted = false;
-      this.addWordForm.reset();
     } else {
       this.formInvalidSubmitted = true;
     }

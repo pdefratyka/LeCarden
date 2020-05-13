@@ -35,11 +35,11 @@ export class AddWordComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         () => {
-          this.showConfirmation(word.name);
           if (word.id != null) {
             this.router.navigate(['display-word']);
           } else {
             this.addCategoryIfNotNotPresentYet(word.category);
+            this.showConfirmation(word.name);
           }
         },
         () => this.showError()
