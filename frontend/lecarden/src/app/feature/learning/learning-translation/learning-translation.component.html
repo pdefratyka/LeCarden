@@ -29,6 +29,11 @@
         [word]="packet.words[wordIterator].translation"
         (answer)="checkAnswer($event)"
       ></app-examination>
+      <app-learning-final-page
+        *ngIf="packet.words.length === 0"
+        (saveScore)="saveScore()"
+      >
+      </app-learning-final-page>
     </div>
     <div class="col-xl-3 col-md-3">
       <div class="row mt-4">

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
 import { map, take } from 'rxjs/operators';
 import { Word } from 'src/app/shared/models/word';
@@ -35,7 +35,8 @@ export class LearningTranslationComponent implements OnInit {
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
     private readonly wordService: WordService,
-    private readonly audioService: AudioService
+    private readonly audioService: AudioService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -119,19 +120,23 @@ export class LearningTranslationComponent implements OnInit {
       this.statistic.scoreAfterRound.push(
         this.scoreService.getScoreFromLastRound(this.statistic)
       );
-      if (this.packet.words.length === 0) {
-        this.saveScore();
-      }
     }
   }
 
-  private saveScore(): void {
+  saveScore(): void {
     this.result.score = this.scoreService.getScore(
       this.statistic.numberOfAttempts,
       this.statistic.numberOfGoodAnswers
     );
     this.result.learningMode = this.selectedMode;
-    this.resultService.saveResult(this.result).pipe(take(1)).subscribe();
+    if (this.statistic.numberOfAttempts > 0) {
+      this.resultService
+        .saveResult(this.result)
+        .pipe(take(1))
+        .subscribe(() => this.router.navigate(['learn']));
+    } else {
+      this.router.navigate(['learn']);
+    }
   }
 
   private correctAnswerAction(): void {
