@@ -16,13 +16,8 @@ public class EmailController {
     }
     // EndPoint: http://lce3037....com:8085/email-service/registerConfirmation
     // Why it's not email/registerConfirmation?
-    @PostMapping("registerConfirmation")
+    @PostMapping("register-confirmation")
     public void sendConfirmationRegisterEmail(@RequestBody User user){
         emailService.sendConfirmationRegisterEmail(user);
-    }
-
-    @GetMapping()
-    public String test(){
-        return "EMAIL TEST";
     }
 }

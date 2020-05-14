@@ -2,8 +2,11 @@ package lecarden.user.service.impl;
 
 import lecarden.user.common.mapper.UserMapper;
 import lecarden.user.common.validator.UserValidator;
+import lecarden.user.persistence.entity.ConfirmationToken;
+import lecarden.user.persistence.entity.User;
 import lecarden.user.persistence.repository.UserRepository;
 import lecarden.user.persistence.to.UserTO;
+import lecarden.user.service.ConfirmationTokenService;
 import lecarden.user.service.UserService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -28,30 +31,47 @@ public class UserServiceImpl implements UserService {
     private UserValidator userValidator;
     private RestTemplate restTemplate;
     private BCryptPasswordEncoder passwordEncoder;
+    private ConfirmationTokenService confirmationTokenService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,
-                           UserValidator userValidator, RestTemplate restTemplate, BCryptPasswordEncoder passwordEncoder) {
+                           UserValidator userValidator, RestTemplate restTemplate, BCryptPasswordEncoder passwordEncoder,
+                           ConfirmationTokenService confirmationTokenService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.userValidator = userValidator;
         this.restTemplate = restTemplate;
         this.passwordEncoder = passwordEncoder;
+        this.confirmationTokenService = confirmationTokenService;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserTO addUser(UserTO userTO) {
         userValidator.validateUser(userTO);
+        userTO.setConfirmed(false);
         userTO.setPassword(passwordEncoder.encode(userTO.getPassword()));
-        UserTO userTo = saveUserIfUnique(userTO);
-        //sendConfirmationEmail(userTO);
-        return userTo;
+        UserTO savedUser = saveUserIfUnique(userTO);
+        ConfirmationToken token = confirmationTokenService
+                .saveToken(new ConfirmationToken(userMapper.mapToUser(savedUser)));
+        sendConfirmationEmail(userTO, token.getConfirmationToken());
+        return savedUser;
     }
 
     @Override
     public UserTO getUserByLogin(String login) {
         return userMapper.mapToUserTO(userRepository.findUserByLogin(login));
+    }
+
+    @Override
+    public boolean confirmUser(String token) {
+        User user = confirmationTokenService.findUserByToken(token);
+        if (user != null) {
+            user.setConfirmed(true);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     private UserTO saveUserIfUnique(UserTO userTO) {
@@ -63,20 +83,20 @@ public class UserServiceImpl implements UserService {
         return userTO;
     }
 
-    private void sendConfirmationEmail(UserTO userTO) {
-        String emailConfirmation = "http://email-service/registerConfirmation";
+    private void sendConfirmationEmail(UserTO userTO, String token) {
+        String emailConfirmation = "http://email-service/register-confirmation";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(createJsonToSendConfirmationEmail(userTO), headers);
+        HttpEntity<String> entity = new HttpEntity<>(createJsonToSendConfirmationEmail(userTO, token), headers);
         restTemplate.postForObject(emailConfirmation, entity, String.class);
     }
 
-    private String createJsonToSendConfirmationEmail(UserTO userTO) {
+    private String createJsonToSendConfirmationEmail(UserTO userTO, String token) {
         JSONObject userJson = new JSONObject();
         userJson.put("login", userTO.getLogin());
         userJson.put("email", userTO.getEmail());
-
+        userJson.put("confirmationToken", token);
         return userJson.toString();
     }
 }

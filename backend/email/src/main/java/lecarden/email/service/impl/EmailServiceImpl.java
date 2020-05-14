@@ -54,7 +54,7 @@ public class EmailServiceImpl implements EmailService {
     private String processTemplate(User user) {
         Context context = new Context();
         context.setVariable("userName", user.getLogin());
-        context.setVariable("confirmationLink", "http://localhost:9092/users");
+        context.setVariable("confirmationLink", "http://localhost:9092/users?token="+user.getConfirmationToken());
         return templateEngine.process("registration_confirmation", context);
     }
 }

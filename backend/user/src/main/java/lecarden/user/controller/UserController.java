@@ -26,4 +26,9 @@ public class UserController {
             throw new UserException();
         }
     }
+
+    @GetMapping
+    public boolean confirmUser(@RequestParam("token") String token){
+        return userService.confirmUser(token);
+    }
 }
