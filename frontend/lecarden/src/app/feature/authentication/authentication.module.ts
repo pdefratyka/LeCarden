@@ -12,6 +12,7 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { InvalidCredentialsComponent } from './login/invalid-credentials/invalid-credentials.component';
 import { RegisterFormComponent } from './register/register-form/register-form.component';
 import { InvalidDataComponent } from './register/invalid-data/invalid-data.component';
+import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confirmed-account.component';
 
 // Calling load to get configuration + translation
 
@@ -22,7 +23,8 @@ import { InvalidDataComponent } from './register/invalid-data/invalid-data.compo
     LoginFormComponent,
     InvalidCredentialsComponent,
     RegisterFormComponent,
-    InvalidDataComponent
+    InvalidDataComponent,
+    NotConfirmedAccountComponent
   ],
   imports: [
     CommonModule,

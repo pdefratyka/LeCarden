@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly url = '/api/user-service/authenticate';

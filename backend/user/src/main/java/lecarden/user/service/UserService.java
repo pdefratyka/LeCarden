@@ -8,4 +8,6 @@ public interface UserService {
     UserTO getUserByLogin(String login);
 
     boolean confirmUser(String token);
+
+    void sendConfirmationEmail(Long id);
 }

@@ -24,6 +24,22 @@ export class TokenService {
     return null;
   }
 
+  getConfirmed(): boolean {
+    if (this.authService.isLoggedIn()) {
+      const helper = new JwtHelperService();
+      return helper.decodeToken(localStorage.getItem('TOKEN')).confirmed;
+    }
+    return false;
+  }
+
+  getEmail(): string {
+    if (this.authService.isLoggedIn()) {
+      const helper = new JwtHelperService();
+      return helper.decodeToken(localStorage.getItem('TOKEN')).email;
+    }
+    return null;
+  }
+
   getToken(): string {
     return localStorage.getItem('TOKEN');
   }

@@ -74,6 +74,14 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public void sendConfirmationEmail(Long id) {
+        User user=userRepository.getOne(id);
+        ConfirmationToken token = confirmationTokenService
+                .saveToken(new ConfirmationToken(user));
+        sendConfirmationEmail(userMapper.mapToUserTO(user), token.getConfirmationToken());
+    }
+
     private UserTO saveUserIfUnique(UserTO userTO) {
         try {
             userTO = userMapper.mapToUserTO(userRepository.save(userMapper.mapToUser(userTO)));

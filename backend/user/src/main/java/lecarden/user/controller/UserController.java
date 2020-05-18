@@ -31,4 +31,9 @@ public class UserController {
     public boolean confirmUser(@RequestParam("token") String token){
         return userService.confirmUser(token);
     }
+
+    @PostMapping("{id}/send-confirmation-email")
+    public void sendConfirmationEmail(@PathVariable Long id){
+        userService.sendConfirmationEmail(id);
+    }
 }

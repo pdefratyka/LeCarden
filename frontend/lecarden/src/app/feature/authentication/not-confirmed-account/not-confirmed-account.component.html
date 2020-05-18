@@ -1,0 +1,6 @@
+<input
+  type="button"
+  value="Send confirmation email one more time"
+  (click)="sendConfirmationEmail()"
+/>
+<h2 *ngIf="email">Email was sent on mail: {{ email }}</h2>

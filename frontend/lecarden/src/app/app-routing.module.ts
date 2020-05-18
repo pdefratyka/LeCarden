@@ -16,6 +16,7 @@ import { LearningModeComponent } from './feature/learning/learning-mode/learning
 import { LearningTranslationComponent } from './feature/learning/learning-translation/learning-translation.component';
 import { FilteredPacketResolverService } from './core/services/resolvers/filtered-packet-resolver.service';
 import { SingleWordResolverService } from './core/services/resolvers/single-word-resolver.service';
+import { NotConfirmedAccountComponent } from './feature/authentication/not-confirmed-account/not-confirmed-account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -91,6 +92,10 @@ const routes: Routes = [
       },
     ],
     canActivate: [AuthGuardService],
+  },
+  {
+    path: 'not-confirmed-account',
+    component: NotConfirmedAccountComponent,
   },
   { path: '**', redirectTo: 'login' },
 ];

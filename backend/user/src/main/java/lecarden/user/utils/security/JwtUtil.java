@@ -3,6 +3,7 @@ package lecarden.user.utils.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lecarden.user.persistence.to.UserTO;
 import lecarden.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,7 +43,10 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId",userService.getUserByLogin(userDetails.getUsername()).getId());
+        UserTO userTO = userService.getUserByLogin(userDetails.getUsername());
+        claims.put("userId",userTO.getId());
+        claims.put("confirmed",userTO.getConfirmed());
+        claims.put("email",userTO.getEmail());
         return createToken(claims, userDetails.getUsername());
     }
 
