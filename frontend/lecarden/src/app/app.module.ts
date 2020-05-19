@@ -7,6 +7,10 @@ import { SharedModule } from './shared/shared.module';
 import { WordModule } from './feature/word/word.module';
 import { CoreModule } from './core/core.module';
 import { LearningModule } from './feature/learning/learning.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,9 +21,12 @@ import { LearningModule } from './feature/learning/learning.module';
     SharedModule,
     CoreModule,
     WordModule,
-    LearningModule
+    LearningModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

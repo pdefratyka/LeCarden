@@ -17,7 +17,9 @@ import { PacketTableComponent } from './display-packet/packet-table/packet-table
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
-
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers, effects } from './store';
 @NgModule({
   declarations: [
     AddWordComponent,
@@ -33,14 +35,16 @@ import { TranslationConfigModule } from 'src/app/shared/config/translation-confi
     AddPacketButtonPanelComponent,
     DisplayPacketComponent,
     PacketTableComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslationConfigModule
-  ]
+    TranslationConfigModule,
+    StoreModule.forFeature('words', reducers),
+    EffectsModule.forFeature(effects),
+  ],
 })
 export class WordModule {}
