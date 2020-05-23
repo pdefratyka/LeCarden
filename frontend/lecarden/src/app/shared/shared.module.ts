@@ -10,6 +10,8 @@ import { ApplicationTitleComponent } from './components/application-title/applic
 import { CoreModule } from '../core/core.module';
 import { TranslationConfigModule } from './config/translation-config.module';
 import { SynonymPipe } from './pipes/synonym-pipe';
+import { FormErrorMessageComponent } from './components/form-error-message/form-error-message.component';
+import { LoadingGifComponent } from './components/loading-gif/loading-gif.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { SynonymPipe } from './pipes/synonym-pipe';
     ToastMessgeComponent,
     ApplicationTitleComponent,
     SynonymPipe,
+    FormErrorMessageComponent,
+    LoadingGifComponent,
   ],
   imports: [CommonModule, RouterModule, CoreModule, TranslationConfigModule],
   exports: [
@@ -27,7 +31,9 @@ import { SynonymPipe } from './pipes/synonym-pipe';
     MessageComponent,
     ToastMessgeComponent,
     ApplicationTitleComponent,
+    FormErrorMessageComponent,
     SynonymPipe,
+    LoadingGifComponent,
   ],
 })
 export class SharedModule {}

@@ -20,7 +20,7 @@ import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
   ],
 })
 export class LoginFormComponent implements OnChanges {
-  @ViewChild('passwordInput', { static: false })
+  @ViewChild('passwordInput')
   private readonly passwordInput: ElementRef;
   @Output() loginEvent: EventEmitter<LoginCredentials> = new EventEmitter<
     LoginCredentials

@@ -12,7 +12,7 @@ import {
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  @ViewChild('filterInput', { static: false })
+  @ViewChild('filterInput')
   private readonly filterInput: ElementRef;
   @Output()
   filter: EventEmitter<string> = new EventEmitter<string>();

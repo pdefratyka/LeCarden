@@ -18,7 +18,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   ],
 })
 export class LearningFormComponent implements AfterViewInit {
-  @ViewChild('answerInput', { static: false })
+  @ViewChild('answerInput')
   answerInput: ElementRef;
   @Input()
   word: string;

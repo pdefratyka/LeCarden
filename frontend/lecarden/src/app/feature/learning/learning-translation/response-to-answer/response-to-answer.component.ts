@@ -19,7 +19,7 @@ import { Answer } from 'src/app/shared/models/answer';
   ],
 })
 export class ResponseToAnswerComponent implements AfterViewInit {
-  @ViewChild('submitButton', { static: false })
+  @ViewChild('submitButton')
   submitButton: ElementRef;
   @Input()
   answer: Answer;

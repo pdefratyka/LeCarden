@@ -9,9 +9,7 @@ import { TokenInterceptorService } from 'src/app/core/services/security/token-in
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 import { LoginFormComponent } from './login/login-form/login-form.component';
-import { InvalidCredentialsComponent } from './login/invalid-credentials/invalid-credentials.component';
 import { RegisterFormComponent } from './register/register-form/register-form.component';
-import { InvalidDataComponent } from './register/invalid-data/invalid-data.component';
 import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confirmed-account.component';
 
 // Calling load to get configuration + translation
@@ -21,10 +19,8 @@ import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confir
     RegisterComponent,
     LoginComponent,
     LoginFormComponent,
-    InvalidCredentialsComponent,
     RegisterFormComponent,
-    InvalidDataComponent,
-    NotConfirmedAccountComponent
+    NotConfirmedAccountComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +29,7 @@ import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confir
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    TranslationConfigModule
+    TranslationConfigModule,
   ],
   providers: [
     //{
@@ -41,6 +37,6 @@ import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confir
     //useClass: TokenInterceptorService,
     //multi: true
     //}
-  ]
+  ],
 })
 export class AuthenticationModule {}

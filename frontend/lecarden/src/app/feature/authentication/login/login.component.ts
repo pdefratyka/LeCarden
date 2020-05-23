@@ -3,8 +3,9 @@ import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfig } from 'src/app/shared/config/app-config';
-import { take } from 'rxjs/operators';
+import { take, finalize } from 'rxjs/operators';
 import { TokenService } from 'src/app/core/services/security/token.service';
+import { ToastService } from 'src/app/core/services/common/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,15 @@ import { TokenService } from 'src/app/core/services/security/token.service';
 export class LoginComponent implements OnInit {
   createdInformation = '';
   invalidCredentials = false;
+  loadGif = false;
 
   constructor(
     private readonly authService: AuthService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly appConfig: AppConfig,
     private readonly router: Router,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
+    private readonly toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -29,12 +32,21 @@ export class LoginComponent implements OnInit {
 
   loginAction(loginCredentials: LoginCredentials): void {
     this.invalidCredentials = false;
+    this.loadGif = true;
     this.authService
       .login(loginCredentials)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.loadGif = false;
+        })
+      )
       .subscribe(
         (response) => this.handleSuccessfulLogin(response),
-        () => (this.invalidCredentials = true)
+        () => {
+          this.toastService.error('Wrong credentials');
+          this.invalidCredentials = true;
+        }
       );
   }
 
@@ -59,6 +71,7 @@ export class LoginComponent implements OnInit {
   private handleSuccessfulLogin(response: string): void {
     const jwt = 'jwt';
     this.tokenService.setToken(response[jwt]);
+    this.toastService.success(`Hallo ${this.tokenService.getUserName()}`);
     this.router.navigate(['add-word']);
   }
 
