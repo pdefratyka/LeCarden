@@ -9,8 +9,8 @@ import { CustomValidatorService } from 'src/app/core/services/validators/custom-
   styleUrls: [
     './../../../../shared/styles/global.scss',
     './../../styles/authentication.scss',
-    './register-form.component.scss'
-  ]
+    './register-form.component.scss',
+  ],
 })
 export class RegisterFormComponent {
   @Output()
@@ -26,10 +26,12 @@ export class RegisterFormComponent {
       login: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
     });
     this.updateConfirmPasswordValidator();
   }
+
+  // with change password - it should be a separate service for this function
 
   updateConfirmPasswordValidator(): void {
     this.registerForm
@@ -38,7 +40,7 @@ export class RegisterFormComponent {
         Validators.required,
         CustomValidatorService.acceptedValue(
           this.registerForm.get('password').value
-        )
+        ),
       ]);
     this.registerForm
       .get('confirmPassword')
@@ -53,7 +55,7 @@ export class RegisterFormComponent {
     return {
       login: this.registerForm.get('login').value,
       password: this.registerForm.get('password').value,
-      email: this.registerForm.get('email').value
+      email: this.registerForm.get('email').value,
     } as User;
   }
 }

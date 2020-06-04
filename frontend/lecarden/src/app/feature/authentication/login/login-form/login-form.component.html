@@ -61,7 +61,9 @@
     </div>
     <div class="row mt-4">
       <div class="col-lg-6 offset-lg-3 text-center">
-        <span>I don't remeber my password</span>
+        <span [routerLink]="['/forgot-password']">{{
+          'INFO.DO_NOT_REMEBER_PASSWORD' | translate
+        }}</span>
       </div>
     </div>
     <div class="row mt-4 mb-4">

@@ -1,6 +1,39 @@
-<input
-  type="button"
-  value="Send confirmation email one more time"
-  (click)="sendConfirmationEmail()"
-/>
-<h2 *ngIf="email">Email was sent on mail: {{ email }}</h2>
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <app-application-title></app-application-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-form-error-message
+        [message]="'ERROR.EMAIL_NOT_CONFIRMED' | translate"
+      ></app-form-error-message>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-email-buttons-panel
+        (sendEmail)="sendConfirmationEmail()"
+      ></app-email-buttons-panel>
+    </div>
+  </div>
+  <ng-container *ngIf="email">
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <app-form-information-message
+          [message]="'Email was sent on mail' + email + ''"
+        ></app-form-information-message>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="error">
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <app-form-error-message
+          [message]="errorMessage"
+        ></app-form-error-message>
+      </div>
+    </div>
+  </ng-container>
+</div>

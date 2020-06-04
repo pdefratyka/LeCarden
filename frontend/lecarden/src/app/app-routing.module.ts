@@ -17,11 +17,15 @@ import { LearningTranslationComponent } from './feature/learning/learning-transl
 import { FilteredPacketResolverService } from './core/services/resolvers/filtered-packet-resolver.service';
 import { SingleWordResolverService } from './core/services/resolvers/single-word-resolver.service';
 import { NotConfirmedAccountComponent } from './feature/authentication/not-confirmed-account/not-confirmed-account.component';
+import { ForgotPasswordComponent } from './feature/authentication/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './feature/authentication/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
   {
     path: 'add-word',

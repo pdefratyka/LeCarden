@@ -1,7 +1,8 @@
 package lecarden.email.service;
 
-import lecarden.email.entity.User;
+import lecarden.email.entity.EmailInformation;
 
 public interface EmailService {
-    void sendConfirmationRegisterEmail(User user);
+    void sendConfirmationRegisterEmail(EmailInformation emailInformation);
+    void sendPasswordToken(EmailInformation emailInformation);
 }

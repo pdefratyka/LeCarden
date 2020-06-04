@@ -35,6 +35,7 @@ public class AccessLogFilter extends ZuulFilter {
         logger.info("HEADER :: "+request.getHeader("Authorization"));
         logger.info("REQUEST :: < " + request.getScheme() + " " + request.getLocalAddr() + ":" + request.getLocalPort());
         logger.info("REQUEST :: < " + request.getMethod() + " " + request.getRequestURI() + " " + request.getProtocol());
+
         logger.info("RESPONSE:: > HTTP:" + response.getStatus());
 
         return null;

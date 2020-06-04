@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -25,8 +26,16 @@ public class ConfirmationToken {
     @JoinColumn(nullable = false, name = "USER_ID")
     private User user;
 
+    @Column(name="CREATED_DATE", nullable = false)
+    private LocalDateTime createdDate;
+
     public ConfirmationToken(User user) {
         this.user = user;
         confirmationToken = UUID.randomUUID().toString();
+    }
+
+    @PrePersist
+    public void createDate() {
+        this.createdDate = LocalDateTime.now();
     }
 }

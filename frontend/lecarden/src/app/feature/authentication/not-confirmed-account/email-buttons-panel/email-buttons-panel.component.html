@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-lg-4 offset-lg-4 text-center">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="sendConfirmationEmail()"
+      >
+        {{ 'LABEL.SEND_CONFIRMATION_EMAIL' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-4 offset-lg-4 text-center">
+      <button type="button" class="btn btn-danger" [routerLink]="['/login']">
+        {{ 'LABEL.BACK_TO_LOGIN_PAGE' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

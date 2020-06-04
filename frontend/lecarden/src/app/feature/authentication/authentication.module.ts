@@ -11,6 +11,11 @@ import { TranslationConfigModule } from 'src/app/shared/config/translation-confi
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { RegisterFormComponent } from './register/register-form/register-form.component';
 import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confirmed-account.component';
+import { EmailButtonsPanelComponent } from './not-confirmed-account/email-buttons-panel/email-buttons-panel.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ForgotPasswordFormComponent } from './forgot-password/forgot-password-form/forgot-password-form.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangePasswordFormComponent } from './change-password/change-password-form/change-password-form.component';
 
 // Calling load to get configuration + translation
 
@@ -21,6 +26,11 @@ import { NotConfirmedAccountComponent } from './not-confirmed-account/not-confir
     LoginFormComponent,
     RegisterFormComponent,
     NotConfirmedAccountComponent,
+    EmailButtonsPanelComponent,
+    ForgotPasswordComponent,
+    ForgotPasswordFormComponent,
+    ChangePasswordComponent,
+    ChangePasswordFormComponent,
   ],
   imports: [
     CommonModule,

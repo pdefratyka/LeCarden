@@ -38,6 +38,7 @@ export class LoginFormComponent implements OnChanges {
       this.initLoginForm();
     }
   }
+  
   login(): void {
     this.loginEvent.emit({
       username: this.loginForm.get('login').value,

@@ -23,6 +23,11 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
     }
 
     @Override
+    public ConfirmationToken findLastToken(Long userId) {
+        return confirmationTokenRepository.findFirstByUserIdOrderByCreatedDateDesc(userId);
+    }
+
+    @Override
     public User findUserByToken(String token) {
         ConfirmationToken confirmationToken=confirmationTokenRepository.findFirstByConfirmationToken(token);
         if(confirmationToken!=null){
