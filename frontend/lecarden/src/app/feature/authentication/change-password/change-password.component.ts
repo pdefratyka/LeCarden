@@ -18,7 +18,6 @@ export class ChangePasswordComponent {
   ) {}
 
   changePassword(password: string) {
-    console.log('second step');
     const queryName = 'token';
 
     // it works but why?

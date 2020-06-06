@@ -24,7 +24,9 @@ export class UserService {
   ) {}
 
   registerUser(user: User): Observable<User> {
-    return this.httpClient.post<User>(this.url, user, httpOptions);
+    return this.httpClient
+      .post<User>(this.url, user, httpOptions)
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   sendConfirmationEmail() {
@@ -56,7 +58,6 @@ export class UserService {
   }
 
   handleError(error: HttpErrorResponse) {
-    console.log(error.error);
-    return throwError(error.error);
+    return throwError(error);
   }
 }

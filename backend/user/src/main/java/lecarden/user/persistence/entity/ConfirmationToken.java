@@ -16,22 +16,22 @@ public class ConfirmationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="TOKEN_ID")
+    @Column(name = "TOKEN_ID")
     private long tokenId;
 
-    @Column(name="CONFIRMATION_TOKEN")
-    private String confirmationToken;
+    @Column(name = "CONFIRMATION_TOKEN")
+    private String token;
 
     @OneToOne
     @JoinColumn(nullable = false, name = "USER_ID")
     private User user;
 
-    @Column(name="CREATED_DATE", nullable = false)
+    @Column(name = "CREATED_DATE", nullable = false)
     private LocalDateTime createdDate;
 
     public ConfirmationToken(User user) {
         this.user = user;
-        confirmationToken = UUID.randomUUID().toString();
+        token = UUID.randomUUID().toString();
     }
 
     @PrePersist

@@ -29,7 +29,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
     @Override
     public User findUserByToken(String token) {
-        ConfirmationToken confirmationToken=confirmationTokenRepository.findFirstByConfirmationToken(token);
+        ConfirmationToken confirmationToken=confirmationTokenRepository.findFirstByToken(token);
         if(confirmationToken!=null){
             return confirmationToken.getUser();
         }

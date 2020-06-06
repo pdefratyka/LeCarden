@@ -29,4 +29,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public PasswordResetToken findToken(String token) {
         return passwordResetTokenRepository.findByToken(token);
     }
+
+    @Override
+    public void deleteToken(Long tokenId) {
+        this.passwordResetTokenRepository.deleteById(tokenId);
+    }
 }

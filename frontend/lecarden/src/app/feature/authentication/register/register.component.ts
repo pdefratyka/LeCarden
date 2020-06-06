@@ -4,6 +4,7 @@ import { take, finalize } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/core/services/common/toast.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -11,8 +12,8 @@ import { ToastService } from 'src/app/core/services/common/toast.service';
   styleUrls: ['./../styles/authentication.scss', './register.component.scss'],
 })
 export class RegisterComponent {
-  invalidData = false;
   loadGif = false;
+  errorMessage = '';
   constructor(
     private readonly userService: UserService,
     private readonly router: Router,
@@ -21,7 +22,7 @@ export class RegisterComponent {
 
   register(user: User): void {
     this.loadGif = true;
-    this.invalidData = false;
+    this.errorMessage = '';
     this.userService
       .registerUser(user)
       .pipe(
@@ -35,10 +36,18 @@ export class RegisterComponent {
           this.toastService.success('Account has been created');
           this.router.navigateByUrl('/login#created');
         },
-        () => {
+        (error) => {
+          this.resolveErrorMessage(error);
           this.toastService.error('Failed');
-          this.invalidData = true;
         }
       );
+  }
+
+  private resolveErrorMessage(error: HttpErrorResponse): void {
+    if (error.error.message.includes('Login')) {
+      this.errorMessage = 'LABEL.LOGIN_ALREADY_EXIST';
+    } else if (error.error.message.includes('Email')) {
+      this.errorMessage = 'LABEL.EMAIL_ALREADY_ASSIGNED';
+    }
   }
 }

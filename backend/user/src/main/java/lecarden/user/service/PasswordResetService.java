@@ -5,5 +5,8 @@ import lecarden.user.persistence.to.UserTO;
 
 public interface PasswordResetService {
     PasswordResetToken savePasswordResetToken(UserTO user);
+
     PasswordResetToken findToken(String token);
+
+    void deleteToken(Long tokenId);
 }

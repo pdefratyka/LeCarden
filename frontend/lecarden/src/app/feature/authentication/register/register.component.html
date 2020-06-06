@@ -9,11 +9,11 @@
       <app-register-form (registerUser)="register($event)"></app-register-form>
     </div>
   </div>
-  <ng-container *ngIf="invalidData">
+  <ng-container *ngIf="errorMessage !== ''">
     <div class="row mt-4">
       <div class="col-lg-12">
         <app-form-error-message
-          [message]="'ERROR.WRONG_REGISTER_DATA' | translate"
+          [message]="errorMessage | translate"
         ></app-form-error-message>
       </div>
     </div>

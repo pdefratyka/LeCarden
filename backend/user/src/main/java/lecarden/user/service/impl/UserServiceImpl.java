@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
                 .saveToken(new ConfirmationToken(userMapper.mapToUser(savedUser)));
 
         sendToken(env.getProperty("email.register-confirmation.url"),
-                savedUser.getLogin(), savedUser.getEmail(), token.getConfirmationToken());
+                savedUser.getLogin(), savedUser.getEmail(), token.getToken());
         return savedUser;
     }
 
@@ -86,12 +86,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserTO updatePassword(String token, String password) {
         PasswordResetToken passwordResetToken = passwordResetService.findToken(token);
         if (passwordResetToken == null) {
             throw new TokenException("This token does not exist");
         }
         passwordResetToken.getUser().setPassword(passwordEncoder.encode(password));
+        passwordResetService.deleteToken(passwordResetToken.getTokenId());
         return userMapper.mapToUserTO(userRepository.save(passwordResetToken.getUser()));
     }
 
@@ -125,7 +127,7 @@ public class UserServiceImpl implements UserService {
             ConfirmationToken token = confirmationTokenService
                     .saveToken(new ConfirmationToken(user));
             sendToken(env.getProperty("email.register-confirmation.url"),
-                    user.getLogin(), user.getEmail(), token.getConfirmationToken());
+                    user.getLogin(), user.getEmail(), token.getToken());
         } else {
             logger.info("EXCEPTION");
             throw new UserException("You can try again later");
@@ -137,6 +139,8 @@ public class UserServiceImpl implements UserService {
             userTO = userMapper.mapToUserTO(userRepository.save(userMapper.mapToUser(userTO)));
         } catch (DataIntegrityViolationException e) {
             userValidator.validateDataUnique(e);
+        } catch (Exception e) {
+            logger.error("Error during saving user: {}", e.getMessage());
         }
         return userTO;
     }

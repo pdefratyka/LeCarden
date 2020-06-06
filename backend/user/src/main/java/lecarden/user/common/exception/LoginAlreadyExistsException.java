@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Login already exist")
 public class LoginAlreadyExistsException extends UserException {
-
-    public LoginAlreadyExistsException(String message) {
-        super(message);
-    }
+	public LoginAlreadyExistsException(String message) {
+		super(message);
+	}
 }

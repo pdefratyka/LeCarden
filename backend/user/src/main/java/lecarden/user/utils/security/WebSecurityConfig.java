@@ -36,16 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-        http.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/users/**").permitAll();
-                //.anyRequest().authenticated()
-                //.and().sessionManagement()
-                //.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().and().authorizeRequests()
+                .antMatchers("/users/**").permitAll()
+                .anyRequest().authenticated()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        //http.requiresChannel().anyRequest().requiresSecure();
+        // http.requiresChannel().anyRequest().requiresSecure();
     }
 
     @Override
@@ -53,6 +51,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
 
 }
