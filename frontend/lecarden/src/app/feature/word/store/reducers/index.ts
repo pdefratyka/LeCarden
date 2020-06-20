@@ -29,10 +29,12 @@ export const getWordsEntities = createSelector(
 export const getAllWords = createSelector(getWordsEntities, (entities) => {
   return Object.keys(entities).map((id) => entities[id]);
 });
+
 export const getWordsLoaded = createSelector(
   getWordState,
   fromWords.getWordsLoaded
 );
+
 export const getWordsLoading = createSelector(
   getWordState,
   fromWords.getWordsLoading

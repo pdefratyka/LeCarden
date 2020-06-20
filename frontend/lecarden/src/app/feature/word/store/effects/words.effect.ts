@@ -12,6 +12,7 @@ export class WordsEffects {
   @Effect()
   loadWords$ = this.actions$.pipe(ofType(wordActions.LOAD_WORDS)).pipe(
     switchMap(() => {
+      console.log('Load words');
       return this.wordService.getAllWords().pipe(
         map((words) => new wordActions.LoadWordsSuccess(words)),
         catchError((error) => of(new wordActions.LoadWordsFail(error)))

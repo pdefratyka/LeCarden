@@ -30,7 +30,7 @@ export class DisplayWordComponent implements OnInit {
       this.filteredWords = state;
       console.log(state);
     });
-    this.store.dispatch(new fromStore.LoadWords());
+    //this.store.dispatch(new fromStore.LoadWords());
   }
 
   // use async pipe assign words to words$, filter these words using pipe

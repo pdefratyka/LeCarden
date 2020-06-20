@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { AuthService } from 'src/app/core/services/security/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,48 +6,63 @@ import { AppConfig } from 'src/app/shared/config/app-config';
 import { take, finalize } from 'rxjs/operators';
 import { TokenService } from 'src/app/core/services/security/token.service';
 import { ToastService } from 'src/app/core/services/common/toast.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../store';
+import { Authenticate } from '../store/actions/login.action';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./../styles/authentication.scss', './login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   createdInformation = '';
   invalidCredentials = false;
   loadGif = false;
+  $loginSubscribtion = new Subscription();
 
   constructor(
-    private readonly authService: AuthService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly appConfig: AppConfig,
-    private readonly router: Router,
     private readonly tokenService: TokenService,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private store: Store<fromStore.LoginState>
   ) {}
+
+  ngOnDestroy(): void {
+    this.$loginSubscribtion.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.displayToastMessageIfCreatedAccount();
   }
 
   loginAction(loginCredentials: LoginCredentials): void {
-    this.invalidCredentials = false;
-    this.loadGif = true;
-    this.authService
-      .login(loginCredentials)
-      .pipe(
-        take(1),
-        finalize(() => {
+    const payload = {
+      userName: loginCredentials.username,
+      password: loginCredentials.password,
+    };
+    this.store.dispatch(new Authenticate(payload));
+    this.$loginSubscribtion = this.store
+      .select(fromStore.getAuthenticateState)
+      .subscribe((state) => {
+        console.log(state.loading);
+        console.log(state.loaded);
+        if (state.loading) {
+          console.log('1');
+          this.loadGif = true;
+          this.invalidCredentials = false;
+        } else if (!state.loading && state.loaded) {
+          console.log('2');
+          this.toastService.success(`Hallo ${this.tokenService.getUserName()}`);
           this.loadGif = false;
-        })
-      )
-      .subscribe(
-        (response) => this.handleSuccessfulLogin(response),
-        () => {
-          this.toastService.error('Wrong credentials');
+        } else if (!state.loading && !state.loaded) {
+          console.log('3');
           this.invalidCredentials = true;
+          this.loadGif = false;
         }
-      );
+      });
   }
 
   private displayToastMessage(): void {
@@ -67,14 +82,6 @@ export class LoginComponent implements OnInit {
       that.createdInformation = '';
     }, time);
   }
-
-  private handleSuccessfulLogin(response: string): void {
-    const jwt = 'jwt';
-    this.tokenService.setToken(response[jwt]);
-    this.toastService.success(`Hallo ${this.tokenService.getUserName()}`);
-    this.router.navigate(['add-word']);
-  }
-
   private displayToastMessageIfCreatedAccount(): void {
     if (this.activatedRoute.snapshot.fragment === 'created') {
       this.displayToastMessage();

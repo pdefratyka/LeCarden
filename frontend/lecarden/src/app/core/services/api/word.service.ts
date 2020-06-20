@@ -29,6 +29,7 @@ export class WordService {
   }
 
   getAllWords(): Observable<Word[]> {
+    console.log('Get all words service');
     return this.httpClient
       .get<Word[]>(`${this.url}/user-id/${this.tokenService.getUserId()}`)
       .pipe(catchError(this.handleError));

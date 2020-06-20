@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-
+import { Observable, Subject } from 'rxjs';
+import { of } from 'rxjs';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -34,8 +34,10 @@ export class AuthService {
     return localStorage.getItem('TOKEN');
   }
 
-  logout(): void {
+  logout(): Observable<string> {
+    const subject = new Subject();
     localStorage.clear();
     this.router.navigate(['login']);
+    return of('Logout from observable');
   }
 }

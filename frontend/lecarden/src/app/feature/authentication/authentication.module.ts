@@ -16,7 +16,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ForgotPasswordFormComponent } from './forgot-password/forgot-password-form/forgot-password-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePasswordFormComponent } from './change-password/change-password-form/change-password-form.component';
-
+import { reducers, effects, clearState } from './store';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 // Calling load to get configuration + translation
 
 @NgModule({
@@ -40,6 +42,10 @@ import { ChangePasswordFormComponent } from './change-password/change-password-f
     HttpClientModule,
     SharedModule,
     TranslationConfigModule,
+    StoreModule.forFeature('authenticate', reducers, {
+      metaReducers: [clearState],
+    }),
+    EffectsModule.forFeature(effects),
   ],
   providers: [
     //{
