@@ -1,49 +1,48 @@
-import { LoginActions, loginActions } from '../actions/login.action';
+import { RegisterActions, registerActions } from '../actions/register.action';
 
-export interface LoginState {
-  token: string | null;
+export interface RegisterState {
+  isRegistered: boolean;
   loading: boolean;
   loaded: boolean;
   errorMessage: string | null;
 }
 
-export const initialState: LoginState = {
-  token: null,
+export const initialState: RegisterState = {
+  isRegistered: false,
   loading: false,
   loaded: false,
   errorMessage: null,
 };
 
-export function loginReducer(
-  state: LoginState = initialState,
-  action: LoginActions
-): LoginState {
+export function registerReducer(
+  state: RegisterState = initialState,
+  action: RegisterActions
+): RegisterState {
   switch (action.type) {
-    case loginActions.AUTHENTICATE:
+    case registerActions.REGISTER:
       return {
         ...state,
         loading: true,
         loaded: false,
         errorMessage: null,
       };
-    case loginActions.AUTHENTICATE_SUCCESS:
+    case registerActions.REGISTER_SUCCESS:
       return {
         ...state,
+        isRegistered: true,
         loading: false,
         loaded: true,
-        token: 'some token',
         errorMessage: null,
       };
-    case loginActions.AUTHENTICATE_FAIL:
+    case registerActions.REGISTER_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false,
+        isRegistered: false,
         errorMessage: 'some error',
       };
     default:
       return state;
   }
 }
-
-export const getLoginState = (state: LoginState) => state.token;

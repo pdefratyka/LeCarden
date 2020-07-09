@@ -7,7 +7,13 @@ import {
   AuthenticateSuccess,
   AuthenticateFail,
 } from '../actions/login.action';
-import { switchMap, withLatestFrom, map, catchError } from 'rxjs/operators';
+import {
+  switchMap,
+  withLatestFrom,
+  map,
+  catchError,
+  tap,
+} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { LoginCredentials } from 'src/app/shared/models/loginCredentials';
 import { LoginHandlerService } from 'src/app/core/services/common/login-handler.service';
@@ -64,11 +70,23 @@ export class LoginEffects {
           } as LoginCredentials)
           .pipe(
             map((response) => {
-              this.loginHandlerService.handleSuccessfulLogin(response);
               return new AuthenticateSuccess(response);
             }),
-            catchError((error) => of(new AuthenticateFail(error)))
+            catchError((error) => of(new AuthenticateFail(error.message)))
           );
       })
     );
+
+  @Effect({ dispatch: false })
+  loginSuccess$: Observable<any> = this.actions$.pipe(
+    ofType(loginActions.AUTHENTICATE_SUCCESS),
+    tap((response) => {
+      this.loginHandlerService.handleSuccessfulLogin(response.payload);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  loginFailure$: Observable<any> = this.actions$.pipe(
+    ofType(loginActions.AUTHENTICATE_FAIL)
+  );
 }

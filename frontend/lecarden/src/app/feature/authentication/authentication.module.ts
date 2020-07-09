@@ -1,11 +1,10 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
+import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 import { LoginFormComponent } from './login/login-form/login-form.component';
@@ -16,9 +15,15 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ForgotPasswordFormComponent } from './forgot-password/forgot-password-form/forgot-password-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePasswordFormComponent } from './change-password/change-password-form/change-password-form.component';
-import { reducers, effects, clearState } from './store';
+import {
+  effects /*clearState*/,
+  loginReducers,
+  registerReducers,
+} from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { reducer } from '../word/store/reducers/words.reducer';
+import { loginReducer } from './store/reducers/login.reducer';
 // Calling load to get configuration + translation
 
 @NgModule({
@@ -42,9 +47,10 @@ import { EffectsModule } from '@ngrx/effects';
     HttpClientModule,
     SharedModule,
     TranslationConfigModule,
-    StoreModule.forFeature('authenticate', reducers, {
-      metaReducers: [clearState],
+    StoreModule.forFeature('authenticate', loginReducers, {
+      //metaReducers: [clearState],
     }),
+    StoreModule.forFeature('register', registerReducers, {}),
     EffectsModule.forFeature(effects),
   ],
   providers: [

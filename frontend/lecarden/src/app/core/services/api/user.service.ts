@@ -24,6 +24,7 @@ export class UserService {
   ) {}
 
   registerUser(user: User): Observable<User> {
+    console.log(user);
     return this.httpClient
       .post<User>(this.url, user, httpOptions)
       .pipe(catchError((error) => this.handleError(error)));

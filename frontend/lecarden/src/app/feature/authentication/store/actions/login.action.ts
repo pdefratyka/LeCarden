@@ -10,9 +10,7 @@ export const loginActions = {
 
 export class Authenticate implements Action {
   readonly type = loginActions.AUTHENTICATE;
-  constructor(public payload: any) {
-    console.log('AUTH');
-  }
+  constructor(public payload: any) {}
 }
 
 export class AuthenticateSuccess implements Action {
@@ -22,9 +20,7 @@ export class AuthenticateSuccess implements Action {
 
 export class AuthenticateFail implements Action {
   readonly type = loginActions.AUTHENTICATE_FAIL;
-  constructor(public payload: any) {
-    console.log('AUTH fail');
-  }
+  constructor(public payload: any) {}
 }
 
 export type LoginActions =

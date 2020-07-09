@@ -9,12 +9,14 @@ import { ToastService } from './toast.service';
 export class LoginHandlerService {
   constructor(
     private readonly tokenService: TokenService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastService: ToastService
   ) {}
 
   public handleSuccessfulLogin(response: string): void {
     const jwt = 'jwt';
     this.tokenService.setToken(response[jwt]);
+    this.toastService.success(`Hallo ${this.tokenService.getUserName()}`);
     this.router.navigate(['add-word']);
   }
 }

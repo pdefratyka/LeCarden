@@ -4,27 +4,40 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import * as fromAuthenticate from './login.reducer';
+import * as fromRegister from './register.reducer';
 import * as fromLogout from './logout.reducer';
-import { logoutActions, loginActions } from '../actions';
 
 export interface LoginState {
   authenticate: fromAuthenticate.LoginState;
 }
+
+export interface RegisterState {
+  register: fromRegister.RegisterState;
+}
+
 export interface LogoutState {
   logout: fromLogout.LogoutState;
 }
-export const reducers: ActionReducerMap<LoginState> = {
+
+export const loginReducers: ActionReducerMap<LoginState> = {
   authenticate: fromAuthenticate.loginReducer,
 };
 
+export const registerReducers: ActionReducerMap<RegisterState> = {
+  register: fromRegister.registerReducer,
+};
+
 export const getLoginState = createFeatureSelector<LoginState>('authenticate');
+export const getRegisterState = createFeatureSelector<RegisterState>(
+  'register'
+);
 
 export const getAuthenticateState = createSelector(
   getLoginState,
-  (state: LoginState) => state.authenticate
+  (state: LoginState) => state
 );
 
-export function clearState(reducer) {
+/*export function clearState(reducer) {
   console.log('Clear state');
   return function (state, action) {
     if (
@@ -37,4 +50,4 @@ export function clearState(reducer) {
 
     return reducer(state, action);
   };
-}
+}*/
