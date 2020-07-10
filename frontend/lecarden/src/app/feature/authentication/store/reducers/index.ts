@@ -6,6 +6,7 @@ import {
 import * as fromAuthenticate from './login.reducer';
 import * as fromRegister from './register.reducer';
 import * as fromLogout from './logout.reducer';
+import * as fromForgotPassword from './forgot-password.reducer';
 
 export interface LoginState {
   authenticate: fromAuthenticate.LoginState;
@@ -13,6 +14,10 @@ export interface LoginState {
 
 export interface RegisterState {
   register: fromRegister.RegisterState;
+}
+
+export interface RemindPasswordState {
+  remindPassword: fromForgotPassword.RemindPasswordState;
 }
 
 export interface LogoutState {
@@ -27,10 +32,18 @@ export const registerReducers: ActionReducerMap<RegisterState> = {
   register: fromRegister.registerReducer,
 };
 
+export const forgotPasswordReducers: ActionReducerMap<RemindPasswordState> = {
+  remindPassword: fromForgotPassword.remindPasswordReducer,
+};
+
 export const getLoginState = createFeatureSelector<LoginState>('authenticate');
 export const getRegisterState = createFeatureSelector<RegisterState>(
   'register'
 );
+
+export const getRemindPasswordState = createFeatureSelector<
+  RemindPasswordState
+>('remindPassword');
 
 export const getAuthenticateState = createSelector(
   getLoginState,

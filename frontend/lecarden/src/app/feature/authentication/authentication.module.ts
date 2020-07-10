@@ -19,6 +19,7 @@ import {
   effects /*clearState*/,
   loginReducers,
   registerReducers,
+  forgotPasswordReducers,
 } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -51,6 +52,7 @@ import { loginReducer } from './store/reducers/login.reducer';
       //metaReducers: [clearState],
     }),
     StoreModule.forFeature('register', registerReducers, {}),
+    StoreModule.forFeature('remindPassword', forgotPasswordReducers, {}),
     EffectsModule.forFeature(effects),
   ],
   providers: [
