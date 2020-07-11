@@ -3,6 +3,8 @@ import { UserService } from 'src/app/core/services/api/user.service';
 import { take, flatMap } from 'rxjs/operators';
 import { ToastService } from 'src/app/core/services/common/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChangePasswordState, ChangePassword } from '../store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-change-password',
@@ -11,32 +13,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ChangePasswordComponent {
   constructor(
-    private readonly userService: UserService,
     private readonly toastService: ToastService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private store: Store<ChangePasswordState>
   ) {}
 
   changePassword(password: string) {
     const queryName = 'token';
 
     // it works but why?
-    this.route.queryParams
-      .pipe(
-        take(1),
-        flatMap((params) =>
-          this.userService.changePassword(password, params[queryName])
+    this.route.queryParams.pipe(take(1)).subscribe(
+      (params) => {
+        this.store.dispatch(
+          new ChangePassword({ token: params[queryName], password })
+        );
+      },
+      () =>
+        this.toastService.error(
+          'There was some problem with changing your password'
         )
-      )
-      .subscribe(
-        () => {
-          this.toastService.success('Password has been changed');
-          this.router.navigate(['login']);
-        },
-        () =>
-          this.toastService.error(
-            'There was some problem with changing your password'
-          )
-      );
+    );
   }
 }
