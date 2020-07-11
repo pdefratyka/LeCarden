@@ -8,6 +8,7 @@ import * as fromRegister from './register.reducer';
 import * as fromLogout from './logout.reducer';
 import * as fromForgotPassword from './forgot-password.reducer';
 import * as fromChangePassword from './change-password.reducer';
+import * as fromConfirmAccount from './confirm-account.reducer';
 
 export interface LoginState {
   authenticate: fromAuthenticate.LoginState;
@@ -23,6 +24,10 @@ export interface RemindPasswordState {
 
 export interface ChangePasswordState {
   changePassword: fromChangePassword.ChangePasswordState;
+}
+
+export interface ConfirmAccountState {
+  confirmAccount: fromConfirmAccount.ConfirmAccountState;
 }
 
 export interface LogoutState {
@@ -45,6 +50,10 @@ export const changePasswordReducers: ActionReducerMap<ChangePasswordState> = {
   changePassword: fromChangePassword.changePasswordReducer,
 };
 
+export const confirmAccountReducers: ActionReducerMap<ConfirmAccountState> = {
+  confirmAccount: fromConfirmAccount.confirmAccountReducer,
+};
+
 export const getLoginState = createFeatureSelector<LoginState>('authenticate');
 export const getRegisterState = createFeatureSelector<RegisterState>(
   'register'
@@ -57,6 +66,10 @@ export const getRemindPasswordState = createFeatureSelector<
 export const getChangePasswordState = createFeatureSelector<
   ChangePasswordState
 >('changePassword');
+
+export const getConfirmAccountState = createFeatureSelector<
+  ConfirmAccountState
+>('confirmAccount');
 
 export const getAuthenticateState = createSelector(
   getLoginState,

@@ -21,6 +21,7 @@ import {
   registerReducers,
   forgotPasswordReducers,
   changePasswordReducers,
+  confirmAccountReducers,
 } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -55,6 +56,7 @@ import { loginReducer } from './store/reducers/login.reducer';
     StoreModule.forFeature('register', registerReducers, {}),
     StoreModule.forFeature('remindPassword', forgotPasswordReducers, {}),
     StoreModule.forFeature('changePassword', changePasswordReducers, {}),
+    StoreModule.forFeature('confirmAccount', confirmAccountReducers, {}),
     EffectsModule.forFeature(effects),
   ],
   providers: [
