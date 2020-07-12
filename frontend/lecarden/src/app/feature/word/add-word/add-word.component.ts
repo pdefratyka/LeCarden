@@ -72,6 +72,7 @@ export class AddWordComponent implements OnInit {
       )
       .subscribe((response) => (this.categories = response));
   }
+
   private getWordFromResolver(): void {
     this.route.data
       .pipe(

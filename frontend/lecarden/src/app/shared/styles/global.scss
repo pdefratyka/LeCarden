@@ -1,11 +1,14 @@
-.frame {
-  margin-top: 2rem;
-  border: 1px solid #dadce0;
-  border-radius: 8px;
-}
 .static-row-3 {
   height: 3rem;
 }
 button:disabled:hover {
   cursor: auto;
+}
+
+.frame-container {
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  border-color: black;
+  display: block;
 }

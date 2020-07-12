@@ -8,7 +8,7 @@ import { Logout } from '../../../../feature/authentication/store';
 @Component({
   selector: 'app-menu-user',
   templateUrl: './menu-user.component.html',
-  styleUrls: ['./menu-user.component.scss'],
+  styleUrls: ['./../../../styles/global.scss', './menu-user.component.scss'],
 })
 export class MenuUserComponent implements OnInit {
   userName: string;
