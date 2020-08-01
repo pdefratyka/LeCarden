@@ -1,8 +1,7 @@
+<app-header></app-header>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-4">
-      <app-menu></app-menu>
-    </div>
+    <div class="col-lg-4"></div>
     <div class="col-lg-8">
       <div class="row static-row-3">
         <div class="col-md-6"></div>
@@ -16,7 +15,7 @@
           </div>
           <div class="row">
             <div class="col-md-12 word-table">
-              <app-word-table [words]="filteredWords"></app-word-table>
+              <app-word-table [words]="words$ | async"></app-word-table>
             </div>
           </div>
         </div>

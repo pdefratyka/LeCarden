@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.$registerSubscription = this.state.subscribe((state) => {
       if (state?.register?.errorMessage) {
         this.loadGif = false;
-        this.errorMessage = 'LABEL.LOGIN_ALREADY_EXIST';;
+        this.errorMessage = 'LABEL.LOGIN_ALREADY_EXIST';
       }
     });
   }

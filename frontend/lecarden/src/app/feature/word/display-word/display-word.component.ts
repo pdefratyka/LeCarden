@@ -3,8 +3,11 @@ import { Word } from 'src/app/shared/models/word';
 import { take, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { FilterService } from 'src/app/core/services/helpers/filter.service';
-import * as fromStore from '../store';
+import { WordsState } from '../store';
 import { Store } from '@ngrx/store';
+import { WordPageAction } from '../store';
+import { Observable } from 'rxjs';
+import { getWords } from '../store';
 @Component({
   selector: 'app-display-word',
   templateUrl: './display-word.component.html',
@@ -14,28 +17,23 @@ import { Store } from '@ngrx/store';
   ],
 })
 export class DisplayWordComponent implements OnInit {
-  words: Word[];
+  words$: Observable<Word[]>;
   filteredWords: Word[];
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly filterService: FilterService,
-    private store: Store<fromStore.WordsState>
+    private store: Store<WordsState>
   ) {}
 
   ngOnInit(): void {
-    //this.getWordsFromResolver();
-    this.store.select(fromStore.getAllWords).subscribe((state) => {
-      this.words = state;
-      this.filteredWords = state;
-      console.log(state);
-    });
-    //this.store.dispatch(new fromStore.LoadWords());
+    this.store.dispatch(WordPageAction.loadWords());
+    this.words$ = this.store.select(getWords);
   }
 
   // use async pipe assign words to words$, filter these words using pipe
   filterWords(filter: string): void {
-    this.filteredWords = this.filterService.filterWords(this.words, filter);
+    //this.filteredWords = this.filterService.filterWords(this.words, filter);
   }
 
   private getWordsFromResolver(): void {
@@ -45,7 +43,7 @@ export class DisplayWordComponent implements OnInit {
         take(1)
       )
       .subscribe((val) => {
-        this.words = val;
+        //this.words = val;
         this.filteredWords = val;
       });
   }

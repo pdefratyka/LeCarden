@@ -13,6 +13,7 @@ import { SynonymPipe } from './pipes/synonym-pipe';
 import { FormErrorMessageComponent } from './components/form-error-message/form-error-message.component';
 import { LoadingGifComponent } from './components/loading-gif/loading-gif.component';
 import { FormInformationMessageComponent } from './components/form-information-message/form-information-message.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormInformationMessageComponent } from './components/form-information-m
     FormErrorMessageComponent,
     LoadingGifComponent,
     FormInformationMessageComponent,
+    HeaderComponent,
   ],
   imports: [CommonModule, RouterModule, CoreModule, TranslationConfigModule],
   exports: [
@@ -37,6 +39,7 @@ import { FormInformationMessageComponent } from './components/form-information-m
     SynonymPipe,
     LoadingGifComponent,
     FormInformationMessageComponent,
+    HeaderComponent,
   ],
 })
 export class SharedModule {}

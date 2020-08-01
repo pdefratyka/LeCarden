@@ -1,63 +1,54 @@
-import * as fromWords from '../actions/words.action';
+import { WordApiAction } from '../actions/';
 import { Word } from 'src/app/shared/models/word';
+import { createReducer, on } from '@ngrx/store';
 
 export interface WordState {
-  entities: { [id: number]: Word };
+  words: Word[];
   loaded: boolean;
   loading: boolean;
 }
 
 export const initialState: WordState = {
-  entities: {},
+  words: [],
   loaded: false,
   loading: false,
 };
 
-export function reducer(
-  state = initialState,
-  action: fromWords.WordsAction
-): WordState {
-  switch (action.type) {
-    case fromWords.LOAD_WORDS: {
+export const wordReducer = createReducer<WordState>(
+  initialState,
+  on(
+    WordApiAction.loadWordsSuccess,
+    (state, action): WordState => {
       return {
         ...state,
-        loading: true,
+        words: action.words,
       };
     }
-
-    case fromWords.LOAD_WORDS_SUCCESS: {
-      const words = action.payload;
-
-      const entities = words.reduce(
-        (entities: { [id: number]: Word }, word: Word) => {
-          return {
-            ...entities,
-            [word.id]: word,
-          };
-        },
-        {
-          ...state.entities,
-        }
-      );
+  ),
+  on(
+    WordApiAction.loadWordsFailure,
+    (state, action): WordState => {
       return {
         ...state,
-        loading: false,
-        loaded: true,
-        entities,
+        words: [],
       };
     }
-
-    case fromWords.LOAD_WORDS_FAIL: {
+  ),
+  on(
+    WordApiAction.saveWordSuccess,
+    (state, action): WordState => {
       return {
         ...state,
-        loading: false,
-        loaded: false,
+        words: [...state.words, action.word],
       };
     }
-  }
-  return state;
-}
-
-export const getWordsEntities = (state: WordState) => state.entities;
-export const getWordsLoading = (state: WordState) => state.loading;
-export const getWordsLoaded = (state: WordState) => state.loaded;
+  ),
+  on(
+    WordApiAction.saveWordFailure,
+    (state, action): WordState => {
+      return {
+        ...state,
+      };
+    }
+  )
+);

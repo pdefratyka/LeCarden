@@ -25,7 +25,6 @@ import {
 } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducer } from '../word/store/reducers/words.reducer';
 import { loginReducer } from './store/reducers/login.reducer';
 // Calling load to get configuration + translation
 

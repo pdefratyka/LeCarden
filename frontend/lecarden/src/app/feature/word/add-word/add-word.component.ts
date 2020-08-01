@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { WordService } from 'src/app/core/services/api/word.service';
 import { Word } from 'src/app/shared/models/word';
-import { take, map, throwIfEmpty } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { Message } from 'src/app/shared/models/message';
 import { MessageType } from 'src/app/shared/models/messageTypes';
 import { ActivatedRoute, Router } from '@angular/router';
+import { WordsState } from '../store';
+import { Store } from '@ngrx/store';
+import { WordPageAction } from '../store';
 
 @Component({
   selector: 'app-add-word',
@@ -21,7 +24,8 @@ export class AddWordComponent implements OnInit {
   constructor(
     private readonly wordService: WordService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly store: Store<WordsState>
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +34,9 @@ export class AddWordComponent implements OnInit {
   }
 
   saveWord(word: Word): void {
-    this.wordService
+    //this.store.dispatch(new SaveWord(word));
+    this.store.dispatch(WordPageAction.saveWord({ word }));
+    /*this.wordService
       .saveWord(word)
       .pipe(take(1))
       .subscribe(
@@ -44,18 +50,7 @@ export class AddWordComponent implements OnInit {
         },
         () => this.showError()
       );
-  }
-
-  private showError(): void {
-    this.message = new Message();
-    this.message.setMessageType(MessageType.ERROR);
-    this.message.setMessage('ERROR');
-  }
-
-  private showConfirmation(word: string): void {
-    this.message = new Message();
-    this.message.setMessageType(MessageType.SUCCESS);
-    this.message.setMessage(`Word: ${word} has been saved`);
+      */
   }
 
   private addCategoryIfNotNotPresentYet(category: string): void {

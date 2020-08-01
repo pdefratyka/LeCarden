@@ -19,7 +19,8 @@ import { SearchComponent } from './search/search.component';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers, effects } from './store';
+import { wordReducer } from './store/reducers/words.reducer';
+import { WordsEffects } from './store/effects/words.effect';
 @NgModule({
   declarations: [
     AddWordComponent,
@@ -43,8 +44,8 @@ import { reducers, effects } from './store';
     FormsModule,
     ReactiveFormsModule,
     TranslationConfigModule,
-    StoreModule.forFeature('words', reducers),
-    EffectsModule.forFeature(effects),
+    StoreModule.forFeature('words', wordReducer),
+    EffectsModule.forFeature([WordsEffects]),
   ],
 })
 export class WordModule {}
