@@ -5,9 +5,10 @@ import { take, map } from 'rxjs/operators';
 import { Message } from 'src/app/shared/models/message';
 import { MessageType } from 'src/app/shared/models/messageTypes';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WordsState } from '../store';
+import { WordsState, getCategories } from '../store';
 import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-word',
@@ -19,53 +20,21 @@ import { WordPageAction } from '../store';
 })
 export class AddWordComponent implements OnInit {
   message: Message = new Message();
-  categories: string[];
+  categories$: Observable<string[]>;
   word: Word;
   constructor(
-    private readonly wordService: WordService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private readonly store: Store<WordsState>
   ) {}
 
   ngOnInit(): void {
-    this.getCategoriesFromResolver();
+    this.store.dispatch(WordPageAction.loadWords());
+    this.categories$ = this.store.select(getCategories);
     this.getWordFromResolver();
   }
 
   saveWord(word: Word): void {
-    //this.store.dispatch(new SaveWord(word));
     this.store.dispatch(WordPageAction.saveWord({ word }));
-    /*this.wordService
-      .saveWord(word)
-      .pipe(take(1))
-      .subscribe(
-        () => {
-          if (word.id != null) {
-            this.router.navigate(['display-word']);
-          } else {
-            this.addCategoryIfNotNotPresentYet(word.category);
-            this.showConfirmation(word.name);
-          }
-        },
-        () => this.showError()
-      );
-      */
-  }
-
-  private addCategoryIfNotNotPresentYet(category: string): void {
-    if (!this.categories.includes(category)) {
-      this.categories.push(category);
-    }
-  }
-
-  private getCategoriesFromResolver(): void {
-    this.route.data
-      .pipe(
-        map((data) => data.categories),
-        take(1)
-      )
-      .subscribe((response) => (this.categories = response));
   }
 
   private getWordFromResolver(): void {

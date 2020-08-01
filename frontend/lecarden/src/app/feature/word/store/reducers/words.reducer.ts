@@ -4,14 +4,10 @@ import { createReducer, on } from '@ngrx/store';
 
 export interface WordState {
   words: Word[];
-  loaded: boolean;
-  loading: boolean;
 }
 
 export const initialState: WordState = {
   words: [],
-  loaded: false,
-  loading: false,
 };
 
 export const wordReducer = createReducer<WordState>(

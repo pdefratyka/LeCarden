@@ -8,7 +8,7 @@
         <div class="col-md-12 frame-container">
           <app-add-word-form
             (saveWord)="saveWord($event)"
-            [categories]="categories"
+            [categories]="categories$ | async"
             [word]="word"
           ></app-add-word-form>
         </div>

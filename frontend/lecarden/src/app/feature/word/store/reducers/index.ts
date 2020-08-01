@@ -11,3 +11,12 @@ export const getWords = createSelector(
   getWordFeatureState,
   (state) => state.words
 );
+
+export const getCategories = createSelector(
+  getWordFeatureState,
+  getWords,
+  (state) =>
+    state.words
+      .map((w) => w.category)
+      .filter((value, index, self) => self.indexOf(value) === index)
+);
