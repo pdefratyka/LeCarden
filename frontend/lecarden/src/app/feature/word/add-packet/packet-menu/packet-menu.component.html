@@ -1,28 +1,31 @@
 <div class="container-fluid" [formGroup]="addPacketForm">
-  <div class="row packet-name">
-    <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12 frame-container packet-name">
       <app-packet-name
         [name]="addPacketForm.get('name')"
         [packetName]="packetName"
       ></app-packet-name>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <app-words-list
-        (removeWord)="emitRemoveWord($event)"
-        [wordsInPacket]="wordsInPacket"
-      ></app-words-list>
+  <div class="row frame-container">
+    <div class="row">
+      <div class="col-md-12">
+        <app-words-list
+          (removeWord)="emitRemoveWord($event)"
+          [wordsInPacket]="wordsInPacket"
+        ></app-words-list>
+      </div>
     </div>
-  </div>
-  <div class="row mb-2">
-    <div class="col-md-12">
-      <hr />
-      <app-add-packet-button-panel
-        (clearForm)="clearForm()"
-        (savePacket)="emitSavePacket($event)"
-        [addPacketForm]="addPacketForm"
-      ></app-add-packet-button-panel>
+    <div class="row button-panel">
+      <div class="col-md-12">
+        <hr />
+        <app-add-packet-button-panel
+          (clearForm)="clearForm()"
+          (savePacket)="emitSavePacket($event)"
+          [addPacketForm]="addPacketForm"
+        ></app-add-packet-button-panel>
+      </div>
     </div>
+    <div class="row"></div>
   </div>
 </div>
