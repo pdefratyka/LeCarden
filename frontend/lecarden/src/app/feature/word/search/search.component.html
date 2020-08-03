@@ -1,8 +1,9 @@
-<input
-  type="text"
-  class="form-control"
-  id="filter-input"
-  placeholder="{{ 'LABEL.SEARCH' | translate }}"
-  (input)="emitFilter()"
-  #filterInput
-/>
+<form [formGroup]="searchForm" autocomplete="off">
+  <input
+    type="text"
+    class="form-control"
+    id="filter-input"
+    placeholder="{{ 'LABEL.SEARCH' | translate }}"
+    formControlName="query"
+  />
+</form>

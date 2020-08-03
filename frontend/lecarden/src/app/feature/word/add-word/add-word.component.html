@@ -9,7 +9,7 @@
           <app-add-word-form
             (saveWord)="saveWord($event)"
             [categories]="categories$ | async"
-            [word]="word"
+            [word]="word$ | async"
           ></app-add-word-form>
         </div>
       </div>

@@ -1,9 +1,17 @@
-.word-table {
+$background-color-primary: #e9ebee;
+
+.container-fluid {
+  background-color: $background-color-primary;
   margin-top: 2rem;
 }
 
-.filter {
+.word-table {
   margin-top: 1rem;
+}
+
+.filter {
+  height: 4rem;
+  padding-top: 0.7rem;
 }
 
 .frame {

@@ -13,7 +13,7 @@ export const loadWordsFailure = createAction(
 
 export const saveWordSuccess = createAction(
   '[Word API] Save Word Success',
-  props<{ word: Word }>()
+  props<{ word: Word; isEditMode: boolean }>()
 );
 
 export const saveWordFailure = createAction(

@@ -1,10 +1,15 @@
 /* The sidebar menu */
 .navbar {
   height: 60px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 .sidebar {
   border-top: 2px solid green;
-  height: 100%; /* 100% Full-height */
+  height: 40%; /* 100% Full-height */
   margin-top: 60px;
   width: 250px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */

@@ -17,10 +17,11 @@ public class WordServiceImpl implements WordService {
     private WordMapper wordMapper;
 
     @Autowired
-    private WordServiceImpl(WordRepository wordRepository, WordMapper wordMapper){
-        this.wordRepository=wordRepository;
-        this.wordMapper=wordMapper;
+    private WordServiceImpl(WordRepository wordRepository, WordMapper wordMapper) {
+        this.wordRepository = wordRepository;
+        this.wordMapper = wordMapper;
     }
+
     @Override
     public WordTO saveWord(WordTO word) {
         return wordMapper.mapToWordTO(wordRepository.save(wordMapper.mapToWord(word)));
@@ -39,9 +40,10 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public WordTO getWordById(Long wordId) {
-        return wordMapper.mapToWordTO(wordRepository.getOne(wordId));
+        return wordMapper.mapToWordTO(wordRepository.findById(wordId).orElse(new Word()));
     }
 
+    
     @Override
     public List<WordTO> saveWords(List<WordTO> words) {
         return wordMapper.mapToWordTOs(wordRepository.saveAll(wordMapper.mapToWords(words)));

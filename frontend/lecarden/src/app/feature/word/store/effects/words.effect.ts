@@ -5,21 +5,29 @@ import { WordService } from 'src/app/core/services/api/word.service';
 import { of } from 'rxjs';
 import { WordPageAction, WordApiAction } from '../actions';
 import { ToastService } from 'src/app/core/services/common/toast.service';
+import { Router } from '@angular/router';
+import { FilterService } from 'src/app/core/services/helpers/filter.service';
 
 @Injectable()
 export class WordsEffects {
   constructor(
     private actions$: Actions,
     private wordService: WordService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private filterService: FilterService,
+    private readonly router: Router
   ) {}
 
   loadWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(WordPageAction.loadWords),
-      mergeMap(() =>
+      mergeMap((action) =>
         this.wordService.getAllWords().pipe(
-          map((words) => WordApiAction.loadWordsSuccess({ words })),
+          map((words) =>
+            WordApiAction.loadWordsSuccess({
+              words: this.filterService.filterWords(words, action.query),
+            })
+          ),
           catchError((error) => of(WordApiAction.loadWordsFailure({ error })))
         )
       )
@@ -31,7 +39,12 @@ export class WordsEffects {
       ofType(WordPageAction.saveWord),
       concatMap((action) =>
         this.wordService.saveWord(action.word).pipe(
-          map((word) => WordApiAction.saveWordSuccess({ word })),
+          map((word) =>
+            WordApiAction.saveWordSuccess({
+              word,
+              isEditMode: action.isEditMode,
+            })
+          ),
           catchError((error) => of(WordApiAction.saveWordFailure({ error })))
         )
       )
@@ -42,8 +55,11 @@ export class WordsEffects {
     () => {
       return this.actions$.pipe(
         ofType(WordApiAction.saveWordSuccess),
-        tap(() => {
+        tap((action) => {
           this.toastService.success('Word has been saved');
+          if (action.isEditMode) {
+            this.router.navigate(['display-word']);
+          }
         })
       );
     },
