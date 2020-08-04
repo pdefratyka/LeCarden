@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-md-12 word-table frame-container">
               <app-packet-table
-                [packets]="filteredPackets"
+                [packets]="packets$ | async"
                 (deletePacket)="deletePacket($event)"
               ></app-packet-table>
             </div>

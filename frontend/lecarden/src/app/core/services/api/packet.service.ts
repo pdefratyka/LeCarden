@@ -23,9 +23,9 @@ export class PacketService {
       .pipe(catchError(this.handleError));
   }
 
-  getAllPacketsForUser(userId: number): Observable<Packet[]> {
+  getAllPacketsForUser(): Observable<Packet[]> {
     return this.httpClient
-      .get<Packet[]>(`${this.url}/user-id/${userId}`)
+      .get<Packet[]>(`${this.url}/user-id/${this.tokenService.getUserId()}`)
       .pipe(catchError(this.handleError));
   }
 

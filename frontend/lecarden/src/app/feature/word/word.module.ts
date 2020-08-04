@@ -20,7 +20,9 @@ import { TranslationConfigModule } from 'src/app/shared/config/translation-confi
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { wordReducer } from './store/reducers/words.reducer';
+import { packetReducer } from './store/reducers/packets.reducer';
 import { WordsEffects } from './store/effects/words.effect';
+import { PacketsEffects } from './store/effects/packets.effect';
 @NgModule({
   declarations: [
     AddWordComponent,
@@ -45,7 +47,8 @@ import { WordsEffects } from './store/effects/words.effect';
     ReactiveFormsModule,
     TranslationConfigModule,
     StoreModule.forFeature('words', wordReducer),
-    EffectsModule.forFeature([WordsEffects]),
+    StoreModule.forFeature('packets', packetReducer),
+    EffectsModule.forFeature([WordsEffects, PacketsEffects]),
   ],
 })
 export class WordModule {}
