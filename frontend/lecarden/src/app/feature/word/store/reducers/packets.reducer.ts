@@ -29,5 +29,14 @@ export const packetReducer = createReducer<PacketState>(
         ),
       };
     }
+  ),
+  on(
+    PacketApiAction.savePacketSuccess,
+    (state, action): PacketState => {
+      return {
+        ...state,
+        packets: [...state.packets, action.packet],
+      };
+    }
   )
 );

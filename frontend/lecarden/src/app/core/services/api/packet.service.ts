@@ -17,9 +17,13 @@ export class PacketService {
   ) {}
 
   savePacket(packet: Packet): Observable<Packet> {
-    packet.userId = this.tokenService.getUserId();
     return this.httpClient
-      .post<Packet>(this.url, packet)
+      .post<Packet>(this.url, {
+        id: packet.id,
+        name: packet.name,
+        userId: this.tokenService.getUserId(),
+        words: packet.words,
+      })
       .pipe(catchError(this.handleError));
   }
 

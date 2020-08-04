@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map, take } from 'rxjs/operators';
-import { PacketService } from 'src/app/core/services/api/packet.service';
 import { Packet } from 'src/app/shared/models/packet';
 import { FilterService } from 'src/app/core/services/helpers/filter.service';
+import { Store } from '@ngrx/store';
+import { PacketState } from '../store/reducers/packets.reducer';
+import { PacketPageAction } from '../store';
 
 @Component({
   selector: 'app-add-packet',
   templateUrl: './add-packet.component.html',
   styleUrls: [
     './../../../shared/styles/global.scss',
-    './add-packet.component.scss'
-  ]
+    './add-packet.component.scss',
+  ],
 })
 export class AddPacketComponent implements OnInit {
   wordsInPacket: Word[] = [];
@@ -23,9 +25,8 @@ export class AddPacketComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly packetService: PacketService,
-    private readonly router: Router,
-    private readonly filterService: FilterService
+    private readonly filterService: FilterService,
+    private readonly store: Store<PacketState>
   ) {}
 
   ngOnInit() {
@@ -51,19 +52,17 @@ export class AddPacketComponent implements OnInit {
 
   savePacket(packetName: string): void {
     const packetId = this.route.snapshot.paramMap.get('id');
-    this.packetService
-      .savePacket({
-        id: Number(packetId),
-        name: packetName,
-        words: this.wordsInPacket
-      } as Packet)
-      .pipe(take(1))
-      .subscribe(() => this.router.navigate(['display-packet']));
+    const packet = {
+      id: Number(packetId),
+      name: packetName,
+      words: this.wordsInPacket,
+    } as Packet;
+    this.store.dispatch(PacketPageAction.savePacket({ packet }));
   }
 
   clearWordsInPacket(): void {
     this.wordsInPacket.length = 0;
-    this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
+    this.words.forEach((w) => this.addedWordsIndex.set(w.id, false));
   }
 
   filterWords(filter: string): void {
@@ -73,23 +72,23 @@ export class AddPacketComponent implements OnInit {
   private getWordsFromResolver(): void {
     this.route.data
       .pipe(
-        map(data => data.words),
+        map((data) => data.words),
         take(1)
       )
-      .subscribe(val => {
+      .subscribe((val) => {
         this.words = val;
         this.filteredWords = val;
-        this.words.forEach(w => this.addedWordsIndex.set(w.id, false));
+        this.words.forEach((w) => this.addedWordsIndex.set(w.id, false));
       });
   }
 
   private getPacketFromResolver(): void {
     this.route.data
       .pipe(
-        map(data => data.packet),
+        map((data) => data.packet),
         take(1)
       )
-      .subscribe(val => {
+      .subscribe((val) => {
         if (val !== undefined) {
           val.words.forEach((w: Word) => this.addWordToPacket(w));
           this.packetName = val.name;
