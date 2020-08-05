@@ -19,7 +19,7 @@
           <button
             class="btn btn-success"
             (click)="emitAddWord(word)"
-            [disabled]="addedWordsIndex.get(word.id)"
+            [disabled]="isWordAlreadyAdded(word.id)"
           >
             +
           </button>

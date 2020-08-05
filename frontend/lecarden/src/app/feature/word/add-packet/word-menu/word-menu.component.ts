@@ -1,19 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-word-menu',
   templateUrl: './word-menu.component.html',
   styleUrls: [
     './../../../../shared/styles/global.scss',
-    './word-menu.component.scss'
-  ]
+    './word-menu.component.scss',
+  ],
 })
 export class WordMenuComponent {
   @Input()
   words: Word[];
   @Input()
-  addedWordsIndex: Map<number, boolean>;
+  addedWordsIndex: number[];
   @Output()
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()

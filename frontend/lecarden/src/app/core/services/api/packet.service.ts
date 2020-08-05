@@ -34,7 +34,6 @@ export class PacketService {
   }
 
   getPacketById(id: string): Observable<Packet> {
-    console.log(id);
     return this.httpClient
       .get<Packet>(`${this.url}/${id}`)
       .pipe(catchError(this.handleError));

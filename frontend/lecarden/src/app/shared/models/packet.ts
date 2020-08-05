@@ -1,8 +1,8 @@
 import { Word } from './word';
 
 export interface Packet {
-  id: number;
+  id?: number;
   name: string;
-  userId: number;
+  userId?: number;
   words: Word[]; // TODO Maybe it would be better to store only ids
 }

@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { ActivatedRoute } from '@angular/router';
-import { map, take } from 'rxjs/operators';
-import { Packet } from 'src/app/shared/models/packet';
-import { FilterService } from 'src/app/core/services/helpers/filter.service';
+import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { PacketState } from '../store/reducers/packets.reducer';
-import { PacketPageAction } from '../store';
+import {
+  PacketPageAction,
+  WordPageAction,
+  getWords,
+  getWordsFromCurrentPacket,
+  getCurrentPacket,
+  getCurrentPacketName,
+  getWordsIdsFromCurrentPacket,
+} from '../store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-packet',
@@ -17,82 +23,56 @@ import { PacketPageAction } from '../store';
   ],
 })
 export class AddPacketComponent implements OnInit {
-  wordsInPacket: Word[] = [];
-  words: Word[];
-  filteredWords: Word[];
-  packetName: string;
-  addedWordsIndex: Map<number, boolean> = new Map<number, boolean>();
-
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly filterService: FilterService,
-    private readonly store: Store<PacketState>
-  ) {}
+  wordsInPacket$: Observable<Word[]>;
+  packetName$: Observable<string>;
+  addedWordsIndex$: Observable<number[]>;
+  words$: Observable<Word[]>;
+  constructor(private readonly store: Store<PacketState>) {}
 
   ngOnInit() {
-    this.getWordsFromResolver();
-    this.getPacketFromResolver();
+    this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.words$ = this.store.select(getWords);
+    this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
+    this.packetName$ = this.store.select(getCurrentPacketName);
+    this.addedWordsIndex$ = this.store.select(getWordsIdsFromCurrentPacket);
   }
 
   addWordToPacket(word: Word): void {
-    const index = this.wordsInPacket.indexOf(word);
-    if (index === -1) {
-      this.wordsInPacket.push(word);
-      this.addedWordsIndex.set(word.id, true);
-    }
+    this.store.dispatch(PacketPageAction.addWordToPacket({ word }));
   }
 
   removeWord(word: Word): void {
-    const index = this.wordsInPacket.indexOf(word);
-    if (index !== -1) {
-      this.wordsInPacket.splice(index, 1);
-      this.addedWordsIndex.set(word.id, false);
-    }
+    this.store.dispatch(
+      PacketPageAction.removeWordFromPacket({ wordId: word.id })
+    );
   }
 
-  savePacket(packetName: string): void {
-    const packetId = this.route.snapshot.paramMap.get('id');
-    const packet = {
-      id: Number(packetId),
-      name: packetName,
-      words: this.wordsInPacket,
-    } as Packet;
-    this.store.dispatch(PacketPageAction.savePacket({ packet }));
+  savePacket(name: string): void {
+    this.store.dispatch(PacketPageAction.setCurrentPacketName({ name }));
+    // TODO It might not be the best solution. Think about it.
+    this.store
+      .select(getCurrentPacket)
+      .pipe(take(1))
+      .subscribe((packet) => {
+        this.store.dispatch(
+          PacketPageAction.savePacket({
+            packet,
+          })
+        );
+      });
   }
 
   clearWordsInPacket(): void {
-    this.wordsInPacket.length = 0;
-    this.words.forEach((w) => this.addedWordsIndex.set(w.id, false));
+    //this.wordsInPacket.length = 0;
+    //this.words.forEach((w) => this.addedWordsIndex.set(w.id, false));
+    this.store.dispatch(PacketPageAction.clearCurrentPacket());
   }
 
-  filterWords(filter: string): void {
-    this.filteredWords = this.filterService.filterWords(this.words, filter);
+  filterWords(query: string): void {
+    this.store.dispatch(WordPageAction.loadWords({ query }));
   }
 
-  private getWordsFromResolver(): void {
-    this.route.data
-      .pipe(
-        map((data) => data.words),
-        take(1)
-      )
-      .subscribe((val) => {
-        this.words = val;
-        this.filteredWords = val;
-        this.words.forEach((w) => this.addedWordsIndex.set(w.id, false));
-      });
-  }
-
-  private getPacketFromResolver(): void {
-    this.route.data
-      .pipe(
-        map((data) => data.packet),
-        take(1)
-      )
-      .subscribe((val) => {
-        if (val !== undefined) {
-          val.words.forEach((w: Word) => this.addWordToPacket(w));
-          this.packetName = val.name;
-        }
-      });
+  setPacketName(name: string): void {
+    this.store.dispatch(PacketPageAction.setCurrentPacketName({ name }));
   }
 }

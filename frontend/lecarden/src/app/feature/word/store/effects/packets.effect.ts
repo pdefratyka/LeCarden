@@ -74,8 +74,22 @@ export class PacketsEffects {
       return this.actions$.pipe(
         ofType(PacketApiAction.savePacketSuccess),
         tap((action) => {
-          this.toastService.success(`Packet ${action.packet.name} has been saved`);
+          this.toastService.success(
+            `Packet ${action.packet.name} has been saved`
+          );
           this.router.navigate(['display-packet']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  updatePacket$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(PacketPageAction.updatePacket),
+        tap((action) => {
+          this.router.navigate(['add-packet']);
         })
       );
     },

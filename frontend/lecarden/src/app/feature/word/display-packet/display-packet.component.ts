@@ -33,4 +33,8 @@ export class DisplayPacketComponent implements OnInit {
       this.store.dispatch(PacketPageAction.deletePacket({ packetId }));
     }
   }
+
+  updatePacket(packet: Packet): void {
+    this.store.dispatch(PacketPageAction.updatePacket({ packet }));
+  }
 }

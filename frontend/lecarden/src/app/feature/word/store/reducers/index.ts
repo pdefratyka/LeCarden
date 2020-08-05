@@ -18,6 +18,31 @@ export const getWords = createSelector(
   (state) => state.words
 );
 
+export const getWordsFromCurrentPacket = createSelector(
+  getPacketFeautreState,
+  (state) => state.currentPacket.words
+);
+
+export const getWordsIdsFromCurrentPacket = createSelector(
+  getWordsFromCurrentPacket,
+  (state) => {
+    const indexes: number[] = [];
+    state.forEach((w) => indexes.push(w.id));
+    return indexes;
+  }
+);
+
+export const getCurrentPacket = createSelector(
+  getPacketFeautreState,
+  (state) => state.currentPacket
+);
+
+export const getCurrentPacketName = createSelector(
+  getPacketFeautreState,
+  getCurrentPacket,
+  (state) => state.currentPacket.name
+);
+
 export const getCategories = createSelector(
   getWordFeatureState,
   getWords,

@@ -16,6 +16,7 @@
               <app-packet-table
                 [packets]="packets$ | async"
                 (deletePacket)="deletePacket($event)"
+                (updatePacket)="updatePacket($event)"
               ></app-packet-table>
             </div>
           </div>
