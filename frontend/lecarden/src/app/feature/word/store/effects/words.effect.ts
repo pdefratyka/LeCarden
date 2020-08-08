@@ -51,6 +51,18 @@ export class WordsEffects {
     );
   });
 
+  deleteWord$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(WordPageAction.deleteWord),
+      concatMap((action) =>
+        this.wordService.deleteWord(action.wordId).pipe(
+          map(() => WordApiAction.deleteWordSuccess({ wordId: action.wordId })),
+          catchError((error) => of(WordApiAction.deleteWordFailure({ error })))
+        )
+      )
+    );
+  });
+
   saveWordSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
@@ -60,6 +72,30 @@ export class WordsEffects {
           if (action.isEditMode) {
             this.router.navigate(['display-word']);
           }
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  deleteWordFailure$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(WordApiAction.deleteWordFailure),
+        tap((action) => {
+          alert(action.error);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  deleteWordSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(WordApiAction.deleteWordSuccess),
+        tap((action) => {
+          alert(action.wordId);
         })
       );
     },

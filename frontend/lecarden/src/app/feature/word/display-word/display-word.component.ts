@@ -27,4 +27,7 @@ export class DisplayWordComponent implements OnInit {
   filterWords(query: string): void {
     this.store.dispatch(WordPageAction.loadWords({ query }));
   }
+  deleteWord(wordId: number): void {
+    this.store.dispatch(WordPageAction.deleteWord({ wordId }));
+  }
 }

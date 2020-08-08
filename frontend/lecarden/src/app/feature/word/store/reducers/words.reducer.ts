@@ -46,5 +46,14 @@ export const wordReducer = createReducer<WordState>(
         ...state,
       };
     }
+  ),
+  on(
+    WordApiAction.deleteWordSuccess,
+    (state, action): WordState => {
+      return {
+        ...state,
+        words: state.words.filter((word) => word.id !== action.wordId),
+      };
+    }
   )
 );

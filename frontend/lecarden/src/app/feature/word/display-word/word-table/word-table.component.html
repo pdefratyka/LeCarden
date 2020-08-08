@@ -7,6 +7,7 @@
         <th scope="col">{{ 'LABEL.MEANING' | translate }}</th>
         <th scope="col">{{ 'LABEL.CATEGORY' | translate }}</th>
         <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
+        <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,14 @@
         <td>
           <button class="btn btn-success" (click)="editWord(word.id)">
             +
+          </button>
+        </td>
+        <td>
+          <button
+            class="btn btn-danger"
+            (click)="emitDeleteWord(word.id, word.name)"
+          >
+            -
           </button>
         </td>
       </tr>

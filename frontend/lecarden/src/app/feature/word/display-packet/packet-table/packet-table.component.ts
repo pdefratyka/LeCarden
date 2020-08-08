@@ -23,6 +23,8 @@ export class PacketTableComponent {
   }
 
   emitDeletePacket(packetId: number): void {
-    this.deletePacket.emit(packetId);
+    if (window.confirm('Are you sure you want to delete this packet?')) {
+      this.deletePacket.emit(packetId);
+    }
   }
 }

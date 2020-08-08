@@ -13,7 +13,10 @@
           </div>
           <div class="row">
             <div class="col-md-12 word-table frame-container">
-              <app-word-table [words]="words$ | async"></app-word-table>
+              <app-word-table
+                [words]="words$ | async"
+                (deleteWord)="deleteWord($event)"
+              ></app-word-table>
             </div>
           </div>
         </div>

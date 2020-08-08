@@ -46,6 +46,10 @@ export class WordService {
     return this.httpClient.put<Word>(`${this.url}`, word);
   }
 
+  deleteWord(wordId: number) {
+    return this.httpClient.delete(`${this.url}/${wordId}`);
+  }
+
   handleError() {
     return throwError('There was some problem with the server.');
   }

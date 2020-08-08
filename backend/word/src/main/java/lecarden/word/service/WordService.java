@@ -11,4 +11,5 @@ public interface WordService {
     List<WordTO> saveWords(List<WordTO> words);
     List<WordTO> getWordsByUserId(Long userId);
     List<String> getAllCategoriesByUserId(Long userId);
+    void deleteWordById(Long wordId);
 }

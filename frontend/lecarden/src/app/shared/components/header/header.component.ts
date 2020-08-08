@@ -11,7 +11,7 @@ import * as fromStore from '../../../feature/authentication/store';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('sidebar') sidebar: ElementRef;
-  isNavbarOppened = false;
+  isNavbarOppened = true;
   userName: string;
   constructor(
     private readonly authService: AuthService,

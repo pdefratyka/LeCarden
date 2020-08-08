@@ -9,3 +9,7 @@ export const saveWord = createAction(
   '[Word Page] Save Word',
   props<{ word: Word; isEditMode: boolean }>()
 );
+export const deleteWord = createAction(
+  '[Word Page] Delete Word',
+  props<{ wordId: number }>()
+);

@@ -12,12 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("words")
 public class WordController {
-
+    // TODO Clear this class
     private WordService wordService;
 
     @Autowired
-    public WordController(WordService wordService){
-        this.wordService=wordService;
+    public WordController(WordService wordService) {
+        this.wordService = wordService;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -29,7 +29,7 @@ public class WordController {
     }
 
     @PutMapping
-    public WordTO updateWord(@RequestBody WordTO word){
+    public WordTO updateWord(@RequestBody WordTO word) {
         return wordService.updateWord(word);
     }
 
@@ -37,14 +37,19 @@ public class WordController {
     @PostMapping
     @RequestMapping("/list/user-id/{userId}")
     public List<WordTO> saveWordsList(@RequestBody List<WordTO> words, @PathVariable Long userId) {
-        words.forEach(w->w.setUserId(userId));
+        words.forEach(w -> w.setUserId(userId));
         return wordService.saveWords(words);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{wordId}")
-    public WordTO getWordById(@PathVariable Long wordId){
+    public WordTO getWordById(@PathVariable Long wordId) {
         return wordService.getWordById(wordId);
+    }
+
+    @DeleteMapping("/{wordId}")
+    public void deleteWordById(@PathVariable Long wordId){
+        wordService.deleteWordById(wordId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

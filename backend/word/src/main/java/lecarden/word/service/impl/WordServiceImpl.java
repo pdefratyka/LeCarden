@@ -43,7 +43,7 @@ public class WordServiceImpl implements WordService {
         return wordMapper.mapToWordTO(wordRepository.findById(wordId).orElse(new Word()));
     }
 
-    
+
     @Override
     public List<WordTO> saveWords(List<WordTO> words) {
         return wordMapper.mapToWordTOs(wordRepository.saveAll(wordMapper.mapToWords(words)));
@@ -57,5 +57,10 @@ public class WordServiceImpl implements WordService {
     @Override
     public List<String> getAllCategoriesByUserId(Long userId) {
         return wordRepository.getAllCategoriesByUserId(userId);
+    }
+
+    @Override
+    public void deleteWordById(Long wordId) {
+        wordRepository.deleteById(wordId);
     }
 }

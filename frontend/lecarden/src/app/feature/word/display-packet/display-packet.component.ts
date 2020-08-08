@@ -29,9 +29,7 @@ export class DisplayPacketComponent implements OnInit {
   }
 
   deletePacket(packetId: number): void {
-    if (window.confirm('Are you sure you want to delete this packet?')) {
-      this.store.dispatch(PacketPageAction.deletePacket({ packetId }));
-    }
+    this.store.dispatch(PacketPageAction.deletePacket({ packetId }));
   }
 
   updatePacket(packet: Packet): void {
