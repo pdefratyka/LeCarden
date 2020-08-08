@@ -53,6 +53,7 @@
     "CORRECT":"Correct",
     "CONTINUE":"Continue",
     "SAVE":"Save",
+    "CLEAR":"Clear",
     "SEND_CONFIRMATION_EMAIL":"Send confirmation email",
     "BACK_TO_LOGIN_PAGE":"Back to login page",
     "SEND_PASSWORD_RESET":"Send email to restart password",

@@ -18,6 +18,11 @@ export const getWords = createSelector(
   (state) => state.words
 );
 
+export const getCurrentWord = createSelector(
+  getWordFeatureState,
+  (state) => state.currentWord
+);
+
 export const getWordsFromCurrentPacket = createSelector(
   getPacketFeautreState,
   (state) => state.currentPacket.words

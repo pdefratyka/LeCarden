@@ -94,13 +94,24 @@
         [ngClass]="{ 'is-invalid': audioUrl.invalid && audioUrl.touched }"
       />
     </div>
-    <button
-      type="submit"
-      class="btn btn-success"
-      id="submit-button"
-      [ngClass]="{ 'invalid-form-button': addWordForm.invalid }"
-    >
-      {{ 'LABEL.SUBMIT' | translate }}
-    </button>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+        <button
+          type="submit"
+          class="btn btn-success"
+          id="submit-button"
+          [ngClass]="{ 'invalid-form-button': addWordForm.invalid }"
+        >
+          {{ 'LABEL.SUBMIT' | translate }}
+        </button>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-danger" (click)="emitClearWord()">
+          {{ 'LABEL.CLEAR' | translate }}
+        </button>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
   </form>
 </div>

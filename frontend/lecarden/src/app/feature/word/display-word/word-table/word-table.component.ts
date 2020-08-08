@@ -13,11 +13,13 @@ export class WordTableComponent {
   words: Word[];
   @Output()
   deleteWord: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  editWord: EventEmitter<Word> = new EventEmitter<Word>();
 
   constructor(private readonly router: Router) {}
   // TODO Change to store
-  editWord(wordId: number): void {
-    this.router.navigate(['/add-word/' + wordId]);
+  emitEditWord(word: Word): void {
+    this.editWord.emit(word);
   }
 
   emitDeleteWord(wordId: number, name: string): void {

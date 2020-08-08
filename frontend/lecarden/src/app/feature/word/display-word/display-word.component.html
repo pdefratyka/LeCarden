@@ -16,6 +16,7 @@
               <app-word-table
                 [words]="words$ | async"
                 (deleteWord)="deleteWord($event)"
+                (editWord)="editWord($event)"
               ></app-word-table>
             </div>
           </div>

@@ -16,6 +16,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class AddWordFormComponent implements OnChanges {
   @Output()
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Output()
+  clearWord: EventEmitter<void> = new EventEmitter<void>();
   @Input()
   categories: string[];
   @Input()
@@ -29,6 +31,11 @@ export class AddWordFormComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.setValuesOnForm();
+  }
+
+  emitClearWord(): void {
+    this.clearWord.emit();
+    this.initAddWordForm();
   }
 
   emitSaveWord(): void {

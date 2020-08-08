@@ -101,4 +101,16 @@ export class WordsEffects {
     },
     { dispatch: false }
   );
+
+  editWord$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(WordPageAction.editWord),
+        tap((action) => {
+          this.router.navigate(['add-word']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 }

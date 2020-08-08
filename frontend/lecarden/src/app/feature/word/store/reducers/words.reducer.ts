@@ -1,13 +1,15 @@
-import { WordApiAction } from '../actions/';
+import { WordApiAction, WordPageAction } from '../actions/';
 import { Word } from 'src/app/shared/models/word';
 import { createReducer, on } from '@ngrx/store';
 
 export interface WordState {
   words: Word[];
+  currentWord: Word;
 }
 
 export const initialState: WordState = {
   words: [],
+  currentWord: null,
 };
 
 export const wordReducer = createReducer<WordState>(
@@ -36,6 +38,7 @@ export const wordReducer = createReducer<WordState>(
       return {
         ...state,
         words: [...state.words, action.word],
+        currentWord: null,
       };
     }
   ),
@@ -53,6 +56,24 @@ export const wordReducer = createReducer<WordState>(
       return {
         ...state,
         words: state.words.filter((word) => word.id !== action.wordId),
+      };
+    }
+  ),
+  on(
+    WordPageAction.editWord,
+    (state, action): WordState => {
+      return {
+        ...state,
+        currentWord: action.word,
+      };
+    }
+  ),
+  on(
+    WordPageAction.clearCurrentWord,
+    (state, action): WordState => {
+      return {
+        ...state,
+        currentWord: null,
       };
     }
   )

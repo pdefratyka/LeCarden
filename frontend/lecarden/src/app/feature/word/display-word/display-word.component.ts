@@ -17,9 +17,6 @@ export class DisplayWordComponent implements OnInit {
   words$: Observable<Word[]>;
   constructor(private store: Store<WordsState>) {}
 
-  // TODO Make edit mode with state management, add variable currentWord and in effect should
-  // TODO be redirection(/add-word instead of /add-word/{id})
-
   ngOnInit(): void {
     this.store.dispatch(WordPageAction.loadWords({ query: '' }));
     this.words$ = this.store.select(getWords);
@@ -29,5 +26,8 @@ export class DisplayWordComponent implements OnInit {
   }
   deleteWord(wordId: number): void {
     this.store.dispatch(WordPageAction.deleteWord({ wordId }));
+  }
+  editWord(word: Word): void {
+    this.store.dispatch(WordPageAction.editWord({ word }));
   }
 }

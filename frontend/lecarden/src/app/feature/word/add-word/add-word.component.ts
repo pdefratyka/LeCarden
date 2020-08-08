@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { WordsState, getCategories } from '../store';
+import { WordsState, getCategories, getCurrentWord } from '../store';
 import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
 import { Observable } from 'rxjs';
@@ -18,15 +18,12 @@ import { Observable } from 'rxjs';
 export class AddWordComponent implements OnInit {
   categories$: Observable<string[]>;
   word$: Observable<Word>;
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly store: Store<WordsState>
-  ) {}
+  constructor(private readonly store: Store<WordsState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(WordPageAction.loadWords({ query: '' }));
     this.categories$ = this.store.select(getCategories);
-    this.getWordFromResolver();
+    this.word$ = this.store.select(getCurrentWord);
   }
 
   saveWord(word: Word): void {
@@ -37,7 +34,7 @@ export class AddWordComponent implements OnInit {
     this.store.dispatch(WordPageAction.saveWord({ word, isEditMode }));
   }
 
-  private getWordFromResolver(): void {
-    this.word$ = this.route.data.pipe(map((data) => data.word));
+  clearWord(): void {
+    this.store.dispatch(WordPageAction.clearCurrentWord());
   }
 }

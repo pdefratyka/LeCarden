@@ -8,6 +8,7 @@
         <div class="col-md-12 frame-container">
           <app-add-word-form
             (saveWord)="saveWord($event)"
+            (clearWord)="clearWord()"
             [categories]="categories$ | async"
             [word]="word$ | async"
           ></app-add-word-form>
