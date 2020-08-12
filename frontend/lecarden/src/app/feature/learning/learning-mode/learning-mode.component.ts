@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { LearningMode } from 'src/app/shared/models/learningMode';
 import { Result } from 'src/app/shared/models/result';
 import { ResultService } from 'src/app/core/services/api/result.service';
-import { TokenService } from 'src/app/core/services/security/token.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { PacketState } from '../../word/store/reducers/packets.reducer';
+import { PacketPageAction, getPackets } from '../../word/store';
+import { LearnPageAction, ResultPageAction } from '../store/actions';
+import { setLearningMode } from '../store/actions/learn-page.actions';
+import { getLastResult } from '../store/';
 
 @Component({
   selector: 'app-learning-mode',
@@ -16,55 +21,59 @@ import { TokenService } from 'src/app/core/services/security/token.service';
   ],
 })
 export class LearningModeComponent implements OnInit {
-  packets: Packet[];
   selectedPacket: number;
   selectedMode: LearningMode;
-  lastResults: Result[];
+  lastResults$: Observable<Result[]>;
   selectedLastResult: Result;
   isLastResultMode = false;
+  packets$: Observable<Packet[]>;
 
   constructor(
-    private readonly route: ActivatedRoute,
     private readonly resultService: ResultService,
-    private readonly tokenService: TokenService
+    private store: Store<PacketState>
   ) {}
 
   ngOnInit() {
-    this.getPacketsFromResolver();
+    this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
+    this.packets$ = this.store.select(getPackets);
   }
 
   assignSelectedPacket(packetId: number): void {
+    this.store.dispatch(LearnPageAction.setLearningPacket({ packetId }));
+    this.store.dispatch(ResultPageAction.getLastResultFromPacket({ packetId }));
+    this.lastResults$ = this.store.select(getLastResult);
     this.selectedPacket = packetId;
-    this.getLastResultFromPacket(packetId);
+    //this.getLastResultFromPacket(packetId);
     this.selectedLastResult = null;
     this.selectedMode = null;
   }
 
-  assignSelectedMode(selectedMode: LearningMode): void {
-    this.selectedMode = selectedMode;
+  assignSelectedMode(learningMode: LearningMode): void {
+    this.store.dispatch(setLearningMode({ learningMode }));
+    this.selectedMode = learningMode;
     let mode;
     if (this.selectedMode === 0) {
       mode = 'FOREGIN_TO_KNOWN';
     } else if (this.selectedMode === 1) {
       mode = 'KNOWN_TO_FOREGIN';
     }
-    const res = this.lastResults.filter(
+    /*const res = this.lastResults.filter(
       (r) => r.learningMode.toString() === mode
     );
     if (res.length > 0) {
       this.selectedLastResult = res[0];
     } else {
       this.selectedLastResult = null;
-    }
+    }*/
   }
 
   selectLastResult(): void {
     this.isLastResultMode = !this.isLastResultMode;
   }
 
-  private getLastResultFromPacket(packageId: number): void {
+  /*private getLastResultFromPacket(packageId: number): void {
     this.resultService
-      .getLastResult(this.tokenService.getUserId(), packageId)
+      .getLastResult(packageId)
       .pipe(take(1))
       .subscribe(
         (response) => {
@@ -74,16 +83,5 @@ export class LearningModeComponent implements OnInit {
           this.lastResults = null;
         }
       );
-  }
-
-  private getPacketsFromResolver(): void {
-    this.route.data
-      .pipe(
-        map((data) => data.packets),
-        take(1)
-      )
-      .subscribe((val) => {
-        this.packets = val;
-      });
-  }
+  }*/
 }

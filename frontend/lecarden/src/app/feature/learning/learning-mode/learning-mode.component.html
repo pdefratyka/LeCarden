@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-12 word-table">
               <app-packet-table
-                [packets]="packets"
+                [packets]="packets$ | async"
                 [selectedPacket]="selectedPacket"
                 (selectPacket)="assignSelectedPacket($event)"
               ></app-packet-table>
@@ -37,11 +37,11 @@
         </div>
         <ng-container *ngIf="selectedMode >= 0">
           <div class="row">
-            <div class="container frame" *ngIf="selectedLastResult">
+            <div class="container frame">
               <div class="row">
                 <div class="col-md-12">
                   <app-last-result
-                    [result]="selectedLastResult"
+                    [result]="lastResults$ | async"
                     [isLastResultMode]="isLastResultMode"
                     (resultMode)="selectLastResult()"
                   ></app-last-result>

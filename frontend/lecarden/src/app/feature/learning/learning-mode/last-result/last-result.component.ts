@@ -8,7 +8,7 @@ import { Result } from 'src/app/shared/models/result';
 })
 export class LastResultComponent {
   @Input()
-  result: Result;
+  result: Result[];
   @Input()
   isLastResultMode: boolean;
   @Output()

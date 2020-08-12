@@ -19,6 +19,11 @@ import { ScoreComponent } from './learning-translation/score/score.component';
 import { LastResultComponent } from './learning-mode/last-result/last-result.component';
 import { ImageComponent } from './learning-translation/image/image.component';
 import { LearningFinalPageComponent } from './learning-translation/learning-final-page/learning-final-page.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { resultReducer } from './store/reducers/results.reducer';
+import { ResultsEffects } from './store/effects/results.effect';
+import { learnReducer } from './store/reducers/learn.reducer';
 
 @NgModule({
   declarations: [
@@ -45,6 +50,9 @@ import { LearningFinalPageComponent } from './learning-translation/learning-fina
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('results', resultReducer),
+    StoreModule.forFeature('learn', learnReducer),
+    EffectsModule.forFeature([ResultsEffects]),
   ],
 })
 export class LearningModule {}

@@ -83,7 +83,7 @@ export class WordsEffects {
       return this.actions$.pipe(
         ofType(WordApiAction.deleteWordFailure),
         tap((action) => {
-          alert(action.error);
+          console.log(action.error);
         })
       );
     },
@@ -94,9 +94,7 @@ export class WordsEffects {
     () => {
       return this.actions$.pipe(
         ofType(WordApiAction.deleteWordSuccess),
-        tap((action) => {
-          alert(action.wordId);
-        })
+        tap((action) => {})
       );
     },
     { dispatch: false }

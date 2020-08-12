@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
   ],
 })
 export class DisplayPacketComponent implements OnInit {
-  packets: Packet[];
   packets$: Observable<Packet[]>;
   filteredPackets: Packet[];
 
