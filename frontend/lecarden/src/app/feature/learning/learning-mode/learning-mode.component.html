@@ -43,7 +43,7 @@
                   <app-last-result
                     [result]="lastResults$ | async"
                     [isLastResultMode]="isLastResultMode"
-                    (resultMode)="selectLastResult()"
+                    (resultMode)="selectLastResult($event)"
                   ></app-last-result>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                   '/learn/translation/' +
                     selectedPacket +
                     '/result/' +
-                    this.selectedLastResult.id
+                    this.selectedLastResultId
                 ]"
                 [queryParams]="{ selectedMode: selectedMode }"
               >

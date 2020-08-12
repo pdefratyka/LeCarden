@@ -12,9 +12,9 @@ export class LastResultComponent {
   @Input()
   isLastResultMode: boolean;
   @Output()
-  resultMode: EventEmitter<string> = new EventEmitter<string>();
+  resultMode: EventEmitter<number> = new EventEmitter<number>();
 
-  emitResultMode() {
-    this.resultMode.emit();
+  emitResultMode(lastResultId: number) {
+    this.resultMode.emit(lastResultId);
   }
 }

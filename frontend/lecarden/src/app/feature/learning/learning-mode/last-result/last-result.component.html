@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr
-          (click)="emitResultMode()"
+          (click)="emitResultMode(result[0].id)"
           [ngClass]="{ selected: isLastResultMode }"
         >
           <td>
