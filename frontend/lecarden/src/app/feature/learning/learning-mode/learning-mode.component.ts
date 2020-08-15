@@ -37,6 +37,8 @@ export class LearningModeComponent implements OnInit {
     this.store.dispatch(LearnPageAction.setLearningPacket({ packetId }));
     this.store.dispatch(ResultPageAction.getLastResultFromPacket({ packetId }));
     this.lastResults$ = this.store.select(getLastResult);
+    this.store.dispatch(setLearningMode({ learningMode: null }));
+    this.isLastResultMode = false;
     this.selectedPacket = packetId;
     this.selectedLastResultId = null;
     this.selectedMode = null;
