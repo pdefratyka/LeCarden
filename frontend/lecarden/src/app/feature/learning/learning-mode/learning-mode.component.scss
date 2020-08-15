@@ -1,5 +1,16 @@
-.frame {
+$background-color-primary: #e9ebee;
+
+.container-fluid {
+  background-color: $background-color-primary;
+  margin-top: 2rem;
+}
+
+.frame-container {
   margin-top: 5rem;
+}
+
+.last-result-container {
+  margin-top: 0rem;
 }
 .btn {
   width: 100%;
