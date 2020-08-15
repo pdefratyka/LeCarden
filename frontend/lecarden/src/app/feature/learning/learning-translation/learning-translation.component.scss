@@ -1,3 +1,13 @@
+$background-color-primary: #e9ebee;
+
+.container-fluid {
+  background-color: $background-color-primary;
+  margin-top: 2rem;
+}
 .image-row {
   margin-top: 3rem;
+}
+.frame-container {
+  height: 20rem;
+  margin-top: 4rem;
 }

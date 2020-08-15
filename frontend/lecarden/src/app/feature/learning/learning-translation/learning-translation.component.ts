@@ -17,7 +17,10 @@ import { LearningMode } from 'src/app/shared/models/learningMode';
 @Component({
   selector: 'app-learning-translation',
   templateUrl: './learning-translation.component.html',
-  styleUrls: ['./learning-translation.component.scss'],
+  styleUrls: [
+    './../../../shared/styles/global.scss',
+    './learning-translation.component.scss',
+  ],
 })
 export class LearningTranslationComponent implements OnInit {
   LearningMode = LearningMode;

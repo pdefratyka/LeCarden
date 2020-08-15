@@ -4,56 +4,64 @@
     <div class="col-xl-2 col-md-2"></div>
     <div class="col-xl-1 col-md-2"></div>
     <div class="col-xl-6 col-md-5">
-      <app-response-to-answer
-        *ngIf="!answer.isCorrectAnswer"
-        [answer]="answer"
-        (continue)="continueAfterAnswerResponse()"
-        (updateWord)="addSynonymToWord()"
-      ></app-response-to-answer>
-      <app-examination
-        *ngIf="
-          packet.words.length > 0 &&
-          answer.isCorrectAnswer &&
-          selectedMode == LearningMode.KNOWN_TO_FOREGIN
-        "
-        [word]="packet.words[wordIterator].name"
-        (answer)="checkAnswer($event)"
-      ></app-examination>
-      <app-examination
-        *ngIf="
-          packet.words.length > 0 &&
-          answer.isCorrectAnswer &&
-          selectedMode == LearningMode.FOREGIN_TO_KNOWN
-        "
-        [word]="packet.words[wordIterator].translation"
-        (answer)="checkAnswer($event)"
-      ></app-examination>
-      <app-learning-final-page
-        *ngIf="packet.words.length === 0"
-        (saveScore)="saveScore()"
-      >
-      </app-learning-final-page>
+      <div class="container frame-container">
+        <div class="row">
+          <div class="col-md-12">
+            <app-examination
+              *ngIf="
+                packet.words.length > 0 &&
+                answer.isCorrectAnswer &&
+                selectedMode == LearningMode.KNOWN_TO_FOREGIN
+              "
+              [word]="packet.words[wordIterator].name"
+              (answer)="checkAnswer($event)"
+            ></app-examination>
+            <app-examination
+              *ngIf="
+                packet.words.length > 0 &&
+                answer.isCorrectAnswer &&
+                selectedMode == LearningMode.FOREGIN_TO_KNOWN
+              "
+              [word]="packet.words[wordIterator].translation"
+              (answer)="checkAnswer($event)"
+            ></app-examination>
+            <app-response-to-answer
+              *ngIf="!answer.isCorrectAnswer"
+              [answer]="answer"
+              (continue)="continueAfterAnswerResponse()"
+              (updateWord)="addSynonymToWord()"
+            ></app-response-to-answer>
+            <app-learning-final-page
+              *ngIf="packet.words.length === 0"
+              (saveScore)="saveScore()"
+            >
+            </app-learning-final-page>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-xl-3 col-md-3">
-      <div class="row mt-4">
-        <app-learning-result
-          [packetSize]="result.wordsResultsTOs.length"
-          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-        ></app-learning-result>
-      </div>
-      <div class="row mt-4">
-        <app-score
-          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-          [numberOfAttempts]="statistic.numberOfAttempts"
-        >
-        </app-score>
-      </div>
-      <div class="row">
-        <app-learning-phase-result
-          *ngIf="statistic.scoreAfterRound.length > 0"
-          [scores]="statistic.scoreAfterRound"
-          [packetSize]="result.wordsResultsTOs.length"
-        ></app-learning-phase-result>
+    <div class="col-md-3">
+      <div class="frame-container">
+        <div class="row">
+          <app-learning-result
+            [packetSize]="result.wordsResultsTOs.length"
+            [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+          ></app-learning-result>
+        </div>
+        <div class="row">
+          <app-score
+            [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+            [numberOfAttempts]="statistic.numberOfAttempts"
+          >
+          </app-score>
+        </div>
+        <div class="row">
+          <app-learning-phase-result
+            *ngIf="statistic.scoreAfterRound.length > 0"
+            [scores]="statistic.scoreAfterRound"
+            [packetSize]="result.wordsResultsTOs.length"
+          ></app-learning-phase-result>
+        </div>
       </div>
     </div>
   </div>
