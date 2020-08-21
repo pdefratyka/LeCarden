@@ -67,8 +67,7 @@
               <button
                 *ngIf="!isLastResultMode"
                 class="btn btn-success"
-                [routerLink]="['/learn/translation/' + selectedPacket]"
-                [queryParams]="{ selectedMode: selectedMode }"
+                [routerLink]="['/learn/translation/']"
               >
                 {{ 'LABEL.START_LEARNING' | translate }}
               </button>

@@ -30,12 +30,12 @@ export class LearningModeComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
+    this.store.dispatch(ResultPageAction.loadAllLastResultsForUser());
     this.packets$ = this.store.select(getPackets);
   }
 
   assignSelectedPacket(packetId: number): void {
     this.store.dispatch(LearnPageAction.setLearningPacket({ packetId }));
-    this.store.dispatch(ResultPageAction.getLastResultFromPacket({ packetId }));
     this.lastResults$ = this.store.select(getLastResult);
     this.store.dispatch(setLearningMode({ learningMode: null }));
     this.isLastResultMode = false;

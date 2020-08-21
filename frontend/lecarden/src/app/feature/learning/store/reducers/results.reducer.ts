@@ -19,13 +19,32 @@ export const resultReducer = createReducer<ResultState>(
     (state, action): ResultState => {
       return {
         ...state,
-        results: [...state.results, ...action.result],
+        results: action.result,
         error: '',
       };
     }
   ),
   on(
     ResultApiAction.loadResultFailure,
+    (state, action): ResultState => {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
+  ),
+  on(
+    ResultApiAction.loadAllLastResultsForUserSeccuess,
+    (state, action): ResultState => {
+      return {
+        ...state,
+        results: action.result,
+        error: '',
+      };
+    }
+  ),
+  on(
+    ResultApiAction.loadAllLastResultsForUserFailure,
     (state, action): ResultState => {
       return {
         ...state,

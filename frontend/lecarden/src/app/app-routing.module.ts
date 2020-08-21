@@ -90,9 +90,8 @@ const routes: Routes = [
         resolve: { packet: FilteredPacketResolverService },
       },
       {
-        path: 'translation/:id',
+        path: 'translation',
         component: LearningTranslationComponent,
-        resolve: { packet: SinglePacketResolverService },
       },
     ],
     canActivate: [AuthGuardService],

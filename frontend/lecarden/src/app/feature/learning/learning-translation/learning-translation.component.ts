@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Packet } from 'src/app/shared/models/packet';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { Word } from 'src/app/shared/models/word';
 import { Result } from 'src/app/shared/models/result';
 import { WordResult } from 'src/app/shared/models/wordResult';
@@ -13,6 +13,8 @@ import { Statistic } from 'src/app/shared/models/statistic';
 import { WordService } from 'src/app/core/services/api/word.service';
 import { AudioService } from 'src/app/core/services/helpers/audio.service';
 import { LearningMode } from 'src/app/shared/models/learningMode';
+import { Store } from '@ngrx/store';
+import { getLearningMode, getLearningPacket, ResultPageAction } from '../store';
 
 @Component({
   selector: 'app-learning-translation',
@@ -39,12 +41,26 @@ export class LearningTranslationComponent implements OnInit {
     private readonly learningService: LearningService,
     private readonly wordService: WordService,
     private readonly audioService: AudioService,
-    private readonly router: Router
+    private readonly router: Router,
+    private store: Store
   ) {}
 
   ngOnInit() {
-    this.getPacketFromResolver();
-    this.getSelectedMode();
+    this.store
+      .select(getLearningMode)
+      .pipe(take(1))
+      .subscribe((mode) => (this.selectedMode = mode));
+    this.store
+      .select(getLearningPacket)
+      .pipe(take(1))
+      .subscribe((response) => {
+        if (response.length > 0) {
+          this.packet = JSON.parse(JSON.stringify(response[0]));
+          this.initResult();
+        } else {
+          this.router.navigateByUrl('/learn');
+        }
+      });
   }
 
   checkAnswer(answer: string): void {
@@ -52,6 +68,7 @@ export class LearningTranslationComponent implements OnInit {
     let properAnswer: string;
     if (this.selectedMode == LearningMode.KNOWN_TO_FOREGIN) {
       properAnswer = this.packet.words[this.wordIterator].translation;
+      console.log(1);
     } else {
       properAnswer = this.packet.words[this.wordIterator].name;
     }
@@ -84,7 +101,7 @@ export class LearningTranslationComponent implements OnInit {
       });
   }
 
-  private getPacketFromResolver(): void {
+  /*private getPacketFromResolver(): void {
     this.route.data
       .pipe(
         map((data) => data.packet),
@@ -94,14 +111,14 @@ export class LearningTranslationComponent implements OnInit {
         this.packet = this.learningService.shuffleWords(val);
         this.initResult();
       });
-  }
+  }*/
 
-  private getSelectedMode(): void {
+  /*private getSelectedMode(): void {
     const queryName = 'selectedMode';
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.selectedMode = params[queryName];
     });
-  }
+  }*/
 
   private nextWord(): void {
     this.wordIterator++;
@@ -136,7 +153,9 @@ export class LearningTranslationComponent implements OnInit {
       this.resultService
         .saveResult(this.result)
         .pipe(take(1))
-        .subscribe(() => this.router.navigate(['learn']));
+        .subscribe(() => {
+          this.router.navigate(['learn']);
+        });
     } else {
       this.router.navigate(['learn']);
     }

@@ -27,6 +27,13 @@ export class ResultService {
       .pipe(catchError(this.handleError));
   }
 
+  getAllLastResultsForUser(): Observable<Result[]> {
+    const userId = this.tokenService.getUserId();
+    return this.httpClient
+      .get<Result[]>(`${this.url}/users/${userId}`)
+      .pipe(catchError(this.handleError));
+  }
+
   handleError() {
     return throwError('There was some problem with the server.');
   }

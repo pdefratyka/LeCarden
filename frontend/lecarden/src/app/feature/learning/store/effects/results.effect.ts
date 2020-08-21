@@ -28,4 +28,22 @@ export class ResultsEffects {
       )
     );
   });
+
+  loadAllLastResults$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ResultPageAction.loadAllLastResultsForUser),
+      mergeMap((action) =>
+        this.resultService.getAllLastResultsForUser().pipe(
+          map((result) =>
+            ResultApiAction.loadAllLastResultsForUserSeccuess({
+              result,
+            })
+          ),
+          catchError((error) =>
+            of(ResultApiAction.loadAllLastResultsForUserFailure({ error }))
+          )
+        )
+      )
+    );
+  });
 }
