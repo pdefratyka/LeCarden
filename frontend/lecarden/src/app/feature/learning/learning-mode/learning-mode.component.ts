@@ -19,12 +19,12 @@ import { getLastResult } from '../store/';
   ],
 })
 export class LearningModeComponent implements OnInit {
-  selectedPacket: number;
-  selectedMode: LearningMode;
-  lastResults$: Observable<Result[]>;
-  selectedLastResultId: number;
-  isLastResultMode = false; // TODO the logic of displaying some components should not be here.
+  lastResults$: Observable<Result>;
   packets$: Observable<Packet[]>;
+  selectedPacket: number;
+  selectedLastResultId: number;
+  selectedMode: LearningMode;
+  isLastResultMode = false; // TODO the logic of displaying some components should not be here.
 
   constructor(private store: Store<PacketState>) {}
 
@@ -42,6 +42,11 @@ export class LearningModeComponent implements OnInit {
     this.selectedPacket = packetId;
     this.selectedLastResultId = null;
     this.selectedMode = null;
+    this.store.dispatch(
+      LearnPageAction.setLastResultMode({
+        isLastResultMode: false,
+      })
+    );
   }
 
   assignSelectedMode(learningMode: LearningMode): void {
@@ -51,6 +56,11 @@ export class LearningModeComponent implements OnInit {
 
   selectLastResult(resultId: number): void {
     this.isLastResultMode = !this.isLastResultMode;
+    this.store.dispatch(
+      LearnPageAction.setLastResultMode({
+        isLastResultMode: this.isLastResultMode,
+      })
+    );
     this.selectedLastResultId = resultId;
   }
 }

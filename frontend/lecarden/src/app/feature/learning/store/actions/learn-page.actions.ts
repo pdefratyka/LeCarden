@@ -10,3 +10,8 @@ export const setLearningMode = createAction(
   '[Learn Page] Set Learning Mode',
   props<{ learningMode: LearningMode }>()
 );
+
+export const setLastResultMode = createAction(
+  '[Learn Page] Set Last Result Mode',
+  props<{ isLastResultMode: boolean }>()
+);

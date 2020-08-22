@@ -14,7 +14,12 @@ import { WordService } from 'src/app/core/services/api/word.service';
 import { AudioService } from 'src/app/core/services/helpers/audio.service';
 import { LearningMode } from 'src/app/shared/models/learningMode';
 import { Store } from '@ngrx/store';
-import { getLearningMode, getLearningPacket, ResultPageAction } from '../store';
+import {
+  getLearningMode,
+  getLastResultMode,
+  getLearningPacket,
+  ResultPageAction,
+} from '../store';
 
 @Component({
   selector: 'app-learning-translation',
@@ -50,12 +55,13 @@ export class LearningTranslationComponent implements OnInit {
       .select(getLearningMode)
       .pipe(take(1))
       .subscribe((mode) => (this.selectedMode = mode));
+
     this.store
       .select(getLearningPacket)
       .pipe(take(1))
       .subscribe((response) => {
-        if (response.length > 0) {
-          this.packet = JSON.parse(JSON.stringify(response[0]));
+        if (response) {
+          this.packet = JSON.parse(JSON.stringify(response));
           this.initResult();
         } else {
           this.router.navigateByUrl('/learn');

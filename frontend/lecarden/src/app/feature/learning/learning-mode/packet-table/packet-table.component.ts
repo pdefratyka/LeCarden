@@ -4,7 +4,7 @@ import { Packet } from 'src/app/shared/models/packet';
 @Component({
   selector: 'app-packet-table',
   templateUrl: './packet-table.component.html',
-  styleUrls: ['./packet-table.component.scss']
+  styleUrls: ['./packet-table.component.scss'],
 })
 export class PacketTableComponent {
   @Input()
