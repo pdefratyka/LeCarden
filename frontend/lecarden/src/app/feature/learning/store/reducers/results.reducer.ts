@@ -51,5 +51,15 @@ export const resultReducer = createReducer<ResultState>(
         error: action.error,
       };
     }
+  ),
+  on(
+    ResultApiAction.saveResultSuccess,
+    (state, action): ResultState => {
+      return {
+        ...state,
+        results: [...state.results, action.result],
+        error: '',
+      };
+    }
   )
 );

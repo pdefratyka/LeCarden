@@ -111,4 +111,25 @@ export class WordsEffects {
     },
     { dispatch: false }
   );
+
+  updateWord$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(WordPageAction.updateWord),
+        mergeMap((action) =>
+          this.wordService.updateWord(action.word).pipe(
+            map((word) =>
+              WordApiAction.updateWordSuccess({
+                word,
+              })
+            ),
+            catchError((error) =>
+              of(WordApiAction.updateWordFailure({ error }))
+            )
+          )
+        )
+      );
+    },
+    { dispatch: false }
+  );
 }

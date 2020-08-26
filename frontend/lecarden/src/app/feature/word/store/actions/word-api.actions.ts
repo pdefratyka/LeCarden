@@ -21,6 +21,16 @@ export const saveWordFailure = createAction(
   props<{ error: string }>()
 );
 
+export const updateWordSuccess = createAction(
+  '[Word API] Update Word Success',
+  props<{ word: Word }>()
+);
+
+export const updateWordFailure = createAction(
+  '[Word API] Update Word Fail',
+  props<{ error: string }>()
+);
+
 export const deleteWordSuccess = createAction(
   '[Word API] Delete Word Success',
   props<{ wordId: number }>()

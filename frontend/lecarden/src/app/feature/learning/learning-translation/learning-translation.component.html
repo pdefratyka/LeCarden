@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="packetSize > 0">
   <div class="row">
     <div class="col-xl-2 col-md-2"></div>
     <div class="col-xl-1 col-md-2"></div>
@@ -9,20 +9,20 @@
           <div class="col-md-12">
             <app-examination
               *ngIf="
-                packet.words.length > 0 &&
+                packet?.words.length > 0 &&
                 answer.isCorrectAnswer &&
                 selectedMode == LearningMode.KNOWN_TO_FOREGIN
               "
-              [word]="packet.words[wordIterator].name"
+              [word]="(packet?.words)[wordIterator].name"
               (answer)="checkAnswer($event)"
             ></app-examination>
             <app-examination
               *ngIf="
-                packet.words.length > 0 &&
+                packet?.words.length > 0 &&
                 answer.isCorrectAnswer &&
                 selectedMode == LearningMode.FOREGIN_TO_KNOWN
               "
-              [word]="packet.words[wordIterator].translation"
+              [word]="(packet?.words)[wordIterator].translation"
               (answer)="checkAnswer($event)"
             ></app-examination>
             <app-response-to-answer
@@ -32,7 +32,7 @@
               (updateWord)="addSynonymToWord()"
             ></app-response-to-answer>
             <app-learning-final-page
-              *ngIf="packet.words.length === 0"
+              *ngIf="packet?.words.length === 0"
               (saveScore)="saveScore()"
             >
             </app-learning-final-page>
@@ -44,7 +44,7 @@
       <div class="frame-container">
         <div class="row">
           <app-learning-result
-            [packetSize]="result.wordsResultsTOs.length"
+            [packetSize]="packetSize"
             [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
           ></app-learning-result>
         </div>
@@ -59,7 +59,7 @@
           <app-learning-phase-result
             *ngIf="statistic.scoreAfterRound.length > 0"
             [scores]="statistic.scoreAfterRound"
-            [packetSize]="result.wordsResultsTOs.length"
+            [packetSize]="wordResult.length"
           ></app-learning-phase-result>
         </div>
       </div>
@@ -70,12 +70,25 @@
     <div class="col-md-4">
       <app-image
         *ngIf="
-          this.packet.words[this.wordIterator] &&
-          this.packet.words[this.wordIterator].imageUrl
+          (this.packet?.words)[this.wordIterator] &&
+          (this.packet?.words)[this.wordIterator].imageUrl
         "
-        [imageUrl]="this.packet.words[this.wordIterator].imageUrl"
+        [imageUrl]="(this.packet?.words)[this.wordIterator].imageUrl"
       ></app-image>
     </div>
     <div class="col-md-4"></div>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="packetSize < 1">
+  <div class="row">
+    <div class="col-xl-2 col-md-2"></div>
+    <div class="col-xl-1 col-md-2"></div>
+    <div class="col-xl-6 col-md-5">
+      <div class="container frame-container">
+        <div class="row">
+          <h2>Nothing to learn</h2>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

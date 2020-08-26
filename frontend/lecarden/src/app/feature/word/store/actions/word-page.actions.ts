@@ -16,6 +16,11 @@ export const editWord = createAction(
   props<{ word: Word }>()
 );
 
+export const updateWord = createAction(
+  '[Word Page] Update Word',
+  props<{ word: Word }>()
+);
+
 export const clearCurrentWord = createAction('[Word Page] Clear Current Word');
 
 export const deleteWord = createAction(

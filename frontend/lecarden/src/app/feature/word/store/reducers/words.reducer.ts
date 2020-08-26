@@ -43,6 +43,17 @@ export const wordReducer = createReducer<WordState>(
     }
   ),
   on(
+    WordApiAction.updateWordSuccess,
+    (state, action): WordState => {
+      state.words.splice(action.word.id, 1);
+      return {
+        ...state,
+        words: [...state.words, action.word],
+        currentWord: null,
+      };
+    }
+  ),
+  on(
     WordApiAction.saveWordFailure,
     (state, action): WordState => {
       return {

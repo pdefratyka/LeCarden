@@ -1,16 +1,16 @@
 import { WordResult } from './wordResult';
 import { LearningMode } from './learningMode';
 
-export class Result {
-  id: number;
-  userId: number;
-  packetId: number;
-  score: number;
-  date: Date;
-  learningMode: LearningMode;
-  wordsResultsTOs: WordResult[];
+export interface Result {
+  id?: number;
+  userId?: number;
+  packetId?: number;
+  score?: number;
+  date?: Date;
+  learningMode?: LearningMode;
+  wordsResultsTOs?: WordResult[];
 
-  constructor(
+  /*constructor(
     packetId?: number,
     userId?: number,
     learningMode?: LearningMode,
@@ -20,5 +20,5 @@ export class Result {
     this.userId = userId;
     this.wordsResultsTOs = wordsResultsTOs;
     this.learningMode = learningMode;
-  }
+  }*/
 }

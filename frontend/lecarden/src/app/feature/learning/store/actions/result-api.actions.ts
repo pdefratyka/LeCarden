@@ -20,3 +20,13 @@ export const loadAllLastResultsForUserFailure = createAction(
   '[Result API] Load All Last Reesults Failure',
   props<{ error: string }>()
 );
+
+export const saveResultSuccess = createAction(
+  '[Result API] Save Result Success',
+  props<{ result: Result }>()
+);
+
+export const saveResultFailure = createAction(
+  '[Result API] Save Result Failure',
+  props<{ error: string }>()
+);
