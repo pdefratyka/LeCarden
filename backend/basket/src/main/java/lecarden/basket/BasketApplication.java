@@ -1,4 +1,4 @@
-package lecarden;
+package lecarden.basket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

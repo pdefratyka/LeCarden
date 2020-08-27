@@ -63,4 +63,11 @@
       </div>
     </ng-container>
   </div>
+  <ng-container *ngIf="selectedPacket && selectedMode !== null">
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <app-basket-area></app-basket-area>
+      </div>
+    </div>
+  </ng-container>
 </div>

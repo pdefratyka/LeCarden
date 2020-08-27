@@ -24,6 +24,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { resultReducer } from './store/reducers/results.reducer';
 import { ResultsEffects } from './store/effects/results.effect';
 import { learnReducer } from './store/reducers/learn.reducer';
+import { BasketAreaComponent } from './learning-mode/basket-area/basket-area.component';
+import { BasketComponent } from './learning-mode/basket-area/basket/basket.component';
+import { basketReducer } from './store/reducers/basket.reducer';
+import { BasketEffects } from './store/effects/basket.effect';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,8 @@ import { learnReducer } from './store/reducers/learn.reducer';
     LastResultComponent,
     ImageComponent,
     LearningFinalPageComponent,
+    BasketAreaComponent,
+    BasketComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +58,8 @@ import { learnReducer } from './store/reducers/learn.reducer';
     ReactiveFormsModule,
     StoreModule.forFeature('results', resultReducer),
     StoreModule.forFeature('learn', learnReducer),
-    EffectsModule.forFeature([ResultsEffects]),
+    StoreModule.forFeature('basket', basketReducer),
+    EffectsModule.forFeature([ResultsEffects, BasketEffects]),
   ],
 })
 export class LearningModule {}

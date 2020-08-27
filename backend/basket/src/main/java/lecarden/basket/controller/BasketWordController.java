@@ -1,0 +1,32 @@
+package lecarden.basket.controller;
+
+import lecarden.basket.persistence.entity.BasketWord;
+import lecarden.basket.service.BasketWordService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Log4j2
+@RestController
+@RequestMapping("words")
+public class BasketWordController {
+
+    private BasketWordService basketWordService;
+
+    @Autowired
+    public BasketWordController(BasketWordService basketWordService) {
+        this.basketWordService = basketWordService;
+    }
+
+    @PostMapping
+    public BasketWord saveBasketWord(@RequestBody BasketWord basketWord) {
+        return basketWordService.saveBasketWord(basketWord);
+    }
+
+    @GetMapping
+    public List<BasketWord> getBaskets(){
+        return basketWordService.findAllBasketWords();
+    }
+}

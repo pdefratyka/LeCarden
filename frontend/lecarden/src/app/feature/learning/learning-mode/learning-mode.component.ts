@@ -6,7 +6,11 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { PacketState } from '../../word/store/reducers/packets.reducer';
 import { PacketPageAction, getPackets } from '../../word/store';
-import { LearnPageAction, ResultPageAction } from '../store/actions';
+import {
+  LearnPageAction,
+  ResultPageAction,
+  BasketPageAction,
+} from '../store/actions';
 import { setLearningMode } from '../store/actions/learn-page.actions';
 import { getLastResult } from '../store/';
 
@@ -31,6 +35,7 @@ export class LearningModeComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
     this.store.dispatch(ResultPageAction.loadAllLastResultsForUser());
+    this.store.dispatch(BasketPageAction.loadBasketsForUser());
     this.packets$ = this.store.select(getPackets);
   }
 

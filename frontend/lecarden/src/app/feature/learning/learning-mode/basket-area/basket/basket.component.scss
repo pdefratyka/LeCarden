@@ -1,0 +1,16 @@
+.basket {
+  border-style: solid;
+  border-color: black;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  /* width and height can be anything, as long as they're equal */
+}
+.basket:hover {
+  cursor: pointer;
+  background-color: green;
+}
+h2 {
+  margin-left: 30%;
+  margin-top: 30%;
+}
