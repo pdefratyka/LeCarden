@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Basket } from 'src/app/shared/models/basket';
 
 @Component({
   selector: 'app-basket',
@@ -7,8 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BasketComponent implements OnInit {
   @Input()
-  basketNumber: number;
+  basket: Basket;
+  @Output()
+  basketNumber: EventEmitter<number> = new EventEmitter<number>();
   constructor() {}
 
   ngOnInit(): void {}
+
+  emitBasketNumber(): void {
+    this.basketNumber.emit(1);
+  }
 }

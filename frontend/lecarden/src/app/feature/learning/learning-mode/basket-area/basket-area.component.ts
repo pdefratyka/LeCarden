@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Basket } from 'src/app/shared/models/basket';
 
 @Component({
   selector: 'app-basket-area',
   templateUrl: './basket-area.component.html',
-  styleUrls: ['./basket-area.component.scss']
+  styleUrls: ['./basket-area.component.scss'],
 })
 export class BasketAreaComponent implements OnInit {
+  @Input()
+  baskets: Basket[];
 
-  constructor() { }
+  @Output()
+  basketModeNumber = new EventEmitter<number>();
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  filterBasket(basketNumber: number): Basket {
+    return this.baskets.find((b) => b.number === basketNumber);
   }
 
+  emitBasketModeNumber(basketNumber: number): void {
+    this.basketModeNumber.emit(basketNumber);
+  }
 }

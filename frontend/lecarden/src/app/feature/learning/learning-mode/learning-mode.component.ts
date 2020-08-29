@@ -12,7 +12,8 @@ import {
   BasketPageAction,
 } from '../store/actions';
 import { setLearningMode } from '../store/actions/learn-page.actions';
-import { getLastResult } from '../store/';
+import { getLastResult, getBasketByPacketId } from '../store/';
+import { Basket } from 'src/app/shared/models/basket';
 
 @Component({
   selector: 'app-learning-mode',
@@ -25,10 +26,11 @@ import { getLastResult } from '../store/';
 export class LearningModeComponent implements OnInit {
   lastResults$: Observable<Result>;
   packets$: Observable<Packet[]>;
+  baskets$: Observable<Basket[]>;
   selectedPacket: number;
   selectedLastResultId: number;
   selectedMode: LearningMode;
-  isLastResultMode = false; // TODO the logic of displaying some components should not be here.
+  isLastResultMode = false;
 
   constructor(private store: Store<PacketState>) {}
 
@@ -52,6 +54,7 @@ export class LearningModeComponent implements OnInit {
         isLastResultMode: false,
       })
     );
+    this.baskets$ = this.store.select(getBasketByPacketId);
   }
 
   assignSelectedMode(learningMode: LearningMode): void {
@@ -67,5 +70,9 @@ export class LearningModeComponent implements OnInit {
       })
     );
     this.selectedLastResultId = resultId;
+  }
+
+  assingBasketModeNumber(basketNumber: number): void {
+    this.store.dispatch(BasketPageAction.setBasketModeNumber({ basketNumber }));
   }
 }
