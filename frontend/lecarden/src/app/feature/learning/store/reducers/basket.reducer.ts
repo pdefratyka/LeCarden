@@ -5,13 +5,13 @@ import { BasketApiAction, BasketPageAction } from '../actions';
 export interface BasketState {
   baskets: Basket[];
   error: string;
-  basketModeNumber: number;
+  currentBasket: Basket;
 }
 
 export const initialState: BasketState = {
   baskets: [],
   error: '',
-  basketModeNumber: null,
+  currentBasket: null,
 };
 
 export const basketReducer = createReducer<BasketState>(
@@ -40,7 +40,7 @@ export const basketReducer = createReducer<BasketState>(
     (state, action): BasketState => {
       return {
         ...state,
-        basketModeNumber: action.basketNumber,
+        currentBasket: action.basket,
       };
     }
   )

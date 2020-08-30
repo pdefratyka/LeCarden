@@ -8,4 +8,5 @@ import java.util.List;
 public interface BasketMapper {
     BasketTO mapToBasketTO(Basket basket);
     List<BasketTO> mapToBasketTOs(List<Basket> baskets);
+    Basket mapToBasket(BasketTO basketTO);
 }

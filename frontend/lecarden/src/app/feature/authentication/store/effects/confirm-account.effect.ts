@@ -27,7 +27,6 @@ export class ConfirmAccountEffects {
     .pipe(
       map((action: ConfirmAccount) => action.payload),
       switchMap((payload) => {
-        console.log(payload);
         return this.userService.sendConfirmationEmail().pipe(
           map((response) => {
             return new ConfirmAccountSuccess(response);

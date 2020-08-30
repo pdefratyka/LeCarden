@@ -44,8 +44,8 @@ export const getLastResult = createSelector(
     )
 );
 
-export const getBasketModeNumber = createSelector(getBasket, (state) => {
-  return state.basketModeNumber;
+export const getCurrentBasket = createSelector(getBasket, (state) => {
+  return state.currentBasket;
 });
 
 export const getBasketByPacketId = createSelector(
@@ -61,9 +61,9 @@ export const getLearningPacket = createSelector(
   getLastResult,
   getPackets,
   getLearningPacketId,
-  getBasketModeNumber,
+  getCurrentBasket,
   getBasketByPacketId,
-  (state, lastResult, packets, packetId, basketModeNumber, basket) => {
+  (state, lastResult, packets, packetId, currentBasket, basket) => {
     const currentPacket = packets.packets.find((p) => p.id === packetId);
     if (state.isLastResultMode) {
       const lastPacket = {
@@ -83,18 +83,15 @@ export const getLearningPacket = createSelector(
 
       return lastPacket;
     }
-    if (basketModeNumber) {
-      console.log('BasketModeNumber: ' + basketModeNumber);
-      console.log(currentPacket);
-      const tempBasket = basket.find((b) => b.number === basketModeNumber);
-      console.log(tempBasket);
+    const tempBasket = basket.find((b) => b.number === currentBasket?.number);
+    if (currentBasket?.id && tempBasket) {
       const lastPacket = {
         id: tempBasket.packetId,
         userId: tempBasket.userId,
         words: currentPacket.words.filter((w) => {
           let k = false;
-          for (let i = 0; i < tempBasket.words.length; i++) {
-            if (tempBasket.words[i] === w.id) {
+          for (let i = 0; i < tempBasket.basketWords.length; i++) {
+            if (tempBasket.basketWords[i].wordId === w.id) {
               k = true;
               break;
             }
@@ -103,6 +100,8 @@ export const getLearningPacket = createSelector(
         }),
       } as Packet;
       return lastPacket;
+    } else if (currentBasket && currentBasket?.number > 1) {
+      return { words: [] } as Packet;
     }
     return currentPacket;
   }

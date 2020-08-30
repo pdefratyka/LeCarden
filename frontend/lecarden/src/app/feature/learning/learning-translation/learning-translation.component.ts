@@ -12,8 +12,17 @@ import { Statistic } from 'src/app/shared/models/statistic';
 import { AudioService } from 'src/app/core/services/helpers/audio.service';
 import { LearningMode } from 'src/app/shared/models/learningMode';
 import { Store } from '@ngrx/store';
-import { getLearningMode, getLearningPacket, ResultPageAction } from '../store';
+import {
+  getLearningMode,
+  getLearningPacket,
+  ResultPageAction,
+  getCurrentBasket,
+} from '../store';
 import { WordPageAction } from '../../word/store';
+import { Basket } from 'src/app/shared/models/basket';
+import { BasketService } from 'src/app/core/services/api/basket.service';
+import { BasketResult } from 'src/app/shared/models/basketResult';
+import { BasketWord } from 'src/app/shared/models/basketWord';
 
 @Component({
   selector: 'app-learning-translation',
@@ -26,6 +35,7 @@ import { WordPageAction } from '../../word/store';
 export class LearningTranslationComponent implements OnInit {
   LearningMode = LearningMode;
   packet: Packet;
+  constantPacket: Packet;
   answer: Answer = { isCorrectAnswer: true } as Answer;
   statistic: Statistic = {
     numberOfGoodAnswers: 0,
@@ -36,7 +46,10 @@ export class LearningTranslationComponent implements OnInit {
   wordIterator = 0;
   wordResult: WordResult[] = [];
   packetSize: number;
+  currentBasket: Basket;
+  basketLearningMode: number;
   constructor(
+    private readonly basketService: BasketService,
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
     private readonly audioService: AudioService,
@@ -56,10 +69,24 @@ export class LearningTranslationComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.packet = JSON.parse(JSON.stringify(response));
+          this.constantPacket = JSON.parse(JSON.stringify(response));
           this.packetSize = this.packet.words.length;
         } else {
           this.router.navigateByUrl('/learn');
         }
+      });
+
+    this.store
+      .select(getCurrentBasket)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.currentBasket = res;
+      });
+    this.store
+      .select(getLearningMode)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.basketLearningMode = res;
       });
   }
 
@@ -98,20 +125,48 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   saveScore(): void {
-    this.store.dispatch(
-      ResultPageAction.saveResult({
-        result: {
-          packetId: this.packet.id,
+    if (this.currentBasket?.id) {
+      const tempBasketResult = {
+        basket: this.currentBasket,
+        wordResults: this.wordResult,
+      } as BasketResult;
+      this.basketService
+        .updateBaskets(tempBasketResult)
+        .subscribe((res) => console.log(res));
+    } else if (this.currentBasket) {
+      console.log('HMMMM');
+      const tempBasketWord: BasketWord[] = [];
+      for (const word of this.constantPacket.words) {
+        tempBasketWord.push({ wordId: word.id } as BasketWord);
+      }
+      const tempBasketResult = {
+        basket: {
+          number: this.currentBasket.number,
           userId: this.packet.userId,
-          wordsResultsTOs: this.wordResult,
-          learningMode: this.selectedMode,
-          score: this.scoreService.getScore(
-            this.statistic.numberOfAttempts,
-            this.statistic.numberOfGoodAnswers
-          ),
-        } as Result,
-      })
-    );
+          packetId: this.packet.id,
+          basketWords: tempBasketWord,
+        } as Basket,
+        wordResults: this.wordResult,
+      };
+      this.basketService
+        .updateBaskets(tempBasketResult)
+        .subscribe((res) => console.log(res));
+    } else {
+      this.store.dispatch(
+        ResultPageAction.saveResult({
+          result: {
+            packetId: this.packet.id,
+            userId: this.packet.userId,
+            wordsResultsTOs: this.wordResult,
+            learningMode: this.selectedMode,
+            score: this.scoreService.getScore(
+              this.statistic.numberOfAttempts,
+              this.statistic.numberOfGoodAnswers
+            ),
+          } as Result,
+        })
+      );
+    }
   }
 
   private nextWord(): void {

@@ -10,7 +10,6 @@ export const logoutActions = {
 export class Logout implements Action {
   readonly type = logoutActions.LOGOUT;
   constructor() {
-    console.log('Logout');
   }
 }
 

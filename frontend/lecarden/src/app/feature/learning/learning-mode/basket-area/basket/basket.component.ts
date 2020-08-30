@@ -9,13 +9,19 @@ import { Basket } from 'src/app/shared/models/basket';
 export class BasketComponent implements OnInit {
   @Input()
   basket: Basket;
+  @Input()
+  basketNumber: number;
   @Output()
-  basketNumber: EventEmitter<number> = new EventEmitter<number>();
+  currentBasket: EventEmitter<Basket> = new EventEmitter<Basket>();
   constructor() {}
 
   ngOnInit(): void {}
 
   emitBasketNumber(): void {
-    this.basketNumber.emit(1);
+    if (!this.basket) {
+      this.currentBasket.emit({ number: this.basketNumber } as Basket);
+    } else {
+      this.currentBasket.emit(this.basket);
+    }
   }
 }

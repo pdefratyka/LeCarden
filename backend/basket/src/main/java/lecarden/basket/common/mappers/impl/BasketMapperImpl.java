@@ -20,12 +20,24 @@ public class BasketMapperImpl implements BasketMapper {
                 .number(basket.getNumber())
                 .packetId(basket.getPacketId())
                 .userId(basket.getUserId())
-                .words(basket.getWords().stream().map(BasketWord::getWordId).collect(Collectors.toList()))
+                .basketWords(basket.getBasketWords())
                 .build();
     }
 
     @Override
     public List<BasketTO> mapToBasketTOs(List<Basket> baskets) {
         return baskets.stream().map(this::mapToBasketTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public Basket mapToBasket(BasketTO basketTO) {
+        return Basket.builder()
+                .basketWords(basketTO.getBasketWords())
+                .userId(basketTO.getUserId())
+                .packetId(basketTO.getPacketId())
+                .date(basketTO.getDate())
+                .id(basketTO.getId())
+                .number(basketTO.getNumber())
+                .build();
     }
 }

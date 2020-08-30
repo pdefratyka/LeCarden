@@ -27,7 +27,6 @@ export class ChangePasswordEffects {
     .pipe(
       map((action: ChangePassword) => action.payload),
       switchMap((payload) => {
-        console.log(payload);
         return this.userService
           .changePassword(payload.password, payload.token)
           .pipe(

@@ -17,7 +17,6 @@ export class LogoutEffects {
       switchMap((action) => {
         return this.authService.logout().pipe(
           map((response) => {
-            console.log(response);
             return new LogoutSuccess();
           })
         );

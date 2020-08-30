@@ -35,7 +35,7 @@ public class Basket {
             orphanRemoval = true
     )
     @JoinColumn(name = "BASKET_ID")
-    private List<BasketWord> words;
+    private List<BasketWord> basketWords;
 
     // TODO add mode
 }

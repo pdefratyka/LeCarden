@@ -11,7 +11,6 @@ export const registerActions = {
 export class Register implements Action {
   readonly type = registerActions.REGISTER;
   constructor(public payload: any) {
-    //console.log(payload);
   }
 }
 

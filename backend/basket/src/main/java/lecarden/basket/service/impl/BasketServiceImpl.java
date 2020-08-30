@@ -2,12 +2,17 @@ package lecarden.basket.service.impl;
 
 import lecarden.basket.common.mappers.BasketMapper;
 import lecarden.basket.persistence.entity.Basket;
+import lecarden.basket.persistence.entity.BasketWord;
 import lecarden.basket.persistence.repository.BasketRepository;
+import lecarden.basket.persistence.to.BasketResult;
 import lecarden.basket.persistence.to.BasketTO;
+import lecarden.basket.persistence.to.WordResult;
 import lecarden.basket.service.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,8 +28,8 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public Basket saveBasket(Basket basket) {
-        return basketRepository.save(basket);
+    public BasketTO saveBasket(BasketTO basketTO) {
+        return basketMapper.mapToBasketTO(basketRepository.save(basketMapper.mapToBasket(basketTO)));
     }
 
     @Override
@@ -35,5 +40,61 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public List<BasketTO> findBasketsByUserId(Long userId) {
         return basketMapper.mapToBasketTOs(basketRepository.findByUserId(userId));
+    }
+
+    @Override
+    @Transactional
+    public List<Basket> updateBaskets(BasketResult basketResult) {
+        Basket higherBasket = basketRepository
+                .findFirstByUserIdAndPacketIdAndNumber(basketResult.getBasket().getUserId(),
+                        basketResult.getBasket().getPacketId(), basketResult.getBasket().getNumber() + 1);
+        if (higherBasket == null) {
+            higherBasket = Basket.builder()
+                    .number(basketResult.getBasket().getNumber() + 1)
+                    .packetId(basketResult.getBasket().getPacketId())
+                    .userId(basketResult.getBasket().getUserId())
+                    .basketWords(new ArrayList<>())
+                    .build();
+        }
+        Basket lowerBasket = basketRepository.findFirstByUserIdAndPacketIdAndNumber(
+                basketResult.getBasket().getUserId(), basketResult.getBasket().getPacketId(),
+                1L);
+
+
+        for (WordResult wr : basketResult.getWordResults()) {
+            if (wr.getAttempts() == 1 && basketResult.getBasket().getNumber() < 5) {
+                BasketWord tempBasketWord =
+                        basketResult.getBasket().getBasketWords().stream()
+                                .filter(basketWord -> basketWord.getWordId().equals(wr.getWordId()))
+                                .findFirst().orElse(null);
+
+                if (tempBasketWord != null) {
+                    basketResult.getBasket().getBasketWords().remove(tempBasketWord);
+                    higherBasket.getBasketWords().add(BasketWord.builder().wordId(tempBasketWord.getWordId())
+                            .build());
+                }
+            } else if (basketResult.getBasket().getNumber() > 1 && wr.getAttempts() != 1) {
+                BasketWord tempBasketWord =
+                        basketResult.getBasket().getBasketWords().stream()
+                                .filter(basketWord -> basketWord.getWordId().equals(wr.getWordId()))
+                                .findFirst().orElse(null);
+
+                if (tempBasketWord != null) {
+                    basketResult.getBasket().getBasketWords().remove(tempBasketWord);
+                    lowerBasket.getBasketWords().add(BasketWord.builder().wordId(tempBasketWord.getWordId())
+                            .build());
+                }
+            }
+        }
+        saveBasket(basketResult.getBasket());
+        if (basketResult.getBasket().getNumber() < 5) {
+            basketRepository.save(higherBasket);
+        }
+
+        if (lowerBasket != null) {
+            basketRepository.save(lowerBasket);
+        }
+
+        return null;
     }
 }

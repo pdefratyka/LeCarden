@@ -11,7 +11,7 @@ export class BasketAreaComponent implements OnInit {
   baskets: Basket[];
 
   @Output()
-  basketModeNumber = new EventEmitter<number>();
+  basketModeNumber = new EventEmitter<Basket>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -20,7 +20,7 @@ export class BasketAreaComponent implements OnInit {
     return this.baskets.find((b) => b.number === basketNumber);
   }
 
-  emitBasketModeNumber(basketNumber: number): void {
-    this.basketModeNumber.emit(basketNumber);
+  emitBasketModeNumber(basket: Basket): void {
+    this.basketModeNumber.emit(basket);
   }
 }

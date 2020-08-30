@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
     List<Basket> findByUserId(Long userId);
+    Basket findFirstByUserIdAndPacketIdAndNumber(Long userId, Long packetId, Long number);
 }

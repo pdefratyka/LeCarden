@@ -1,5 +1,6 @@
 package lecarden.basket.persistence.to;
 
+import lecarden.basket.persistence.entity.BasketWord;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,6 @@ public class BasketTO {
     private Long userId;
     private LocalDateTime date;
     private Long packetId;
-    private List<Long> words;
+    private List<BasketWord> basketWords;
 
 }

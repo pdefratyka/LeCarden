@@ -33,7 +33,6 @@ export class RemindPasswordEffects {
     .pipe(
       map((action: RemindPassword) => action.payload),
       switchMap((payload) => {
-        console.log(payload);
         return this.userService.sendPasswordReseterEmail(payload).pipe(
           map((response) => {
             return new RemindPasswordSuccess(response);
