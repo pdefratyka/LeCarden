@@ -54,6 +54,7 @@ export class LearningModeComponent implements OnInit {
         isLastResultMode: false,
       })
     );
+    this.store.dispatch(BasketPageAction.setBasketModeNumber({ basket: null }));
     this.baskets$ = this.store.select(getBasketByPacketId);
   }
 

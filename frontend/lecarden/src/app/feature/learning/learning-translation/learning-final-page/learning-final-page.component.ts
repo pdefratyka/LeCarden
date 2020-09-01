@@ -11,8 +11,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class LearningFinalPageComponent {
   @Output()
   saveScore: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  changeFinalBasketMode: EventEmitter<void> = new EventEmitter<void>();
 
   emitSaveScore(): void {
     this.saveScore.emit();
+  }
+
+  emitFinalBasketMode(): void {
+    this.changeFinalBasketMode.emit();
   }
 }

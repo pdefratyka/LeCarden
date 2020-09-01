@@ -17,6 +17,8 @@ import {
   getLearningPacket,
   ResultPageAction,
   getCurrentBasket,
+  BasketPageAction,
+  LearnPageAction,
 } from '../store';
 import { WordPageAction } from '../../word/store';
 import { Basket } from 'src/app/shared/models/basket';
@@ -35,7 +37,6 @@ import { BasketWord } from 'src/app/shared/models/basketWord';
 export class LearningTranslationComponent implements OnInit {
   LearningMode = LearningMode;
   packet: Packet;
-  constantPacket: Packet;
   answer: Answer = { isCorrectAnswer: true } as Answer;
   statistic: Statistic = {
     numberOfGoodAnswers: 0,
@@ -48,8 +49,8 @@ export class LearningTranslationComponent implements OnInit {
   packetSize: number;
   currentBasket: Basket;
   basketLearningMode: number;
+  finalBasketMode = false;
   constructor(
-    private readonly basketService: BasketService,
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
     private readonly audioService: AudioService,
@@ -69,10 +70,9 @@ export class LearningTranslationComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.packet = JSON.parse(JSON.stringify(response));
-          this.constantPacket = JSON.parse(JSON.stringify(response));
           this.packetSize = this.packet.words.length;
         } else {
-          this.router.navigateByUrl('/learn');
+          this.router.navigate(['learn']);
         }
       });
 
@@ -125,32 +125,28 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   saveScore(): void {
-    if (this.currentBasket?.id) {
-      const tempBasketResult = {
-        basket: this.currentBasket,
-        wordResults: this.wordResult,
-      } as BasketResult;
-      this.basketService
-        .updateBaskets(tempBasketResult)
-        .subscribe((res) => console.log(res));
-    } else if (this.currentBasket) {
-      console.log('HMMMM');
-      const tempBasketWord: BasketWord[] = [];
-      for (const word of this.constantPacket.words) {
-        tempBasketWord.push({ wordId: word.id } as BasketWord);
-      }
-      const tempBasketResult = {
-        basket: {
+    if (this.currentBasket) {
+      if (!this.currentBasket.id) {
+        const tempBasketWord: BasketWord[] = [];
+        for (const wordResult of this.wordResult) {
+          tempBasketWord.push({ wordId: wordResult.wordId } as BasketWord);
+        }
+        this.currentBasket = {
           number: this.currentBasket.number,
           userId: this.packet.userId,
           packetId: this.packet.id,
           basketWords: tempBasketWord,
-        } as Basket,
-        wordResults: this.wordResult,
-      };
-      this.basketService
-        .updateBaskets(tempBasketResult)
-        .subscribe((res) => console.log(res));
+        } as Basket;
+      }
+      this.store.dispatch(
+        BasketPageAction.updateBasket({
+          basketResult: {
+            basket: this.currentBasket,
+            wordResults: this.wordResult,
+            isFinalBasketMode: this.finalBasketMode,
+          } as BasketResult,
+        })
+      );
     } else {
       this.store.dispatch(
         ResultPageAction.saveResult({
@@ -167,6 +163,11 @@ export class LearningTranslationComponent implements OnInit {
         })
       );
     }
+  }
+
+  setFinalModeBasket(): void {
+    this.finalBasketMode = !this.finalBasketMode;
+    this.store.dispatch(LearnPageAction.setFinalBasketMode());
   }
 
   private nextWord(): void {

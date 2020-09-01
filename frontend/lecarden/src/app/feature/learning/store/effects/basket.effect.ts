@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { BasketService } from 'src/app/core/services/api/basket.service';
 import { BasketPageAction, BasketApiAction } from '../actions';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class BasketEffects {
   constructor(
     private actions$: Actions,
-    private readonly basketService: BasketService
+    private readonly basketService: BasketService,
+    private readonly router: Router
   ) {}
 
   loadBaskets$ = createEffect(() => {
@@ -29,4 +31,30 @@ export class BasketEffects {
       )
     );
   });
+
+  updateBasket$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BasketPageAction.updateBasket),
+      mergeMap((action) =>
+        this.basketService.updateBaskets(action.basketResult).pipe(
+          map((baskets) => BasketApiAction.updateBasketSuccess({ baskets })),
+          catchError((error) =>
+            of(BasketApiAction.updateBasketFailture({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  saveResultSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(BasketApiAction.updateBasketSuccess),
+        tap((action) => {
+          this.router.navigate(['learn']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 }

@@ -15,3 +15,7 @@ export const setLastResultMode = createAction(
   '[Learn Page] Set Last Result Mode',
   props<{ isLastResultMode: boolean }>()
 );
+
+export const setFinalBasketMode = createAction(
+  '[Learn Page] Set FinalBasket Mode'
+);

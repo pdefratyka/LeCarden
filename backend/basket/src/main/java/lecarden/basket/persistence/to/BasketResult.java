@@ -13,4 +13,5 @@ import lombok.*;
 public class BasketResult {
     private BasketTO basket;
     private WordResult[] wordResults;
+    private Boolean isFinalBasketMode;
 }

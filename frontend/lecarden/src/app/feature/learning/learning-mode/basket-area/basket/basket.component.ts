@@ -11,6 +11,8 @@ export class BasketComponent implements OnInit {
   basket: Basket;
   @Input()
   basketNumber: number;
+  @Input()
+  selectedBasket: number;
   @Output()
   currentBasket: EventEmitter<Basket> = new EventEmitter<Basket>();
   constructor() {}

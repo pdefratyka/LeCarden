@@ -1,3 +1,8 @@
-<div class="basket" (click)="emitBasketNumber()">
-  <h2>{{ basket?.number }}</h2>
+<div
+  class="basket"
+  (click)="emitBasketNumber()"
+  [ngClass]="{ selectedBasket: selectedBasket === basketNumber }"
+>
+  <h2>{{ basketNumber }}</h2>
+  <h2>{{ basket?.basketWords?.length }}</h2>
 </div>

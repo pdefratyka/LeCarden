@@ -34,6 +34,7 @@
             <app-learning-final-page
               *ngIf="packet?.words.length === 0"
               (saveScore)="saveScore()"
+              (changeFinalBasketMode)="setFinalModeBasket()"
             >
             </app-learning-final-page>
           </div>
