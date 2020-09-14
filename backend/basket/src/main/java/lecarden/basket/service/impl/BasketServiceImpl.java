@@ -104,4 +104,9 @@ public class BasketServiceImpl implements BasketService {
 
         return null;
     }
+
+    @Override
+    public void resetBaskets(Long userId, Long packetId) {
+        basketRepository.deleteAll(basketRepository.findByUserIdAndPacketId(userId, packetId));
+    }
 }

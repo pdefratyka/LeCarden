@@ -43,6 +43,11 @@ public class BasketController {
         return basketService.findBasketsByUserId(userId);
     }
 
+    @GetMapping("/user-id/{userId}/packet/{packetId}")
+    public void resetBasket(@PathVariable Long userId, @PathVariable Long packetId){
+        basketService.resetBaskets(userId, packetId);
+    }
+
     @PostMapping("/update")
     public List<Basket> updateBaskets(@RequestBody BasketResult basketResult) {
         logger.info("BASKET");

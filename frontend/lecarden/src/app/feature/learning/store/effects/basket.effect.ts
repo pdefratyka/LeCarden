@@ -57,4 +57,20 @@ export class BasketEffects {
     },
     { dispatch: false }
   );
+
+  resetBaskets$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BasketPageAction.resetBaskets),
+      mergeMap((action) =>
+        this.basketService.resetBaskets(action.packetId).pipe(
+          map(() =>
+            BasketApiAction.resetBasketsSuccess({ packetId: action.packetId })
+          ),
+          catchError((error) =>
+            of(BasketApiAction.resetBasketsFailure({ error }))
+          )
+        )
+      )
+    );
+  });
 }

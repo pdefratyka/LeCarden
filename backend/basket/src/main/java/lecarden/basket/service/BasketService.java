@@ -14,4 +14,6 @@ public interface BasketService {
     List<BasketTO> findBasketsByUserId(Long userIdLong);
 
     List<Basket> updateBaskets(BasketResult basketResult);
+
+    void resetBaskets(Long userId, Long packetId);
 }

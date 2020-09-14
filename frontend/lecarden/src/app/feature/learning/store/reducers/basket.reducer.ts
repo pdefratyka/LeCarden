@@ -43,5 +43,17 @@ export const basketReducer = createReducer<BasketState>(
         currentBasket: action.basket,
       };
     }
+  ),
+  on(
+    BasketApiAction.resetBasketsSuccess,
+    (state, action): BasketState => {
+      const tempBaskets = state.baskets.filter(
+        (b) => b.packetId !== action.packetId
+      );
+      return {
+        ...state,
+        baskets: tempBaskets,
+      };
+    }
   )
 );

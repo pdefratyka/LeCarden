@@ -76,4 +76,14 @@ export class LearningModeComponent implements OnInit {
   assingBasketModeNumber(basket: Basket): void {
     this.store.dispatch(BasketPageAction.setBasketModeNumber({ basket }));
   }
+
+  resetBaskets(): void {
+    if (
+      window.confirm('Are you sure you want to reset baskets for this packet?')
+    ) {
+      this.store.dispatch(
+        BasketPageAction.resetBaskets({ packetId: this.selectedPacket })
+      );
+    }
+  }
 }

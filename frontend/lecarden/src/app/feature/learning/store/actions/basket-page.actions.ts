@@ -15,3 +15,8 @@ export const updateBasket = createAction(
   '[Basket Page] Update Basket',
   props<{ basketResult: BasketResult }>()
 );
+
+export const resetBaskets = createAction(
+  '[Basket Page] Reset Baskets of given packet',
+  props<{ packetId: number }>()
+);

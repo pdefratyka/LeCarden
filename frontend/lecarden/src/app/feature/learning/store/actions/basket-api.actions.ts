@@ -20,3 +20,13 @@ export const updateBasketFailture = createAction(
   '[Basket API] Update Basket Failture',
   props<{ error: string }>()
 );
+
+export const resetBasketsSuccess = createAction(
+  '[Basket API] Reset Baskets Success',
+  props<{ packetId: number }>()
+);
+
+export const resetBasketsFailure = createAction(
+  '[Basket API] Reset Baskets Failture',
+  props<{ error: string }>()
+);
