@@ -17,7 +17,11 @@
         <td>{{ word.translation }}</td>
         <td>{{ word.category }}</td>
         <td>
-          <button class="btn btn-success" (click)="emitEditWord(word)">
+          <button
+            class="btn btn-success"
+            (click)="emitEditWord(word)"
+            [disabled]="word.builtIn"
+          >
             +
           </button>
         </td>
@@ -25,6 +29,7 @@
           <button
             class="btn btn-danger"
             (click)="emitDeleteWord(word.id, word.name)"
+            [disabled]="word.builtIn"
           >
             -
           </button>

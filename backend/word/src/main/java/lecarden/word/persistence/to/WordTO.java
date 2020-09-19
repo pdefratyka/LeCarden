@@ -16,4 +16,5 @@ public class WordTO {
     private Long userId;
     private String imageUrl;
     private String audioUrl;
+    private Boolean builtIn;
 }

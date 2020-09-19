@@ -6,4 +6,5 @@ export interface Word {
   category?: string;
   imageUrl?: string;
   audioUrl?: string;
+  builtIn?: boolean;
 }

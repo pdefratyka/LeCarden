@@ -15,12 +15,20 @@
         <td>{{ packet.name }}</td>
         <td>{{ packet.words ? packet.words.length : 0 }}</td>
         <td>
-          <button class="btn btn-success" (click)="editPacket(packet.id)">
+          <button
+            class="btn btn-success"
+            (click)="editPacket(packet.id)"
+            disabled="{{ packet.builtIn }}"
+          >
             +
           </button>
         </td>
         <td>
-          <button class="btn btn-danger" (click)="emitDeletePacket(packet.id)">
+          <button
+            class="btn btn-danger"
+            (click)="emitDeletePacket(packet.id)"
+            disabled="{{ packet.builtIn }}"
+          >
             -
           </button>
         </td>

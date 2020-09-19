@@ -31,6 +31,8 @@ public class Word {
     private String imageUrl;
     @Column(name="AUDIO_URL")
     private String audioUrl;
+    @Column(name="BUILT_IN")
+    private Boolean builtIn;
 
     @ManyToMany(mappedBy = "words")
     private List<Packet> packets;

@@ -25,6 +25,7 @@ import { Basket } from 'src/app/shared/models/basket';
 import { BasketService } from 'src/app/core/services/api/basket.service';
 import { BasketResult } from 'src/app/shared/models/basketResult';
 import { BasketWord } from 'src/app/shared/models/basketWord';
+import { TokenService } from 'src/app/core/services/security/token.service';
 
 @Component({
   selector: 'app-learning-translation',
@@ -55,6 +56,7 @@ export class LearningTranslationComponent implements OnInit {
     private readonly learningService: LearningService,
     private readonly audioService: AudioService,
     private readonly router: Router,
+    private readonly tokenService: TokenService,
     private store: Store
   ) {}
 
@@ -133,7 +135,7 @@ export class LearningTranslationComponent implements OnInit {
         }
         this.currentBasket = {
           number: this.currentBasket.number,
-          userId: this.packet.userId,
+          userId: this.tokenService.getUserId(),
           packetId: this.packet.id,
           basketWords: tempBasketWord,
         } as Basket;

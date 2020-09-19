@@ -17,7 +17,9 @@ export class ResultService {
   ) {}
 
   saveResult(result: Result): Observable<Result> {
-    return this.httpClient.post<Result>(this.url, result);
+    const tempResult: Result = { ...result };
+    tempResult.userId = this.tokenService.getUserId();
+    return this.httpClient.post<Result>(this.url, tempResult);
   }
 
   getLastResult(packetId: number): Observable<Result[]> {

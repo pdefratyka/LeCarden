@@ -1,17 +1,18 @@
 package lecarden.user.controller;
 
-import lecarden.user.common.exception.TokenException;
-import lecarden.user.common.exception.UserException;
-import lecarden.user.common.validator.UserValidator;
-import lecarden.user.persistence.entity.PasswordResetToken;
-import lecarden.user.persistence.to.UserTO;
-import lecarden.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import lecarden.user.common.exception.TokenException;
+import lecarden.user.common.exception.UserException;
+import lecarden.user.common.validator.UserValidator;
+import lecarden.user.persistence.entity.PasswordResetToken;
+import lecarden.user.persistence.to.UserTO;
+import lecarden.user.service.UserService;
 
 @RestController
 @RequestMapping("users")
@@ -26,6 +27,7 @@ public class UserController {
         this.userService = userService;
         this.userValidator = userValidator;
     }
+
 
     @PostMapping
     public ResponseEntity<UserTO> addUser(@RequestBody UserTO userTO) {
@@ -52,8 +54,7 @@ public class UserController {
                     .status(HttpStatus.BAD_REQUEST)
                     .body("You cannot send email now");
         } catch (Exception e) {
-            return ResponseEntity.
-                    status(HttpStatus.INTERNAL_SERVER_ERROR)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("There was some problem with the server. Try again later");
         }
     }

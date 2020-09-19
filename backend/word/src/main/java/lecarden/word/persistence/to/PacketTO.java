@@ -14,4 +14,5 @@ public class PacketTO {
     private String name;
     private Long userId;
     private List<WordTO> words;
+    private Boolean builtIn;
 }

@@ -32,6 +32,9 @@ public class Packet {
     )
     private List<Word> words;
 
+    @Column(name="BUILT_IN")
+    private Boolean builtIn;
+
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;
 

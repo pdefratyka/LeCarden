@@ -27,6 +27,7 @@ public class PacketMapperImpl implements PacketMapper {
                 .name(packet.getName())
                 .userId(packet.getUserId())
                 .words(wordMapper.mapToWordTOs(packet.getWords()))
+                .builtIn(packet.getBuiltIn())
                 .build();
     }
 
@@ -48,6 +49,7 @@ public class PacketMapperImpl implements PacketMapper {
                 .name(packetTO.getName())
                 .userId(packetTO.getUserId())
                 .words(wordMapper.mapToWords(packetTO.getWords()))
+                .builtIn(packetTO.getBuiltIn())
                 .build();
     }
 }

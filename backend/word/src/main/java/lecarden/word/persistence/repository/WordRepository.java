@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
-    @Query(value = "from Word w where w.userId=:userId")
+    @Query(value = "from Word w where w.userId=:userId or w.builtIn=true")
     List<Word> getWordsByUserId(@Param("userId") Long userId);
 
     @Query(value="select distinct category from Word w where w.userId=:userId")
