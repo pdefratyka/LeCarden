@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-11">
+
+    </div>
+    <span (click)="emitCloseForm()">X</span>
+  </div>
+  <form (ngSubmit)="emitSaveWord()" [formGroup]="addWordForm">
+    <div class="form-group">
+      <label for="german-word-input">{{ 'LABEL.WORD' | translate }}*</label>
+      <input
+        type="text"
+        class="form-control"
+        id="german-word-input"
+        placeholder="{{ 'INFO.ENTER_WORD' | translate }}"
+        formControlName="name"
+      />
+      <small id="german-word-help-label" class="form-text text-muted">{{
+        'INFO.SYNONYMS_AFTER_SEMICOLN' | translate
+      }}</small>
+      <div
+        class="alert alert-danger"
+        *ngIf="name.invalid && (name.touched || formInvalidSubmitted)"
+      >
+        {{ 'INFO.WORD_IS_REQUIRED' | translate }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="plural-input">{{ 'LABEL.PLURAL' | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="plural-input"
+        placeholder="{{ 'LABEL.PLURAL' | translate }}"
+        formControlName="plural"
+        [ngClass]="{ 'is-invalid': plural.invalid && plural.touched }"
+      />
+    </div>
+    <div class="form-group">
+      <label for="meaning-input">{{ 'LABEL.MEANING' | translate }}*</label>
+      <input
+        type="text"
+        class="form-control"
+        id="meaning-input"
+        placeholder="{{ 'LABEL.MEANING' | translate }}"
+        formControlName="translation"
+        [ngClass]="{
+          'is-invalid':
+            translation.invalid && (translation.touched || formInvalidSubmitted)
+        }"
+      />
+      <small id="meaning-help-label" class="form-text text-muted">{{
+        'INFO.SYNONYMS_AFTER_SEMICOLN' | translate
+      }}</small>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          translation.invalid && (translation.touched || formInvalidSubmitted)
+        "
+      >
+        {{ 'INFO.MEANING_IS_REQUIRED' | translate }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl-input">Image url</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imageUrl-input"
+        placeholder="Image url"
+        formControlName="imageUrl"
+        [ngClass]="{ 'is-invalid': imageUrl.invalid && imageUrl.touched }"
+      />
+    </div>
+    <div class="form-group">
+      <label for="audioUrl-input">Audio url</label>
+      <input
+        type="text"
+        class="form-control"
+        id="audioUrl-input"
+        placeholder="Audio url"
+        formControlName="audioUrl"
+        [ngClass]="{ 'is-invalid': audioUrl.invalid && audioUrl.touched }"
+      />
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <button
+          type="submit"
+          class="btn btn-success"
+          id="submit-button"
+          [ngClass]="{ 'invalid-form-button': addWordForm.invalid }"
+        >
+          {{ 'LABEL.SUBMIT' | translate }}
+        </button>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </form>
+</div>

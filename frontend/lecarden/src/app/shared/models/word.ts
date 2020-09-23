@@ -7,4 +7,5 @@ export interface Word {
   imageUrl?: string;
   audioUrl?: string;
   builtIn?: boolean;
+  userId?: boolean;
 }

@@ -51,6 +51,7 @@ export class LearningTranslationComponent implements OnInit {
   currentBasket: Basket;
   basketLearningMode: number;
   finalBasketMode = false;
+  editWordPanel = false;
   constructor(
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
@@ -93,6 +94,7 @@ export class LearningTranslationComponent implements OnInit {
   }
 
   checkAnswer(answer: string): void {
+    this.editWordPanel = false;
     this.incrementAttempts();
     this.audioService.playAudio(this.packet.words[this.wordIterator].audioUrl);
     this.learningService.isWordMatch(
@@ -106,24 +108,8 @@ export class LearningTranslationComponent implements OnInit {
 
   continueAfterAnswerResponse(): void {
     this.answer.isCorrectAnswer = true;
+    this.editWordPanel = false;
     this.nextWord();
-  }
-
-  addSynonymToWord(): void {
-    if (this.selectedMode === LearningMode.FOREGIN_TO_KNOWN) {
-      this.packet.words[this.wordIterator].name =
-        this.answer.correctAnswer + ';' + this.answer.userAnswer;
-    } else {
-      this.packet.words[this.wordIterator].translation =
-        this.answer.correctAnswer + ';' + this.answer.userAnswer;
-    }
-
-    this.store.dispatch(
-      WordPageAction.updateWord({
-        word: this.packet.words[this.wordIterator],
-      })
-    );
-    this.continueAfterAnswerResponse();
   }
 
   saveScore(): void {
@@ -167,9 +153,23 @@ export class LearningTranslationComponent implements OnInit {
     }
   }
 
+  displayEditPanel(): void {
+    this.editWordPanel = !this.editWordPanel;
+  }
+
   setFinalModeBasket(): void {
     this.finalBasketMode = !this.finalBasketMode;
     this.store.dispatch(LearnPageAction.setFinalBasketMode());
+  }
+
+  updateWord(word: Word): void {
+    this.store.dispatch(WordPageAction.updateWord({ word }));
+    const tempWord = this.packet.words.find((w) => w.id === word.id);
+    tempWord.name = word.name;
+    tempWord.translation = word.translation;
+    tempWord.plural = word.plural;
+    tempWord.audioUrl = word.audioUrl;
+    tempWord.imageUrl = word.imageUrl;
   }
 
   private nextWord(): void {

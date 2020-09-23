@@ -28,6 +28,7 @@ import { BasketAreaComponent } from './learning-mode/basket-area/basket-area.com
 import { BasketComponent } from './learning-mode/basket-area/basket/basket.component';
 import { basketReducer } from './store/reducers/basket.reducer';
 import { BasketEffects } from './store/effects/basket.effect';
+import { EditWordComponent } from './learning-translation/edit-word/edit-word.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BasketEffects } from './store/effects/basket.effect';
     LearningFinalPageComponent,
     BasketAreaComponent,
     BasketComponent,
+    EditWordComponent,
   ],
   imports: [
     CommonModule,
