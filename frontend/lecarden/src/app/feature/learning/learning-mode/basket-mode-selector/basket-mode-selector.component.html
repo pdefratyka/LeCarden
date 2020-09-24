@@ -1,23 +1,24 @@
-<div class="container">
-  <table class="table" aria-describedby="show packet table">
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        (click)="emitBasketMode()"
-        [ngClass]="{ selected: isBasketModeSelected }"
-      >
-        <td>
-          {{ 'LABEL.BASKET_MODE' | translate }}
-        </td>
-        <td>
-          <input type="checkbox" [checked]="isBasketModeSelected"/>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid">
+  <div class="row">
+    <table class="table mode-table col-md-12">
+      <thead>
+        <tr>
+          <th scope="col" colspan="2">{{ 'LABEL.EXTRA_MODES' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          (click)="emitBasketMode()"
+          [ngClass]="{ selected: isBasketModeSelected }"
+        >
+          <td class="basket-lebel-cell">
+            {{ 'LABEL.BASKET_MODE' | translate }}
+          </td>
+          <td>
+            <input type="checkbox" [checked]="isBasketModeSelected" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

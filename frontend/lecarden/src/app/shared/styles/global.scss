@@ -12,3 +12,19 @@ button:disabled:hover {
   border-color: black;
   display: block;
 }
+.mode-table {
+  th {
+    text-align: center;
+  }
+
+  tbody {
+    tr:hover {
+      cursor: pointer;
+      background-color: lightgray;
+    }
+    .selected {
+      background-color: lightgray;
+    }
+
+  }
+}

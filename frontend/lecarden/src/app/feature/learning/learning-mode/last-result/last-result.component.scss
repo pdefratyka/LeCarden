@@ -1,9 +1,14 @@
-tbody {
-  tr:hover {
-    cursor: pointer;
-    background-color: lightgray;
+table {
+  .head-row {
+    text-align: center;
   }
-  .selected {
-    background-color: lightgray;
+  tbody {
+    tr:hover {
+      cursor: pointer;
+      background-color: lightgray;
+    }
+    .selected {
+      background-color: lightgray;
+    }
   }
 }

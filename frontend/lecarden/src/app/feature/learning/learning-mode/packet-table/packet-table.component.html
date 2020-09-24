@@ -1,20 +1,22 @@
-<div class="container">
-  <table class="table" aria-describedby="show packet table">
-    <thead>
-      <tr>
-        <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
-        <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let packet of packets; index as i"
-        [ngClass]="{ selected: packet.id === selectedPacket }"
-        (click)="emitSelectPacket(packet.id)"
-      >
-        <td>{{ packet.name }}</td>
-        <td>{{ packet.words ? packet.words.length : 0 }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid">
+  <div class="row">
+    <table class="table col-md-12">
+      <thead>
+        <tr>
+          <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
+          <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let packet of packets; index as i"
+          [ngClass]="{ selected: packet.id === selectedPacket }"
+          (click)="emitSelectPacket(packet.id)"
+        >
+          <td>{{ packet.name }}</td>
+          <td>{{ packet.words ? packet.words.length : 0 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

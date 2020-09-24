@@ -60,6 +60,7 @@
     "LOGIN_ALREADY_EXIST":"User with this login already exist",
     "EMAIL_ALREADY_ASSIGNED":"User with this email already exist",
     "RESET_BASKETS":"Reset Baskets",
-    "BASKET_MODE":"Basket Mode"
+    "BASKET_MODE":"Basket",
+    "EXTRA_MODES":"Extra Modes"
   }
 }

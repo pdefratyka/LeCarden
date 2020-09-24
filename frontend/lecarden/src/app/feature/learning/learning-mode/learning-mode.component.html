@@ -1,67 +1,65 @@
 <app-header></app-header>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3"></div>
-    <div class="col-sm-6 col-md-7 col-lg-3 col-xl-3">
-      <div class="row mb-5">
-        <div class="container col-md-12 frame-container">
-          <div class="row"></div>
-          <div class="row">
-            <div class="col-md-12 word-table">
-              <app-packet-table
-                [packets]="packets$ | async"
-                [selectedPacket]="selectedPacket"
-                (selectPacket)="assignSelectedPacket($event)"
-              ></app-packet-table>
-            </div>
-          </div>
+    <!-- Left Panel -->
+    <div class="container-fluid col-md-8">
+      <div class="row">
+        <div class="col-md-6 offset-md-4 frame-container">
+          <app-packet-table
+            [packets]="packets$ | async"
+            [selectedPacket]="selectedPacket"
+            (selectPacket)="assignSelectedPacket($event)"
+          ></app-packet-table>
         </div>
       </div>
     </div>
-
+    <!-- Right Panel-->
     <ng-container *ngIf="selectedPacket">
-      <div class="col-md-2"></div>
-      <div class="col-md-3">
-        <div class="row mb-5">
-          <div class="container col-md-12 frame-container">
-            <div class="row"></div>
-            <div class="row">
-              <div class="col-md-12 word-table">
-                <app-learning-mode-selector
-                  [selectedMode]="selectedMode"
-                  (selectMode)="assignSelectedMode($event)"
-                ></app-learning-mode-selector>
-              </div>
-            </div>
+      <div class="container-fluid col-md-3">
+        <div class="row">
+          <div class="col-md-12 frame-container">
+            <app-learning-mode-selector
+              [selectedMode]="selectedMode"
+              (selectMode)="assignSelectedMode($event)"
+            ></app-learning-mode-selector>
           </div>
         </div>
-        <div class="row mb-5">
-          <div class="container col-md-12 frame-container">
-            <div class="row"></div>
-            <div class="row">
-              <div class="col-md-12 word-table">
-                <app-basket-mode-selector
-                  (basketMode)="selectBasketMode()"
-                ></app-basket-mode-selector>
-              </div>
-            </div>
+        <div class="row">
+          <div class="col-md-12 frame-container">
+            <app-basket-mode-selector
+              [isBasketModeSelected]="isBasketModeSelected"
+              (basketMode)="selectBasketMode()"
+            ></app-basket-mode-selector>
           </div>
         </div>
-        <ng-container *ngIf="selectedMode !== null">
+        <ng-container
+          *ngIf="
+            !isBasketModeSelected && selectedMode !== null && lastResult$
+              | async as lastResult
+          "
+        >
           <div class="row">
-            <div class="container frame-container last-result-container">
-              <div class="row">
-                <div class="col-md-12">
-                  <app-last-result
-                    [result]="lastResult$ | async"
-                    [isLastResultMode]="isLastResultMode"
-                    (resultMode)="selectLastResult($event)"
-                  ></app-last-result>
-                </div>
-              </div>
+            <div class="col-md-12 frame-container">
+              <app-last-result
+                [result]="lastResult"
+                [isLastResultMode]="isLastResultMode"
+                (resultMode)="selectLastResult($event)"
+              ></app-last-result>
             </div>
           </div>
-          <div class="row mt-4">
+        </ng-container>
+        <ng-container *ngIf="selectedMode !== null && isBasketModeSelected">
+          <div class="row">
+            <div class="col-md-12 frame-container">
+              <app-basket-area
+                [baskets]="baskets$ | async"
+                (basketModeNumber)="assingBasketModeNumber($event)"
+              ></app-basket-area>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="selectedMode !== null">
+          <div classs="row">
             <div class="col-md-12">
               <button
                 class="btn btn-success"
@@ -71,29 +69,9 @@
               </button>
             </div>
           </div>
-          <div class="row mt-4">
-            <div class="col-md-12">
-              <button class="btn btn-danger" (click)="resetBaskets()">
-                {{ 'LABEL.RESET_BASKETS' | translate }}
-              </button>
-            </div>
-          </div>
         </ng-container>
       </div>
     </ng-container>
+    <div class="col-md-1"></div>
   </div>
-  <ng-container
-    *ngIf="selectedPacket && selectedMode !== null && isBasketModeSelected"
-  >
-    <div class="row mt-4">
-      <div class="col-md-1"></div>
-      <div class="col-md-10 frame-container">
-        <app-basket-area
-          [baskets]="baskets$ | async"
-          (basketModeNumber)="assingBasketModeNumber($event)"
-        ></app-basket-area>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-  </ng-container>
 </div>

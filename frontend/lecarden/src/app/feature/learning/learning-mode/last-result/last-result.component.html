@@ -1,9 +1,11 @@
-<ng-container *ngIf="result">
-  <div class="container">
-    <table class="table" aria-describedby="show packet table">
+<div class="container-fluid">
+  <div class="row">
+    <table class="table col-md-12">
       <thead>
-        <tr>
-          <th>{{ 'LABEL.LAST_RESULT' | translate }}</th>
+        <tr class="head-row">
+          <th scope="col" colspan="2">
+            {{ 'LABEL.LAST_RESULT' | translate }}
+          </th>
         </tr>
         <tr>
           <th scope="col">{{ 'LABEL.DATE' | translate }}</th>
@@ -23,4 +25,4 @@
       </tbody>
     </table>
   </div>
-</ng-container>
+</div>
