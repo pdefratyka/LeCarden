@@ -13,7 +13,7 @@ import java.util.List;
 public interface ResultRepository extends JpaRepository<Result, Long> {
     Result findFirstByUserIdAndPacketIdAndLearningModeOrderByDateDesc(Long userId, Long packetId, LearningMode learningMode);
 
-    @Query(value = "SELECT r.id, r.packet_id, r.score, r.user_id, r.mode, r.learning_mode, r.date\n" +
+    @Query(value = "SELECT r.id, r.packet_id, r.score, r.user_id, r.learning_mode, r.date\n" +
             "FROM T_RESULT as r \n" +
             "INNER JOIN \n" +
             "(\n" +

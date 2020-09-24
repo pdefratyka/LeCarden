@@ -24,13 +24,14 @@ import { Basket } from 'src/app/shared/models/basket';
   ],
 })
 export class LearningModeComponent implements OnInit {
-  lastResults$: Observable<Result>;
+  lastResult$: Observable<Result>;
   packets$: Observable<Packet[]>;
   baskets$: Observable<Basket[]>;
   selectedPacket: number;
   selectedLastResultId: number;
   selectedMode: LearningMode;
   isLastResultMode = false;
+  isBasketModeSelected = false;
 
   constructor(private store: Store<PacketState>) {}
 
@@ -43,7 +44,7 @@ export class LearningModeComponent implements OnInit {
 
   assignSelectedPacket(packetId: number): void {
     this.store.dispatch(LearnPageAction.setLearningPacket({ packetId }));
-    this.lastResults$ = this.store.select(getLastResult);
+    this.lastResult$ = this.store.select(getLastResult);
     this.store.dispatch(setLearningMode({ learningMode: null }));
     this.isLastResultMode = false;
     this.selectedPacket = packetId;
@@ -75,6 +76,10 @@ export class LearningModeComponent implements OnInit {
 
   assingBasketModeNumber(basket: Basket): void {
     this.store.dispatch(BasketPageAction.setBasketModeNumber({ basket }));
+  }
+
+  selectBasketMode(): void {
+    this.isBasketModeSelected = !this.isBasketModeSelected;
   }
 
   resetBaskets(): void {

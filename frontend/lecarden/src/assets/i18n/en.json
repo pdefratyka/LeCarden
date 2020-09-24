@@ -59,6 +59,7 @@
     "SEND_PASSWORD_RESET":"Send email to restart password",
     "LOGIN_ALREADY_EXIST":"User with this login already exist",
     "EMAIL_ALREADY_ASSIGNED":"User with this email already exist",
-    "RESET_BASKETS":"Reset Baskets"
+    "RESET_BASKETS":"Reset Baskets",
+    "BASKET_MODE":"Basket Mode"
   }
 }

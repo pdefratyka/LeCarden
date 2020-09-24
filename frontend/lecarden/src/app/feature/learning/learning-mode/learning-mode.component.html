@@ -35,13 +35,25 @@
             </div>
           </div>
         </div>
+        <div class="row mb-5">
+          <div class="container col-md-12 frame-container">
+            <div class="row"></div>
+            <div class="row">
+              <div class="col-md-12 word-table">
+                <app-basket-mode-selector
+                  (basketMode)="selectBasketMode()"
+                ></app-basket-mode-selector>
+              </div>
+            </div>
+          </div>
+        </div>
         <ng-container *ngIf="selectedMode !== null">
           <div class="row">
             <div class="container frame-container last-result-container">
               <div class="row">
                 <div class="col-md-12">
                   <app-last-result
-                    [result]="lastResults$ | async"
+                    [result]="lastResult$ | async"
                     [isLastResultMode]="isLastResultMode"
                     (resultMode)="selectLastResult($event)"
                   ></app-last-result>
@@ -61,11 +73,8 @@
           </div>
           <div class="row mt-4">
             <div class="col-md-12">
-              <button
-                class="btn btn-danger"
-                (click)="resetBaskets()"
-              >
-              {{ 'LABEL.RESET_BASKETS' | translate }}
+              <button class="btn btn-danger" (click)="resetBaskets()">
+                {{ 'LABEL.RESET_BASKETS' | translate }}
               </button>
             </div>
           </div>
@@ -73,14 +82,18 @@
       </div>
     </ng-container>
   </div>
-  <ng-container *ngIf="selectedPacket && selectedMode !== null">
+  <ng-container
+    *ngIf="selectedPacket && selectedMode !== null && isBasketModeSelected"
+  >
     <div class="row mt-4">
-      <div class="col-md-12">
+      <div class="col-md-1"></div>
+      <div class="col-md-10 frame-container">
         <app-basket-area
           [baskets]="baskets$ | async"
           (basketModeNumber)="assingBasketModeNumber($event)"
         ></app-basket-area>
       </div>
+      <div class="col-md-1"></div>
     </div>
   </ng-container>
 </div>
