@@ -24,8 +24,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { resultReducer } from './store/reducers/results.reducer';
 import { ResultsEffects } from './store/effects/results.effect';
 import { learnReducer } from './store/reducers/learn.reducer';
-import { BasketAreaComponent } from './learning-mode/basket-area/basket-area.component';
-import { BasketComponent } from './learning-mode/basket-area/basket/basket.component';
 import { basketReducer } from './store/reducers/basket.reducer';
 import { BasketEffects } from './store/effects/basket.effect';
 import { EditWordComponent } from './learning-translation/edit-word/edit-word.component';
@@ -48,8 +46,6 @@ import { BasketModeSelectorComponent } from './learning-mode/basket-mode-selecto
     LastResultComponent,
     ImageComponent,
     LearningFinalPageComponent,
-    BasketAreaComponent,
-    BasketComponent,
     EditWordComponent,
     BasketModeSelectorComponent,
   ],

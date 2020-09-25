@@ -29,6 +29,8 @@
             <app-basket-mode-selector
               [isBasketModeSelected]="isBasketModeSelected"
               (basketMode)="selectBasketMode()"
+              [baskets]="baskets$ | async"
+              (selectedBasket)="assingBasketModeNumber($event)"
             ></app-basket-mode-selector>
           </div>
         </div>
@@ -45,16 +47,6 @@
                 [isLastResultMode]="isLastResultMode"
                 (resultMode)="selectLastResult($event)"
               ></app-last-result>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="selectedMode !== null && isBasketModeSelected">
-          <div class="row">
-            <div class="col-md-12 frame-container">
-              <app-basket-area
-                [baskets]="baskets$ | async"
-                (basketModeNumber)="assingBasketModeNumber($event)"
-              ></app-basket-area>
             </div>
           </div>
         </ng-container>

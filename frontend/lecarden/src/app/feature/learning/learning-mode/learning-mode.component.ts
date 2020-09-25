@@ -75,6 +75,7 @@ export class LearningModeComponent implements OnInit {
   }
 
   assingBasketModeNumber(basket: Basket): void {
+    console.log(basket);
     this.store.dispatch(BasketPageAction.setBasketModeNumber({ basket }));
   }
 

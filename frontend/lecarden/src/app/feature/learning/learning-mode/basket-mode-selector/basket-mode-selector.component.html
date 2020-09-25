@@ -2,20 +2,38 @@
   <div class="row">
     <table class="table mode-table col-md-12">
       <thead>
-        <tr>
-          <th scope="col" colspan="2">{{ 'LABEL.EXTRA_MODES' | translate }}</th>
-        </tr>
-      </thead>
-      <tbody>
         <tr
+          class="head-row"
           (click)="emitBasketMode()"
           [ngClass]="{ selected: isBasketModeSelected }"
         >
-          <td class="basket-lebel-cell">
-            {{ 'LABEL.BASKET_MODE' | translate }}
-          </td>
-          <td>
+          <th scope="col" colspan="3">Basket Mode</th>
+          <th scope="col">
             <input type="checkbox" [checked]="isBasketModeSelected" />
+          </th>
+        </tr>
+
+        <tr *ngIf="isBasketModeSelected">
+          <th scope="col">#</th>
+          <th scope="col">Words</th>
+          <th scope="col" colspan="1">Last Rapid</th>
+          <th scope="col">Select</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="isBasketModeSelected">
+        <tr
+          *ngFor="let i of [1, 2, 3, 4, 5]"
+          (click)="emitSelectedBasket(i)"
+          [ngClass]="{ selected: selectedBasketNumber === i }"
+        >
+          <td>{{ i }}</td>
+          <td>
+            {{ filterBasket(i)?.basketWords?.length }}
+          </td>
+          <td>24.03.2020</td>
+          <td>
+            <input type="checkbox" [checked]="selectedBasketNumber === i" />
           </td>
         </tr>
       </tbody>
