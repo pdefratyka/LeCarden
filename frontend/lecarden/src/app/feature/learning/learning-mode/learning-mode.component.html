@@ -28,9 +28,10 @@
           <div class="col-md-12 frame-container">
             <app-basket-mode-selector
               [isBasketModeSelected]="isBasketModeSelected"
-              (basketMode)="selectBasketMode()"
               [baskets]="baskets$ | async"
               (selectedBasket)="assingBasketModeNumber($event)"
+              (basketMode)="selectBasketMode()"
+              (resetBaskets)="resetBaskets()"
             ></app-basket-mode-selector>
           </div>
         </div>

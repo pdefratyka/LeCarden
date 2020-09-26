@@ -39,4 +39,9 @@
       </tbody>
     </table>
   </div>
+  <div class="row mb-2" *ngIf="isBasketModeSelected">
+    <div class="offset-md-7 col-md-5">
+      <button class="btn btn-danger" (click)="emitResetBaskets()">{{ 'LABEL.RESET_BASKETS' | translate }}</button>
+    </div>
+  </div>
 </div>

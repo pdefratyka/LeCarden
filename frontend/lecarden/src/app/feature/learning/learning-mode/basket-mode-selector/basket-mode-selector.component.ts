@@ -17,6 +17,8 @@ export class BasketModeSelectorComponent {
   @Output()
   selectedBasket = new EventEmitter<Basket>();
   @Output()
+  resetBaskets = new EventEmitter<void>();
+  @Output()
   basketMode: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   selectedBasketNumber: number;
@@ -42,5 +44,9 @@ export class BasketModeSelectorComponent {
 
   filterBasket(basketNumber: number): Basket {
     return this.baskets.find((b) => b.number === basketNumber);
+  }
+
+  emitResetBaskets(): void {
+    this.resetBaskets.emit();
   }
 }
