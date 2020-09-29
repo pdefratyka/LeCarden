@@ -7,7 +7,15 @@ import { Word } from 'src/app/shared/models/word';
 })
 export class FilterService {
   filterPackets(packets: Packet[], filter: string): Packet[] {
-    return packets.filter((p) => p.name.includes(filter));
+    return packets.filter(
+      (p) =>
+        p.name.includes(filter) ||
+        p.languageTO?.foreignLanguage.includes(filter) ||
+        p.languageTO?.knownLanguage.includes(filter) ||
+        `${p.languageTO?.foreignLanguage}/${p.languageTO?.knownLanguage}`.includes(
+          filter
+        )
+    );
   }
 
   filterWords(words: Word[], filter: string): Word[] {

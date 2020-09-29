@@ -23,6 +23,7 @@ export class PacketService {
         name: packet.name,
         userId: this.tokenService.getUserId(),
         words: packet.words,
+        languageId: packet.languageId,
       })
       .pipe(catchError(this.handleError));
   }

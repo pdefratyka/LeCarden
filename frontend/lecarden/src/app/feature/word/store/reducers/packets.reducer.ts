@@ -61,6 +61,8 @@ export const packetReducer = createReducer<PacketState>(
       const updatedPacket = {
         words: [...state.currentPacket.words, action.word],
         name: state.currentPacket.name,
+        languageTO: state.currentPacket.languageTO,
+        languageId: state.currentPacket.languageId,
         id: state.currentPacket.id,
         userId: state.currentPacket.userId,
       };
@@ -78,6 +80,8 @@ export const packetReducer = createReducer<PacketState>(
           (word) => word.id !== action.wordId
         ),
         name: state.currentPacket.name,
+        languageTO: state.currentPacket.languageTO,
+        languageId: state.currentPacket.languageId,
         id: state.currentPacket.id,
         userId: state.currentPacket.userId,
       };
@@ -93,6 +97,25 @@ export const packetReducer = createReducer<PacketState>(
       const updatedPacket = {
         words: state.currentPacket.words,
         name: action.name,
+        languageTO: state.currentPacket.languageTO,
+        languageId: state.currentPacket.languageId,
+        id: state.currentPacket.id,
+        userId: state.currentPacket.userId,
+      };
+      return {
+        ...state,
+        currentPacket: updatedPacket,
+      };
+    }
+  ),
+  on(
+    PacketPageAction.setPacketLanguage,
+    (state, action): PacketState => {
+      const updatedPacket = {
+        words: state.currentPacket.words,
+        name: state.currentPacket.name,
+        languageTO: action.language,
+        languageId: action.language?.id,
         id: state.currentPacket.id,
         userId: state.currentPacket.userId,
       };

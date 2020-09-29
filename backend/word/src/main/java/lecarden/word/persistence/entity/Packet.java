@@ -1,11 +1,11 @@
 package lecarden.word.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Builder
@@ -21,18 +21,18 @@ public class Packet {
     @Column(name = "NAME", nullable = false, length = 50)
     private String name;
 
-    @Column(name="USER_ID")
+    @Column(name = "USER_ID")
     private Long userId;
 
-    @ManyToMany(cascade = { CascadeType.MERGE })// Merge is considered as a dirty solution
+    @ManyToMany(cascade = {CascadeType.MERGE})// Merge is considered as a dirty solution
     @JoinTable(
             name = "PACKET_WORD",
-            joinColumns = { @JoinColumn(name = "PACKET_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "WORD_ID") }
+            joinColumns = {@JoinColumn(name = "PACKET_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "WORD_ID")}
     )
     private List<Word> words;
 
-    @Column(name="BUILT_IN")
+    @Column(name = "BUILT_IN")
     private Boolean builtIn;
 
     @Column(name = "CREATE_DATE")
@@ -40,6 +40,14 @@ public class Packet {
 
     @Column(name = "UPDATE_DATE")
     private LocalDateTime updateDate;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
+    @JsonBackReference
+    private Language language;
+
+    @Column(name = "LANGUAGE_ID")
+    private Long languageId;
 
     @PrePersist
     public void createDate() {

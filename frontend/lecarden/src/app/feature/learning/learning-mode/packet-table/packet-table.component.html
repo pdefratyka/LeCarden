@@ -5,6 +5,7 @@
         <tr>
           <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
           <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
+          <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +16,11 @@
         >
           <td>{{ packet.name }}</td>
           <td>{{ packet.words ? packet.words.length : 0 }}</td>
+          <td *ngIf="packet.languageTO">
+            {{ packet.languageTO?.foreignLanguage }} /
+            {{ packet.languageTO?.knownLanguage }}
+          </td>
+          <td *ngIf="!packet.languageTO">-</td>
         </tr>
       </tbody>
     </table>

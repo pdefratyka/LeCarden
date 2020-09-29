@@ -1,13 +1,27 @@
 <div [formGroup]="name">
-  <input
-    type="text"
-    class="form-control"
-    id="packet-name-input"
-    formControlName="packetName"
-    placeholder="{{ 'LABEL.PACKET_NAME' | translate }}"
-    [ngClass]="{
-      'is-invalid':
-        name.get('packetName').invalid && name.get('packetName').touched
-    }"
-  />
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="packet-name-input"
+          formControlName="packetName"
+          placeholder="{{ 'LABEL.PACKET_NAME' | translate }}"
+          [ngClass]="{
+            'is-invalid':
+              name.get('packetName').invalid && name.get('packetName').touched
+          }"
+        />
+      </div>
+      <div class="col-md-6">
+        <select class="form-control" id="language" formControlName="language">
+          <option></option>
+          <option *ngFor="let language of languages">
+            {{ language.foreignLanguage }}/{{ language.knownLanguage }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
 </div>

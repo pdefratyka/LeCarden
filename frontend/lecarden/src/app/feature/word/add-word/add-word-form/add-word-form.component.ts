@@ -63,6 +63,7 @@ export class AddWordFormComponent implements OnChanges {
     }
   }
 
+  // Move it to service and replace it in create packet
   private selectMatchingLanguage(languageOption: string): Language {
     if (languageOption) {
       const arr = languageOption.split('/');

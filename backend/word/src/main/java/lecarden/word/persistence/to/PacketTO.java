@@ -15,4 +15,6 @@ public class PacketTO {
     private Long userId;
     private List<WordTO> words;
     private Boolean builtIn;
+    private Long languageId;
+    private LanguageTO languageTO;
 }

@@ -5,6 +5,7 @@
         <th scope="col">#</th>
         <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
         <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
+        <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
         <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
         <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
       </tr>
@@ -14,6 +15,11 @@
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ packet.name }}</td>
         <td>{{ packet.words ? packet.words.length : 0 }}</td>
+        <td *ngIf="packet.languageTO">
+          {{ packet.languageTO?.foreignLanguage }} /
+          {{ packet.languageTO?.knownLanguage }}
+        </td>
+        <td *ngIf="!packet.languageTO">-</td>
         <td>
           <button
             class="btn btn-success"

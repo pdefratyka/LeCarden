@@ -24,8 +24,10 @@
               (removeWord)="removeWord($event)"
               (cancelPacket)="clearWordsInPacket()"
               (setPacketName)="setPacketName($event)"
+              (setPacketLanguage)="setPacketLanguage($event)"
               [wordsInPacket]="wordsInPacket$ | async"
               [packetName]="packetName$ | async"
+              [languages]="languages$ | async"
             ></app-packet-menu>
           </div>
         </div>

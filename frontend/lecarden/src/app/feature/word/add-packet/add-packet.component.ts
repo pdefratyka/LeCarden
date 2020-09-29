@@ -11,8 +11,11 @@ import {
   getCurrentPacket,
   getCurrentPacketName,
   getWordsIdsFromCurrentPacket,
+  getLanguages,
+  LanguagePageAction,
 } from '../store';
 import { Observable } from 'rxjs';
+import { Language } from 'src/app/shared/models/language';
 
 @Component({
   selector: 'app-add-packet',
@@ -27,14 +30,17 @@ export class AddPacketComponent implements OnInit {
   packetName$: Observable<string>;
   addedWordsIndex$: Observable<number[]>;
   words$: Observable<Word[]>;
+  languages$: Observable<Language[]>;
   constructor(private readonly store: Store<PacketState>) {}
 
   ngOnInit() {
     this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.store.dispatch(LanguagePageAction.loadLanguages());
     this.words$ = this.store.select(getWords);
     this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
     this.packetName$ = this.store.select(getCurrentPacketName);
     this.addedWordsIndex$ = this.store.select(getWordsIdsFromCurrentPacket);
+    this.languages$ = this.store.select(getLanguages);
   }
 
   addWordToPacket(word: Word): void {
@@ -54,6 +60,7 @@ export class AddPacketComponent implements OnInit {
       .select(getCurrentPacket)
       .pipe(take(1))
       .subscribe((packet) => {
+        console.log(packet);
         this.store.dispatch(
           PacketPageAction.savePacket({
             packet,
@@ -74,5 +81,10 @@ export class AddPacketComponent implements OnInit {
 
   setPacketName(name: string): void {
     this.store.dispatch(PacketPageAction.setCurrentPacketName({ name }));
+  }
+
+  setPacketLanguage(language: Language): void {
+    console.log(language);
+    this.store.dispatch(PacketPageAction.setPacketLanguage({ language }));
   }
 }

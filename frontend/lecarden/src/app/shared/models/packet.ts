@@ -1,3 +1,4 @@
+import { Language } from './language';
 import { Word } from './word';
 
 export interface Packet {
@@ -6,4 +7,6 @@ export interface Packet {
   userId?: number;
   builtIn?: boolean;
   words: Word[]; // TODO Maybe it would be better to store only ids
+  languageId?: number;
+  languageTO?: Language;
 }

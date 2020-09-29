@@ -1,5 +1,6 @@
 package lecarden.word.common.mapper.impl;
 
+import lecarden.word.common.mapper.LanguageMapper;
 import lecarden.word.common.mapper.PacketMapper;
 import lecarden.word.common.mapper.WordMapper;
 import lecarden.word.persistence.entity.Packet;
@@ -14,10 +15,12 @@ import java.util.List;
 public class PacketMapperImpl implements PacketMapper {
 
     private WordMapper wordMapper;
+    private LanguageMapper languageMapper;
 
     @Autowired
-    public PacketMapperImpl(WordMapper wordMapper){
-        this.wordMapper=wordMapper;
+    public PacketMapperImpl(WordMapper wordMapper, LanguageMapper languageMapper) {
+        this.wordMapper = wordMapper;
+        this.languageMapper = languageMapper;
     }
 
     @Override
@@ -28,14 +31,16 @@ public class PacketMapperImpl implements PacketMapper {
                 .userId(packet.getUserId())
                 .words(wordMapper.mapToWordTOs(packet.getWords()))
                 .builtIn(packet.getBuiltIn())
+                .languageId(packet.getLanguageId())
+                .languageTO(languageMapper.mapToLanguageTO(packet.getLanguage()))
                 .build();
     }
 
     @Override
     public List<PacketTO> mapToPacketTOs(List<Packet> packets) {
-        List<PacketTO> packetTOs=new ArrayList<>();
+        List<PacketTO> packetTOs = new ArrayList<>();
 
-        for(Packet packet:packets){
+        for (Packet packet : packets) {
             packetTOs.add(mapToPacketTO(packet));
         }
 
@@ -50,6 +55,8 @@ public class PacketMapperImpl implements PacketMapper {
                 .userId(packetTO.getUserId())
                 .words(wordMapper.mapToWords(packetTO.getWords()))
                 .builtIn(packetTO.getBuiltIn())
+                .language(languageMapper.mapToLanguage(packetTO.getLanguageTO()))
+                .languageId(packetTO.getLanguageId())
                 .build();
     }
 }

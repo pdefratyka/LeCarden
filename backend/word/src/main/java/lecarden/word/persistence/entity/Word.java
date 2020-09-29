@@ -26,13 +26,13 @@ public class Word {
     private String plural;
     @Column(name = "CATEGORY", length = 50)
     private String category;
-    @Column(name="USER_ID")
+    @Column(name = "USER_ID")
     private Long userId;
-    @Column(name="IMAGE_URL")
+    @Column(name = "IMAGE_URL")
     private String imageUrl;
-    @Column(name="AUDIO_URL")
+    @Column(name = "AUDIO_URL")
     private String audioUrl;
-    @Column(name="EXAMPLE")
+    @Column(name = "EXAMPLE")
     private String example;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
@@ -40,7 +40,7 @@ public class Word {
     private Language language;
     @Column(name = "LANGUAGE_ID")
     private Long languageId;
-    @Column(name="BUILT_IN")
+    @Column(name = "BUILT_IN")
     private Boolean builtIn;
 
     @ManyToMany(mappedBy = "words")
