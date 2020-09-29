@@ -12,4 +12,5 @@ export interface Word {
   userId?: boolean;
   languageId?: number;
   languageTO?: Language;
+  example: string;
 }

@@ -54,6 +54,7 @@ export class AddWordFormComponent implements OnChanges {
           imageUrl: this.imageUrl.value,
           audioUrl: this.audioUrl.value,
           languageId: this.selectMatchingLanguage(this.language.value)?.id,
+          example: this.example.value,
         } as Word);
         this.addWordForm.reset();
       }
@@ -85,6 +86,7 @@ export class AddWordFormComponent implements OnChanges {
       imageUrl: [''],
       audioUrl: [''],
       language: [''],
+      example: [''],
     });
   }
 
@@ -99,6 +101,7 @@ export class AddWordFormComponent implements OnChanges {
       imageUrl: this.imageUrl.value,
       audioUrl: this.audioUrl.value,
       languageId: this.selectMatchingLanguage(this.language.value)?.id,
+      example: this.example.value,
     } as Word);
   }
 
@@ -117,6 +120,7 @@ export class AddWordFormComponent implements OnChanges {
       this.addWordForm
         .get('language')
         .setValue(`${language.foreignLanguage}/${language.knownLanguage}`);
+      this.addWordForm.get('example').setValue(this.word.example);
     }
   }
 
@@ -146,5 +150,8 @@ export class AddWordFormComponent implements OnChanges {
 
   get language() {
     return this.addWordForm.get('language');
+  }
+  get example() {
+    return this.addWordForm.get('example');
   }
 }
