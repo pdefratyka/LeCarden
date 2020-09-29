@@ -1,5 +1,6 @@
 package lecarden.basket.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,8 @@ public class BasketServiceImpl implements BasketService {
         Basket higherBasket = basketRepository
                 .findFirstByUserIdAndPacketIdAndNumber(basketResult.getBasket().getUserId(),
                         basketResult.getBasket().getPacketId(), numberOfHigherBasket);
+        basketResult.getBasket().setDate(LocalDateTime.now());
+        saveBasket(basketResult.getBasket());
 
         if (higherBasket == null) {
             higherBasket = Basket.builder()

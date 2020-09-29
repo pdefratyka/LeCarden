@@ -5,5 +5,6 @@ export interface Basket {
   number?: number;
   userId?: number;
   packetId?: number;
+  date: Date;
   basketWords?: BasketWord[];
 }

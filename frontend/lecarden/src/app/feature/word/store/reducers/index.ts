@@ -1,6 +1,7 @@
 import { WordState } from './words.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PacketState } from './packets.reducer';
+import { LanguageState } from './languages.reducer';
 
 export interface WordsState {
   words: WordState;
@@ -10,8 +11,15 @@ export interface PacketsState {
   packets: PacketState;
 }
 
+export interface LanguagesState {
+  languages: LanguageState;
+}
+
 const getWordFeatureState = createFeatureSelector<WordState>('words');
 const getPacketFeautreState = createFeatureSelector<PacketState>('packets');
+const getLanguagesFeatureState = createFeatureSelector<LanguageState>(
+  'languages'
+);
 
 export const getWords = createSelector(
   getWordFeatureState,
@@ -60,4 +68,9 @@ export const getCategories = createSelector(
 export const getPackets = createSelector(
   getPacketFeautreState,
   (state) => state.packets
+);
+
+export const getLanguages = createSelector(
+  getLanguagesFeatureState,
+  (state) => state.languages
 );

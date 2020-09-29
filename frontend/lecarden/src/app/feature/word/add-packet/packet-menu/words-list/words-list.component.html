@@ -6,6 +6,7 @@
         <th scope="col">{{ 'LABEL.WORD' | translate }}</th>
         <th scope="col">{{ 'LABEL.MEANING' | translate }}</th>
         <th scope="col">{{ 'LABEL.CATEGORY' | translate }}</th>
+        <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
         <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
       </tr>
     </thead>
@@ -15,6 +16,11 @@
         <td>{{ word.name }}</td>
         <td>{{ word.translation }}</td>
         <td>{{ word.category }}</td>
+        <td *ngIf="word.languageTO">
+          {{ word.languageTO.foreignLanguage }}/
+          {{ word.languageTO.knownLanguage }}
+        </td>
+        <td *ngIf="!word.languageTO">-</td>
         <td>
           <button class="btn btn-danger" (click)="emitRemoveWord(word)">
             -

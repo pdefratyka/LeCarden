@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Language } from 'src/app/shared/models/language';
 
 @Component({
   selector: 'app-add-word-form',
@@ -22,6 +23,8 @@ export class AddWordFormComponent implements OnChanges {
   categories: string[];
   @Input()
   word: Word;
+  @Input()
+  languages: Language[];
   formInvalidSubmitted = false;
   addWordForm: FormGroup;
 
@@ -50,17 +53,29 @@ export class AddWordFormComponent implements OnChanges {
           plural: this.plural.value,
           imageUrl: this.imageUrl.value,
           audioUrl: this.audioUrl.value,
+          languageId: this.selectMatchingLanguage(this.language.value)?.id,
         } as Word);
         this.addWordForm.reset();
       }
-
       this.formInvalidSubmitted = false;
     } else {
       this.formInvalidSubmitted = true;
     }
   }
 
+  private selectMatchingLanguage(languageOption: string): Language {
+    if (languageOption) {
+      const arr = languageOption.split('/');
+      const lan = this.languages.find(
+        (l) => l.foreignLanguage === arr[0] && l.knownLanguage === arr[1]
+      );
+      return lan;
+    }
+    return null;
+  }
+
   private initAddWordForm(): void {
+    console.log('init');
     this.addWordForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       translation: ['', [Validators.required]],
@@ -68,10 +83,12 @@ export class AddWordFormComponent implements OnChanges {
       category: [''],
       imageUrl: [''],
       audioUrl: [''],
+      language: [''],
     });
   }
 
   private emitWordInEditMode(): void {
+    console.log(this.addWordForm.get('language'));
     this.saveWord.emit({
       id: this.word.id,
       name: this.name.value,
@@ -80,17 +97,25 @@ export class AddWordFormComponent implements OnChanges {
       plural: this.plural.value,
       imageUrl: this.imageUrl.value,
       audioUrl: this.audioUrl.value,
+      languageId: this.selectMatchingLanguage(this.language.value)?.id,
     } as Word);
   }
 
   private setValuesOnForm() {
     if (this.word) {
+      const language = this.languages.find(
+        (l) => l.id === this.word.languageId
+      );
+      console.log(language);
       this.addWordForm.get('name').setValue(this.word.name);
       this.addWordForm.get('translation').setValue(this.word.translation);
       this.addWordForm.get('category').setValue(this.word.category);
       this.addWordForm.get('plural').setValue(this.word.plural);
       this.addWordForm.get('imageUrl').setValue(this.word.imageUrl);
       this.addWordForm.get('audioUrl').setValue(this.word.audioUrl);
+      this.addWordForm
+        .get('language')
+        .setValue(`${language.foreignLanguage}/${language.knownLanguage}`);
     }
   }
 
@@ -116,5 +141,9 @@ export class AddWordFormComponent implements OnChanges {
 
   get audioUrl() {
     return this.addWordForm.get('audioUrl');
+  }
+
+  get language() {
+    return this.addWordForm.get('language');
   }
 }

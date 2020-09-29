@@ -3,18 +3,24 @@
     <thead>
       <tr class="row">
         <th scope="col" class="col-md-1">#</th>
-        <th scope="col" class="col-md-3">{{ 'LABEL.WORD' | translate }}</th>
-        <th scope="col" class="col-md-3">{{ 'LABEL.MEANING' | translate }}</th>
-        <th scope="col" class="col-md-3">{{ 'LABEL.CATEGORY' | translate }}</th>
+        <th scope="col" class="col-md-2">{{ 'LABEL.WORD' | translate }}</th>
+        <th scope="col" class="col-md-2">{{ 'LABEL.MEANING' | translate }}</th>
+        <th scope="col" class="col-md-2">{{ 'LABEL.CATEGORY' | translate }}</th>
+        <th scope="col" class="col-md-2">{{ 'LABEL.LANGUAGE' | translate }}</th>
         <th scope="col" class="col-md-2">{{ 'LABEL.ADD' | translate }}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let word of words; index as i" class="row">
         <th scope="row" class="col-md-1">{{ i + 1 }}</th>
-        <td class="col-md-3">{{ word.name }}</td>
-        <td class="col-md-3 dots">{{ word.translation }}</td>
-        <td class="col-md-3">{{ word.category }}</td>
+        <td class="col-md-2">{{ word.name }}</td>
+        <td class="col-md-2 dots">{{ word.translation }}</td>
+        <td class="col-md-2">{{ word.category }}</td>
+        <td class="col-md-2" *ngIf="word.languageTO">
+          {{ word.languageTO.foreignLanguage }}/
+          {{ word.languageTO.knownLanguage }}
+        </td>
+        <td class="col-md-2" *ngIf="!word.languageTO">-</td>
         <td class="col-md-2">
           <button
             class="btn btn-success"

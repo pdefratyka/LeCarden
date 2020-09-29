@@ -14,6 +14,7 @@ import {
 import { setLearningMode } from '../store/actions/learn-page.actions';
 import { getLastResult, getBasketByPacketId } from '../store/';
 import { Basket } from 'src/app/shared/models/basket';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-learning-mode',
@@ -56,7 +57,13 @@ export class LearningModeComponent implements OnInit {
       })
     );
     this.store.dispatch(BasketPageAction.setBasketModeNumber({ basket: null }));
-    this.baskets$ = this.store.select(getBasketByPacketId);
+    this.baskets$ = this.store.select(getBasketByPacketId).pipe(
+      map((b) => {
+        return b.sort((x, z) =>
+          x.number > z.number ? 1 : z.number > x.number ? -1 : 0
+        );
+      })
+    );
   }
 
   assignSelectedMode(learningMode: LearningMode): void {

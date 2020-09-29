@@ -1,5 +1,6 @@
 package lecarden.word.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +32,14 @@ public class Word {
     private String imageUrl;
     @Column(name="AUDIO_URL")
     private String audioUrl;
+    @Column(name="EXAMPLE")
+    private String example;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
+    @JsonBackReference
+    private Language language;
+    @Column(name = "LANGUAGE_ID")
+    private Long languageId;
     @Column(name="BUILT_IN")
     private Boolean builtIn;
 

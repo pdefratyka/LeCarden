@@ -73,6 +73,15 @@
       </datalist>
     </div>
     <div class="form-group">
+      <label for="category-input">Language</label>
+      <select class="form-control" id="language" formControlName="language">
+        <option></option>
+        <option *ngFor="let language of languages">
+          {{ language.foreignLanguage }}/{{ language.knownLanguage }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
       <label for="imageUrl-input">Image url</label>
       <input
         type="text"

@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
-import { WordsState, getCategories, getCurrentWord } from '../store';
+import {
+  WordsState,
+  getCategories,
+  getCurrentWord,
+  getLanguages,
+  LanguagePageAction,
+} from '../store';
 import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
 import { Observable } from 'rxjs';
+import { Language } from 'src/app/shared/models/language';
 
 @Component({
   selector: 'app-add-word',
@@ -18,12 +23,15 @@ import { Observable } from 'rxjs';
 export class AddWordComponent implements OnInit {
   categories$: Observable<string[]>;
   word$: Observable<Word>;
+  languages$: Observable<Language[]>;
   constructor(private readonly store: Store<WordsState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.store.dispatch(LanguagePageAction.loadLanguages());
     this.categories$ = this.store.select(getCategories);
     this.word$ = this.store.select(getCurrentWord);
+    this.languages$ = this.store.select(getLanguages);
   }
 
   saveWord(word: Word): void {

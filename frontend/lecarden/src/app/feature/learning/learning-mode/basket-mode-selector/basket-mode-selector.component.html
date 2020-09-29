@@ -31,7 +31,7 @@
           <td>
             {{ filterBasket(i)?.basketWords?.length }}
           </td>
-          <td>24.03.2020</td>
+          <td>{{ filterBasket(i)?.date | date: 'd/M/yy, h:mm a' }}</td>
           <td>
             <input type="checkbox" [checked]="selectedBasketNumber === i" />
           </td>
@@ -41,7 +41,9 @@
   </div>
   <div class="row mb-2" *ngIf="isBasketModeSelected">
     <div class="offset-md-7 col-md-5">
-      <button class="btn btn-danger" (click)="emitResetBaskets()">{{ 'LABEL.RESET_BASKETS' | translate }}</button>
+      <button class="btn btn-danger" (click)="emitResetBaskets()">
+        {{ 'LABEL.RESET_BASKETS' | translate }}
+      </button>
     </div>
   </div>
 </div>

@@ -38,4 +38,10 @@ public class Basket {
     private List<BasketWord> basketWords;
 
     // TODO add mode
+
+    @PreUpdate
+    public void updateDate() {
+        this.date = LocalDateTime.now();
+    }
+
 }

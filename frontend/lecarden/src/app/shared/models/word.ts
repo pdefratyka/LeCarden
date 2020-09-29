@@ -1,3 +1,5 @@
+import { Language } from './language';
+
 export interface Word {
   id: number;
   name?: string;
@@ -8,4 +10,6 @@ export interface Word {
   audioUrl?: string;
   builtIn?: boolean;
   userId?: boolean;
+  languageId?: number;
+  languageTO?: Language;
 }

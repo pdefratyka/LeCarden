@@ -20,7 +20,7 @@ public class WordController {
         this.wordService = wordService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    //@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @RequestMapping("/user-id/{userId}")
     public WordTO saveWord(@RequestBody WordTO word, @PathVariable Long userId) {

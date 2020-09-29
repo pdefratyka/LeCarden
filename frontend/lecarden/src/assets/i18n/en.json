@@ -61,6 +61,7 @@
     "EMAIL_ALREADY_ASSIGNED":"User with this email already exist",
     "RESET_BASKETS":"Reset Baskets",
     "BASKET_MODE":"Basket",
-    "EXTRA_MODES":"Extra Modes"
+    "EXTRA_MODES":"Extra Modes",
+    "LANGUAGE":"Language"
   }
 }

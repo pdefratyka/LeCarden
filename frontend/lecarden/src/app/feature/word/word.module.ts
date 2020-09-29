@@ -21,8 +21,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { wordReducer } from './store/reducers/words.reducer';
 import { packetReducer } from './store/reducers/packets.reducer';
+import { languageReducer } from './store/reducers/languages.reducer';
 import { WordsEffects } from './store/effects/words.effect';
 import { PacketsEffects } from './store/effects/packets.effect';
+import { LanguagesEffects } from './store/effects/languages.effect';
 @NgModule({
   declarations: [
     AddWordComponent,
@@ -48,7 +50,8 @@ import { PacketsEffects } from './store/effects/packets.effect';
     TranslationConfigModule,
     StoreModule.forFeature('words', wordReducer),
     StoreModule.forFeature('packets', packetReducer),
-    EffectsModule.forFeature([WordsEffects, PacketsEffects]),
+    StoreModule.forFeature('languages', languageReducer),
+    EffectsModule.forFeature([WordsEffects, PacketsEffects, LanguagesEffects]),
   ],
 })
 export class WordModule {}
