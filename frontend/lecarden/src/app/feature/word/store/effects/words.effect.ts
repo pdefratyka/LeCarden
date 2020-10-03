@@ -82,8 +82,7 @@ export class WordsEffects {
     () => {
       return this.actions$.pipe(
         ofType(WordApiAction.deleteWordFailure),
-        tap((action) => {
-        })
+        tap((action) => {})
       );
     },
     { dispatch: false }
@@ -117,11 +116,12 @@ export class WordsEffects {
         ofType(WordPageAction.updateWord),
         mergeMap((action) =>
           this.wordService.updateWord(action.word).pipe(
-            map((word) =>
-              WordApiAction.updateWordSuccess({
+            map((word) => {
+              this.toastService.success('Word has been updated');
+              return WordApiAction.updateWordSuccess({
                 word,
-              })
-            ),
+              });
+            }),
             catchError((error) =>
               of(WordApiAction.updateWordFailure({ error }))
             )

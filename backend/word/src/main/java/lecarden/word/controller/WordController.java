@@ -33,6 +33,11 @@ public class WordController {
         return wordService.updateWord(word);
     }
 
+    @GetMapping("/{wordId}/image-update")
+    public WordTO addImageToWord(@PathVariable Long wordId){
+        return wordService.addImageToWord(wordId);
+    }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @RequestMapping("/list/user-id/{userId}")

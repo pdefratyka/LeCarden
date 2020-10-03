@@ -1,7 +1,6 @@
 package lecarden.word.service.impl;
 
 import lecarden.word.common.mapper.PacketMapper;
-import lecarden.word.persistence.entity.Packet;
 import lecarden.word.persistence.repository.PacketRepository;
 import lecarden.word.persistence.to.PacketTO;
 import lecarden.word.persistence.to.ResultTO;
@@ -16,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

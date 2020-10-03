@@ -1,106 +1,77 @@
 <app-header></app-header>
 <div class="container-fluid" *ngIf="packetSize > 0">
   <div class="row">
-    <div class="col-xl-2 col-md-2"></div>
-    <div class="col-xl-1 col-md-2"></div>
-    <div class="col-xl-6 col-md-5">
-      <div class="container frame-container">
-        <div class="row">
-          <div class="col-md-11"></div>
-          <div class="col-md-1">
-            <input
-              type="button"
-              class="btn btn-secondary"
-              value="Edit"
-              (click)="displayEditPanel()"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <app-examination
-              *ngIf="
-                packet?.words.length > 0 &&
-                answer.isCorrectAnswer &&
-                selectedMode == LearningMode.KNOWN_TO_FOREGIN
-              "
-              [word]="(packet?.words)[wordIterator].name"
-              (answer)="checkAnswer($event)"
-            ></app-examination>
-            <app-examination
-              *ngIf="
-                packet?.words.length > 0 &&
-                answer.isCorrectAnswer &&
-                selectedMode == LearningMode.FOREGIN_TO_KNOWN
-              "
-              [word]="(packet?.words)[wordIterator].translation"
-              (answer)="checkAnswer($event)"
-            ></app-examination>
-            <app-response-to-answer
-              *ngIf="!answer.isCorrectAnswer"
-              [answer]="answer"
-              (continue)="continueAfterAnswerResponse()"
-              (updateWord)="displayEditPanel()"
-            ></app-response-to-answer>
-            <app-learning-final-page
-              *ngIf="packet?.words.length === 0"
-              (saveScore)="saveScore()"
-              (changeFinalBasketMode)="setFinalModeBasket()"
-            >
-            </app-learning-final-page>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="frame-container">
-        <div class="row">
-          <app-learning-result
-            [packetSize]="packetSize"
-            [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-          ></app-learning-result>
-        </div>
-        <div class="row">
-          <app-score
-            [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-            [numberOfAttempts]="statistic.numberOfAttempts"
-          >
-          </app-score>
-        </div>
-        <div class="row">
-          <app-learning-phase-result
-            *ngIf="statistic.scoreAfterRound.length > 0"
-            [scores]="statistic.scoreAfterRound"
-            [packetSize]="wordResult.length"
-          ></app-learning-phase-result>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row" *ngIf="editWordPanel">
-    <div class="col-md-7"></div>
-    <div class="col-md-4 frame-container edit-word-container">
-      <app-edit-word
-        [word]="(packet?.words)[wordIterator]"
-        (saveWord)="updateWord($event)"
-        (closeForm)="displayEditPanel()"
-      ></app-edit-word>
-    </div>
-  </div>
-  <div class="row image-row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <!--Image-->
+    <div class="col-md-2 image-container ml p0">
       <app-image
-        *ngIf="
-          (this.packet?.words)[this.wordIterator] &&
-          (this.packet?.words)[this.wordIterator].imageUrl
-        "
-        [imageUrl]="(this.packet?.words)[this.wordIterator].imageUrl"
+        *ngIf="answer && currentWord.imageUrl"
+        [imageUrl]="currentWord.imageUrl"
       ></app-image>
     </div>
-    <div class="col-md-4"></div>
+
+    <!--Examination-->
+    <div
+      class="ml col-md-7 frame-container border"
+      [ngClass]="{
+        borderCorrect: answer && answer.isCorrectAnswer,
+        borderIncorrect: answer && !answer.isCorrectAnswer
+      }"
+    >
+      <app-examination
+        *ngIf="packet?.words.length > 0 && !answer"
+        [word]="currentWord"
+        [learningMode]="selectedMode"
+        (answer)="checkAnswer($event)"
+      ></app-examination>
+      <app-response-to-answer
+        *ngIf="answer"
+        [answer]="answer"
+        (continue)="continueAfterAnswerResponse()"
+        (updateWord)="displayEditPanel()"
+        (saveWord)="updateWord($event)"
+        [word]="currentWord"
+      ></app-response-to-answer>
+      <app-learning-final-page
+        *ngIf="packet?.words.length === 0 && !answer"
+        (saveScore)="saveScore()"
+        (changeFinalBasketMode)="setFinalModeBasket()"
+      >
+      </app-learning-final-page>
+    </div>
+
+    <!--Score-->
+    <div class="ml col-md-2 frame-container">
+      <div class="container-fluid"></div>
+      <div class="row">
+        <app-learning-result
+          [packetSize]="packetSize"
+          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+        ></app-learning-result>
+      </div>
+      <div class="row">
+        <app-score
+          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+          [numberOfAttempts]="statistic.numberOfAttempts"
+        >
+        </app-score>
+      </div>
+      <div class="row">
+        <app-learning-phase-result
+          *ngIf="statistic.scoreAfterRound.length > 0"
+          [scores]="statistic.scoreAfterRound"
+          [packetSize]="wordResult.length"
+        ></app-learning-phase-result>
+      </div>
+    </div>
+  </div>
+  <!--Example-->
+  <div class="row" *ngIf="answer">
+    <div class="offset-md-3 col-md-6 offset-md-3">
+      <app-example></app-example>
+    </div>
   </div>
 </div>
+<!--
 <div class="container-fluid" *ngIf="packetSize < 1">
   <div class="row">
     <div class="col-xl-2 col-md-2"></div>
@@ -114,3 +85,16 @@
     </div>
   </div>
 </div>
+-->
+<!--
+  <div class="row" *ngIf="editWordPanel">
+    <div class="col-md-7"></div>
+    <div class="col-md-4 frame-container edit-word-container">
+      <app-edit-word
+        [word]="(packet?.words)[wordIterator]"
+        (saveWord)="updateWord($event)"
+        (closeForm)="displayEditPanel()"
+      ></app-edit-word>
+    </div>
+  </div>
+  -->

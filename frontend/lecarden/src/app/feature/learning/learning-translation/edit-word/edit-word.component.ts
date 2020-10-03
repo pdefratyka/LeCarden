@@ -54,6 +54,7 @@ export class EditWordComponent implements OnChanges {
       plural: [''],
       imageUrl: [''],
       audioUrl: [''],
+      example: [''],
     });
   }
 
@@ -66,6 +67,7 @@ export class EditWordComponent implements OnChanges {
       plural: this.plural.value,
       imageUrl: this.imageUrl.value,
       audioUrl: this.audioUrl.value,
+      example: this.example.value,
       userId: this.word.userId,
       builtIn: this.word.builtIn,
     } as Word);
@@ -78,6 +80,7 @@ export class EditWordComponent implements OnChanges {
       this.addWordForm.get('plural').setValue(this.word.plural);
       this.addWordForm.get('imageUrl').setValue(this.word.imageUrl);
       this.addWordForm.get('audioUrl').setValue(this.word.audioUrl);
+      this.addWordForm.get('example').setValue(this.word.example);
     }
   }
 
@@ -99,5 +102,9 @@ export class EditWordComponent implements OnChanges {
 
   get audioUrl() {
     return this.addWordForm.get('audioUrl');
+  }
+
+  get example() {
+    return this.addWordForm.get('example');
   }
 }

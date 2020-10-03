@@ -8,12 +8,42 @@ $background-color-primary: #e9ebee;
 .image-row {
   margin-top: 3rem;
 }
-
+img {
+  width: 3rem;
+  height: 3rem;
+}
+img:hover {
+  cursor: pointer;
+}
 .frame-container {
   height: 25rem;
   margin-top: 4rem;
 }
 
 .edit-word-container {
-  height: 38rem;
+  height: 45rem;
+}
+
+.border {
+  border-width: 3px !important;
+  border-style: solid !important;
+}
+.borderCorrect {
+  border-color: green !important;
+}
+
+.borderIncorrect {
+  border-color: red !important;
+}
+
+.ml {
+  margin-left: 2%;
+}
+.p0 {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.image-container {
+  margin-top: 8rem;
+  display: block;
 }

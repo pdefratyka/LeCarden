@@ -22,7 +22,6 @@ import {
 } from '../store';
 import { WordPageAction } from '../../word/store';
 import { Basket } from 'src/app/shared/models/basket';
-import { BasketService } from 'src/app/core/services/api/basket.service';
 import { BasketResult } from 'src/app/shared/models/basketResult';
 import { BasketWord } from 'src/app/shared/models/basketWord';
 import { TokenService } from 'src/app/core/services/security/token.service';
@@ -38,7 +37,7 @@ import { TokenService } from 'src/app/core/services/security/token.service';
 export class LearningTranslationComponent implements OnInit {
   LearningMode = LearningMode;
   packet: Packet;
-  answer: Answer = { isCorrectAnswer: true } as Answer;
+  answer: Answer;
   statistic: Statistic = {
     numberOfGoodAnswers: 0,
     numberOfAttempts: 0,
@@ -52,6 +51,7 @@ export class LearningTranslationComponent implements OnInit {
   basketLearningMode: number;
   finalBasketMode = false;
   editWordPanel = false;
+  currentWord: Word;
   constructor(
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
@@ -74,6 +74,8 @@ export class LearningTranslationComponent implements OnInit {
         if (response) {
           this.packet = JSON.parse(JSON.stringify(response));
           this.packetSize = this.packet.words.length;
+          this.learningService.shuffleWords(this.packet.words);
+          this.setCurrentWord();
         } else {
           this.router.navigate(['learn']);
         }
@@ -102,14 +104,14 @@ export class LearningTranslationComponent implements OnInit {
       this.packet.words[this.wordIterator],
       this.selectedMode
     )
-      ? this.correctAnswerAction()
+      ? this.correctAnswerAction(answer)
       : this.wrongAnswerAction(answer);
   }
 
   continueAfterAnswerResponse(): void {
-    this.answer.isCorrectAnswer = true;
     this.editWordPanel = false;
-    this.nextWord();
+    this.nextWord(this.answer.isCorrectAnswer);
+    this.answer = null;
   }
 
   saveScore(): void {
@@ -172,14 +174,18 @@ export class LearningTranslationComponent implements OnInit {
     tempWord.imageUrl = word.imageUrl;
   }
 
-  private nextWord(): void {
-    this.wordIterator++;
-    if (this.wordIterator === this.packet.words.length) {
-      this.wordIterator = 0;
-      this.statistic.scoreAfterRound.push(
-        this.scoreService.getScoreFromLastRound(this.statistic)
-      );
+  private nextWord(isCorrectAnswer: boolean): void {
+    if (isCorrectAnswer) {
+    } else {
+      this.wordIterator++;
+      if (this.wordIterator === this.packet.words.length) {
+        this.wordIterator = 0;
+        this.statistic.scoreAfterRound.push(
+          this.scoreService.getScoreFromLastRound(this.statistic)
+        );
+      }
     }
+    this.setCurrentWord();
   }
 
   private deleteWordFromArray(word: Word): void {
@@ -195,10 +201,32 @@ export class LearningTranslationComponent implements OnInit {
     }
   }
 
-  private correctAnswerAction(): void {
+  private correctAnswerAction(answer: string): void {
+    const tempCorrectAnswer =
+      this.selectedMode === LearningMode.FOREGIN_TO_KNOWN
+        ? this.packet.words[this.wordIterator].name
+        : this.packet.words[this.wordIterator].translation;
+    this.answer = {
+      userAnswer: answer,
+      correctAnswer: tempCorrectAnswer,
+      isCorrectAnswer: true,
+    } as Answer;
     this.statistic.numberOfGoodAnswers++;
     this.deleteWordFromArray(this.packet.words[this.wordIterator]);
-    this.answer.correctAnswer = '';
+
+    //this.answer = null;
+  }
+
+  private wrongAnswerAction(answer: string): void {
+    const tempCorrectAnswer =
+      this.selectedMode === LearningMode.FOREGIN_TO_KNOWN
+        ? this.packet.words[this.wordIterator].name
+        : this.packet.words[this.wordIterator].translation;
+    this.answer = {
+      userAnswer: answer,
+      correctAnswer: tempCorrectAnswer,
+      isCorrectAnswer: false,
+    } as Answer;
   }
 
   private incrementAttempts(): void {
@@ -216,15 +244,14 @@ export class LearningTranslationComponent implements OnInit {
         } as WordResult);
   }
 
-  private wrongAnswerAction(answer: string): void {
-    const tempCorrectAnswer =
-      this.selectedMode === LearningMode.FOREGIN_TO_KNOWN
-        ? this.packet.words[this.wordIterator].name
-        : this.packet.words[this.wordIterator].translation;
-    this.answer = {
-      userAnswer: answer,
-      correctAnswer: tempCorrectAnswer,
-      isCorrectAnswer: false,
-    } as Answer;
+  private setCurrentWord(): void {
+    if (this.packet.words.length === 0) {
+    } else {
+      if (this.selectedMode === LearningMode.FOREGIN_TO_KNOWN) {
+        this.currentWord = this.packet.words[this.wordIterator];
+      } else {
+        this.currentWord = this.packet.words[this.wordIterator];
+      }
+    }
   }
 }

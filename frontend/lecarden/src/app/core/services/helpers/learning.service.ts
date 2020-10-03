@@ -27,11 +27,10 @@ export class LearningService {
     return false;
   }
 
-  shuffleWords(packet: Packet): Packet {
-    for (let i = packet.words.length - 1; i > 0; i--) {
+  shuffleWords(words: Word[]): void {
+    for (let i = words.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [packet.words[i], packet.words[j]] = [packet.words[j], packet.words[i]];
+      [words[i], words[j]] = [words[j], words[i]];
     }
-    return packet;
   }
 }

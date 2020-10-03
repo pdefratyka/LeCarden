@@ -28,6 +28,7 @@ import { basketReducer } from './store/reducers/basket.reducer';
 import { BasketEffects } from './store/effects/basket.effect';
 import { EditWordComponent } from './learning-translation/edit-word/edit-word.component';
 import { BasketModeSelectorComponent } from './learning-mode/basket-mode-selector/basket-mode-selector.component';
+import { ExampleComponent } from './learning-translation/example/example.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BasketModeSelectorComponent } from './learning-mode/basket-mode-selecto
     LearningFinalPageComponent,
     EditWordComponent,
     BasketModeSelectorComponent,
+    ExampleComponent,
   ],
   imports: [
     CommonModule,
