@@ -4,7 +4,10 @@ import lecarden.filemanager.entity.SavingInformation;
 import lecarden.filemanager.entity.Word;
 import lecarden.filemanager.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -15,17 +18,15 @@ public class FileController {
     private FileService fileService;
 
     @Autowired
-    public FileController(FileService fileService){
-        this.fileService=fileService;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
     @PostMapping()
-    public List<Word> saveWordFromFile(@RequestBody SavingInformation savingInformation){
-       return fileService.addWordsFromFile(
-               savingInformation.getPath(),
-               savingInformation.getCategory(),
-               savingInformation.getUserId()
-       );
+    public List<Word> saveWordFromFile(@RequestBody SavingInformation savingInformation) {
+        return fileService.addWordsFromFile(
+                savingInformation
+        );
     }
 
 

@@ -13,4 +13,6 @@ public class SavingInformation {
     String path;
     String category;
     Long userId;
+    Boolean builtIn;
+    Long languageId;
 }
