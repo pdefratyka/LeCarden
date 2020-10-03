@@ -13,4 +13,6 @@ public class Word {
     String plural;
     String category;
     Long userId;
+    Boolean builtIn;
+    Long languageId;
 }
