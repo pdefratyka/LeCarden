@@ -72,6 +72,7 @@ public class WordServiceImpl implements WordService {
                             .userId(tempWord.getUserId())
                             .builtIn(tempWord.getBuiltIn())
                             .name(tempWord.getCategory())
+                            .languageId(tempWord.getLanguageId())
                             .build()
             );
         }
