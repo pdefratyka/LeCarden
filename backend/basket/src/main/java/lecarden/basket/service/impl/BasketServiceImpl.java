@@ -53,7 +53,6 @@ public class BasketServiceImpl implements BasketService {
                 .findFirstByUserIdAndPacketIdAndNumber(basketResult.getBasket().getUserId(),
                         basketResult.getBasket().getPacketId(), numberOfHigherBasket);
         basketResult.getBasket().setDate(LocalDateTime.now());
-        saveBasket(basketResult.getBasket());
 
         if (higherBasket == null) {
             higherBasket = Basket.builder()
