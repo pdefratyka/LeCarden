@@ -34,7 +34,7 @@ public class Word {
     private String audioUrl;
     @Column(name = "EXAMPLE")
     private String example;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
     @JsonBackReference
     private Language language;
