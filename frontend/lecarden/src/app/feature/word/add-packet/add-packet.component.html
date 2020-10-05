@@ -13,6 +13,7 @@
                 [addedWordsIndex]="addedWordsIndex$ | async"
                 (addWord)="addWordToPacket($event)"
                 (filter)="filterWords($event)"
+                (loadWords)="loadPageWords()"
               ></app-word-menu>
             </div>
           </div>

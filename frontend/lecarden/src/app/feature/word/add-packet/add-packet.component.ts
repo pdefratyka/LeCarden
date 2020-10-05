@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { PacketState } from '../store/reducers/packets.reducer';
 import {
@@ -31,10 +31,15 @@ export class AddPacketComponent implements OnInit {
   addedWordsIndex$: Observable<number[]>;
   words$: Observable<Word[]>;
   languages$: Observable<Language[]>;
+
+  pageNumber = 1; // it should be stored in ng store
+  query = '';
   constructor(private readonly store: Store<PacketState>) {}
 
   ngOnInit() {
-    this.store.dispatch(WordPageAction.loadWords({ query: '', pageNumber: 1 }));
+    this.store.dispatch(
+      WordPageAction.loadWords({ query: '', pageNumber: this.pageNumber })
+    );
     this.store.dispatch(LanguagePageAction.loadLanguages());
     this.words$ = this.store.select(getWords);
     this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
@@ -76,7 +81,29 @@ export class AddPacketComponent implements OnInit {
   }
 
   filterWords(query: string): void {
-    this.store.dispatch(WordPageAction.loadWords({ query, pageNumber: 1 }));
+    this.query = query;
+    this.store.dispatch(
+      WordPageAction.loadWords({ query, pageNumber: this.pageNumber })
+    );
+    this.words$ = this.store.select(getWords).pipe(
+      map((w) => {
+        const a = w.filter(
+          (word) =>
+            word.name.includes(query) || word.translation.includes(query)
+        );
+        return a;
+      })
+    );
+  }
+
+  loadPageWords(): void {
+    this.pageNumber++;
+    this.store.dispatch(
+      WordPageAction.loadWords({
+        query: this.query,
+        pageNumber: this.pageNumber,
+      })
+    );
   }
 
   setPacketName(name: string): void {

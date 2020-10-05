@@ -1,4 +1,11 @@
-<div class="container">
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  [scrollWindow]="false"
+  (scrolled)="onScroll()"
+>
   <table class="table" aria-describedby="Add packet table">
     <thead>
       <tr class="row">

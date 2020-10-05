@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
 import { Observable } from 'rxjs';
 import { getWords } from '../store';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-display-word',
   templateUrl: './display-word.component.html',
@@ -16,7 +16,7 @@ import { filter, map } from 'rxjs/operators';
 })
 export class DisplayWordComponent implements OnInit {
   words$: Observable<Word[]>;
-  pageNumber = 1;
+  pageNumber = 1; // it should be stored in ng store
   query = '';
   constructor(private store: Store<WordsState>) {}
 

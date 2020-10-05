@@ -13,11 +13,18 @@ export class AddPacketWordTableComponent {
   addedWordsIndex: number[];
   @Output()
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Output()
+  loadWords: EventEmitter<void> = new EventEmitter<void>();
 
   emitAddWord(word: Word): void {
     this.addWord.emit(word);
   }
   isWordAlreadyAdded(wordId: number): boolean {
     return this.addedWordsIndex.includes(wordId);
+  }
+
+  onScroll(): void {
+    console.log('SCROLL');
+    this.loadWords.emit();
   }
 }
