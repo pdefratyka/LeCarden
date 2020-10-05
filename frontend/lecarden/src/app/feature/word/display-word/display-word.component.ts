@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
 import { Observable } from 'rxjs';
 import { getWords } from '../store';
+import { filter, map } from 'rxjs/operators';
 @Component({
   selector: 'app-display-word',
   templateUrl: './display-word.component.html',
@@ -15,19 +16,48 @@ import { getWords } from '../store';
 })
 export class DisplayWordComponent implements OnInit {
   words$: Observable<Word[]>;
+  pageNumber = 1;
+  query = '';
   constructor(private store: Store<WordsState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.store.dispatch(
+      WordPageAction.loadWords({ query: '', pageNumber: this.pageNumber })
+    );
     this.words$ = this.store.select(getWords);
   }
+
   filterWords(query: string): void {
-    this.store.dispatch(WordPageAction.loadWords({ query }));
+    this.query = query;
+    this.store.dispatch(
+      WordPageAction.loadWords({ query, pageNumber: this.pageNumber })
+    );
+    this.words$ = this.store.select(getWords).pipe(
+      map((w) => {
+        const a = w.filter(
+          (word) =>
+            word.name.includes(query) || word.translation.includes(query)
+        );
+        return a;
+      })
+    );
   }
+
   deleteWord(wordId: number): void {
     this.store.dispatch(WordPageAction.deleteWord({ wordId }));
   }
+
   editWord(word: Word): void {
     this.store.dispatch(WordPageAction.editWord({ word }));
+  }
+
+  loadWordss(): void {
+    this.pageNumber++;
+    this.store.dispatch(
+      WordPageAction.loadWords({
+        query: this.query,
+        pageNumber: this.pageNumber,
+      })
+    );
   }
 }

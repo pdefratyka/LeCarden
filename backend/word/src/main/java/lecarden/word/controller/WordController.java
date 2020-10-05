@@ -34,7 +34,7 @@ public class WordController {
     }
 
     @GetMapping("/{wordId}/image-update")
-    public WordTO addImageToWord(@PathVariable Long wordId){
+    public WordTO addImageToWord(@PathVariable Long wordId) {
         return wordService.addImageToWord(wordId);
     }
 
@@ -53,14 +53,15 @@ public class WordController {
     }
 
     @DeleteMapping("/{wordId}")
-    public void deleteWordById(@PathVariable Long wordId){
+    public void deleteWordById(@PathVariable Long wordId) {
         wordService.deleteWordById(wordId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/user-id/{userId}")
-    public List<WordTO> getAllWords(@PathVariable Long userId) {
-        return wordService.getWordsByUserId(userId);
+    public List<WordTO> getAllWords(@PathVariable Long userId,
+                                    @RequestParam("query") String query, @RequestParam("page") int pageNo) {
+        return wordService.getAllWordByUserIdAndPageNo(userId, query, pageNo);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

@@ -22,10 +22,10 @@ export class WordsEffects {
     return this.actions$.pipe(
       ofType(WordPageAction.loadWords),
       mergeMap((action) =>
-        this.wordService.getAllWords().pipe(
+        this.wordService.getAllWords(action.query, action.pageNumber).pipe(
           map((words) =>
             WordApiAction.loadWordsSuccess({
-              words: this.filterService.filterWords(words, action.query),
+              words: words,
             })
           ),
           catchError((error) => of(WordApiAction.loadWordsFailure({ error })))

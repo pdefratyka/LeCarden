@@ -27,7 +27,7 @@ export class AddWordComponent implements OnInit {
   constructor(private readonly store: Store<WordsState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.store.dispatch(WordPageAction.loadWords({ query: '', pageNumber: 1 }));
     this.store.dispatch(LanguagePageAction.loadLanguages());
     this.categories$ = this.store.select(getCategories);
     this.word$ = this.store.select(getCurrentWord);

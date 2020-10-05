@@ -1,7 +1,10 @@
 .container {
   max-height: 70vh;
   background-color: white;
-  overflow: auto;
+  overflow: scroll;
+}
+.table {
+  overflow: scroll;
 }
 button:disabled {
   cursor: auto;

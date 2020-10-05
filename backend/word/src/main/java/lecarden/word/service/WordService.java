@@ -6,11 +6,20 @@ import java.util.List;
 
 public interface WordService {
     WordTO saveWord(WordTO word);
+
     WordTO updateWord(WordTO wordTO);
+
     WordTO getWordById(Long wordId);
+
     List<WordTO> saveWords(List<WordTO> words);
+
     List<WordTO> getWordsByUserId(Long userId);
+
     List<String> getAllCategoriesByUserId(Long userId);
+
+    List<WordTO> getAllWordByUserIdAndPageNo(Long userId, String query, int pageNo);
+
     WordTO addImageToWord(Long wordId);
+
     void deleteWordById(Long wordId);
 }

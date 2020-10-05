@@ -34,7 +34,7 @@ export class AddPacketComponent implements OnInit {
   constructor(private readonly store: Store<PacketState>) {}
 
   ngOnInit() {
-    this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.store.dispatch(WordPageAction.loadWords({ query: '', pageNumber: 1 }));
     this.store.dispatch(LanguagePageAction.loadLanguages());
     this.words$ = this.store.select(getWords);
     this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
@@ -76,7 +76,7 @@ export class AddPacketComponent implements OnInit {
   }
 
   filterWords(query: string): void {
-    this.store.dispatch(WordPageAction.loadWords({ query }));
+    this.store.dispatch(WordPageAction.loadWords({ query, pageNumber: 1 }));
   }
 
   setPacketName(name: string): void {

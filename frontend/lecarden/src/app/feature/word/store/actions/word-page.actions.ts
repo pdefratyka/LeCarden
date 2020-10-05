@@ -3,7 +3,7 @@ import { Word } from 'src/app/shared/models/word';
 
 export const loadWords = createAction(
   '[Word Page] Load',
-  props<{ query: string }>()
+  props<{ query: string; pageNumber: number }>()
 );
 
 export const saveWord = createAction(

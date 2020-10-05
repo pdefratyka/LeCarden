@@ -28,9 +28,13 @@ export class WordService {
       .pipe(catchError(this.handleError));
   }
 
-  getAllWords(): Observable<Word[]> {
+  getAllWords(query: string, pageNumber: number): Observable<Word[]> {
     return this.httpClient
-      .get<Word[]>(`${this.url}/user-id/${this.tokenService.getUserId()}`)
+      .get<Word[]>(
+        `${
+          this.url
+        }/user-id/${this.tokenService.getUserId()}?query=${query}&page=${pageNumber}`
+      )
       .pipe(catchError(this.handleError));
   }
 

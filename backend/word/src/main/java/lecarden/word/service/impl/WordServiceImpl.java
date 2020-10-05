@@ -8,13 +8,16 @@ import lecarden.word.persistence.to.WordTO;
 import lecarden.word.service.PacketService;
 import lecarden.word.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -87,6 +90,14 @@ public class WordServiceImpl implements WordService {
     @Override
     public List<String> getAllCategoriesByUserId(Long userId) {
         return wordRepository.getAllCategoriesByUserId(userId);
+    }
+
+    @Override
+    public List<WordTO> getAllWordByUserIdAndPageNo(Long userId, String query, int pageNo) {
+        final int pageSize = 100;
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        Page<Word> words = wordRepository.getWordsByUserId(userId,query, pageable);
+        return wordMapper.mapToWordTOs(words.getContent());
     }
 
     @Override
