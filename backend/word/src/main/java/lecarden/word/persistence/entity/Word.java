@@ -43,8 +43,8 @@ public class Word {
     @Column(name = "BUILT_IN")
     private Boolean builtIn;
 
-    @ManyToMany(mappedBy = "words")
-    private List<Packet> packets;
+    //@ManyToMany(mappedBy = "words")
+    //private List<Packet> packets;
 
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;

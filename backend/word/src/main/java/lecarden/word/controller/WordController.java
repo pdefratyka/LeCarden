@@ -1,6 +1,7 @@
 package lecarden.word.controller;
 
 import lecarden.word.persistence.to.WordTO;
+import lecarden.word.service.PacketService;
 import lecarden.word.service.WordService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import java.util.List;
 public class WordController {
     // TODO Clear this class
     private WordService wordService;
+    private PacketService packetService;
 
     @Autowired
-    public WordController(WordService wordService) {
+    public WordController(WordService wordService, PacketService packetService) {
         this.wordService = wordService;
+        this.packetService = packetService;
     }
 
     //@CrossOrigin(origins = "http://localhost:4200")
@@ -62,6 +65,12 @@ public class WordController {
     public List<WordTO> getAllWords(@PathVariable Long userId,
                                     @RequestParam("query") String query, @RequestParam("page") int pageNo) {
         return wordService.getAllWordByUserIdAndPageNo(userId, query, pageNo);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/packet-id/{packetId}")
+    public List<WordTO> getAllWordsFromPacket(@PathVariable Long packetId) {
+        return packetService.getWordsFromPacket(packetId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

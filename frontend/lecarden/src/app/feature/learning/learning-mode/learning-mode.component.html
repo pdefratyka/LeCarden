@@ -56,7 +56,8 @@
             <div class="col-md-12">
               <button
                 class="btn btn-success"
-                [routerLink]="['/learn/translation/']"
+                
+                (click)="learn()"
               >
                 {{ 'LABEL.START_LEARNING' | translate }}
               </button>

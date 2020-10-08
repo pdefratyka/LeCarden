@@ -41,10 +41,19 @@ export class AddPacketComponent implements OnInit {
       WordPageAction.loadWords({ query: '', pageNumber: this.pageNumber })
     );
     this.store.dispatch(LanguagePageAction.loadLanguages());
+    //this.store.dispatch(PacketPageAction.loadPacketsWords({ packetId: 1 }));
     this.words$ = this.store.select(getWords);
     this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
     this.packetName$ = this.store.select(getCurrentPacketName);
-    this.addedWordsIndex$ = this.store.select(getWordsIdsFromCurrentPacket);
+    this.addedWordsIndex$ = this.store.select(getWordsFromCurrentPacket).pipe(
+      map((words) => {
+        const indexes: number[] = [];
+        if (words) {
+          words.forEach((w) => indexes.push(w.id));
+        }
+        return indexes;
+      })
+    );
     this.languages$ = this.store.select(getLanguages);
   }
 
@@ -65,7 +74,6 @@ export class AddPacketComponent implements OnInit {
       .select(getCurrentPacket)
       .pipe(take(1))
       .subscribe((packet) => {
-        console.log(packet);
         this.store.dispatch(
           PacketPageAction.savePacket({
             packet,
@@ -111,7 +119,6 @@ export class AddPacketComponent implements OnInit {
   }
 
   setPacketLanguage(language: Language): void {
-    console.log(language);
     this.store.dispatch(PacketPageAction.setPacketLanguage({ language }));
   }
 }

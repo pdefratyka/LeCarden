@@ -19,13 +19,11 @@ export const wordReducer = createReducer<WordState>(
     (state, action): WordState => {
       const distinctWords = state.words;
       const wordsToAdd = [];
-      console.log(action.words);
       action.words.forEach((w) => {
         if (!state.words.find((sw) => sw.id === w.id)) {
           wordsToAdd.push(w);
         }
       });
-      console.log(wordsToAdd);
       return {
         ...state,
         words: [...state.words, ...wordsToAdd],
@@ -44,7 +42,6 @@ export const wordReducer = createReducer<WordState>(
   on(
     WordApiAction.saveWordSuccess,
     (state, action): WordState => {
-      console.log(action.word);
       return {
         ...state,
         words: [...state.words, action.word],
@@ -56,7 +53,6 @@ export const wordReducer = createReducer<WordState>(
     WordApiAction.updateWordSuccess,
     (state, action): WordState => {
       state.words.splice(action.word.id, 1);
-      console.log(action.word);
       return {
         ...state,
         words: [...state.words, action.word],

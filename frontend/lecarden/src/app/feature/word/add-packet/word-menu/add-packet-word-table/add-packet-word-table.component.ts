@@ -22,9 +22,7 @@ export class AddPacketWordTableComponent {
   isWordAlreadyAdded(wordId: number): boolean {
     return this.addedWordsIndex.includes(wordId);
   }
-
   onScroll(): void {
-    console.log('SCROLL');
     this.loadWords.emit();
   }
 }

@@ -9,4 +9,5 @@ export interface Packet {
   words: Word[]; // TODO Maybe it would be better to store only ids
   languageId?: number;
   languageTO?: Language;
+  wordsNumber?: number;
 }

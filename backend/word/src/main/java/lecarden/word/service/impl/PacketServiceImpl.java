@@ -1,6 +1,7 @@
 package lecarden.word.service.impl;
 
 import lecarden.word.common.mapper.PacketMapper;
+import lecarden.word.common.mapper.WordMapper;
 import lecarden.word.persistence.repository.PacketRepository;
 import lecarden.word.persistence.to.PacketTO;
 import lecarden.word.persistence.to.ResultTO;
@@ -8,7 +9,7 @@ import lecarden.word.persistence.to.WordResultTO;
 import lecarden.word.persistence.to.WordTO;
 import lecarden.word.service.PacketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,12 +25,15 @@ public class PacketServiceImpl implements PacketService {
     private PacketRepository packetRepository;
     private PacketMapper packetMapper;
     private RestTemplate restTemplate;
+    private WordMapper wordMapper;
 
     @Autowired
-    public PacketServiceImpl(RestTemplate restTemplate, PacketRepository packetRepository, PacketMapper packetMapper) {
+    public PacketServiceImpl(RestTemplate restTemplate, PacketRepository packetRepository, PacketMapper packetMapper,
+                             WordMapper wordMapper) {
         this.packetRepository = packetRepository;
         this.packetMapper = packetMapper;
         this.restTemplate = restTemplate;
+        this.wordMapper = wordMapper;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class PacketServiceImpl implements PacketService {
     public PacketTO getFilteredPacketById(Long id, Long resultId) {
         PacketTO packet = packetMapper.mapToPacketTO(packetRepository.getOne(id));
 
-        String wordUrl = "http://result-service/results/"+resultId;
+        String wordUrl = "http://result-service/results/" + resultId;
         URI uri = null;
         try {
             uri = new URI(wordUrl);
@@ -54,21 +58,25 @@ public class PacketServiceImpl implements PacketService {
             e.printStackTrace();
         }
         ResponseEntity<ResultTO> resultResponseEntity = restTemplate.getForEntity(uri, ResultTO.class);
-        ResultTO result=resultResponseEntity.getBody();
-        List<WordTO> tempArray= new ArrayList<>(packet.getWords());
-        for(WordTO wordTO :tempArray){
-            Optional<WordResultTO> word=result.getWordsResultsTOs().stream().filter(w->w.getWordId().equals(wordTO.getId())).findFirst();
-            if(word.isPresent()){
-                if(word.get().getAttempts()<2){
+        ResultTO result = resultResponseEntity.getBody();
+        List<WordTO> tempArray = new ArrayList<>(packet.getWords());
+        for (WordTO wordTO : tempArray) {
+            Optional<WordResultTO> word = result.getWordsResultsTOs().stream().filter(w -> w.getWordId().equals(wordTO.getId())).findFirst();
+            if (word.isPresent()) {
+                if (word.get().getAttempts() < 2) {
                     packet.getWords().remove(wordTO);
                 }
-            }
-            else{
+            } else {
                 packet.getWords().remove(wordTO);
             }
 
         }
         return packet;
+    }
+
+    @Override
+    public List<WordTO> getWordsFromPacket(Long packetId) {
+        return this.wordMapper.mapToWordTOs(packetRepository.getOne(packetId).getWords());
     }
 
     @Override

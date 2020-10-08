@@ -46,6 +46,13 @@ export class WordService {
       .pipe(catchError(this.handleError));
   }
 
+  getWordsByPacketId(packetId: number): Observable<Word[]> {
+    console.log('get Words');
+    return this.httpClient
+      .get<Word[]>(`${this.url}/packet-id/${packetId}`)
+      .pipe(catchError(this.handleError));
+  }
+
   updateWord(word: Word): Observable<Word> {
     return this.httpClient.put<Word>(`${this.url}`, word);
   }

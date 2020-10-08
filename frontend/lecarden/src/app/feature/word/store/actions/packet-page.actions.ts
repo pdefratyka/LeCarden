@@ -38,3 +38,7 @@ export const updatePacket = createAction(
   '[Packet Page] Update Packet',
   props<{ packet: Packet }>()
 );
+export const loadPacketsWords = createAction(
+  '[Packet Page] Load packets words',
+  props<{ packetId: number }>()
+);

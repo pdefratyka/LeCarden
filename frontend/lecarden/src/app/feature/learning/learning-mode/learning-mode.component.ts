@@ -98,4 +98,10 @@ export class LearningModeComponent implements OnInit {
       );
     }
   }
+
+  learn(): void {
+    this.store.dispatch(
+      PacketPageAction.loadPacketsWords({ packetId: this.selectedPacket })
+    );
+  }
 }

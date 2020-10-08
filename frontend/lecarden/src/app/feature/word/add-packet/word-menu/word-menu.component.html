@@ -11,7 +11,7 @@
           <app-add-packet-word-table
             (addWord)="emitAddWord($event)"
             [words]="words"
-            [addedWordsIndex]="addedWordsIndex"
+            [addedWordsIndex]="addedWordsIndex$ | async"
             (loadWords)="emitLoadWords()"
           ></app-add-packet-word-table>
         </div>
