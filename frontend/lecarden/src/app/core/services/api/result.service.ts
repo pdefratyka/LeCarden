@@ -4,12 +4,13 @@ import { Result } from 'src/app/shared/models/result';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
+import { EnvironmentService } from '../helpers/environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResultService {
-  private readonly url = 'api/result-service/results';
+  private readonly url = `${EnvironmentService.getUrl()}/result-service/results`;
 
   constructor(
     private readonly httpClient: HttpClient,

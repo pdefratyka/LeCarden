@@ -8,6 +8,7 @@ import { User } from 'src/app/shared/models/user';
 import { Observable, throwError } from 'rxjs';
 import { TokenService } from '../security/token.service';
 import { catchError } from 'rxjs/operators';
+import { EnvironmentService } from '../helpers/environment.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,7 +17,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
-  private readonly url = 'api/user-service/users';
+  private url = `${EnvironmentService.getUrl()}/user-service/users`;
 
   constructor(
     private readonly httpClient: HttpClient,

@@ -4,12 +4,13 @@ import { Word } from 'src/app/shared/models/word';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
+import { EnvironmentService } from '../helpers/environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WordService {
-  private readonly url = 'api/word-service/words';
+  private readonly url = `${EnvironmentService.getUrl()}/word-service/words`;
 
   constructor(
     private readonly httpClient: HttpClient,

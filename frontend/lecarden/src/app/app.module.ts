@@ -25,7 +25,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     LearningModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    environment.development ? StoreDevtoolsModule.instrument() : [],
+    //environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
 
   bootstrap: [AppComponent],

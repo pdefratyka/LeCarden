@@ -23,7 +23,6 @@ public class WordController {
         this.packetService = packetService;
     }
 
-    //@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @RequestMapping("/user-id/{userId}")
     public WordTO saveWord(@RequestBody WordTO word, @PathVariable Long userId) {
@@ -41,7 +40,6 @@ public class WordController {
         return wordService.addImageToWord(wordId);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @RequestMapping("/list/user-id/{userId}")
     public List<WordTO> saveWordsList(@RequestBody List<WordTO> words, @PathVariable Long userId) {
@@ -49,7 +47,6 @@ public class WordController {
         return wordService.saveWords(words);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{wordId}")
     public WordTO getWordById(@PathVariable Long wordId) {
         return wordService.getWordById(wordId);
@@ -60,20 +57,17 @@ public class WordController {
         wordService.deleteWordById(wordId);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/user-id/{userId}")
     public List<WordTO> getAllWords(@PathVariable Long userId,
                                     @RequestParam("query") String query, @RequestParam("page") int pageNo) {
         return wordService.getAllWordByUserIdAndPageNo(userId, query, pageNo);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/packet-id/{packetId}")
     public List<WordTO> getAllWordsFromPacket(@PathVariable Long packetId) {
         return packetService.getWordsFromPacket(packetId);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("categories/user-id/{userId}")
     public List<String> getAllCategoriesByUserId(@PathVariable Long userId) {
         return wordService.getAllCategoriesByUserId(userId);

@@ -18,6 +18,7 @@ public class ProxyFilter {
         config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
+        config.addAllowedHeader("http://localhost");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
         config.addAllowedMethod("GET");
