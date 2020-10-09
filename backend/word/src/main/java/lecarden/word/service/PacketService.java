@@ -1,6 +1,7 @@
 package lecarden.word.service;
 
 import lecarden.word.persistence.to.PacketTO;
+import lecarden.word.persistence.to.WordTO;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface PacketService {
     PacketTO getPacketById(Long id);
 
     PacketTO getFilteredPacketById(Long id, Long resultId);
+
+    List<WordTO> getWordsFromPacket(Long packetId);
 
     List<PacketTO> getAllPackets();
 

@@ -34,7 +34,7 @@ public class Word {
     private String audioUrl;
     @Column(name = "EXAMPLE")
     private String example;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
     @JsonBackReference
     private Language language;
@@ -43,8 +43,8 @@ public class Word {
     @Column(name = "BUILT_IN")
     private Boolean builtIn;
 
-    @ManyToMany(mappedBy = "words")
-    private List<Packet> packets;
+    //@ManyToMany(mappedBy = "words")
+    //private List<Packet> packets;
 
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;

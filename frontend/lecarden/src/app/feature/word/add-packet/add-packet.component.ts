@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { PacketState } from '../store/reducers/packets.reducer';
 import {
@@ -31,15 +31,29 @@ export class AddPacketComponent implements OnInit {
   addedWordsIndex$: Observable<number[]>;
   words$: Observable<Word[]>;
   languages$: Observable<Language[]>;
+
+  pageNumber = 1; // it should be stored in ng store
+  query = '';
   constructor(private readonly store: Store<PacketState>) {}
 
   ngOnInit() {
-    this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    this.store.dispatch(
+      WordPageAction.loadWords({ query: '', pageNumber: this.pageNumber })
+    );
     this.store.dispatch(LanguagePageAction.loadLanguages());
+    //this.store.dispatch(PacketPageAction.loadPacketsWords({ packetId: 1 }));
     this.words$ = this.store.select(getWords);
     this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
     this.packetName$ = this.store.select(getCurrentPacketName);
-    this.addedWordsIndex$ = this.store.select(getWordsIdsFromCurrentPacket);
+    this.addedWordsIndex$ = this.store.select(getWordsFromCurrentPacket).pipe(
+      map((words) => {
+        const indexes: number[] = [];
+        if (words) {
+          words.forEach((w) => indexes.push(w.id));
+        }
+        return indexes;
+      })
+    );
     this.languages$ = this.store.select(getLanguages);
   }
 
@@ -60,7 +74,6 @@ export class AddPacketComponent implements OnInit {
       .select(getCurrentPacket)
       .pipe(take(1))
       .subscribe((packet) => {
-        console.log(packet);
         this.store.dispatch(
           PacketPageAction.savePacket({
             packet,
@@ -76,7 +89,29 @@ export class AddPacketComponent implements OnInit {
   }
 
   filterWords(query: string): void {
-    this.store.dispatch(WordPageAction.loadWords({ query }));
+    this.query = query;
+    this.store.dispatch(
+      WordPageAction.loadWords({ query, pageNumber: this.pageNumber })
+    );
+    this.words$ = this.store.select(getWords).pipe(
+      map((w) => {
+        const a = w.filter(
+          (word) =>
+            word.name.includes(query) || word.translation.includes(query)
+        );
+        return a;
+      })
+    );
+  }
+
+  loadPageWords(): void {
+    this.pageNumber++;
+    this.store.dispatch(
+      WordPageAction.loadWords({
+        query: this.query,
+        pageNumber: this.pageNumber,
+      })
+    );
   }
 
   setPacketName(name: string): void {
@@ -84,7 +119,6 @@ export class AddPacketComponent implements OnInit {
   }
 
   setPacketLanguage(language: Language): void {
-    console.log(language);
     this.store.dispatch(PacketPageAction.setPacketLanguage({ language }));
   }
 }

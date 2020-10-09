@@ -67,9 +67,8 @@ export class ResponseToAnswerComponent implements AfterViewInit {
   emitSaveWord(): void {
     console.log('SAVE');
     if (this.addWordForm.valid) {
-      console.log(1);
       if (this.word && this.word.id) {
-        console.log(2);
+
         this.emitWordInEditMode();
       }
 

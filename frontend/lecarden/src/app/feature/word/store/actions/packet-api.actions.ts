@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Packet } from 'src/app/shared/models/packet';
+import { Word } from 'src/app/shared/models/word';
 
 export const loadPacketsSuccess = createAction(
   '[Packet API] Load Packets Success',
@@ -28,5 +29,15 @@ export const deletePacketSuccess = createAction(
 
 export const deletePacketFailure = createAction(
   '[Packet API] Delete Packet Fail',
+  props<{ error: string }>()
+);
+
+export const loadPacketsWordsSuccess = createAction(
+  '[Packet API] Load Packets Words Success',
+  props<{ words: Word[]; packetId: number; isEditMode: boolean }>()
+);
+
+export const loadPacketsWordsFailure = createAction(
+  '[Packet API] Load Packets Words Failura',
   props<{ error: string }>()
 );

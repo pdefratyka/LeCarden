@@ -4,6 +4,8 @@ import * as PacketPageAction from './packet-page.actions';
 import * as PacketApiAction from './packet-api.actions';
 import * as LanguagePageAction from './language-page.action';
 import * as LanguageApiAction from './language-api.action';
+import * as CategoryPageAction from './category-page.actions';
+import * as CategoryApiAction from './category-api.actions';
 
 export {
   WordPageAction,
@@ -12,4 +14,6 @@ export {
   PacketApiAction,
   LanguagePageAction,
   LanguageApiAction,
+  CategoryPageAction,
+  CategoryApiAction,
 };

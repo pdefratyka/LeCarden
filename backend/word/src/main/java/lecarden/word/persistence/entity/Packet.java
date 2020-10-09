@@ -24,7 +24,7 @@ public class Packet {
     @Column(name = "USER_ID")
     private Long userId;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})// Merge is considered as a dirty solution
+    @ManyToMany(fetch = FetchType.LAZY)// Merge is considered as a dirty solution
     @JoinTable(
             name = "PACKET_WORD",
             joinColumns = {@JoinColumn(name = "PACKET_ID")},

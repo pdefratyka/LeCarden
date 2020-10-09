@@ -2,6 +2,7 @@ import { WordState } from './words.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PacketState } from './packets.reducer';
 import { LanguageState } from './languages.reducer';
+import { CategoryState } from './categories.reducer';
 
 export interface WordsState {
   words: WordState;
@@ -15,10 +16,17 @@ export interface LanguagesState {
   languages: LanguageState;
 }
 
+export interface CategoriesState {
+  categories: CategoryState;
+}
+
 const getWordFeatureState = createFeatureSelector<WordState>('words');
 const getPacketFeautreState = createFeatureSelector<PacketState>('packets');
 const getLanguagesFeatureState = createFeatureSelector<LanguageState>(
   'languages'
+);
+const getCategoriesFeatureState = createFeatureSelector<CategoryState>(
+  'categories'
 );
 
 export const getWords = createSelector(
@@ -31,9 +39,12 @@ export const getCurrentWord = createSelector(
   (state) => state.currentWord
 );
 
-export const getWordsFromCurrentPacket = createSelector(
+export const 
+getWordsFromCurrentPacket = createSelector(
   getPacketFeautreState,
-  (state) => state.currentPacket.words
+  (state) => {
+    return state.currentPacket.words;
+  }
 );
 
 export const getWordsIdsFromCurrentPacket = createSelector(
@@ -56,15 +67,6 @@ export const getCurrentPacketName = createSelector(
   (state) => state.currentPacket.name
 );
 
-export const getCategories = createSelector(
-  getWordFeatureState,
-  getWords,
-  (state) =>
-    state.words
-      .map((w) => w.category)
-      .filter((value, index, self) => self.indexOf(value) === index)
-);
-
 export const getPackets = createSelector(
   getPacketFeautreState,
   (state) => state.packets
@@ -73,4 +75,9 @@ export const getPackets = createSelector(
 export const getLanguages = createSelector(
   getLanguagesFeatureState,
   (state) => state.languages
+);
+
+export const getCategories = createSelector(
+  getCategoriesFeatureState,
+  (state) => state.categories
 );

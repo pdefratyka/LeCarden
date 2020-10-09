@@ -10,9 +10,10 @@
             <div class="col-md-12 word-table">
               <app-word-menu
                 [words]="words$ | async"
-                [addedWordsIndex]="addedWordsIndex$ | async"
+                [addedWordsIndex$]="addedWordsIndex$"
                 (addWord)="addWordToPacket($event)"
                 (filter)="filterWords($event)"
+                (loadWords)="loadPageWords()"
               ></app-word-menu>
             </div>
           </div>

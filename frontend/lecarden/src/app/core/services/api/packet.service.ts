@@ -4,12 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { Packet } from 'src/app/shared/models/packet';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
+import { EnvironmentService } from '../helpers/environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PacketService {
-  private readonly url = '/api/word-service/packets';
+  private readonly url = `${EnvironmentService.getUrl()}/word-service/packets`;
 
   constructor(
     private readonly httpClient: HttpClient,

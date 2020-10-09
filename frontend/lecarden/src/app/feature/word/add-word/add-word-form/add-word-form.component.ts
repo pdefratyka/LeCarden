@@ -77,7 +77,6 @@ export class AddWordFormComponent implements OnChanges {
   }
 
   private initAddWordForm(): void {
-    console.log('init');
     this.addWordForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       translation: ['', [Validators.required]],
@@ -91,7 +90,6 @@ export class AddWordFormComponent implements OnChanges {
   }
 
   private emitWordInEditMode(): void {
-    console.log(this.addWordForm.get('language'));
     this.saveWord.emit({
       id: this.word.id,
       name: this.name.value,
@@ -110,7 +108,7 @@ export class AddWordFormComponent implements OnChanges {
       const language = this.languages.find(
         (l) => l.id === this.word.languageId
       );
-      console.log(language);
+
       this.addWordForm.get('name').setValue(this.word.name);
       this.addWordForm.get('translation').setValue(this.word.translation);
       this.addWordForm.get('category').setValue(this.word.category);

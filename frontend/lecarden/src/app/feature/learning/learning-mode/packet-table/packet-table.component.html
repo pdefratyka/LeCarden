@@ -15,7 +15,7 @@
           (click)="emitSelectPacket(packet.id)"
         >
           <td>{{ packet.name }}</td>
-          <td>{{ packet.words ? packet.words.length : 0 }}</td>
+          <td>{{ packet.wordsNumber }}</td>
           <td *ngIf="packet.languageTO">
             {{ packet.languageTO?.foreignLanguage }} /
             {{ packet.languageTO?.knownLanguage }}

@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 import { WordService } from '../api/word.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WordsResolverService implements Resolve<Word[]> {
   constructor(private readonly wordService: WordService) {}
 
   resolve(): Observable<Word[]> {
-    return this.wordService.getAllWords();
+    //return this.wordService.getAllWords(1);
+    return null;
   }
 }

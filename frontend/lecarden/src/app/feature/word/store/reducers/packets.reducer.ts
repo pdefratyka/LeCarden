@@ -56,6 +56,45 @@ export const packetReducer = createReducer<PacketState>(
     }
   ),
   on(
+    PacketApiAction.loadPacketsWordsSuccess,
+    (state, action): PacketState => {
+      if (action.isEditMode) {
+        return {
+          ...state,
+          currentPacket: {
+            id: state.currentPacket.id,
+            languageId: state.currentPacket.languageId,
+            languageTO: state.currentPacket.languageTO,
+            userId: state.currentPacket.userId,
+            name: state.currentPacket.name,
+            words: action.words,
+          },
+        };
+      }
+      const oldPacket = state.packets.find((p) => p.id === action.packetId);
+      const newPacket = createNewPacket(oldPacket, action.words);
+      const packetsToAdd = [];
+      state.packets.forEach((p) => {
+        if (p.id !== oldPacket.id) {
+          packetsToAdd.push(p);
+        }
+      });
+      return {
+        ...state,
+        packets: [...packetsToAdd, newPacket],
+      };
+    }
+  ),
+  on(
+    PacketApiAction.loadPacketsWordsFailure,
+    (state, action): PacketState => {
+      console.log('FAIL');
+      return {
+        ...state,
+      };
+    }
+  ),
+  on(
     PacketPageAction.addWordToPacket,
     (state, action): PacketState => {
       const updatedPacket = {
@@ -144,3 +183,15 @@ export const packetReducer = createReducer<PacketState>(
     }
   )
 );
+
+function createNewPacket(oldPacket: Packet, words: Word[]): Packet {
+  return {
+    name: oldPacket.name,
+    id: oldPacket.id,
+    userId: oldPacket.userId,
+    builtIn: oldPacket.builtIn,
+    languageId: oldPacket.languageId,
+    languageTO: oldPacket.languageTO,
+    words,
+  } as Packet;
+}

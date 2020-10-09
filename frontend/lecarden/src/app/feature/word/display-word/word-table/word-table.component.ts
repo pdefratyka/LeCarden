@@ -15,6 +15,8 @@ export class WordTableComponent {
   deleteWord: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   editWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Output()
+  loadWords: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private readonly router: Router) {}
   // TODO Change to store
@@ -26,5 +28,10 @@ export class WordTableComponent {
     if (window.confirm(`Are you sure you want to delete word: ${name}`)) {
       this.deleteWord.emit(wordId);
     }
+  }
+
+  onScroll(): void {
+    console.log('SCROLL');
+    this.loadWords.emit();
   }
 }

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { of } from 'rxjs';
+import { EnvironmentService } from '../helpers/environment.service';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -11,7 +12,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly url = '/api/user-service/authenticate';
+  private readonly url = `${EnvironmentService.getUrl()}/user-service/authenticate`;
 
   itemValue = new BehaviorSubject(this.theItem);
 

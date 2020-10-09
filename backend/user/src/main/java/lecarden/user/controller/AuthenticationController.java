@@ -32,7 +32,6 @@ public class AuthenticationController {
         this.userDetailsService = userDetailsService;
         this.jwtTokenUtil = jwtUtil;
     }
-
     @PostMapping("authenticate")
     public ResponseEntity createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
         try {

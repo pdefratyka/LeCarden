@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Word } from 'src/app/shared/models/word';
 import { Observable } from 'rxjs';
+import { Word } from 'src/app/shared/models/word';
 
 @Component({
   selector: 'app-word-menu',
@@ -10,20 +10,29 @@ import { Observable } from 'rxjs';
     './word-menu.component.scss',
   ],
 })
-export class WordMenuComponent {
+export class WordMenuComponent implements OnInit {
   @Input()
   words: Word[];
   @Input()
-  addedWordsIndex: number[];
+  addedWordsIndex$: Observable<number[]>;
   @Output()
   addWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()
   filter: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  loadWords: EventEmitter<void> = new EventEmitter<void>();
+
+  ngOnInit(): void {
+  }
 
   emitAddWord(word: Word): void {
     this.addWord.emit(word);
   }
   emitFilter(filter: string): void {
     this.filter.emit(filter);
+  }
+
+  emitLoadWords(): void {
+    this.loadWords.emit();
   }
 }

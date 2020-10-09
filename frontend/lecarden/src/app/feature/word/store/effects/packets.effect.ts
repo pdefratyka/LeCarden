@@ -7,12 +7,14 @@ import { mergeMap, map, catchError, concatMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ToastService } from 'src/app/core/services/common/toast.service';
 import { Router } from '@angular/router';
+import { WordService } from 'src/app/core/services/api/word.service';
 
 @Injectable()
 export class PacketsEffects {
   constructor(
     private actions$: Actions,
     private packetService: PacketService,
+    private wordService: WordService,
     private filterService: FilterService,
     private toastService: ToastService,
     private readonly router: Router
@@ -31,6 +33,28 @@ export class PacketsEffects {
           ),
           catchError((error) =>
             of(PacketApiAction.loadPacketsFailure({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  loadPacketsWords$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PacketPageAction.loadPacketsWords),
+      mergeMap((
+        action // TODO figure out why do you use hier mergeMap
+      ) =>
+        this.wordService.getWordsByPacketId(action.packetId).pipe(
+          map((words) =>
+            PacketApiAction.loadPacketsWordsSuccess({
+              words,
+              packetId: action.packetId,
+              isEditMode: false,
+            })
+          ),
+          catchError((error) =>
+            of(PacketApiAction.loadPacketsWordsFailure({ error }))
           )
         )
       )
@@ -84,15 +108,42 @@ export class PacketsEffects {
     { dispatch: false }
   );
 
-  updatePacket$ = createEffect(
+  loadPacketsWordsSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(PacketPageAction.updatePacket),
+        ofType(PacketApiAction.loadPacketsWordsSuccess),
         tap((action) => {
-          this.router.navigate(['add-packet']);
+          if (action.isEditMode) {
+            this.router.navigate(['add-packet']);
+          } else {
+            this.router.navigate(['/learn/translation/']);
+          }
+          //[routerLink]="['/learn/translation/']"
         })
       );
     },
     { dispatch: false }
   );
+
+  updatePacket$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PacketPageAction.updatePacket),
+      mergeMap((
+        action // TODO figure out why do you use hier mergeMap
+      ) =>
+        this.wordService.getWordsByPacketId(action.packet.id).pipe(
+          map((words) =>
+            PacketApiAction.loadPacketsWordsSuccess({
+              words,
+              packetId: action.packet.id,
+              isEditMode: true,
+            })
+          ),
+          catchError((error) =>
+            of(PacketApiAction.loadPacketsWordsFailure({ error }))
+          )
+        )
+      )
+    );
+  });
 }

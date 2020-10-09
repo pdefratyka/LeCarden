@@ -4,12 +4,13 @@ import { Word } from 'src/app/shared/models/word';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from '../security/token.service';
+import { EnvironmentService } from '../helpers/environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WordService {
-  private readonly url = 'api/word-service/words';
+  private readonly url = `${EnvironmentService.getUrl()}/word-service/words`;
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -28,9 +29,13 @@ export class WordService {
       .pipe(catchError(this.handleError));
   }
 
-  getAllWords(): Observable<Word[]> {
+  getAllWords(query: string, pageNumber: number): Observable<Word[]> {
     return this.httpClient
-      .get<Word[]>(`${this.url}/user-id/${this.tokenService.getUserId()}`)
+      .get<Word[]>(
+        `${
+          this.url
+        }/user-id/${this.tokenService.getUserId()}?query=${query}&page=${pageNumber}`
+      )
       .pipe(catchError(this.handleError));
   }
 
@@ -39,6 +44,13 @@ export class WordService {
       .get<string[]>(
         `${this.url}/categories/user-id/${this.tokenService.getUserId()}`
       )
+      .pipe(catchError(this.handleError));
+  }
+
+  getWordsByPacketId(packetId: number): Observable<Word[]> {
+    console.log('get Words');
+    return this.httpClient
+      .get<Word[]>(`${this.url}/packet-id/${packetId}`)
       .pipe(catchError(this.handleError));
   }
 

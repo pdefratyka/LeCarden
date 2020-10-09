@@ -25,15 +25,22 @@ public class PacketMapperImpl implements PacketMapper {
 
     @Override
     public PacketTO mapToPacketTO(Packet packet) {
-        return PacketTO.builder()
+        PacketTO packetTO = PacketTO.builder()
                 .id(packet.getId())
                 .name(packet.getName())
                 .userId(packet.getUserId())
-                .words(wordMapper.mapToWordTOs(packet.getWords()))
+                //,.words(wordMapper.mapToWordTOs(packet.getWords()))
                 .builtIn(packet.getBuiltIn())
                 .languageId(packet.getLanguageId())
                 .languageTO(languageMapper.mapToLanguageTO(packet.getLanguage()))
                 .build();
+        if(packet.getWords()!=null){
+            packetTO.setWordsNumber(Long.parseLong(String.valueOf(packet.getWords().size())));
+        }
+        else{
+            packetTO.setWordsNumber(0L);
+        }
+        return packetTO;
     }
 
     @Override

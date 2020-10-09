@@ -25,6 +25,10 @@ import { languageReducer } from './store/reducers/languages.reducer';
 import { WordsEffects } from './store/effects/words.effect';
 import { PacketsEffects } from './store/effects/packets.effect';
 import { LanguagesEffects } from './store/effects/languages.effect';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { CategoriesEffects } from './store/effects/categories.effect';
+import { categoryReducer } from './store/reducers/categories.reducer';
 @NgModule({
   declarations: [
     AddWordComponent,
@@ -48,10 +52,17 @@ import { LanguagesEffects } from './store/effects/languages.effect';
     FormsModule,
     ReactiveFormsModule,
     TranslationConfigModule,
+    InfiniteScrollModule,
     StoreModule.forFeature('words', wordReducer),
     StoreModule.forFeature('packets', packetReducer),
     StoreModule.forFeature('languages', languageReducer),
-    EffectsModule.forFeature([WordsEffects, PacketsEffects, LanguagesEffects]),
+    StoreModule.forFeature('categories', categoryReducer),
+    EffectsModule.forFeature([
+      WordsEffects,
+      PacketsEffects,
+      LanguagesEffects,
+      CategoriesEffects,
+    ]),
   ],
 })
 export class WordModule {}

@@ -6,6 +6,7 @@ import {
   getCurrentWord,
   getLanguages,
   LanguagePageAction,
+  CategoryPageAction,
 } from '../store';
 import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
@@ -27,8 +28,9 @@ export class AddWordComponent implements OnInit {
   constructor(private readonly store: Store<WordsState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(WordPageAction.loadWords({ query: '' }));
+    //this.store.dispatch(WordPageAction.loadWords({ query: '', pageNumber: 1 }));
     this.store.dispatch(LanguagePageAction.loadLanguages());
+    this.store.dispatch(CategoryPageAction.loadCategories());
     this.categories$ = this.store.select(getCategories);
     this.word$ = this.store.select(getCurrentWord);
     this.languages$ = this.store.select(getLanguages);

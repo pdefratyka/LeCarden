@@ -17,4 +17,5 @@ public class PacketTO {
     private Boolean builtIn;
     private Long languageId;
     private LanguageTO languageTO;
+    private Long wordsNumber;
 }

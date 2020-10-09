@@ -4,11 +4,12 @@ import { TokenService } from '../security/token.service';
 import { Observable } from 'rxjs';
 import { Basket } from 'src/app/shared/models/basket';
 import { BasketResult } from 'src/app/shared/models/basketResult';
+import { EnvironmentService } from '../helpers/environment.service';
 @Injectable({
   providedIn: 'root',
 })
 export class BasketService {
-  private readonly url = '/api/basket-service/baskets';
+  private readonly url = `${EnvironmentService.getUrl()}/basket-service/baskets`;
 
   constructor(
     private readonly httpClient: HttpClient,

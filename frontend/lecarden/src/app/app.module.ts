@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,7 @@ import { environment } from 'src/environments/environment';
     LearningModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    environment.development ? StoreDevtoolsModule.instrument() : [],
+    //environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
 
   bootstrap: [AppComponent],
