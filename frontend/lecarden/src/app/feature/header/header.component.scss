@@ -16,7 +16,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #202020;
+  background-color: #212427;
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.5s;
@@ -25,11 +25,11 @@
 .sidebar a {
   //padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: white;
   display: block;
   transition: 0.3s;
-  font-family: arial;
+  font-family: inherit;
   user-select: none;
 }
 a:hover {
@@ -61,9 +61,7 @@ a:hover {
   color: white;
   float: right;
   margin-right: 10px;
-  line-height: 40px;
-  justify-content: center;
-  align-items: center;
+  line-height: 45px;
 }
 
 .fa-power-off {
@@ -71,7 +69,7 @@ a:hover {
 }
 
 .user-name {
-  line-height: 50px;
+  line-height: 45px;
   justify-content: center;
   align-items: center;
   font-size: 1.3rem;
@@ -81,13 +79,13 @@ a:hover {
   color: white;
   float: right;
   margin-right: 10px;
-  font-family: Arial;
+  font-family: inherit;
   user-select: none;
 }
 
 .navbar {
   display: block;
-  background-color: #0e0e0e;
+  background-color: #151515;
 }
 
 .btn {
@@ -109,19 +107,20 @@ ul {
   white-space: nowrap;
 }
 li {
-  height: 80px;
-  text-align: center;
-  background-color: #202020;
-  border-top: 1px solid white;
+  height: 60px;
+
+  background-color: #212427;
+  border-top: 1px solid #3c3f42;
 }
 a {
-  line-height: 80px;
+  margin-left: 15px;
+  line-height: 60px;
   color: white;
 }
 .noSelected:hover {
-  background-color: grey;
+  background-color: #3c3f42;
 }
 
 .selected {
-  background-color: darkgrey;
+  background-color: #4f5255;
 }

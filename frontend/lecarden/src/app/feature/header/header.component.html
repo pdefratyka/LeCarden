@@ -6,11 +6,12 @@
     <i class="fa fa-power-off"></i><span>{{ 'LABEL.LOGOUT' | translate }}</span>
   </button>
   <p class="user-name">{{ userName }}</p>
-  <i class="fa fa-user" aria-hidden="true"></i>
+  <i class="fa fa-user " aria-hidden="true"></i>
 </nav>
 <div id="mySidebar" class="sidebar" #sidebar>
   <nav>
     <ul>
+      <li></li>
       <li [ngClass]="selectedTab === 1 ? 'selected' : 'noSelected'">
         <a (click)="selectTab('/add-word', 1)">{{
           'LABEL.ADD_WORDS' | translate
@@ -33,7 +34,7 @@
       </li>
       <li
         [ngClass]="selectedTab === 5 ? 'selected' : 'noSelected'"
-        style="border-bottom: 1px solid white"
+        style="border-bottom: 1px solid #3c3f42"
       >
         <a (click)="selectTab('/learn', 5)">{{
           'LABEL.LEARNING' | translate
