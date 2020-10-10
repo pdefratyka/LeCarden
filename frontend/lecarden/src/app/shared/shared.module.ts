@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuComponent } from './components/menu/menu.component';
-import { MenuOptionsComponent } from './components/menu/menu-options/menu-options.component';
 import { RouterModule } from '@angular/router';
-import { MenuUserComponent } from './components/menu/menu-user/menu-user.component';
 import { MessageComponent } from './components/message/message.component';
 import { ToastMessgeComponent } from './components/toast-messge/toast-messge.component';
 import { ApplicationTitleComponent } from './components/application-title/application-title.component';
@@ -13,13 +10,9 @@ import { SynonymPipe } from './pipes/synonym-pipe';
 import { FormErrorMessageComponent } from './components/form-error-message/form-error-message.component';
 import { LoadingGifComponent } from './components/loading-gif/loading-gif.component';
 import { FormInformationMessageComponent } from './components/form-information-message/form-information-message.component';
-import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
-    MenuComponent,
-    MenuOptionsComponent,
-    MenuUserComponent,
     MessageComponent,
     ToastMessgeComponent,
     ApplicationTitleComponent,
@@ -27,11 +20,9 @@ import { HeaderComponent } from './components/header/header.component';
     FormErrorMessageComponent,
     LoadingGifComponent,
     FormInformationMessageComponent,
-    HeaderComponent,
   ],
   imports: [CommonModule, RouterModule, CoreModule, TranslationConfigModule],
   exports: [
-    MenuComponent,
     MessageComponent,
     ToastMessgeComponent,
     ApplicationTitleComponent,
@@ -39,7 +30,6 @@ import { HeaderComponent } from './components/header/header.component';
     SynonymPipe,
     LoadingGifComponent,
     FormInformationMessageComponent,
-    HeaderComponent,
   ],
 })
 export class SharedModule {}

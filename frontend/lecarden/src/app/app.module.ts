@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +11,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,6 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     AuthenticationModule,
     SharedModule,
     CoreModule,
-    WordModule,
     LearningModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

@@ -1,0 +1,44 @@
+<nav class="navbar navbar-dark">
+  <button class="navbar-toggler" type="button" (click)="openNav()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <button class="btn btn-danger" (click)="logout()">
+    <i class="fa fa-power-off"></i><span>{{ 'LABEL.LOGOUT' | translate }}</span>
+  </button>
+  <p class="user-name">{{ userName }}</p>
+  <i class="fa fa-user" aria-hidden="true"></i>
+</nav>
+<div id="mySidebar" class="sidebar" #sidebar>
+  <nav>
+    <ul>
+      <li [ngClass]="selectedTab === 1 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/add-word', 1)">{{
+          'LABEL.ADD_WORDS' | translate
+        }}</a>
+      </li>
+      <li [ngClass]="selectedTab === 2 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/display-word', 2)">{{
+          'LABEL.DISPLAY_WORDS' | translate
+        }}</a>
+      </li>
+      <li [ngClass]="selectedTab === 3 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/add-packet', 3)">{{
+          'LABEL.CREATE_PACKET' | translate
+        }}</a>
+      </li>
+      <li [ngClass]="selectedTab === 4 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/display-packet', 4)">{{
+          'LABEL.DISPLAY_PACKETS' | translate
+        }}</a>
+      </li>
+      <li
+        [ngClass]="selectedTab === 5 ? 'selected' : 'noSelected'"
+        style="border-bottom: 1px solid white"
+      >
+        <a (click)="selectTab('/learn', 5)">{{
+          'LABEL.LEARNING' | translate
+        }}</a>
+      </li>
+    </ul>
+  </nav>
+</div>

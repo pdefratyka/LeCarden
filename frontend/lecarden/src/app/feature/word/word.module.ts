@@ -48,7 +48,6 @@ import { categoryReducer } from './store/reducers/categories.reducer';
   ],
   imports: [
     CommonModule,
-    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     TranslationConfigModule,
