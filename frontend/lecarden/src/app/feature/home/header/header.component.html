@@ -1,0 +1,14 @@
+<nav class="navbar navbar-dark">
+  <button
+    class="navbar-toggler"
+    type="button"
+    (click)="emitChangeSidebarDisplay()"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <button class="btn btn-danger" (click)="logout()">
+    <i class="fa fa-power-off"></i><span>{{ 'LABEL.LOGOUT' | translate }}</span>
+  </button>
+  <p class="user-name">{{ userName }}</p>
+  <i class="fa fa-user" aria-hidden="true"></i>
+</nav>

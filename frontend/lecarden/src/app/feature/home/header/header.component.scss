@@ -1,0 +1,53 @@
+.navbar {
+  height: 60px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.fa-user {
+  font-size: 2rem;
+  color: white;
+  float: right;
+  margin-right: 10px;
+  line-height: 45px;
+}
+
+.fa-power-off {
+  margin-right: 10px;
+}
+
+.user-name {
+  line-height: 45px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: white;
+  float: right;
+  margin-right: 10px;
+  font-family: inherit;
+  user-select: none;
+}
+
+.navbar {
+  display: block;
+  background-color: #151515;
+}
+
+.btn {
+  float: right;
+  font-size: 1.3rem;
+}
+.navbar-toggler {
+  font-size: 1.4rem;
+  border-color: white;
+}
+
+.navbar-toggler-icon {
+  color: white;
+}
