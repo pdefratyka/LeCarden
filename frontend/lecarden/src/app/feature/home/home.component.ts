@@ -8,10 +8,12 @@ import { Subject } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   sidebarDisplay$ = new Subject<void>();
+  isToggled = false;
   constructor() {}
 
   ngOnInit(): void {}
   changeSidebarDisplay(): void {
     this.sidebarDisplay$.next();
+    this.isToggled = !this.isToggled;
   }
 }
