@@ -1,4 +1,8 @@
-<app-header (sidebarDisplay)="changeSidebarDisplay()"></app-header>
+<app-header
+  [userName]="userName"
+  (sidebarDisplay)="changeSidebarDisplay()"
+  (logout)="logout()"
+></app-header>
 <div class="page-wrapper" [ngClass]="{ toggled: isToggled }">
   <app-sidebar [isSidebarDisplayed$]="sidebarDisplay$"></app-sidebar>
   <main class="content">
@@ -6,7 +10,7 @@
     <div
       class="overlay"
       (click)="changeSidebarDisplay()"
-      [ngClass]="{ show: !isToggled }"
+      [ngClass]="{ showOverlay: !isToggled }"
     ></div>
   </main>
 </div>

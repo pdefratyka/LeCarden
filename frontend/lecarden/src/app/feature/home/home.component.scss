@@ -1,6 +1,7 @@
 .page-wrapper {
   height: 100vh;
   background-color: #e9ebee;
+
   .content {
     display: inline-block;
     width: 100%;
@@ -22,16 +23,12 @@
       opacity: 0.5;
       display: none;
 
-      &.show {
+      &.showOverlay {
         @media screen and (max-width: 768px) {
           display: block;
         }
       }
     }
-  }
-
-  .sidebar {
-    left: 0px;
   }
 
   &.toggled {

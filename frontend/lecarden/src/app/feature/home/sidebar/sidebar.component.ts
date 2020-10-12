@@ -16,10 +16,10 @@ import { Subject } from 'rxjs';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   @ViewChild('sidebar') sidebar: ElementRef;
-  isNavbarOppened = true;
   @Input()
   isSidebarDisplayed$: Subject<void>;
   selectedTab = -1;
+  isNavbarOppened = true;
 
   constructor(private readonly router: Router) {}
   ngOnDestroy(): void {
@@ -27,13 +27,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isSidebarDisplayed$.subscribe(() => {
-      if (this.isNavbarOppened) {
-        this.closeNav();
-      } else {
-        this.openNav();
-      }
-    });
+    this.initToglling();
   }
 
   selectTab(url: string, tabNumber: number): void {
@@ -52,5 +46,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
   closeNav(): void {
     this.isNavbarOppened = false;
     this.sidebar.nativeElement.style.width = '0';
+  }
+
+  private initToglling(): void {
+    this.isSidebarDisplayed$.subscribe((e) => {
+      if (this.isNavbarOppened) {
+        this.closeNav();
+      } else {
+        this.openNav();
+      }
+    });
   }
 }
