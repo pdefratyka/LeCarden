@@ -1,7 +1,12 @@
 <app-header (sidebarDisplay)="changeSidebarDisplay()"></app-header>
 <div class="page-wrapper" [ngClass]="{ toggled: isToggled }">
   <app-sidebar [isSidebarDisplayed$]="sidebarDisplay$"></app-sidebar>
-  <main class="page-content">
+  <main class="content">
     <router-outlet></router-outlet>
+    <div
+      class="overlay"
+      (click)="changeSidebarDisplay()"
+      [ngClass]="{ show: !isToggled }"
+    ></div>
   </main>
 </div>
