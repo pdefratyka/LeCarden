@@ -10,7 +10,9 @@
   "ERROR": {
     "WRONG_CREDENTIALS": "Login or password is incorrect",
     "WRONG_REGISTER_DATA": "User with this login or email already exists",
-    "EMAIL_NOT_CONFIRMED": "You have not yet confirmed your account. Check your email. If you did not get any mail from lecarden please try to send it again using button below"
+    "EMAIL_NOT_CONFIRMED": "You have not yet confirmed your account. Check your email. If you did not get any mail from lecarden please try to send it again using button below",
+    "CANNOT_BE_LONGER_THAN_45_CHARACTERS":"cannot be longer than 45 characters",
+    "CANNOT_BE_LONGER_THAN_240_CHARACTERS":"cannot be longer than 240 characters"
   },
   "LABEL": {
     "LOGIN": "Login",
@@ -32,7 +34,7 @@
     "WORDS":"Words",
     "EDIT":"Edit",
     "DISPLAY_WORDS":"Display Words",
-    "ADD_WORDS":"Add Words",
+    "ADD_WORD":"Add Word",
     "CREATE_PACKET":"Create Packet",
     "DISPLAY_PACKETS":"Display Packets",
     "STATISTICS":"Statistics",
@@ -62,6 +64,9 @@
     "RESET_BASKETS":"Reset Baskets",
     "BASKET_MODE":"Basket",
     "EXTRA_MODES":"Extra Modes",
-    "LANGUAGE":"Language"
+    "LANGUAGE":"Language",
+    "IMAGE_URL":"Image url",
+    "AUDIO_URL":"Audio url",
+    "EXAMPLE":"Example"
   }
 }

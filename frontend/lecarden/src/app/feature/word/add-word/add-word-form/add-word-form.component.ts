@@ -8,6 +8,7 @@ import {
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Language } from 'src/app/shared/models/language';
+import { LanguageHelperService } from 'src/app/core/services/helpers/language-helper.service';
 
 @Component({
   selector: 'app-add-word-form',
@@ -15,20 +16,24 @@ import { Language } from 'src/app/shared/models/language';
   styleUrls: ['./add-word-form.component.scss'],
 })
 export class AddWordFormComponent implements OnChanges {
-  @Output()
-  saveWord: EventEmitter<Word> = new EventEmitter<Word>();
-  @Output()
-  clearWord: EventEmitter<void> = new EventEmitter<void>();
   @Input()
   categories: string[];
   @Input()
   word: Word;
   @Input()
   languages: Language[];
+  @Output()
+  saveWord: EventEmitter<Word> = new EventEmitter<Word>();
+  @Output()
+  clearWord: EventEmitter<void> = new EventEmitter<void>();
+
   formInvalidSubmitted = false;
   addWordForm: FormGroup;
 
-  constructor(private readonly formBuilder: FormBuilder) {
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly languageHelperService: LanguageHelperService
+  ) {
     this.initAddWordForm();
   }
 
@@ -43,64 +48,42 @@ export class AddWordFormComponent implements OnChanges {
 
   emitSaveWord(): void {
     if (this.addWordForm.valid) {
-      if (this.word) {
-        this.emitWordInEditMode();
-      } else {
-        this.saveWord.emit({
-          name: this.name.value,
-          translation: this.translation.value,
-          category: this.category.value,
-          plural: this.plural.value,
-          imageUrl: this.imageUrl.value,
-          audioUrl: this.audioUrl.value,
-          languageId: this.selectMatchingLanguage(this.language.value)?.id,
-          example: this.example.value,
-        } as Word);
-        this.addWordForm.reset();
-      }
+      this.saveWord.emit(this.initWord());
+      this.addWordForm.reset();
       this.formInvalidSubmitted = false;
     } else {
       this.formInvalidSubmitted = true;
     }
   }
 
-  // Move it to service and replace it in create packet
-  private selectMatchingLanguage(languageOption: string): Language {
-    if (languageOption) {
-      const arr = languageOption.split('/');
-      const lan = this.languages.find(
-        (l) => l.foreignLanguage === arr[0] && l.knownLanguage === arr[1]
-      );
-      return lan;
-    }
-    return null;
-  }
-
   private initAddWordForm(): void {
     this.addWordForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      translation: ['', [Validators.required]],
-      plural: [''],
-      category: [''],
-      imageUrl: [''],
-      audioUrl: [''],
+      name: ['', [Validators.required, Validators.maxLength(45)]],
+      translation: ['', [Validators.required, Validators.maxLength(45)]],
+      plural: ['', Validators.maxLength(45)],
+      category: ['', Validators.maxLength(45)],
+      imageUrl: ['', Validators.maxLength(240)],
+      audioUrl: ['', Validators.maxLength(240)],
       language: [''],
-      example: [''],
+      example: ['', Validators.maxLength(240)],
     });
   }
 
-  private emitWordInEditMode(): void {
-    this.saveWord.emit({
-      id: this.word.id,
+  private initWord(): Word {
+    return {
+      id: this.word?.id ? this.word.id : undefined,
       name: this.name.value,
       translation: this.translation.value,
       category: this.category.value,
       plural: this.plural.value,
       imageUrl: this.imageUrl.value,
       audioUrl: this.audioUrl.value,
-      languageId: this.selectMatchingLanguage(this.language.value)?.id,
+      languageId: this.languageHelperService.selectMatchingLanguage(
+        this.languages,
+        this.language.value
+      )?.id,
       example: this.example.value,
-    } as Word);
+    } as Word;
   }
 
   private setValuesOnForm() {
@@ -109,16 +92,18 @@ export class AddWordFormComponent implements OnChanges {
         (l) => l.id === this.word.languageId
       );
 
-      this.addWordForm.get('name').setValue(this.word.name);
-      this.addWordForm.get('translation').setValue(this.word.translation);
-      this.addWordForm.get('category').setValue(this.word.category);
-      this.addWordForm.get('plural').setValue(this.word.plural);
-      this.addWordForm.get('imageUrl').setValue(this.word.imageUrl);
-      this.addWordForm.get('audioUrl').setValue(this.word.audioUrl);
-      this.addWordForm
-        .get('language')
-        .setValue(`${language.foreignLanguage}/${language.knownLanguage}`);
-      this.addWordForm.get('example').setValue(this.word.example);
+      this.name.setValue(this.word.name);
+      this.translation.setValue(this.word.translation);
+      this.category.setValue(this.word.category);
+      this.plural.setValue(this.word.plural);
+      this.imageUrl.setValue(this.word.imageUrl);
+      this.audioUrl.setValue(this.word.audioUrl);
+      this.example.setValue(this.word.example);
+      if (language) {
+        this.language.setValue(
+          `${language.foreignLanguage}/${language.knownLanguage}`
+        );
+      }
     }
   }
 

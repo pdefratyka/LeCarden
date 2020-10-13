@@ -1,19 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-5">
-      <div class="row static-row-3"></div>
-      <div class="row">
-        <div class="col-md-12 frame-container">
-          <app-add-word-form
-            (saveWord)="saveWord($event)"
-            (clearWord)="clearWord()"
-            [categories]="categories$ | async"
-            [word]="word$ | async"
-            [languages]="languages$ | async"
-          ></app-add-word-form>
-        </div>
-      </div>
+    <div class="col-md-10 col-lg-7 col-xl-5 frame-container mx-auto">
+      <app-add-word-form
+        (saveWord)="saveWord($event)"
+        (clearWord)="clearWord()"
+        [categories]="categories$ | async"
+        [word]="word$ | async"
+        [languages]="languages$ | async"
+      ></app-add-word-form>
     </div>
   </div>
 </div>

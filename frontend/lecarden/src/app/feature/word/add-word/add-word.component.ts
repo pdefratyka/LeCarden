@@ -25,23 +25,21 @@ export class AddWordComponent implements OnInit {
   categories$: Observable<string[]>;
   word$: Observable<Word>;
   languages$: Observable<Language[]>;
+
   constructor(private readonly store: Store<WordsState>) {}
 
   ngOnInit(): void {
-    //this.store.dispatch(WordPageAction.loadWords({ query: '', pageNumber: 1 }));
     this.store.dispatch(LanguagePageAction.loadLanguages());
     this.store.dispatch(CategoryPageAction.loadCategories());
     this.categories$ = this.store.select(getCategories);
-    this.word$ = this.store.select(getCurrentWord);
     this.languages$ = this.store.select(getLanguages);
+    this.word$ = this.store.select(getCurrentWord);
   }
 
   saveWord(word: Word): void {
-    let isEditMode = false;
-    if (word.id) {
-      isEditMode = true;
-    }
-    this.store.dispatch(WordPageAction.saveWord({ word, isEditMode }));
+    this.store.dispatch(
+      WordPageAction.saveWord({ word, isEditMode: word.id !== null })
+    );
   }
 
   clearWord(): void {

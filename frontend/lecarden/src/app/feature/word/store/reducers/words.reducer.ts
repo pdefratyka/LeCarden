@@ -42,6 +42,11 @@ export const wordReducer = createReducer<WordState>(
   on(
     WordApiAction.saveWordSuccess,
     (state, action): WordState => {
+      if (action.word.id) {
+        const index = state.words.findIndex((w) => w.id === action.word.id);
+        state.words.splice(index, 1);
+      }
+
       return {
         ...state,
         words: [...state.words, action.word],
@@ -52,6 +57,7 @@ export const wordReducer = createReducer<WordState>(
   on(
     WordApiAction.updateWordSuccess,
     (state, action): WordState => {
+      console.log('Update word success');
       state.words.splice(action.word.id, 1);
       return {
         ...state,
