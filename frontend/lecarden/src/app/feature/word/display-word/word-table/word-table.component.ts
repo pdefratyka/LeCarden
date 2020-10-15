@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-word-table',
@@ -30,8 +29,7 @@ export class WordTableComponent {
     }
   }
 
-  onScroll(): void {
-    console.log('SCROLL');
+  loadNextWords(): void {
     this.loadWords.emit();
   }
 }

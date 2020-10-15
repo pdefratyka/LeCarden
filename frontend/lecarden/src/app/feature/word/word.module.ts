@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddWordComponent } from './add-word/add-word.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { AddWordFormComponent } from './add-word/add-word-form/add-word-form.component';
 import { DisplayWordComponent } from './display-word/display-word.component';
 import { AddPacketComponent } from './add-packet/add-packet.component';
@@ -26,7 +25,6 @@ import { WordsEffects } from './store/effects/words.effect';
 import { PacketsEffects } from './store/effects/packets.effect';
 import { LanguagesEffects } from './store/effects/languages.effect';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CategoriesEffects } from './store/effects/categories.effect';
 import { categoryReducer } from './store/reducers/categories.reducer';
 @NgModule({

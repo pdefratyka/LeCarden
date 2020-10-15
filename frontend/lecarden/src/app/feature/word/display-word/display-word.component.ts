@@ -16,31 +16,25 @@ import { map } from 'rxjs/operators';
 })
 export class DisplayWordComponent implements OnInit {
   words$: Observable<Word[]>;
-  pageNumber = 1; // it should be stored in ng store
+  pageNumber = 1;
   query = '';
-  constructor(private store: Store<WordsState>) {}
+  constructor(private store: Store<WordsState>) {
+    this.words$ = this.store.select(getWords);
+  }
 
   ngOnInit(): void {
     this.store.dispatch(
       WordPageAction.loadWords({ query: '', pageNumber: this.pageNumber })
     );
-    this.words$ = this.store.select(getWords);
   }
 
   filterWords(query: string): void {
     this.query = query;
+    this.pageNumber = 1;
     this.store.dispatch(
       WordPageAction.loadWords({ query, pageNumber: this.pageNumber })
     );
-    this.words$ = this.store.select(getWords).pipe(
-      map((w) => {
-        const a = w.filter(
-          (word) =>
-            word.name.includes(query) || word.translation.includes(query)
-        );
-        return a;
-      })
-    );
+    this.words$ = this.store.select(getWords);
   }
 
   deleteWord(wordId: number): void {
@@ -51,7 +45,7 @@ export class DisplayWordComponent implements OnInit {
     this.store.dispatch(WordPageAction.editWord({ word }));
   }
 
-  loadWordss(): void {
+  loadWordsOnScroll(): void {
     this.pageNumber++;
     this.store.dispatch(
       WordPageAction.loadWords({

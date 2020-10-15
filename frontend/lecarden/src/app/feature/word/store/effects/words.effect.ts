@@ -23,11 +23,13 @@ export class WordsEffects {
       ofType(WordPageAction.loadWords),
       mergeMap((action) =>
         this.wordService.getAllWords(action.query, action.pageNumber).pipe(
-          map((words) =>
-            WordApiAction.loadWordsSuccess({
-              words: words,
-            })
-          ),
+          map((words) => {
+            const isNewQuery = action.pageNumber === 1;
+            return WordApiAction.loadWordsSuccess({
+              words,
+              isNewQuery,
+            });
+          }),
           catchError((error) => of(WordApiAction.loadWordsFailure({ error })))
         )
       )

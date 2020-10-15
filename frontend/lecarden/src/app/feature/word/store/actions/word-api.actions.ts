@@ -3,7 +3,7 @@ import { Word } from 'src/app/shared/models/word';
 
 export const loadWordsSuccess = createAction(
   '[Word API] Load Words Success',
-  props<{ words: Word[] }>()
+  props<{ words: Word[]; isNewQuery: boolean }>()
 );
 
 export const loadWordsFailure = createAction(

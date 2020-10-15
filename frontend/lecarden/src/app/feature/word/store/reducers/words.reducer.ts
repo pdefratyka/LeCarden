@@ -17,7 +17,12 @@ export const wordReducer = createReducer<WordState>(
   on(
     WordApiAction.loadWordsSuccess,
     (state, action): WordState => {
-      const distinctWords = state.words;
+      if (action.isNewQuery) {
+        return {
+          ...state,
+          words: action.words,
+        };
+      }
       const wordsToAdd = [];
       action.words.forEach((w) => {
         if (!state.words.find((sw) => sw.id === w.id)) {
