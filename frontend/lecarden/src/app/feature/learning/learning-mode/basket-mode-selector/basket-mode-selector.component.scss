@@ -1,6 +1,11 @@
 .basket-lebel-cell {
   width: 80%;
 }
-th {
-  border-bottom: 0px !important;
+
+.table {
+  thead {
+    th {
+      border-top: 0px;
+    }
+  }
 }

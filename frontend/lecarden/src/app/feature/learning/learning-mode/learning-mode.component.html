@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Left Panel -->
-    <div class="container-fluid col-md-8">
-      <div class="row">
-        <div class="col-md-6 offset-md-4 frame-container">
+    <div class="container-fluid col-md-6">
+      <div class="row mt-3">
+        <div class="col-md-12 mx-auto frame-container">
           <app-packet-table
             [packets]="packets$ | async"
             [selectedPacket]="selectedPacket"
@@ -14,8 +14,8 @@
     </div>
     <!-- Right Panel-->
     <ng-container *ngIf="selectedPacket">
-      <div class="container-fluid col-md-3">
-        <div class="row">
+      <div class="container-fluid col-md-5 col-lg-4">
+        <div class="row mt-3">
           <div class="col-md-12 frame-container">
             <app-learning-mode-selector
               [selectedMode]="selectedMode"
@@ -23,7 +23,7 @@
             ></app-learning-mode-selector>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
           <div class="col-md-12 frame-container">
             <app-basket-mode-selector
               [isBasketModeSelected]="isBasketModeSelected"
@@ -40,7 +40,7 @@
               | async as lastResult
           "
         >
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-md-12 frame-container">
               <app-last-result
                 [result]="lastResult"
@@ -51,13 +51,9 @@
           </div>
         </ng-container>
         <ng-container *ngIf="selectedMode !== null">
-          <div classs="row">
+          <div classs="row button-panel">
             <div class="col-md-12">
-              <button
-                class="btn btn-success"
-                
-                (click)="learn()"
-              >
+              <button class="btn btn-success" (click)="learn()">
                 {{ 'LABEL.START_LEARNING' | translate }}
               </button>
             </div>
@@ -65,6 +61,5 @@
         </ng-container>
       </div>
     </ng-container>
-    <div class="col-md-1"></div>
   </div>
 </div>

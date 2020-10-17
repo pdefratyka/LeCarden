@@ -38,13 +38,13 @@ export class LearningModeComponent implements OnInit {
 
   constructor(private store: Store<PacketState>) {
     this.store.dispatch(TabPageAction.setCurrentTab({ tab: TabName.LEARNING }));
+    this.packets$ = this.store.select(getPackets);
   }
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
     this.store.dispatch(ResultPageAction.loadAllLastResultsForUser());
     this.store.dispatch(BasketPageAction.loadBasketsForUser());
-    this.packets$ = this.store.select(getPackets);
   }
 
   assignSelectedPacket(packetId: number): void {

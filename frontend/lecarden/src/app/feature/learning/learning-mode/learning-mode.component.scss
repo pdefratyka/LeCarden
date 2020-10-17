@@ -2,14 +2,16 @@ $background-color-primary: #e9ebee;
 
 .container-fluid {
   background-color: $background-color-primary;
+  margin-top: 2rem;
 }
 
-.row {
+.mt-3 {
   margin-top: 3rem;
 }
 
 .btn {
   margin-top: 3rem;
+  margin-bottom: 2rem;
   width: 100%;
   height: 5rem;
 }
