@@ -1,4 +1,11 @@
-.container {
+.container-fluid {
   max-height: 80vh;
   overflow: auto;
+}
+
+.language-selector {
+  @media screen and (max-width: 575px) {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 }

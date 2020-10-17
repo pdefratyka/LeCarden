@@ -7,7 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { WordModule } from './word/word.module';
 import { SidebarComponent } from './home/sidebar/sidebar.component';
 import { LearningModule } from './learning/learning.module';
-
+import { StoreModule } from '@ngrx/store';
+import { TabPageReducer } from './store/reducers/tab-page.reducer';
 @NgModule({
   imports: [
     FeatureRoutingModule,
@@ -15,6 +16,7 @@ import { LearningModule } from './learning/learning.module';
     WordModule,
     //LearningModule,
     TranslationConfigModule,
+    StoreModule.forFeature('tab-page', TabPageReducer),
   ],
   declarations: [HomeComponent, HeaderComponent, SidebarComponent],
 })

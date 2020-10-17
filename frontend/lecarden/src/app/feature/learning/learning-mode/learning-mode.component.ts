@@ -15,6 +15,8 @@ import { setLearningMode } from '../store/actions/learn-page.actions';
 import { getLastResult, getBasketByPacketId } from '../store/';
 import { Basket } from 'src/app/shared/models/basket';
 import { map } from 'rxjs/operators';
+import { TabPageAction } from '../../store';
+import { TabName } from '../../home/models/tabName';
 
 @Component({
   selector: 'app-learning-mode',
@@ -34,7 +36,9 @@ export class LearningModeComponent implements OnInit {
   isLastResultMode = false;
   isBasketModeSelected = false;
 
-  constructor(private store: Store<PacketState>) {}
+  constructor(private store: Store<PacketState>) {
+    this.store.dispatch(TabPageAction.setCurrentTab({ tab: TabName.LEARNING }));
+  }
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));

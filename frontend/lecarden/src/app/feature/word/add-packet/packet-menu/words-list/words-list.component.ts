@@ -4,7 +4,7 @@ import { Word } from 'src/app/shared/models/word';
 @Component({
   selector: 'app-words-list',
   templateUrl: './words-list.component.html',
-  styleUrls: ['./words-list.component.scss']
+  styleUrls: ['./words-list.component.scss'],
 })
 export class WordsListComponent {
   @Input()

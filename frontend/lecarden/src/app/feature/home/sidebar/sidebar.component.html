@@ -2,33 +2,31 @@
   <nav>
     <ul>
       <li></li>
-      <li [ngClass]="selectedTab === 1 ? 'selected' : 'noSelected'">
-        <a (click)="selectTab('/add-word', 1)">{{
+      <li [ngClass]="currentTab === 0 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/add-word')">{{
           'LABEL.ADD_WORD' | translate
         }}</a>
       </li>
-      <li [ngClass]="selectedTab === 2 ? 'selected' : 'noSelected'">
-        <a (click)="selectTab('/display-word', 2)">{{
+      <li [ngClass]="currentTab === 1 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/display-word')">{{
           'LABEL.DISPLAY_WORDS' | translate
         }}</a>
       </li>
-      <li [ngClass]="selectedTab === 3 ? 'selected' : 'noSelected'">
-        <a (click)="selectTab('/add-packet', 3)">{{
+      <li [ngClass]="currentTab === 2 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/add-packet')">{{
           'LABEL.CREATE_PACKET' | translate
         }}</a>
       </li>
-      <li [ngClass]="selectedTab === 4 ? 'selected' : 'noSelected'">
-        <a (click)="selectTab('/display-packet', 4)">{{
+      <li [ngClass]="currentTab === 3 ? 'selected' : 'noSelected'">
+        <a (click)="selectTab('/display-packet')">{{
           'LABEL.DISPLAY_PACKETS' | translate
         }}</a>
       </li>
       <li
-        [ngClass]="selectedTab === 5 ? 'selected' : 'noSelected'"
+        [ngClass]="currentTab === 4 ? 'selected' : 'noSelected'"
         style="border-bottom: 1px solid #3c3f42"
       >
-        <a (click)="selectTab('/learn', 5)">{{
-          'LABEL.LEARNING' | translate
-        }}</a>
+        <a (click)="selectTab('/learn')">{{ 'LABEL.LEARNING' | translate }}</a>
       </li>
     </ul>
   </nav>

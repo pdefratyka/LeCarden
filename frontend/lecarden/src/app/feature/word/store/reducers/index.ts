@@ -39,8 +39,7 @@ export const getCurrentWord = createSelector(
   (state) => state.currentWord
 );
 
-export const 
-getWordsFromCurrentPacket = createSelector(
+export const getWordsFromCurrentPacket = createSelector(
   getPacketFeautreState,
   (state) => {
     return state.currentPacket.words;

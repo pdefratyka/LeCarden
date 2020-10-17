@@ -6,6 +6,8 @@ import { WordPageAction } from '../store';
 import { Observable } from 'rxjs';
 import { getWords } from '../store';
 import { map } from 'rxjs/operators';
+import { TabName } from '../../home/models/tabName';
+import { TabPageAction } from '../../store';
 @Component({
   selector: 'app-display-word',
   templateUrl: './display-word.component.html',
@@ -20,6 +22,9 @@ export class DisplayWordComponent implements OnInit {
   query = '';
   constructor(private store: Store<WordsState>) {
     this.words$ = this.store.select(getWords);
+    this.store.dispatch(
+      TabPageAction.setCurrentTab({ tab: TabName.DISPLAY_WORDS })
+    );
   }
 
   ngOnInit(): void {

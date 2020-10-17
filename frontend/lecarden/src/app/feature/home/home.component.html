@@ -4,7 +4,10 @@
   (logout)="logout()"
 ></app-header>
 <div class="page-wrapper" [ngClass]="{ toggled: isToggled }">
-  <app-sidebar [isSidebarDisplayed$]="sidebarDisplay$"></app-sidebar>
+  <app-sidebar
+    [currentTab]="currentTab$ | async"
+    [isSidebarDisplayed$]="sidebarDisplay$"
+  ></app-sidebar>
   <main class="content">
     <router-outlet></router-outlet>
     <div

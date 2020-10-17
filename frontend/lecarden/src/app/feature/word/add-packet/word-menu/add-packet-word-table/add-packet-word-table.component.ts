@@ -19,9 +19,11 @@ export class AddPacketWordTableComponent {
   emitAddWord(word: Word): void {
     this.addWord.emit(word);
   }
+
   isWordAlreadyAdded(wordId: number): boolean {
     return this.addedWordsIndex.includes(wordId);
   }
+
   onScroll(): void {
     this.loadWords.emit();
   }

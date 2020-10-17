@@ -1,21 +1,17 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="container col-md-12">
-      <div class="row">
-        <div class="col-md-12 filter frame-container">
-          <app-search (filter)="emitFilter($event)"></app-search>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 frame-container">
-          <app-add-packet-word-table
-            (addWord)="emitAddWord($event)"
-            [words]="words"
-            [addedWordsIndex]="addedWordsIndex$ | async"
-            (loadWords)="emitLoadWords()"
-          ></app-add-packet-word-table>
-        </div>
-      </div>
+    <div class="col-md-12 filter frame-container">
+      <app-search (filter)="emitFilter($event)"></app-search>
+    </div>
+  </div>
+  <div class="row word-table">
+    <div class="col-md-12 frame-container">
+      <app-add-packet-word-table
+        (addWord)="emitAddWord($event)"
+        [words]="words"
+        [addedWordsIndex]="addedWordsIndex$ | async"
+        (loadWords)="emitLoadWords()"
+      ></app-add-packet-word-table>
     </div>
   </div>
 </div>

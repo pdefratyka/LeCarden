@@ -3,6 +3,8 @@ import { Packet } from 'src/app/shared/models/packet';
 import { PacketsState, PacketPageAction, getPackets } from '../store';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { TabPageAction } from '../../store';
+import { TabName } from '../../home/models/tabName';
 
 @Component({
   selector: 'app-display-packet',
@@ -16,7 +18,11 @@ export class DisplayPacketComponent implements OnInit {
   packets$: Observable<Packet[]>;
   filteredPackets: Packet[];
 
-  constructor(private store: Store<PacketsState>) {}
+  constructor(private store: Store<PacketsState>) {
+    this.store.dispatch(
+      TabPageAction.setCurrentTab({ tab: TabName.DISPLAY_PACKETS })
+    );
+  }
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));

@@ -10,7 +10,7 @@ import { Word } from 'src/app/shared/models/word';
     './word-menu.component.scss',
   ],
 })
-export class WordMenuComponent implements OnInit {
+export class WordMenuComponent {
   @Input()
   words: Word[];
   @Input()
@@ -22,12 +22,10 @@ export class WordMenuComponent implements OnInit {
   @Output()
   loadWords: EventEmitter<void> = new EventEmitter<void>();
 
-  ngOnInit(): void {
-  }
-
   emitAddWord(word: Word): void {
     this.addWord.emit(word);
   }
+
   emitFilter(filter: string): void {
     this.filter.emit(filter);
   }

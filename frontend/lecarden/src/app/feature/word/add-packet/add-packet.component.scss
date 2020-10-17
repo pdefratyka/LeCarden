@@ -2,5 +2,8 @@ $background-color-primary: #e9ebee;
 
 .container-fluid {
   background-color: $background-color-primary;
-  margin-top: 1rem;
+}
+.menu {
+  margin-top: 4rem;
+  min-width: 400px;
 }

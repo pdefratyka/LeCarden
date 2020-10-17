@@ -1,13 +1,16 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { TabName } from '../models/tabName';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,8 +21,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @ViewChild('sidebar') sidebar: ElementRef;
   @Input()
   isSidebarDisplayed$: Subject<void>;
+  @Input()
+  currentTab: TabName;
   selectedTab = -1;
   isNavbarOppened = true;
+  TabName: TabName;
 
   constructor(private readonly router: Router) {}
   ngOnDestroy(): void {
@@ -30,9 +36,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.initToglling();
   }
 
-  selectTab(url: string, tabNumber: number): void {
+  selectTab(url: string): void {
     this.router.navigate([url]);
-    this.selectedTab = tabNumber;
   }
 
   openNav(): void {

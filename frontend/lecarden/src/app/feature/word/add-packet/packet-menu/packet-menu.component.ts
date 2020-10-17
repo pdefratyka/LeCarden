@@ -9,7 +9,7 @@ import {
 import { Word } from 'src/app/shared/models/word';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Language } from 'src/app/shared/models/language';
 
 @Component({
