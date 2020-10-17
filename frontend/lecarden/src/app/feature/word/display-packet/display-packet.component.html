@@ -1,26 +1,16 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-5">
-      <div class="row static-row-3"></div>
-      <div class="row mb-5">
-        <div class="container col-md-12">
-          <div class="row">
-            <div class="col-md-12 filter frame-container">
-              <app-search (filter)="filterPackets($event)"></app-search>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 word-table frame-container">
-              <app-packet-table
-                [packets]="packets$ | async"
-                (deletePacket)="deletePacket($event)"
-                (updatePacket)="updatePacket($event)"
-              ></app-packet-table>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-10 col-lg-7 col-xl-5 frame-container mx-auto filter">
+      <app-search (filter)="filterPackets($event)"></app-search>
+    </div>
+  </div>
+  <div class="row table-row">
+    <div class="col-md-10 col-lg-7 col-xl-9 frame-container mx-auto word-table">
+      <app-packet-table
+        [packets]="packets$ | async"
+        (deletePacket)="deletePacket($event)"
+        (updatePacket)="updatePacket($event)"
+      ></app-packet-table>
     </div>
   </div>
 </div>

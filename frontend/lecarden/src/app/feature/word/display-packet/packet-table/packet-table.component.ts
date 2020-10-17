@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Packet } from 'src/app/shared/models/packet';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-packet-table',
@@ -15,7 +14,7 @@ export class PacketTableComponent {
   @Output()
   updatePacket: EventEmitter<Packet> = new EventEmitter<Packet>();
 
-  constructor(private readonly router: Router) {}
+  constructor() {}
 
   editPacket(packetId: number): void {
     // TODO Here should be some if statement

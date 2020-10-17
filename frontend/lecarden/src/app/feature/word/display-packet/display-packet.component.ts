@@ -19,6 +19,7 @@ export class DisplayPacketComponent implements OnInit {
   filteredPackets: Packet[];
 
   constructor(private store: Store<PacketsState>) {
+    this.packets$ = this.store.select(getPackets);
     this.store.dispatch(
       TabPageAction.setCurrentTab({ tab: TabName.DISPLAY_PACKETS })
     );
@@ -26,7 +27,6 @@ export class DisplayPacketComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
-    this.packets$ = this.store.select(getPackets);
   }
 
   filterPackets(query: string): void {
