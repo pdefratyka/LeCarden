@@ -1,16 +1,19 @@
 <div class="container-fluid" *ngIf="packetSize > 0">
   <div class="row">
     <!--Image-->
-    <div class="col-md-2 image-container ml p0">
+
+    <div class="col-md-1 image-container ml p0">
+      <!--
       <app-image
         *ngIf="answer && currentWord.imageUrl"
         [imageUrl]="currentWord.imageUrl"
       ></app-image>
+      -->
     </div>
 
     <!--Examination-->
     <div
-      class="ml col-md-7 frame-container border"
+      class="ml col-md-8 frame-container border"
       [ngClass]="{
         borderCorrect: answer && answer.isCorrectAnswer,
         borderIncorrect: answer && !answer.isCorrectAnswer
@@ -66,34 +69,7 @@
   <!--Example-->
   <div class="row" *ngIf="answer">
     <div class="offset-md-3 col-md-6 offset-md-3">
-      <app-example></app-example>
+      <app-example [example]="currentWord.example"></app-example>
     </div>
   </div>
 </div>
-<!--
-<div class="container-fluid" *ngIf="packetSize < 1">
-  <div class="row">
-    <div class="col-xl-2 col-md-2"></div>
-    <div class="col-xl-1 col-md-2"></div>
-    <div class="col-xl-6 col-md-5">
-      <div class="container frame-container">
-        <div class="row">
-          <h2>Nothing to learn</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
-<!--
-  <div class="row" *ngIf="editWordPanel">
-    <div class="col-md-7"></div>
-    <div class="col-md-4 frame-container edit-word-container">
-      <app-edit-word
-        [word]="(packet?.words)[wordIterator]"
-        (saveWord)="updateWord($event)"
-        (closeForm)="displayEditPanel()"
-      ></app-edit-word>
-    </div>
-  </div>
-  -->

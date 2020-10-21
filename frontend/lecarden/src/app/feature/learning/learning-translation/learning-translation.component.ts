@@ -38,11 +38,7 @@ export class LearningTranslationComponent implements OnInit {
   LearningMode = LearningMode;
   packet: Packet;
   answer: Answer;
-  statistic: Statistic = {
-    numberOfGoodAnswers: 0,
-    numberOfAttempts: 0,
-    scoreAfterRound: [],
-  };
+  statistic: Statistic;
   selectedMode: LearningMode;
   wordIterator = 0;
   wordResult: WordResult[] = [];
@@ -59,41 +55,14 @@ export class LearningTranslationComponent implements OnInit {
     private readonly router: Router,
     private readonly tokenService: TokenService,
     private store: Store
-  ) {}
-
-  ngOnInit() {
-    this.store
-      .select(getLearningMode)
-      .pipe(take(1))
-      .subscribe((mode) => (this.selectedMode = mode));
-
-    this.store
-      .select(getLearningPacket)
-      .pipe(take(1))
-      .subscribe((response) => {
-        if (response) {
-          this.packet = JSON.parse(JSON.stringify(response));
-          this.packetSize = this.packet.words.length;
-          this.learningService.shuffleWords(this.packet.words);
-          this.setCurrentWord();
-        } else {
-          this.router.navigate(['learn']);
-        }
-      });
-
-    this.store
-      .select(getCurrentBasket)
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.currentBasket = res;
-      });
-    this.store
-      .select(getLearningMode)
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.basketLearningMode = res;
-      });
+  ) {
+    this.initStatistic();
+    this.selectLearningMode();
+    this.selectLearningPacket();
+    this.selectCurrentBasket();
   }
+
+  ngOnInit() {}
 
   checkAnswer(answer: string): void {
     this.editWordPanel = false;
@@ -174,6 +143,49 @@ export class LearningTranslationComponent implements OnInit {
     tempWord.imageUrl = word.imageUrl;
   }
 
+  private initStatistic(): void {
+    this.statistic = {
+      numberOfGoodAnswers: 0,
+      numberOfAttempts: 0,
+      scoreAfterRound: [],
+    } as Statistic;
+  }
+
+  private selectLearningMode(): void {
+    this.store
+      .select(getLearningMode)
+      .pipe(take(1))
+      .subscribe((mode) => {
+        this.selectedMode = mode;
+        this.basketLearningMode = mode;
+      });
+  }
+
+  private selectLearningPacket(): void {
+    this.store
+      .select(getLearningPacket)
+      .pipe(take(1))
+      .subscribe((response) => {
+        if (response) {
+          this.packet = JSON.parse(JSON.stringify(response));
+          this.packetSize = this.packet.words.length;
+          this.learningService.shuffleWords(this.packet.words);
+          this.currentWord = this.packet.words[this.wordIterator];
+        } else {
+          this.router.navigate(['learn']);
+        }
+      });
+  }
+
+  private selectCurrentBasket(): void {
+    this.store
+      .select(getCurrentBasket)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.currentBasket = res;
+      });
+  }
+
   private nextWord(isCorrectAnswer: boolean): void {
     if (isCorrectAnswer) {
     } else {
@@ -185,7 +197,7 @@ export class LearningTranslationComponent implements OnInit {
         );
       }
     }
-    this.setCurrentWord();
+    this.currentWord = this.packet.words[this.wordIterator];
   }
 
   private deleteWordFromArray(word: Word): void {
@@ -213,8 +225,6 @@ export class LearningTranslationComponent implements OnInit {
     } as Answer;
     this.statistic.numberOfGoodAnswers++;
     this.deleteWordFromArray(this.packet.words[this.wordIterator]);
-
-    //this.answer = null;
   }
 
   private wrongAnswerAction(answer: string): void {
@@ -242,16 +252,5 @@ export class LearningTranslationComponent implements OnInit {
           wordId: this.packet.words[this.wordIterator].id,
           attempts: 1,
         } as WordResult);
-  }
-
-  private setCurrentWord(): void {
-    if (this.packet.words.length === 0) {
-    } else {
-      if (this.selectedMode === LearningMode.FOREGIN_TO_KNOWN) {
-        this.currentWord = this.packet.words[this.wordIterator];
-      } else {
-        this.currentWord = this.packet.words[this.wordIterator];
-      }
-    }
   }
 }
