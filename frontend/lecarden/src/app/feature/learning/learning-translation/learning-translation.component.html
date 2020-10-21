@@ -13,7 +13,7 @@
 
     <!--Examination-->
     <div
-      class="ml col-md-8 frame-container border"
+      class="col-xl-8 col-md-6 frame-container frame-container-examination border"
       [ngClass]="{
         borderCorrect: answer && answer.isCorrectAnswer,
         borderIncorrect: answer && !answer.isCorrectAnswer
@@ -42,27 +42,27 @@
     </div>
 
     <!--Score-->
-    <div class="ml col-md-2 frame-container">
-      <div class="container-fluid"></div>
+    <div class="ml col-xl-2 col-lg-3 col-md-4">
       <div class="row">
-        <app-learning-result
-          [packetSize]="packetSize"
-          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-        ></app-learning-result>
-      </div>
-      <div class="row">
-        <app-score
-          [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
-          [numberOfAttempts]="statistic.numberOfAttempts"
-        >
-        </app-score>
-      </div>
-      <div class="row">
-        <app-learning-phase-result
-          *ngIf="statistic.scoreAfterRound.length > 0"
-          [scores]="statistic.scoreAfterRound"
-          [packetSize]="wordResult.length"
-        ></app-learning-phase-result>
+        <div class="col-md-12 frame-container">
+          <div class="row">
+            <div class="col-md-12">
+              <app-score
+                [packetSize]="packetSize"
+                [numberOfGoodAnswers]="statistic.numberOfGoodAnswers"
+                [numberOfAttempts]="statistic.numberOfAttempts"
+              >
+              </app-score>
+            </div>
+          </div>
+          <div class="row">
+            <app-learning-phase-result
+              *ngIf="statistic.scoreAfterRound.length > 0"
+              [scores]="statistic.scoreAfterRound"
+              [packetSize]="wordResult.length"
+            ></app-learning-phase-result>
+          </div>
+        </div>
       </div>
     </div>
   </div>

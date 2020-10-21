@@ -7,7 +7,6 @@ import { LearningModeSelectorComponent } from './learning-mode/learning-mode-sel
 import { TranslateModule } from '@ngx-translate/core';
 import { LearningTranslationComponent } from './learning-translation/learning-translation.component';
 import { RouterModule } from '@angular/router';
-import { LearningResultComponent } from './learning-translation/learning-result/learning-result.component';
 import { GermanShortcutsComponent } from './learning-translation/german-shortcuts/german-shortcuts.component';
 import { LearningPhaseResultComponent } from './learning-translation/learning-phase-result/learning-phase-result.component';
 import { LearningFormComponent } from './learning-translation/examination/learning-form/learning-form.component';
@@ -35,7 +34,6 @@ import { ExampleComponent } from './learning-translation/example/example.compone
     PacketTableComponent,
     LearningModeSelectorComponent,
     LearningTranslationComponent,
-    LearningResultComponent,
     GermanShortcutsComponent,
     LearningPhaseResultComponent,
     LearningFormComponent,

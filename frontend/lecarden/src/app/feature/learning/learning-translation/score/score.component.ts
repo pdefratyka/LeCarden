@@ -14,6 +14,8 @@ export class ScoreComponent {
   numberOfGoodAnswers: number;
   @Input()
   numberOfAttempts: number;
+  @Input()
+  packetSize: number;
 
   constructor(private readonly scoreService: ScoreService) {}
 

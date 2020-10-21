@@ -5,8 +5,12 @@ $background-color-primary: #e9ebee;
   margin-top: 2rem;
 }
 
-.frame-container {
+.frame-container-examination {
   height: 25rem;
+}
+
+.frame-container {
+  max-height: 25rem;
   margin-top: 4rem;
 }
 

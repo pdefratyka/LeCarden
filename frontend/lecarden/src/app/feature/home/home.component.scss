@@ -8,7 +8,7 @@
     padding-top: 20px;
     transition: padding-left 0.3s ease;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 900px) {
       padding-left: 250px;
     }
 
@@ -24,7 +24,7 @@
       display: none;
 
       &.showOverlay {
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 900px) {
           display: block;
         }
       }
