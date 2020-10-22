@@ -16,7 +16,6 @@ import { CurrentWordComponent } from './learning-translation/examination/current
 import { ResponseToAnswerComponent } from './learning-translation/response-to-answer/response-to-answer.component';
 import { ScoreComponent } from './learning-translation/score/score.component';
 import { LastResultComponent } from './learning-mode/last-result/last-result.component';
-import { ImageComponent } from './learning-translation/image/image.component';
 import { LearningFinalPageComponent } from './learning-translation/learning-final-page/learning-final-page.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -42,7 +41,6 @@ import { ExampleComponent } from './learning-translation/example/example.compone
     ResponseToAnswerComponent,
     ScoreComponent,
     LastResultComponent,
-    ImageComponent,
     LearningFinalPageComponent,
     BasketModeSelectorComponent,
     ExampleComponent,

@@ -1,19 +1,7 @@
 <div class="container-fluid" *ngIf="packetSize > 0">
   <div class="row">
-    <!--Image-->
-
-    <div class="col-md-1 image-container ml p0">
-      <!--
-      <app-image
-        *ngIf="answer && currentWord.imageUrl"
-        [imageUrl]="currentWord.imageUrl"
-      ></app-image>
-      -->
-    </div>
-
-    <!--Examination-->
     <div
-      class="col-xl-8 col-md-6 frame-container frame-container-examination border"
+      class="offset-md-1 p0 col-xl-8 col-md-6 frame-container frame-container-examination border"
       [ngClass]="{
         borderCorrect: answer && answer.isCorrectAnswer,
         borderIncorrect: answer && !answer.isCorrectAnswer
@@ -67,8 +55,8 @@
     </div>
   </div>
   <!--Example-->
-  <div class="row" *ngIf="answer">
-    <div class="offset-md-3 col-md-6 offset-md-3">
+  <div class="row example-row" *ngIf="answer">
+    <div class="offset-md-1 p0 col-xl-8 col-md-6">
       <app-example [example]="currentWord.example"></app-example>
     </div>
   </div>

@@ -48,6 +48,7 @@ export class LearningTranslationComponent implements OnInit {
   finalBasketMode = false;
   editWordPanel = false;
   currentWord: Word;
+
   constructor(
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
