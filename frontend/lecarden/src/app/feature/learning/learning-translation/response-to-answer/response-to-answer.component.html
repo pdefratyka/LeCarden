@@ -1,10 +1,10 @@
 <form
   [formGroup]="answerForm"
   (ngSubmit)="emitContinue()"
-  class="container frame col-md-12"
+  class="container-fluid frame"
 >
   <div class="row">
-    <div class="offset-md-11 col-md-1">
+    <div class="offset-xl-10 col-xl-2 offset-lg-8 col-lg-4">
       <img
         src="../../../../../assets/other/edit-icon.png"
         data-toggle="modal"
@@ -23,7 +23,7 @@
     <p>{{ answer?.userAnswer }}</p>
   </div>
   <div class="row">
-    <div class="col-md-4 mx-auto">
+    <div class="col-lg-6 col-md-10 mx-auto">
       <button #submitButton type="submit" class="btn btn-success">
         {{ 'LABEL.CONTINUE' | translate }}
       </button>
@@ -42,7 +42,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit word</h5>
         <button
           type="button"
           class="close"
@@ -126,19 +126,6 @@
               [ngClass]="{ 'is-invalid': example.invalid && example.touched }"
             />
           </div>
-          <!--
-          <div class="form-group">
-            <label for="imageUrl-input">Image url</label>
-            <input
-              type="text"
-              class="form-control"
-              id="imageUrl-input"
-              placeholder="Image url"
-              formControlName="imageUrl"
-              [ngClass]="{ 'is-invalid': imageUrl.invalid && imageUrl.touched }"
-            />
-          </div>
-          -->
           <div class="form-group">
             <label for="audioUrl-input">Audio url</label>
             <input

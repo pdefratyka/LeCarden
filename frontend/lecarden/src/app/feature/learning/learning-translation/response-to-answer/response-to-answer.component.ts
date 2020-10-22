@@ -28,14 +28,13 @@ export class ResponseToAnswerComponent implements AfterViewInit {
   continue: EventEmitter<void> = new EventEmitter<void>();
   @Output()
   updateWord: EventEmitter<void> = new EventEmitter<void>();
-  answerForm: FormGroup;
-
   @Output()
   saveWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()
   closeForm: EventEmitter<Word> = new EventEmitter<Word>();
   @Input()
   word: Word;
+  answerForm: FormGroup;
   formInvalidSubmitted = false;
   addWordForm: FormGroup;
 
@@ -68,7 +67,6 @@ export class ResponseToAnswerComponent implements AfterViewInit {
     console.log('SAVE');
     if (this.addWordForm.valid) {
       if (this.word && this.word.id) {
-
         this.emitWordInEditMode();
       }
 
