@@ -44,7 +44,6 @@ export class LearningTranslationComponent implements OnInit {
   wordResult: WordResult[] = [];
   packetSize: number;
   currentBasket: Basket;
-  basketLearningMode: number;
   finalBasketMode = false;
   editWordPanel = false;
   currentWord: Word;
@@ -158,7 +157,6 @@ export class LearningTranslationComponent implements OnInit {
       .pipe(take(1))
       .subscribe((mode) => {
         this.selectedMode = mode;
-        this.basketLearningMode = mode;
       });
   }
 

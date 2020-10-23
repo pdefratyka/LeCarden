@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-learning-final-page',
@@ -9,6 +9,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
   ],
 })
 export class LearningFinalPageComponent {
+  @Input()
+  isBasketMode: boolean;
   @Output()
   saveScore: EventEmitter<void> = new EventEmitter<void>();
   @Output()

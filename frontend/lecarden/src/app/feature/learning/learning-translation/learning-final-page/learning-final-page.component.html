@@ -4,8 +4,13 @@
       {{ 'LABEL.SAVE' | translate }}
     </button>
   </div>
-  <div class="row">
-    <label>Save good answers to final basket</label>
-    <input type="checkbox" id="saveToBasket5" (click)="emitFinalBasketMode()" />
+  <div class="row" *ngIf="isBasketMode">
+    <label class="my-auto">Save good answers to final basket</label>
+    <input
+      type="checkbox"
+      id="saveToBasket5"
+      (click)="emitFinalBasketMode()"
+      class="ml-2 my-auto"
+    />
   </div>
 </div>
