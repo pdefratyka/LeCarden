@@ -4,7 +4,6 @@ import { CategoriesResolverService } from '../core/services/resolvers/categories
 import { FilteredPacketResolverService } from '../core/services/resolvers/filtered-packet-resolver.service';
 import { PacketsResolverService } from '../core/services/resolvers/packets-resolver.service';
 import { SinglePacketResolverService } from '../core/services/resolvers/single-packet-resolver.service';
-import { SingleWordResolverService } from '../core/services/resolvers/single-word-resolver.service';
 import { WordsResolverService } from '../core/services/resolvers/words-resolver.service';
 import { AuthGuardService } from '../core/services/security/auth-guard.service';
 import { NotConfirmedAccountComponent } from './authentication/not-confirmed-account/not-confirmed-account.component';
@@ -33,9 +32,6 @@ const featureRoutes: Routes = [
           {
             path: ':id',
             component: AddWordComponent,
-            resolve: {
-              word: SingleWordResolverService,
-            },
           },
         ],
       },

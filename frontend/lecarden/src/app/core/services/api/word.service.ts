@@ -19,13 +19,7 @@ export class WordService {
 
   saveWord(word: Word): Observable<Word> {
     return this.httpClient
-      .post<Word>(`${this.url}/user-id/${this.tokenService.getUserId()}`, word)
-      .pipe(catchError(this.handleError));
-  }
-
-  getWordById(wordId: string): Observable<Word> {
-    return this.httpClient
-      .get<Word>(`${this.url}/${wordId}`)
+      .post<Word>(this.url, this.getWordWithUserId(word))
       .pipe(catchError(this.handleError));
   }
 
@@ -64,5 +58,22 @@ export class WordService {
 
   handleError() {
     return throwError('There was some problem with the server.');
+  }
+
+  private getWordWithUserId(word: Word): Word {
+    return {
+      id: word.id,
+      name: word.name,
+      translation: word.translation,
+      plural: word.plural,
+      category: word.category,
+      imageUrl: word.imageUrl,
+      audioUrl: word.audioUrl,
+      builtIn: word.builtIn,
+      userId: this.tokenService.getUserId(),
+      languageId: word.languageId,
+      languageTO: word.languageTO,
+      example: word.example,
+    } as Word;
   }
 }

@@ -43,7 +43,7 @@ export class AddWordComponent implements OnInit {
 
   saveWord(word: Word): void {
     this.store.dispatch(
-      WordPageAction.saveWord({ word, isEditMode: word.id !== null })
+      WordPageAction.saveWord({ word, isEditMode: word.id !== undefined })
     );
   }
 

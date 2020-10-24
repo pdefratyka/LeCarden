@@ -9,7 +9,7 @@ export interface Word {
   imageUrl?: string;
   audioUrl?: string;
   builtIn?: boolean;
-  userId?: boolean;
+  userId?: number;
   languageId?: number;
   languageTO?: Language;
   example: string;

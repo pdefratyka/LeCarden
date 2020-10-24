@@ -47,14 +47,15 @@ export const wordReducer = createReducer<WordState>(
   on(
     WordApiAction.saveWordSuccess,
     (state, action): WordState => {
-      if (action.word.id) {
-        const index = state.words.findIndex((w) => w.id === action.word.id);
-        state.words.splice(index, 1);
+      const tempArray = [...state.words];
+      if (action.isEditMode) {
+        const index = tempArray.findIndex((w) => w.id === action.word.id);
+        tempArray.splice(index, 1);
       }
 
       return {
         ...state,
-        words: [...state.words, action.word],
+        words: [...tempArray, action.word],
         currentWord: null,
       };
     }
