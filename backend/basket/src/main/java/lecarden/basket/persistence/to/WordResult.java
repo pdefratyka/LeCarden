@@ -1,6 +1,5 @@
 package lecarden.basket.persistence.to;
 
-import lecarden.basket.persistence.entity.BasketWord;
 import lombok.*;
 
 @Getter
