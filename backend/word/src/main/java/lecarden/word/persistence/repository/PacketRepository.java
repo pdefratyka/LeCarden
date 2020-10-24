@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface PacketRepository extends JpaRepository<Packet, Long> {
     @Query(value = "from Packet p where p.userId=:userId or p.builtIn=true")
-    List<Packet> getPacketsByUserId(@Param("userId") Long userId);
+    List<Packet> getPacketsAccessibleForGivenUser(@Param("userId") Long userId);
 }

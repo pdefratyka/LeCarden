@@ -18,13 +18,14 @@ public class Packet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "NAME", nullable = false, length = 50)
     private String name;
 
     @Column(name = "USER_ID")
     private Long userId;
 
-    @ManyToMany(fetch = FetchType.LAZY)// Merge is considered as a dirty solution
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "PACKET_WORD",
             joinColumns = {@JoinColumn(name = "PACKET_ID")},
@@ -49,6 +50,7 @@ public class Packet {
     @Column(name = "LANGUAGE_ID")
     private Long languageId;
 
+    // TODO create abstract entity which will be extended by Packet and by Word
     @PrePersist
     public void createDate() {
         this.createDate = LocalDateTime.now();

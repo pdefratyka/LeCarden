@@ -15,8 +15,10 @@ public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "FOREIGN_LANGUAGE", nullable = false, length = 50)
     private String foreignLanguage;
+
     @Column(name = "KNOWN_LANGUAGE", nullable = false, length = 50)
     private String knownLanguage;
 }

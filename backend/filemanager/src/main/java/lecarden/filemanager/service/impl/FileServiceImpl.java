@@ -43,7 +43,7 @@ public class FileServiceImpl implements FileService {
 
     private List<Word> saveWord(List<Word> words) {
         // TODO Null pointer
-        String wordUrl = "http://word-service/words/list/user-id/" + words.get(0).getUserId();
+        String wordUrl = "http://word-service/words/list" + words.get(0).getUserId();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<List<Word>> requestEntity = new HttpEntity<>(words, headers);

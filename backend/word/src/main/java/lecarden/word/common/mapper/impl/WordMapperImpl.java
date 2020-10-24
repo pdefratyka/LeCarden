@@ -22,58 +22,60 @@ public class WordMapperImpl implements WordMapper {
 
     @Override
     public Word mapToWord(WordTO wordTO) {
-        return Word.builder()
-                .category(wordTO.getCategory())
-                .id(wordTO.getId())
-                .name(wordTO.getName())
-                .plural(wordTO.getPlural())
-                .translation(wordTO.getTranslation())
-                .userId(wordTO.getUserId())
-                .imageUrl(wordTO.getImageUrl())
-                .audioUrl(wordTO.getAudioUrl())
-                .builtIn(wordTO.getBuiltIn())
-                .example(wordTO.getExample())
-                .languageId(wordTO.getLanguageId())
-                .language(languageMapper.mapToLanguage(wordTO.getLanguageTO()))
-                .build();
+        if (wordTO != null) {
+            return Word.builder()
+                    .category(wordTO.getCategory())
+                    .id(wordTO.getId())
+                    .name(wordTO.getName())
+                    .plural(wordTO.getPlural())
+                    .translation(wordTO.getTranslation())
+                    .userId(wordTO.getUserId())
+                    .imageUrl(wordTO.getImageUrl())
+                    .audioUrl(wordTO.getAudioUrl())
+                    .builtIn(wordTO.getBuiltIn())
+                    .example(wordTO.getExample())
+                    .languageId(wordTO.getLanguageId())
+                    .language(languageMapper.mapToLanguage(wordTO.getLanguageTO()))
+                    .build();
+        }
+
+        return null;
     }
 
     @Override
     public WordTO mapToWordTO(Word word) {
-        return WordTO.builder()
-                .category(word.getCategory())
-                .id(word.getId())
-                .name(word.getName())
-                .plural(word.getPlural())
-                .translation(word.getTranslation())
-                .userId(word.getUserId())
-                .imageUrl(word.getImageUrl())
-                .audioUrl(word.getAudioUrl())
-                .builtIn(word.getBuiltIn())
-                .example(word.getExample())
-                .languageId(word.getLanguageId())
-                .languageTO(languageMapper.mapToLanguageTO(word.getLanguage()))
-                .build();
+        if (word != null) {
+            return WordTO.builder()
+                    .category(word.getCategory())
+                    .id(word.getId())
+                    .name(word.getName())
+                    .plural(word.getPlural())
+                    .translation(word.getTranslation())
+                    .userId(word.getUserId())
+                    .imageUrl(word.getImageUrl())
+                    .audioUrl(word.getAudioUrl())
+                    .builtIn(word.getBuiltIn())
+                    .example(word.getExample())
+                    .languageId(word.getLanguageId())
+                    .languageTO(languageMapper.mapToLanguageTO(word.getLanguage()))
+                    .build();
+        }
+
+        return null;
     }
 
     @Override
     public List<WordTO> mapToWordTOs(List<Word> words) {
         List<WordTO> wordTOs = new ArrayList<>();
-
-        for (Word word : words) {
-            wordTOs.add(mapToWordTO(word));
-        }
+        words.forEach(w -> wordTOs.add(mapToWordTO(w)));
 
         return wordTOs;
     }
 
     @Override
-    public List<Word> mapToWords(List<WordTO> wordTOS) {
+    public List<Word> mapToWords(List<WordTO> wordTOs) {
         List<Word> words = new ArrayList<>();
-
-        for (WordTO wordTO : wordTOS) {
-            words.add(mapToWord(wordTO));
-        }
+        wordTOs.forEach(w -> words.add(mapToWord(w)));
 
         return words;
     }

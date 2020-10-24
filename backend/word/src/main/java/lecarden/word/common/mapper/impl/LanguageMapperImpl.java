@@ -29,9 +29,9 @@ public class LanguageMapperImpl implements LanguageMapper {
     public List<LanguageTO> mapToLanguagesTOs(List<Language> languages) {
         List<LanguageTO> languagesTOs = new ArrayList<>();
 
-        for (Language language : languages) {
-            languagesTOs.add(mapToLanguageTO(language));
-        }
+        languages.forEach(l -> {
+            languagesTOs.add(mapToLanguageTO(l));
+        });
 
         return languagesTOs;
     }
