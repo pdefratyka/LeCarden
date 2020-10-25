@@ -4,6 +4,7 @@ import lecarden.user.common.exception.TokenException;
 import lecarden.user.common.exception.UserException;
 import lecarden.user.common.mapper.UserMapper;
 import lecarden.user.common.validator.UserValidator;
+import lecarden.user.config.EnvironmentService;
 import lecarden.user.persistence.entity.ConfirmationToken;
 import lecarden.user.persistence.entity.PasswordResetToken;
 import lecarden.user.persistence.entity.User;
@@ -16,8 +17,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +30,6 @@ import java.time.LocalDateTime;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-@PropertySource("classpath:application.properties")
 public class UserServiceImpl implements UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -42,15 +40,13 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
     private ConfirmationTokenService confirmationTokenService;
     private PasswordResetService passwordResetService;
-
-    @Autowired
-    private Environment env;
+    private EnvironmentService environmentService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,
                            UserValidator userValidator, RestTemplate restTemplate, BCryptPasswordEncoder passwordEncoder,
                            ConfirmationTokenService confirmationTokenService,
-                           PasswordResetService passwordResetService) {
+                           PasswordResetService passwordResetService, EnvironmentService environmentService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.userValidator = userValidator;
@@ -58,6 +54,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
         this.confirmationTokenService = confirmationTokenService;
         this.passwordResetService = passwordResetService;
+        this.environmentService = environmentService;
     }
 
     @Override
@@ -70,7 +67,7 @@ public class UserServiceImpl implements UserService {
         ConfirmationToken token = confirmationTokenService
                 .saveToken(new ConfirmationToken(userMapper.mapToUser(savedUser)));
 
-        sendToken(env.getProperty("email.register-confirmation.url"),
+        sendToken(environmentService.getEmailRegisterConfirmationUrl(),
                 savedUser.getLogin(), savedUser.getEmail(), token.getToken());
         return savedUser;
     }
@@ -110,11 +107,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PasswordResetToken createPasswordResetToken(String email) {
-        // make method find user by email private
         UserTO user = findUserByEmail(email);
         if (user != null) {
             PasswordResetToken token = passwordResetService.savePasswordResetToken(user);
-            sendToken(env.getProperty("email.forgot-password.url"),
+            sendToken(environmentService.getEmailForgotPasswordUrl(),
                     user.getLogin(), user.getEmail(), token.getToken());
         }
         return null;
@@ -126,7 +122,7 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.getOne(id);
             ConfirmationToken token = confirmationTokenService
                     .saveToken(new ConfirmationToken(user));
-            sendToken(env.getProperty("email.register-confirmation.url"),
+            sendToken(environmentService.getEmailRegisterConfirmationUrl(),
                     user.getLogin(), user.getEmail(), token.getToken());
         } else {
             logger.info("EXCEPTION");
