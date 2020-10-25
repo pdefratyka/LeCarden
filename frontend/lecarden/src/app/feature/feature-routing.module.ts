@@ -6,7 +6,6 @@ import { PacketsResolverService } from '../core/services/resolvers/packets-resol
 import { SinglePacketResolverService } from '../core/services/resolvers/single-packet-resolver.service';
 import { WordsResolverService } from '../core/services/resolvers/words-resolver.service';
 import { AuthGuardService } from '../core/services/security/auth-guard.service';
-import { NotConfirmedAccountComponent } from './authentication/not-confirmed-account/not-confirmed-account.component';
 import { HomeComponent } from './home/home.component';
 import { LearningModeComponent } from './learning/learning-mode/learning-mode.component';
 import { LearningTranslationComponent } from './learning/learning-translation/learning-translation.component';
@@ -82,11 +81,6 @@ const featureRoutes: Routes = [
           },
         ],
       },
-      {
-        path: 'not-confirmed-account',
-        component: NotConfirmedAccountComponent,
-      },
-      { path: '**', redirectTo: 'login' },
     ],
   },
 ];

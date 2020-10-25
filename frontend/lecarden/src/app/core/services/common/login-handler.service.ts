@@ -15,8 +15,14 @@ export class LoginHandlerService {
 
   public handleSuccessfulLogin(response: string): void {
     const jwt = 'jwt';
+    console.log(response);
     this.tokenService.setToken(response[jwt]);
     this.toastService.success(`Hallo ${this.tokenService.getUserName()}`);
-    this.router.navigate(['add-word']);
+    console.log(this.tokenService.getConfirmed());
+    if (this.tokenService.getConfirmed()) {
+      this.router.navigate(['add-word']);
+    } else {
+      this.router.navigate(['not-confirmed-account']);
+    }
   }
 }
