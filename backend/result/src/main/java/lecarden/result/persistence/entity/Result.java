@@ -20,25 +20,28 @@ public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "USER_ID")
     private Long userId;
+
     @Column(name = "PACKET_ID")
     private Long packetId;
+
     @Column(name = "SCORE")
     private Long score;
+
     @Column(name = "DATE")
     private LocalDateTime date;
-    @Column(name="LEARNING_MODE")
+
+    @Column(name = "LEARNING_MODE")
     private LearningMode learningMode;
 
-    @OneToMany(mappedBy = "result", cascade={CascadeType.REFRESH})
+    @OneToMany(mappedBy = "result", cascade = {CascadeType.REFRESH})
     @JsonManagedReference
     private List<WordResult> words;
 
     @PrePersist
     public void createDate() {
         this.date = LocalDateTime.now();
-        this.date = date;
     }
-
 }

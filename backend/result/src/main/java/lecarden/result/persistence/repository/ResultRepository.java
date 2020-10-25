@@ -26,5 +26,4 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
             "  and r.date=p2.date\n" +
             "\t", nativeQuery = true)
     List<Result> getAllLastResultsFromUser(Long userId);
-
 }

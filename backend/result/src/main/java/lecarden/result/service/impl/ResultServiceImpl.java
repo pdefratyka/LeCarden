@@ -7,7 +7,6 @@ import lecarden.result.persistence.entity.Result;
 import lecarden.result.persistence.repository.ResultRepository;
 import lecarden.result.persistence.repository.WordResultRepository;
 import lecarden.result.persistence.to.ResultTO;
-import lecarden.result.persistence.to.WordResultTO;
 import lecarden.result.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,10 +34,12 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public ResultTO saveResult(ResultTO resultTO) {
         ResultTO savedResult = resultMapper.mapToResultTO(resultRepository.save(resultMapper.mapToResult(resultTO)));
-        for (WordResultTO wordResult : resultTO.getWordsResultsTOs()) {
+        resultTO.getWordsResultsTOs().forEach(wordResult -> {
             wordResult.setResultId(savedResult.getId());
-            wordResultRepository.save(wordResultMapper.mapToWordResult(wordResult));
-        }
+        });
+        resultTO.getWordsResultsTOs().forEach(wr -> wr.setResultId(savedResult.getId()));
+        wordResultRepository.saveAll(wordResultMapper.mapToWordsResults(resultTO.getWordsResultsTOs()));
+
         return savedResult;
     }
 
@@ -48,22 +49,17 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<ResultTO> getAllResults() {
-        return resultMapper.mapToResultsTOs(resultRepository.findAll());
-    }
-
-    @Override
     public List<ResultTO> getLastResult(Long userId, Long packetId) {
-        List<Result> results=new ArrayList<>();
-        Result tempResult=resultRepository.
-                findFirstByUserIdAndPacketIdAndLearningModeOrderByDateDesc(userId,packetId, LearningMode.FOREGIN_TO_KNOWN);
-        Result tempResult2=resultRepository.
-                findFirstByUserIdAndPacketIdAndLearningModeOrderByDateDesc(userId,packetId, LearningMode.KNOWN_TO_FOREGIN);
-        if(tempResult!=null){
-            results.add(tempResult);
+        List<Result> results = new ArrayList<>();
+        Result lastForeignToKnownResult = resultRepository.
+                findFirstByUserIdAndPacketIdAndLearningModeOrderByDateDesc(userId, packetId, LearningMode.FOREIGN_TO_KNOWN);
+        Result lastKnownToForeignResult = resultRepository.
+                findFirstByUserIdAndPacketIdAndLearningModeOrderByDateDesc(userId, packetId, LearningMode.KNOWN_TO_FOREIGN);
+        if (lastForeignToKnownResult != null) {
+            results.add(lastForeignToKnownResult);
         }
-        if(tempResult2!=null){
-            results.add(tempResult2);
+        if (lastKnownToForeignResult != null) {
+            results.add(lastKnownToForeignResult);
         }
 
         return resultMapper.mapToResultsTOs(results);
