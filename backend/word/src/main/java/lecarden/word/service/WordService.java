@@ -7,19 +7,15 @@ import java.util.List;
 public interface WordService {
     WordTO saveWord(WordTO word);
 
-    WordTO updateWord(WordTO wordTO);
-
-    WordTO getWordById(Long wordId);
-
     List<WordTO> saveWords(List<WordTO> words);
 
-    List<WordTO> getWordsByUserId(Long userId);
+    WordTO updateWord(WordTO wordTO);
 
-    List<String> getAllCategoriesByUserId(Long userId);
+    List<String> getCategoriesByUserId(Long userId);
 
-    List<WordTO> getAllWordByUserIdAndPageNo(Long userId, String query, int pageNo);
+    List<WordTO> getWordsAccessibleForGivenUser(Long userId, String query, int pageNo);
 
-    WordTO addImageToWord(Long wordId);
+    List<WordTO> getWordsFromPacket(Long packetId);
 
     void deleteWordById(Long wordId);
 }

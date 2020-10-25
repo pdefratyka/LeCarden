@@ -1,13 +1,13 @@
 package lecarden.word.service.impl;
 
 import lecarden.word.common.mapper.PacketMapper;
-import lecarden.word.common.mapper.WordMapper;
+import lecarden.word.config.EnvironmentService;
 import lecarden.word.persistence.repository.PacketRepository;
 import lecarden.word.persistence.to.PacketTO;
 import lecarden.word.persistence.to.ResultTO;
 import lecarden.word.persistence.to.WordResultTO;
-import lecarden.word.persistence.to.WordTO;
 import lecarden.word.service.PacketService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,25 +15,25 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class PacketServiceImpl implements PacketService {
 
     private PacketRepository packetRepository;
     private PacketMapper packetMapper;
     private RestTemplate restTemplate;
-    private WordMapper wordMapper;
+    private EnvironmentService environmentService;
 
     @Autowired
-    public PacketServiceImpl(RestTemplate restTemplate, PacketRepository packetRepository, PacketMapper packetMapper,
-                             WordMapper wordMapper) {
+    public PacketServiceImpl(RestTemplate restTemplate, PacketRepository packetRepository,
+                             PacketMapper packetMapper, EnvironmentService environmentService) {
         this.packetRepository = packetRepository;
         this.packetMapper = packetMapper;
         this.restTemplate = restTemplate;
-        this.wordMapper = wordMapper;
+        this.environmentService = environmentService;
     }
 
     @Override
@@ -47,21 +47,40 @@ public class PacketServiceImpl implements PacketService {
     }
 
     @Override
-    public PacketTO getFilteredPacketById(Long id, Long resultId) {
+    public PacketTO getPacketResult(Long id, Long resultId) {
         PacketTO packet = packetMapper.mapToPacketTO(packetRepository.getOne(id));
+        ResultTO result = getResultById(resultId);
+        return getFilteredPacketFromWords(packet, result);
+    }
 
-        String wordUrl = "http://result-service/results/" + resultId;
-        URI uri = null;
+    @Override
+    public List<PacketTO> getPacketsAccessibleForGivenUser(Long userId) {
+        return packetMapper.mapToPacketTOs(packetRepository.getPacketsAccessibleForGivenUser(userId));
+    }
+
+    @Override
+    public void deletePacketById(Long packetId) {
+        this.packetRepository.deleteById(packetId);
+    }
+
+    private ResultTO getResultById(Long resultId) {
+        String resultServiceUrl = environmentService.getResultUrl() + resultId;
         try {
-            uri = new URI(wordUrl);
+            URI uri = new URI(resultServiceUrl);
+            ResponseEntity<ResultTO> resultResponseEntity = restTemplate.getForEntity(uri, ResultTO.class);
+            return resultResponseEntity.getBody();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
-        ResponseEntity<ResultTO> resultResponseEntity = restTemplate.getForEntity(uri, ResultTO.class);
-        ResultTO result = resultResponseEntity.getBody();
-        List<WordTO> tempArray = new ArrayList<>(packet.getWords());
-        for (WordTO wordTO : tempArray) {
-            Optional<WordResultTO> word = result.getWordsResultsTOs().stream().filter(w -> w.getWordId().equals(wordTO.getId())).findFirst();
+        return null;
+    }
+
+    private PacketTO getFilteredPacketFromWords(PacketTO packet, ResultTO result) {
+        packet.getWords().forEach(wordTO -> {
+            Optional<WordResultTO> word = result.getWordsResultsTOs()
+                    .stream()
+                    .filter(w -> w.getWordId().equals(wordTO.getId()))
+                    .findFirst();
             if (word.isPresent()) {
                 if (word.get().getAttempts() < 2) {
                     packet.getWords().remove(wordTO);
@@ -69,28 +88,7 @@ public class PacketServiceImpl implements PacketService {
             } else {
                 packet.getWords().remove(wordTO);
             }
-
-        }
+        });
         return packet;
-    }
-
-    @Override
-    public List<WordTO> getWordsFromPacket(Long packetId) {
-        return this.wordMapper.mapToWordTOs(packetRepository.getOne(packetId).getWords());
-    }
-
-    @Override
-    public List<PacketTO> getAllPackets() {
-        return packetMapper.mapToPacketTOs(packetRepository.findAll());
-    }
-
-    @Override
-    public List<PacketTO> getPacketsByUserId(Long userId) {
-        return packetMapper.mapToPacketTOs(packetRepository.getPacketsByUserId(userId));
-    }
-
-    @Override
-    public void deletePacketById(Long packetId) {
-        this.packetRepository.deleteById(packetId);
     }
 }

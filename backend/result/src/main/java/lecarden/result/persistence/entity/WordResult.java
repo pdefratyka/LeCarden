@@ -17,10 +17,13 @@ public class WordResult {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "WORD_ID")
     private Long wordId;
+
     @Column(name = "ATTEMPTS")
     private Long attempts;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "RESULT_ID", insertable = false, updatable = false)
     @JsonBackReference
@@ -28,6 +31,4 @@ public class WordResult {
 
     @Column(name = "RESULT_ID")
     private Long resultId;
-    //@Column(name = "POSITIVE")
-    //private Boolean positive;
 }

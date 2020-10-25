@@ -37,11 +37,8 @@ public class Basket {
     @JoinColumn(name = "BASKET_ID")
     private List<BasketWord> basketWords;
 
-    // TODO add mode
-
     @PreUpdate
     public void updateDate() {
         this.date = LocalDateTime.now();
     }
-
 }

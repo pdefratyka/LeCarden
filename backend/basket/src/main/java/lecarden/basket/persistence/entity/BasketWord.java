@@ -19,7 +19,6 @@ public class BasketWord {
     @Column(name = "WORD_ID")
     Long wordId;
 
-    @Column(name="BASKET_ID")
+    @Column(name = "BASKET_ID")
     Long basketId;
-
 }

@@ -12,15 +12,11 @@ import java.util.List;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
-    @Query(value = "from Word w where w.userId=:userId or w.builtIn=true")
-    List<Word> getWordsByUserId(@Param("userId") Long userId);
-
     @Query(value = "from Word w where (w.userId=:userId or w.builtIn=true) and (w.name like %:query% or w" +
-            ".translation" +
-            " " +
-            "like %:query%)")
-    Page<Word> getWordsByUserId(@Param("userId") Long userId, @Param("query") String query, Pageable pageable);
+            ".translation " + "like %:query%)")
+    Page<Word> getWordsAccessibleForGivenUser(@Param("userId") Long userId,
+                                              @Param("query") String query, Pageable pageable);
 
     @Query(value = "select distinct category from Word w where w.userId=:userId")
-    List<String> getAllCategoriesByUserId(@Param("userId") Long userId);
+    List<String> getCategoriesByUserId(@Param("userId") Long userId);
 }
