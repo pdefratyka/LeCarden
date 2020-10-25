@@ -42,7 +42,6 @@ export class WordService {
   }
 
   getWordsByPacketId(packetId: number): Observable<Word[]> {
-    console.log('get Words');
     return this.httpClient
       .get<Word[]>(`${this.url}/packet-id/${packetId}`)
       .pipe(catchError(this.handleError));

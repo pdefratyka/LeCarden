@@ -63,7 +63,6 @@ export const wordReducer = createReducer<WordState>(
   on(
     WordApiAction.updateWordSuccess,
     (state, action): WordState => {
-      console.log('Update word success');
       state.words.splice(action.word.id, 1);
       return {
         ...state,

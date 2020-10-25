@@ -88,7 +88,6 @@ export const packetReducer = createReducer<PacketState>(
   on(
     PacketApiAction.loadPacketsWordsFailure,
     (state, action): PacketState => {
-      console.log('FAIL');
       return {
         ...state,
       };
