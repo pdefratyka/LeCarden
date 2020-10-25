@@ -24,10 +24,6 @@ public class FileController {
 
     @PostMapping()
     public List<Word> saveWordFromFile(@RequestBody SavingInformation savingInformation) {
-        return fileService.addWordsFromFile(
-                savingInformation
-        );
+        return fileService.addWordsFromFile(savingInformation);
     }
-
-
 }
