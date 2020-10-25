@@ -214,7 +214,7 @@ export class LearningTranslationComponent implements OnInit {
 
   private correctAnswerAction(answer: string): void {
     const tempCorrectAnswer =
-      this.selectedMode === LearningMode.FOREGIN_TO_KNOWN
+      this.selectedMode === LearningMode.FOREIGN_TO_KNOWN
         ? this.packet.words[this.wordIterator].name
         : this.packet.words[this.wordIterator].translation;
     this.answer = {
@@ -228,7 +228,7 @@ export class LearningTranslationComponent implements OnInit {
 
   private wrongAnswerAction(answer: string): void {
     const tempCorrectAnswer =
-      this.selectedMode === LearningMode.FOREGIN_TO_KNOWN
+      this.selectedMode === LearningMode.FOREIGN_TO_KNOWN
         ? this.packet.words[this.wordIterator].name
         : this.packet.words[this.wordIterator].translation;
     this.answer = {

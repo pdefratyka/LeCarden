@@ -23,12 +23,14 @@ export class BasketService {
   }
 
   updateBaskets(basketResult: BasketResult): Observable<Basket[]> {
-    return this.httpClient.post<Basket[]>(`${this.url}/update`, basketResult);
+    return this.httpClient.post<Basket[]>(this.url, basketResult);
   }
 
   resetBaskets(packetId: number): Observable<void> {
     return this.httpClient.get<void>(
-      `${this.url}/user-id/${this.tokenService.getUserId()}/packet/${packetId}`
+      `${
+        this.url
+      }/user-id/${this.tokenService.getUserId()}/packet/${packetId}/reset`
     );
   }
 }

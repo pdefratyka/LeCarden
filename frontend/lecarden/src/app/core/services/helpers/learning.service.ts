@@ -13,7 +13,7 @@ export class LearningService {
     learningMode: LearningMode
   ): boolean {
     let correct =
-      learningMode === LearningMode.KNOWN_TO_FOREGIN
+      learningMode === LearningMode.KNOWN_TO_FOREIGN
         ? currentWord.translation
         : currentWord.name;
     answer = answer.replace(/\s/g, '');

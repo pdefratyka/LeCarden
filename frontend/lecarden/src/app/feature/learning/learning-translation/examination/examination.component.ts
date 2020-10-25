@@ -19,7 +19,7 @@ export class ExaminationComponent implements OnInit {
     this.answer.emit(answer);
   }
   ngOnInit(): void {
-    if (this.learningMode === LearningMode.KNOWN_TO_FOREGIN) {
+    if (this.learningMode === LearningMode.KNOWN_TO_FOREIGN) {
       this.wordName = this.word.name;
     } else {
       this.wordName = this.word.translation;

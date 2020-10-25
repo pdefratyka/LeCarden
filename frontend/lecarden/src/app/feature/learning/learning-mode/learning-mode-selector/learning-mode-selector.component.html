@@ -8,34 +8,34 @@
       </thead>
       <tbody>
         <tr
-          (click)="emitSelectMode(LearningMode.FOREGIN_TO_KNOWN)"
+          (click)="emitSelectMode(LearningMode.FOREIGN_TO_KNOWN)"
           [ngClass]="{
-            selected: isModeSelected(LearningMode.FOREGIN_TO_KNOWN)
+            selected: isModeSelected(LearningMode.FOREIGN_TO_KNOWN)
           }"
         >
           <td>
-            {{ 'LABEL.FOREGIN_TO_KNOWN' | translate }}
+            {{ 'LABEL.FOREIGN_TO_KNOWN' | translate }}
           </td>
           <td>
             <input
               type="checkbox"
-              [checked]="isModeSelected(LearningMode.FOREGIN_TO_KNOWN)"
+              [checked]="isModeSelected(LearningMode.FOREIGN_TO_KNOWN)"
             />
           </td>
         </tr>
         <tr
-          (click)="emitSelectMode(LearningMode.KNOWN_TO_FOREGIN)"
+          (click)="emitSelectMode(LearningMode.KNOWN_TO_FOREIGN)"
           [ngClass]="{
-            selected: isModeSelected(LearningMode.KNOWN_TO_FOREGIN)
+            selected: isModeSelected(LearningMode.KNOWN_TO_FOREIGN)
           }"
         >
           <td>
-            {{ 'LABEL.KNOWN_TO_FOREGIN' | translate }}
+            {{ 'LABEL.KNOWN_TO_FOREIGN' | translate }}
           </td>
           <td>
             <input
               type="checkbox"
-              [checked]="isModeSelected(LearningMode.KNOWN_TO_FOREGIN)"
+              [checked]="isModeSelected(LearningMode.KNOWN_TO_FOREIGN)"
             />
           </td>
         </tr>
