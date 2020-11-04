@@ -1,17 +1,16 @@
 package lecarden.basket.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import lecarden.basket.persistence.entity.BasketWord;
 import lecarden.basket.service.BasketWordService;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("words")
+@RequestMapping("user-id/{user-id}/word")
 public class BasketWordController {
 
     private BasketWordService basketWordService;

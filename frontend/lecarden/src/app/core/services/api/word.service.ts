@@ -10,8 +10,7 @@ import { EnvironmentService } from '../helpers/environment.service';
   providedIn: 'root',
 })
 export class WordService {
-  private readonly url = `${EnvironmentService.getUrl()}/word-service/words`;
-
+  private readonly url = `${EnvironmentService.getUrl()}/word-service/user-id/`;
   constructor(
     private readonly httpClient: HttpClient,
     private readonly tokenService: TokenService
@@ -19,7 +18,10 @@ export class WordService {
 
   saveWord(word: Word): Observable<Word> {
     return this.httpClient
-      .post<Word>(this.url, this.getWordWithUserId(word))
+      .post<Word>(
+        `${this.url}${this.tokenService.getUserId()}/words`,
+        this.getWordWithUserId(word)
+      )
       .pipe(catchError(this.handleError));
   }
 
@@ -28,7 +30,7 @@ export class WordService {
       .get<Word[]>(
         `${
           this.url
-        }/user-id/${this.tokenService.getUserId()}?query=${query}&page=${pageNumber}`
+        }${this.tokenService.getUserId()}/words?query=${query}&page=${pageNumber}`
       )
       .pipe(catchError(this.handleError));
   }
@@ -36,23 +38,32 @@ export class WordService {
   getAllWordsCategoriesByUser(): Observable<string[]> {
     return this.httpClient
       .get<string[]>(
-        `${this.url}/categories/user-id/${this.tokenService.getUserId()}`
+        `${this.url}${this.tokenService.getUserId()}/words/categories`
       )
       .pipe(catchError(this.handleError));
   }
 
   getWordsByPacketId(packetId: number): Observable<Word[]> {
     return this.httpClient
-      .get<Word[]>(`${this.url}/packet-id/${packetId}`)
+      .get<Word[]>(
+        `${
+          this.url
+        }${this.tokenService.getUserId()}/words/packet-id/${packetId}`
+      )
       .pipe(catchError(this.handleError));
   }
 
   updateWord(word: Word): Observable<Word> {
-    return this.httpClient.put<Word>(`${this.url}`, word);
+    return this.httpClient.put<Word>(
+      `${this.url}${this.tokenService.getUserId()}/words`,
+      word
+    );
   }
 
   deleteWord(wordId: number) {
-    return this.httpClient.delete(`${this.url}/${wordId}`);
+    return this.httpClient.delete(
+      `${this.url}${this.tokenService.getUserId()}/words/${wordId}`
+    );
   }
 
   handleError() {

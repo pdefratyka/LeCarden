@@ -1,6 +1,5 @@
 package lecarden.basket.controller;
 
-import lecarden.basket.persistence.entity.Basket;
 import lecarden.basket.persistence.to.BasketResult;
 import lecarden.basket.persistence.to.BasketTO;
 import lecarden.basket.service.BasketService;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("baskets")
+@RequestMapping("user-id/{userId}/baskets")
 public class BasketController {
 
     private BasketService basketService;
@@ -23,18 +22,19 @@ public class BasketController {
     }
 
 
-    @GetMapping("/user-id/{userId}")
+    @GetMapping
     public List<BasketTO> getBasketsByUser(@PathVariable Long userId) {
         return basketService.findBasketsByUserId(userId);
     }
 
-    @GetMapping("/user-id/{userId}/packet/{packetId}/reset")
+    @GetMapping("packet/{packetId}/reset")
     public void resetBasket(@PathVariable Long userId, @PathVariable Long packetId) {
         basketService.resetBaskets(userId, packetId);
     }
 
     @PostMapping
-    public List<BasketTO> saveBasket(@RequestBody BasketResult basketResult) {
+    public List<BasketTO> saveBasket(@PathVariable Long userId, @RequestBody BasketResult basketResult) {
+        basketResult.getBasket().setUserId(userId);
         return basketService.saveBasket(basketResult);
     }
 }

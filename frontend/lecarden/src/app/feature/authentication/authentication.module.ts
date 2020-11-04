@@ -4,7 +4,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 import { LoginFormComponent } from './login/login-form/login-form.component';
@@ -26,6 +26,7 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { loginReducer } from './store/reducers/login.reducer';
+import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
 // Calling load to get configuration + translation
 
 @NgModule({
@@ -57,13 +58,6 @@ import { loginReducer } from './store/reducers/login.reducer';
     StoreModule.forFeature('changePassword', changePasswordReducers, {}),
     StoreModule.forFeature('confirmAccount', confirmAccountReducers, {}),
     EffectsModule.forFeature(effects),
-  ],
-  providers: [
-    //{
-    //provide: HTTP_INTERCEPTORS, These functions should be only there where token is needed
-    //useClass: TokenInterceptorService,
-    //multi: true
-    //}
   ],
 })
 export class AuthenticationModule {}

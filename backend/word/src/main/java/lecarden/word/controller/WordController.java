@@ -10,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("words")
+@RequestMapping("/user-id/{userId}/words")
 public class WordController {
 
     private WordService wordService;
@@ -20,39 +20,42 @@ public class WordController {
         this.wordService = wordService;
     }
 
-    @GetMapping("/user-id/{userId}")
+    @GetMapping
     public List<WordTO> getWordsAccessibleForGivenUser(@PathVariable Long userId,
                                                        @RequestParam("query") String query,
                                                        @RequestParam("page") int pageNo) {
         return wordService.getWordsAccessibleForGivenUser(userId, query, pageNo);
     }
 
-    @GetMapping("categories/user-id/{userId}")
+    @GetMapping("categories")
     public List<String> getCategoriesByUserId(@PathVariable Long userId) {
         return wordService.getCategoriesByUserId(userId);
     }
 
-    @GetMapping("/packet-id/{packetId}")
+    @GetMapping("packet-id/{packetId}")
     public List<WordTO> getWordsFromPacket(@PathVariable Long packetId) {
         return wordService.getWordsFromPacket(packetId);
     }
 
     @PostMapping
-    public WordTO saveWord(@RequestBody WordTO word) {
+    public WordTO saveWord(@PathVariable Long userId, @RequestBody WordTO word) {
+        word.setUserId(userId);
         return wordService.saveWord(word);
     }
 
-    @PostMapping("/list")
-    public List<WordTO> saveWords(@RequestBody List<WordTO> words) {
+    @PostMapping("list")
+    public List<WordTO> saveWords(@PathVariable Long userId, @RequestBody List<WordTO> words) {
+        words.forEach(w -> w.setUserId(userId));
         return wordService.saveWords(words);
     }
 
     @PutMapping
-    public WordTO updateWord(@RequestBody WordTO word) {
+    public WordTO updateWord(@PathVariable Long userId, @RequestBody WordTO word) {
+        word.setUserId(userId);
         return wordService.updateWord(word);
     }
 
-    @DeleteMapping("/{wordId}")
+    @DeleteMapping("{wordId}")
     public void deleteWordById(@PathVariable Long wordId) {
         wordService.deleteWordById(wordId);
     }

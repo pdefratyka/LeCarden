@@ -3,16 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Language } from 'src/app/shared/models/language';
 import { EnvironmentService } from '../helpers/environment.service';
+import { TokenService } from '../security/token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
-  private readonly url = `${EnvironmentService.getUrl()}/word-service/languages`;
+  private readonly url = `${EnvironmentService.getUrl()}/word-service/user-id/`;
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly tokenService: TokenService,
+    private readonly httpClient: HttpClient
+  ) {}
 
   getAllLanguages(): Observable<Language[]> {
-    return this.httpClient.get<Language[]>(this.url);
+    return this.httpClient.get<Language[]>(`${this.url}${this.tokenService.getUserId()}/languages`);
   }
 }

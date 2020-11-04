@@ -19,7 +19,8 @@ export class TokenService {
   getUserId(): number {
     if (this.authService.isLoggedIn()) {
       const helper = new JwtHelperService();
-      return helper.decodeToken(localStorage.getItem('TOKEN')).userId;
+      return helper.decodeToken(localStorage.getItem('TOKEN')).userId; 
+      // TODO Is it smart to decode it each time? It would be better to store it in some other variable
     }
     return null;
   }

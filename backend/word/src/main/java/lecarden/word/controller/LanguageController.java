@@ -12,7 +12,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("languages")
+@RequestMapping("/user-id/{userId}/languages")
 public class LanguageController {
 
     private LanguageService languageService;

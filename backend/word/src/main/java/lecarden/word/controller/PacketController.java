@@ -10,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("packets")
+@RequestMapping("user-id/{userId}/packets")
 public class PacketController {
 
     private PacketService packetService;
@@ -20,27 +20,28 @@ public class PacketController {
         this.packetService = packetService;
     }
 
-    @GetMapping("/{packetId}")
+    @GetMapping("{packetId}")
     public PacketTO getPacketById(@PathVariable Long packetId) {
         return this.packetService.getPacketById(packetId);
     }
 
-    @GetMapping("/user-id/{userId}")
+    @GetMapping
     public List<PacketTO> getPacketsAccessibleForGivenUser(@PathVariable Long userId) {
         return this.packetService.getPacketsAccessibleForGivenUser(userId);
     }
 
-    @GetMapping("/{packetId}/results/{resultId}")
+    @GetMapping("{packetId}/results/{resultId}")
     public PacketTO getPacketResult(@PathVariable Long packetId, @PathVariable Long resultId) {
         return this.packetService.getPacketResult(packetId, resultId);
     }
 
     @PostMapping
-    public PacketTO savePacket(@RequestBody PacketTO packetTO) {
+    public PacketTO savePacket(@PathVariable Long userId, @RequestBody PacketTO packetTO) {
+        packetTO.setUserId(userId);
         return this.packetService.savePacket(packetTO);
     }
 
-    @DeleteMapping("/{packetId}")
+    @DeleteMapping("{packetId}")
     public void deletePacketById(@PathVariable Long packetId) {
         this.packetService.deletePacketById(packetId);
     }

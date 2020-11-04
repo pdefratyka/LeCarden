@@ -9,7 +9,7 @@ import { EnvironmentService } from '../helpers/environment.service';
   providedIn: 'root',
 })
 export class BasketService {
-  private readonly url = `${EnvironmentService.getUrl()}/basket-service/baskets`;
+  private readonly url = `${EnvironmentService.getUrl()}/basket-service/user-id/`;
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -18,19 +18,22 @@ export class BasketService {
 
   getAllPacketsForUser(): Observable<Basket[]> {
     return this.httpClient.get<Basket[]>(
-      `${this.url}/user-id/${this.tokenService.getUserId()}`
+      `${this.url}${this.tokenService.getUserId()}/baskets`
     );
   }
 
   updateBaskets(basketResult: BasketResult): Observable<Basket[]> {
-    return this.httpClient.post<Basket[]>(this.url, basketResult);
+    return this.httpClient.post<Basket[]>(
+      `${this.url}${this.tokenService.getUserId()}/baskets`,
+      basketResult
+    );
   }
 
   resetBaskets(packetId: number): Observable<void> {
     return this.httpClient.get<void>(
       `${
         this.url
-      }/user-id/${this.tokenService.getUserId()}/packet/${packetId}/reset`
+      }${this.tokenService.getUserId()}/baskets/packet/${packetId}/reset`
     );
   }
 }

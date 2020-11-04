@@ -10,6 +10,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
+import { TokenInterceptorService } from './core/services/security/token-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +26,13 @@ import { BrowserModule } from '@angular/platform-browser';
     EffectsModule.forRoot([]),
     environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
-
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

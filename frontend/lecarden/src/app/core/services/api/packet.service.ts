@@ -10,7 +10,7 @@ import { EnvironmentService } from '../helpers/environment.service';
   providedIn: 'root',
 })
 export class PacketService {
-  private readonly url = `${EnvironmentService.getUrl()}/word-service/packets`;
+  private readonly url = `${EnvironmentService.getUrl()}/word-service/user-id/`;
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -19,7 +19,7 @@ export class PacketService {
 
   savePacket(packet: Packet): Observable<Packet> {
     return this.httpClient
-      .post<Packet>(this.url, {
+      .post<Packet>(`${this.url}${this.tokenService.getUserId()}/packets`, {
         id: packet.id,
         name: packet.name,
         userId: this.tokenService.getUserId(),
@@ -31,25 +31,29 @@ export class PacketService {
 
   getAllPacketsForUser(): Observable<Packet[]> {
     return this.httpClient
-      .get<Packet[]>(`${this.url}/user-id/${this.tokenService.getUserId()}`)
+      .get<Packet[]>(`${this.url}${this.tokenService.getUserId()}/packets`)
       .pipe(catchError(this.handleError));
   }
 
   getPacketById(id: string): Observable<Packet> {
     return this.httpClient
-      .get<Packet>(`${this.url}/${id}`)
+      .get<Packet>(`${this.url}${this.tokenService.getUserId()}/packets/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   getFilteredPacket(packetId: string, resultId: string): Observable<Packet> {
     return this.httpClient
-      .get<Packet>(`${this.url}/${packetId}/results/${resultId}`)
+      .get<Packet>(
+        `${
+          this.url
+        }${this.tokenService.getUserId()}/packets/${packetId}/results/${resultId}`
+      )
       .pipe(catchError(this.handleError));
   }
 
   deletePacketById(packetId: number) {
     return this.httpClient
-      .delete(`${this.url}/${packetId}`)
+      .delete(`${this.url}${this.tokenService.getUserId()}/packets/${packetId}`)
       .pipe(catchError(this.handleError));
   }
 

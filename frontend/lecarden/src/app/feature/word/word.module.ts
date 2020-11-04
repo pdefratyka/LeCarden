@@ -61,5 +61,6 @@ import { categoryReducer } from './store/reducers/categories.reducer';
       CategoriesEffects,
     ]),
   ],
+
 })
 export class WordModule {}
