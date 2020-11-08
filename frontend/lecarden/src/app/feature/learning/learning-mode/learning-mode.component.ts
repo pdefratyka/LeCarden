@@ -5,7 +5,11 @@ import { Result } from 'src/app/shared/models/result';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { PacketState } from '../../word/store/reducers/packets.reducer';
-import { PacketPageAction, getPackets } from '../../word/store';
+import {
+  PacketPageAction,
+  getPackets,
+  getPacketsByFilters,
+} from '../../word/store';
 import {
   LearnPageAction,
   ResultPageAction,
@@ -17,6 +21,7 @@ import { Basket } from 'src/app/shared/models/basket';
 import { map } from 'rxjs/operators';
 import { TabPageAction } from '../../store';
 import { TabName } from '../../home/models/tabName';
+import { PacketFilter } from 'src/app/shared/models/packetFilter';
 
 @Component({
   selector: 'app-learning-mode',
@@ -107,5 +112,15 @@ export class LearningModeComponent implements OnInit {
     this.store.dispatch(
       PacketPageAction.loadPacketsWords({ packetId: this.selectedPacket })
     );
+  }
+
+  filterPackets(filter: PacketFilter): void {
+    this.store.dispatch(
+      PacketPageAction.setPacketFilters({
+        query: filter.name,
+        language: filter.language,
+      })
+    );
+    this.packets$ = this.store.select(getPacketsByFilters);
   }
 }

@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { PacketApiAction, PacketPageAction } from '../actions';
 import { Packet } from 'src/app/shared/models/packet';
 import { Word } from 'src/app/shared/models/word';
+import { Language } from 'src/app/shared/models/language';
 
 export interface PacketState {
   packets: Packet[];
@@ -10,6 +11,10 @@ export interface PacketState {
     // it should be currentPacket with id number or null, when we select edit then here are words assigned
     name: string;
     words: Word[];
+  };
+  filter: {
+    packetName: string;
+    language: Language;
   };
 }
 export const initialState: PacketState = {
@@ -21,6 +26,10 @@ export const initialState: PacketState = {
   newPacket: {
     name: '',
     words: [],
+  },
+  filter: {
+    packetName: '',
+    language: null,
   },
 };
 export const packetReducer = createReducer<PacketState>(
@@ -42,6 +51,18 @@ export const packetReducer = createReducer<PacketState>(
         packets: state.packets.filter(
           (packet) => packet.id !== action.packetId
         ),
+      };
+    }
+  ),
+  on(
+    PacketPageAction.setPacketFilters,
+    (state, action): PacketState => {
+      return {
+        ...state,
+        filter: {
+          packetName: action.query,
+          language: action.language,
+        },
       };
     }
   ),

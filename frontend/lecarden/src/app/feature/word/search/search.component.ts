@@ -1,7 +1,5 @@
 import {
   Component,
-  ViewChild,
-  ElementRef,
   Output,
   EventEmitter,
   OnInit,

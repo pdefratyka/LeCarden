@@ -3,6 +3,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PacketState } from './packets.reducer';
 import { LanguageState } from './languages.reducer';
 import { CategoryState } from './categories.reducer';
+import { Language } from 'src/app/shared/models/language';
 
 export interface WordsState {
   words: WordState;
@@ -71,6 +72,20 @@ export const getPackets = createSelector(
   (state) => state.packets
 );
 
+export const getPacketsByFilters = createSelector(
+  getPacketFeautreState,
+  (state) =>
+    state.packets.filter(
+      (p) =>
+        p.name.includes(state.filter.packetName) &&
+        (!state.filter.language?.foreignLanguage || !state.filter.language?.knownLanguage ||
+          (p.languageTO &&
+            p.languageTO.foreignLanguage ===
+              state.filter.language.foreignLanguage &&
+            p.languageTO.knownLanguage === state.filter.language.knownLanguage))
+    )
+);
+
 export const getLanguages = createSelector(
   getLanguagesFeatureState,
   (state) => state.languages
@@ -80,3 +95,10 @@ export const getCategories = createSelector(
   getCategoriesFeatureState,
   (state) => state.categories
 );
+
+function parseLanguageToString(language: Language): string {
+  if (language) {
+    return `${language.foreignLanguage}/${language.knownLanguage}`;
+  }
+  return '';
+}

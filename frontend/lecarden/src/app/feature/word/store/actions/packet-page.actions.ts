@@ -7,6 +7,10 @@ export const loadPackets = createAction(
   '[Packet Page] Load',
   props<{ query: string }>()
 );
+export const setPacketFilters = createAction(
+  '[Packet Page] Set Packet Filters',
+  props<{ query: string; language: Language }>()
+);
 export const savePacket = createAction(
   '[Packet Page] Save Packet',
   props<{ packet: Packet }>()
