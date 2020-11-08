@@ -43,7 +43,7 @@ public class Word {
     @Column(name = "EXAMPLE")
     private String example;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
     @JsonBackReference
     private Language language;

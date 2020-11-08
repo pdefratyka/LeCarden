@@ -42,7 +42,7 @@ public class Packet {
     @Column(name = "UPDATE_DATE")
     private LocalDateTime updateDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
     @JsonBackReference
     private Language language;
