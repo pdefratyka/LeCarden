@@ -12,6 +12,7 @@
         <tr
           *ngFor="let packet of packets; index as i"
           [ngClass]="{ selected: packet.id === selectedPacket }"
+          [ngClass]="{ lastLearned: packet.id === currentPacketId }"
           (click)="emitSelectPacket(packet.id)"
         >
           <td>{{ packet.name }}</td>

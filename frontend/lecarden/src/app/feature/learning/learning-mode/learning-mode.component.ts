@@ -16,7 +16,11 @@ import {
   BasketPageAction,
 } from '../store/actions';
 import { setLearningMode } from '../store/actions/learn-page.actions';
-import { getLastResult, getBasketByPacketId } from '../store/';
+import {
+  getLastResult,
+  getBasketByPacketId,
+  getLearningPacketId,
+} from '../store/';
 import { Basket } from 'src/app/shared/models/basket';
 import { map } from 'rxjs/operators';
 import { TabPageAction } from '../../store';
@@ -40,10 +44,12 @@ export class LearningModeComponent implements OnInit {
   selectedMode: LearningMode;
   isLastResultMode = false;
   isBasketModeSelected = false;
+  currentPacketId$: Observable<number>;
 
   constructor(private store: Store<PacketState>) {
     this.store.dispatch(TabPageAction.setCurrentTab({ tab: TabName.LEARNING }));
     this.packets$ = this.store.select(getPackets);
+    this.currentPacketId$ = this.store.select(getLearningPacketId);
   }
 
   ngOnInit() {

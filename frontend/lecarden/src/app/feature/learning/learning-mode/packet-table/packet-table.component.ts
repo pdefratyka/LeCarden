@@ -13,6 +13,8 @@ export class PacketTableComponent {
   selectedPacket: number;
   @Output()
   selectPacket: EventEmitter<number> = new EventEmitter<number>();
+  @Input()
+  currentPacketId: number;
 
   emitSelectPacket(packetId: number): void {
     this.selectPacket.emit(packetId);

@@ -14,6 +14,7 @@
           <app-packet-table
             [packets]="packets$ | async"
             [selectedPacket]="selectedPacket"
+            [currentPacketId]="currentPacketId$ | async"
             (selectPacket)="assignSelectedPacket($event)"
           ></app-packet-table>
         </div>
