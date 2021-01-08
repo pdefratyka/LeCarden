@@ -10,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("/user-id/{userId}/words")
+@RequestMapping("/words")
 public class WordController {
 
     private WordService wordService;
@@ -20,14 +20,14 @@ public class WordController {
         this.wordService = wordService;
     }
 
-    @GetMapping
+    @GetMapping("/user-id/{userId}")
     public List<WordTO> getWordsAccessibleForGivenUser(@PathVariable Long userId,
                                                        @RequestParam("query") String query,
                                                        @RequestParam("page") int pageNo) {
         return wordService.getWordsAccessibleForGivenUser(userId, query, pageNo);
     }
 
-    @GetMapping("categories")
+    @GetMapping("/user-id/{userId}/categories")
     public List<String> getCategoriesByUserId(@PathVariable Long userId) {
         return wordService.getCategoriesByUserId(userId);
     }
@@ -38,20 +38,17 @@ public class WordController {
     }
 
     @PostMapping
-    public WordTO saveWord(@PathVariable Long userId, @RequestBody WordTO word) {
-        word.setUserId(userId);
+    public WordTO saveWord(@RequestBody WordTO word) {
         return wordService.saveWord(word);
     }
 
     @PostMapping("list")
-    public List<WordTO> saveWords(@PathVariable Long userId, @RequestBody List<WordTO> words) {
-        words.forEach(w -> w.setUserId(userId));
+    public List<WordTO> saveWords(@RequestBody List<WordTO> words) {
         return wordService.saveWords(words);
     }
 
     @PutMapping
-    public WordTO updateWord(@PathVariable Long userId, @RequestBody WordTO word) {
-        word.setUserId(userId);
+    public WordTO updateWord(@RequestBody WordTO word) {
         return wordService.updateWord(word);
     }
 

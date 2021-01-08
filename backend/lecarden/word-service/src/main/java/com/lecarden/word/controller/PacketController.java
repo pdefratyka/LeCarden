@@ -10,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("user-id/{userId}/packets")
+@RequestMapping("packets")
 public class PacketController {
 
     private PacketService packetService;
@@ -25,7 +25,7 @@ public class PacketController {
         return this.packetService.getPacketById(packetId);
     }
 
-    @GetMapping
+    @GetMapping("user-id/{userId}")
     public List<PacketTO> getPacketsAccessibleForGivenUser(@PathVariable Long userId) {
         return this.packetService.getPacketsAccessibleForGivenUser(userId);
     }
@@ -36,8 +36,7 @@ public class PacketController {
     }
 
     @PostMapping
-    public PacketTO savePacket(@PathVariable Long userId, @RequestBody PacketTO packetTO) {
-        packetTO.setUserId(userId);
+    public PacketTO savePacket(@RequestBody PacketTO packetTO) {
         return this.packetService.savePacket(packetTO);
     }
 
