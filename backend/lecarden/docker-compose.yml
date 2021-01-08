@@ -1,0 +1,52 @@
+version: '2.1'
+services:
+  config:
+    environment:
+      CONFIG_PASSWORD: $CONFIG_PASSWORD
+    image: lecarden/config
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 8888:8888
+
+  registry:
+    environment:
+      CONFIG_PASSWORD: $CONFIG_PASSWORD
+    image: lecarden/registry
+    restart: always
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  gateway:
+    environment:
+      CONFIG_PASSWORD: $CONFIG_PASSWORD
+    image: lecarden/gateway
+    restart: always
+    ports:
+      - 4000:4000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  word-service:
+    environment:
+      CONFIG_PASSWORD: $CONFIG_PASSWORD
+    image: lecarden/word-service
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    ports:
+      - 6000:6000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
