@@ -1,4 +1,4 @@
-package com.lecarden.word;
+package com.lecarden.basket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,8 +12,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableDiscoveryClient
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WordApplication {
+public class BasketApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WordApplication.class, args);
+        SpringApplication.run(BasketApplication.class, args);
     }
 }

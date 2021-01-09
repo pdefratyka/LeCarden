@@ -1,7 +1,7 @@
 server:
   servlet:
-    context-path: /words
-  port: 6002
+    context-path: /results
+  port: 6006
 
 spring:
   zipkin:
@@ -10,9 +10,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${BASKET_DB_URL}
-    username: ${BASKET_DB_USERNAME}
-    password: ${BASKET_DB_PASSWORD}
+    url: ${RESULT_DB_URL}
+    username: ${RESULT_DB_USERNAME}
+    password: ${RESULT_DB_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -24,12 +24,8 @@ feign:
 security:
   oauth2:
     client:
-      clientId: word-service
-      clientSecret: ${WORD_SERVICE_PASSWORD}
+      clientId: result-service
+      clientSecret: ${RESULT_SERVICE_PASSWORD}
       accessTokenUri: http://localhost:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
-
-result:
-  results:
-    url: ${RESULT_RESULTS_URL}

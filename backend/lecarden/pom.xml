@@ -38,9 +38,11 @@
 		<module>registry</module>
 		<module>gateway</module>
 		<module>word-service</module>
-		<!--<module>basket</module>
-		<module>user</module>
-        <module>email</module>
+		<module>auth-service</module>
+		<module>user-service</module>
+		<module>result-service</module>
+		<module>basket-service</module>
+        <!--<module>email</module>
 		<module>result</module>
 		<module>filemanager</module>-->
 	</modules>
