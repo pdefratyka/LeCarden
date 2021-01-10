@@ -10,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("user-id/{user-id}/word")
+@RequestMapping("baskets/word")
 public class BasketWordController {
 
     private BasketWordService basketWordService;

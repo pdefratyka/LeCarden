@@ -11,7 +11,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("user-id/{userId}/baskets")
+@RequestMapping("baskets")
 public class BasketController {
 
     private BasketService basketService;
@@ -22,19 +22,18 @@ public class BasketController {
     }
 
 
-    @GetMapping
+    @GetMapping("user-id/{userId}")
     public List<BasketTO> getBasketsByUser(@PathVariable Long userId) {
         return basketService.findBasketsByUserId(userId);
     }
 
-    @GetMapping("packet/{packetId}/reset")
+    @GetMapping("user-id/{userId}/packets/{packetId}/reset")
     public void resetBasket(@PathVariable Long userId, @PathVariable Long packetId) {
         basketService.resetBaskets(userId, packetId);
     }
 
     @PostMapping
-    public List<BasketTO> saveBasket(@PathVariable Long userId, @RequestBody BasketResult basketResult) {
-        basketResult.getBasket().setUserId(userId);
+    public List<BasketTO> saveBasket(@RequestBody BasketResult basketResult) {
         return basketService.saveBasket(basketResult);
     }
 }
