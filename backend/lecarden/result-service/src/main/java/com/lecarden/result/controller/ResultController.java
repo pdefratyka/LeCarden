@@ -10,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("user-id/{userId}/results")
+@RequestMapping("results")
 public class ResultController {
 
     private ResultService resultService;
@@ -21,8 +21,7 @@ public class ResultController {
     }
 
     @PostMapping
-    public ResultTO saveResult(@PathVariable Long userId, @RequestBody ResultTO resultTO) {
-        resultTO.setUserId(userId);
+    public ResultTO saveResult(@RequestBody ResultTO resultTO) {
         log.info("Save result");
         return resultService.saveResult(resultTO);
     }
@@ -34,13 +33,13 @@ public class ResultController {
 
     }
 
-    @GetMapping("packets/{packetId}")
+    @GetMapping("user-id/{userId}/packets/{packetId}")
     public List<ResultTO> getLastResults(@PathVariable Long userId, @PathVariable Long packetId) {
         log.info("Get last result by user and packet id");
         return resultService.getLastResult(userId, packetId);
     }
 
-    @GetMapping
+    @GetMapping("user-id/{userId}")
     public List<ResultTO> getAllLastResults(@PathVariable Long userId) {
         log.info("Get all last results");
         return resultService.getAllLastResults(userId);
