@@ -32,6 +32,7 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
+    private static final String DEFAULT_SECRET="password";
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -50,17 +51,17 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .scopes("ui")
                 .and()
                 .withClient("word-service")
-                .secret(env.getProperty("WORD_SERVICE_PASSWORD"))
+                .secret(DEFAULT_SECRET)
                 .authorizedGrantTypes("client_credentials", "refresh_token", "password")
                 .scopes("server")
                 .and()
                 .withClient("basket-service")
-                .secret(env.getProperty("BASKET_SERVICE_PASSWORD"))
+                .secret(DEFAULT_SECRET)
                 .authorizedGrantTypes("client_credentials", "refresh_token", "password")
                 .scopes("server")
                 .and()
                 .withClient("result-service")
-                .secret(env.getProperty("RESULT_SERVICE_PASSWORD"))
+                .secret(DEFAULT_SECRET)
                 .authorizedGrantTypes("client_credentials", "refresh_token", "password")
                 .scopes("server");
     }
@@ -94,7 +95,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter tokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(env.getProperty("TOKEN_SECRET"));
+        converter.setSigningKey(DEFAULT_SECRET);
         converter.setAccessTokenConverter(authExtractor());
         return converter;
     }

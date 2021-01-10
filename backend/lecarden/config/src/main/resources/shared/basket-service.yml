@@ -10,9 +10,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${WORD_DB_URL}
-    username: ${WORD_DB_USERNAME}
-    password: ${WORD_DB_PASSWORD}
+    url: ${BASKET_DB_URL}
+    username: ${BASKET_DB_USERNAME}
+    password: ${BASKET_DB_PASSWORD}
   jpa:
     properties:
       hibernate:
