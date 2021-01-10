@@ -29,10 +29,4 @@ public class LanguageController {
     public List<LanguageTO> getAllLanguages() {
         return languageService.getAllLanguages();
     }
-
-    @GetMapping("/users")
-    public String testUser(Principal principal){
-        logger.error(principal.toString());
-        return "Ok, we are in";
-    }
 }
