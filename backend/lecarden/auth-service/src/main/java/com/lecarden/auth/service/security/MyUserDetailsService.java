@@ -23,7 +23,6 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String login) {
 		User user = userService.getUserByLogin(login);
-
 		return new AuthUser(user.getUsername(),user.getPassword(),new ArrayList<>(),user.getId());
 	}
 }

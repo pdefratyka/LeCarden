@@ -20,7 +20,6 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -32,10 +31,6 @@ import java.util.Map;
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
-
-    private TokenStore tokenStore = new InMemoryTokenStore();
-    private final String NOOP_PASSWORD_ENCODE = "{noop}";
-    public static final String TOKEN_KEY = "secret";
 
     @Autowired
     @Qualifier("authenticationManagerBean")
@@ -49,9 +44,6 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-
-        // @formatter:off
         clients.inMemory()
                 .withClient("browser")
                 .authorizedGrantTypes("refresh_token", "password")
@@ -71,12 +63,11 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .secret(env.getProperty("RESULT_SERVICE_PASSWORD"))
                 .authorizedGrantTypes("client_credentials", "refresh_token", "password")
                 .scopes("server");
-        // @formatter:on
     }
 
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         TokenEnhancerChain chain = new TokenEnhancerChain();
-        List<TokenEnhancer> tokenEnhancerList=new ArrayList<>();
+        List<TokenEnhancer> tokenEnhancerList = new ArrayList<>();
         tokenEnhancerList.add(tokenEnhancer());
         tokenEnhancerList.add(tokenConverter());
         chain.setTokenEnhancers(tokenEnhancerList);
@@ -103,7 +94,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter tokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(TOKEN_KEY);
+        converter.setSigningKey(env.getProperty("TOKEN_SECRET"));
         converter.setAccessTokenConverter(authExtractor());
         return converter;
     }
@@ -111,7 +102,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     private TokenEnhancer tokenEnhancer() {
         return (accessToken, authentication) -> {
             if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
-                AuthUser authUser = (AuthUser)authentication.getPrincipal();
+                AuthUser authUser = (AuthUser) authentication.getPrincipal();
                 Map<String, Object> additionalInfo = new HashMap<>();
                 additionalInfo.put("userId", authUser.getUserId());
                 ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
