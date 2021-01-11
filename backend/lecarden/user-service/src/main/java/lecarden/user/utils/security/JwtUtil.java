@@ -1,5 +1,6 @@
 package lecarden.user.utils.security;
 
+/*
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -70,3 +71,4 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 }
+*/

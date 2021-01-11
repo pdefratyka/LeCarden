@@ -27,7 +27,7 @@ export class RegisterEffects {
     .pipe(
       map((action: Register) => action.payload),
       switchMap((payload) => {
-        return this.userService.registerUser(payload).pipe(
+        return this.userService.registerSimplifiedUser(payload).pipe(
           map((response) => {
             return new RegisterSuccess(response);
           }),

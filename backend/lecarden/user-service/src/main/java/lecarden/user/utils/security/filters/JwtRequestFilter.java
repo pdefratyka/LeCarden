@@ -1,5 +1,6 @@
 package lecarden.user.utils.security.filters;
 
+/*
 import lecarden.user.service.impl.MyUserDetailsService;
 import lecarden.user.utils.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Service
+//@Service
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private MyUserDetailsService userDetailsService;
@@ -59,3 +60,4 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
+*/

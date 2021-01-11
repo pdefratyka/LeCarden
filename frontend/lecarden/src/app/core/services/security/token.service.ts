@@ -11,7 +11,7 @@ export class TokenService {
   getUserName(): string {
     if (this.authService.isLoggedIn()) {
       const helper = new JwtHelperService();
-      return helper.decodeToken(localStorage.getItem('TOKEN')).sub;
+      return helper.decodeToken(localStorage.getItem('TOKEN')).user_name;
     }
     return '';
   }
@@ -19,7 +19,7 @@ export class TokenService {
   getUserId(): number {
     if (this.authService.isLoggedIn()) {
       const helper = new JwtHelperService();
-      return helper.decodeToken(localStorage.getItem('TOKEN')).userId; 
+      return helper.decodeToken(localStorage.getItem('TOKEN')).userId;
       // TODO Is it smart to decode it each time? It would be better to store it in some other variable
     }
     return null;
@@ -28,7 +28,8 @@ export class TokenService {
   getConfirmed(): boolean {
     if (this.authService.isLoggedIn()) {
       const helper = new JwtHelperService();
-      return helper.decodeToken(localStorage.getItem('TOKEN')).confirmed;
+      //return helper.decodeToken(localStorage.getItem('TOKEN')).confirmed;
+      return true;
     }
     return false;
   }

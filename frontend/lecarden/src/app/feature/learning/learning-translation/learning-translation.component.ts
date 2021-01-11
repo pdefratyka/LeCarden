@@ -136,11 +136,13 @@ export class LearningTranslationComponent implements OnInit {
   updateWord(word: Word): void {
     this.store.dispatch(WordPageAction.updateWord({ word }));
     const tempWord = this.packet.words.find((w) => w.id === word.id);
-    tempWord.name = word.name;
-    tempWord.translation = word.translation;
-    tempWord.plural = word.plural;
-    tempWord.audioUrl = word.audioUrl;
-    tempWord.imageUrl = word.imageUrl;
+    if (tempWord) {
+      tempWord.name = word.name;
+      tempWord.translation = word.translation;
+      tempWord.plural = word.plural;
+      tempWord.audioUrl = word.audioUrl;
+      tempWord.imageUrl = word.imageUrl;
+    }
   }
 
   private initStatistic(): void {

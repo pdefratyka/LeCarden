@@ -14,7 +14,7 @@ export class LoginHandlerService {
   ) {}
 
   public handleSuccessfulLogin(response: string): void {
-    const jwt = 'jwt';
+    const jwt = 'access_token';
     this.tokenService.setToken(response[jwt]);
     this.toastService.success(`Hallo ${this.tokenService.getUserName()}`);
     if (this.tokenService.getConfirmed()) {

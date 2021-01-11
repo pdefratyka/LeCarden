@@ -1,5 +1,5 @@
 package lecarden.user.service.impl;
-
+/*
 import lecarden.user.persistence.to.UserTO;
 import lecarden.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,3 +26,4 @@ public class MyUserDetailsService implements UserDetailsService {
         return new User(userTO.getLogin(), userTO.getPassword(), new ArrayList<>());
     }
 }
+*/

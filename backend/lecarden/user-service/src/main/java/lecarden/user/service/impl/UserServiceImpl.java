@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public UserTO addUser(UserTO userTO) {
         userValidator.validateUser(userTO);
-        userTO.setConfirmed(false);
+        //userTO.setConfirmed(false);
         userTO.setPassword(passwordEncoder.encode(userTO.getPassword()));
         UserTO savedUser = saveUserIfUnique(userTO);
         /*ConfirmationToken token = confirmationTokenService

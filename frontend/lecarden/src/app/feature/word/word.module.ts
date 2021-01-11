@@ -27,6 +27,8 @@ import { LanguagesEffects } from './store/effects/languages.effect';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CategoriesEffects } from './store/effects/categories.effect';
 import { categoryReducer } from './store/reducers/categories.reducer';
+import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AddWordComponent,

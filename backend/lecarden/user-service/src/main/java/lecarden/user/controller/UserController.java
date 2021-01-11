@@ -37,6 +37,18 @@ public class UserController {
         }
     }
 
+    @PostMapping("simplified-creation")
+    public ResponseEntity<UserTO> addSimplifiedUser(@RequestBody UserTO userTO) {
+        userTO.setConfirmed(true);
+        try {
+            return ResponseEntity.ok(this.userService.addUser(userTO));
+        } catch (Exception e) {
+            userValidator.validateDataUnique(e);
+            throw new UserException("Unknown error");
+        }
+    }
+
+
     @GetMapping
     public boolean confirmUser(@RequestParam("token") String token) {
         return userService.confirmUser(token);

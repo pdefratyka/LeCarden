@@ -24,7 +24,7 @@ export class RegisterFormComponent {
   private initRegisterForm(): void {
     this.registerForm = this.formBuilder.group({
       login: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      //email: ['', [Validators.required, Validators.email]], //TODO In Normal version it should be uncommented
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
     });
@@ -55,7 +55,7 @@ export class RegisterFormComponent {
     return {
       login: this.registerForm.get('login').value,
       password: this.registerForm.get('password').value,
-      email: this.registerForm.get('email').value,
+      //email: this.registerForm.get('email').value, //TODO In Normal version it should be uncommented
     } as User;
   }
 }

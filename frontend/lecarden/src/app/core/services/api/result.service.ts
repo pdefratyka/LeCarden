@@ -10,7 +10,7 @@ import { EnvironmentService } from '../helpers/environment.service';
   providedIn: 'root',
 })
 export class ResultService {
-  private readonly url = `${EnvironmentService.getUrl()}/result-service/user-id/`;
+  private readonly url = `${EnvironmentService.getUrl()}/results/results`;
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -20,19 +20,14 @@ export class ResultService {
   saveResult(result: Result): Observable<Result> {
     const tempResult: Result = { ...result };
     tempResult.userId = this.tokenService.getUserId();
-    return this.httpClient.post<Result>(
-      `${this.url}${this.tokenService.getUserId()}/results`,
-      tempResult
-    );
+    return this.httpClient.post<Result>(this.url, tempResult);
   }
 
   getLastResult(packetId: number): Observable<Result[]> {
     const userId = this.tokenService.getUserId();
     return this.httpClient
       .get<Result[]>(
-        `${
-          this.url
-        }${this.tokenService.getUserId()}/results/packets/${packetId}`
+        `${this.url}${this.tokenService.getUserId()}/packets/${packetId}`
       )
       .pipe(catchError(this.handleError));
   }
@@ -40,7 +35,7 @@ export class ResultService {
   getAllLastResultsForUser(): Observable<Result[]> {
     const userId = this.tokenService.getUserId();
     return this.httpClient
-      .get<Result[]>(`${this.url}${this.tokenService.getUserId()}/results`)
+      .get<Result[]>(`${this.url}/user-id/${this.tokenService.getUserId()}`)
       .pipe(catchError(this.handleError));
   }
 

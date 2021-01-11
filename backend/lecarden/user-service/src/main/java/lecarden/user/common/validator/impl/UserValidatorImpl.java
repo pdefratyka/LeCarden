@@ -38,7 +38,8 @@ public class UserValidatorImpl implements UserValidator {
     public void validateUser(UserTO user) {
         validateUserLogin(user.getLogin());
         validateUserPassword(user.getPassword());
-        validateEmail(user.getEmail());
+        //TODO Commented only in this version
+        //validateEmail(user.getEmail());
     }
 
     @Override

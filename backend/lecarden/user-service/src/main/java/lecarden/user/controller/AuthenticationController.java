@@ -1,5 +1,5 @@
 package lecarden.user.controller;
-
+/*
 import lecarden.user.utils.security.JwtUtil;
 import lecarden.user.utils.security.models.AuthenticationRequest;
 import lecarden.user.utils.security.models.AuthenticationResponse;
@@ -48,3 +48,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 }
+*/

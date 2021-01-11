@@ -17,7 +17,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
-  private url = `${EnvironmentService.getUrl()}/user-service/users`;
+  private url = `${EnvironmentService.getUrl()}/users/users`;
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -27,6 +27,12 @@ export class UserService {
   registerUser(user: User): Observable<User> {
     return this.httpClient
       .post<User>(this.url, user, httpOptions)
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+
+  registerSimplifiedUser(user: User): Observable<User> {
+    return this.httpClient
+      .post<User>(`${this.url}/simplified-creation`, user, httpOptions)
       .pipe(catchError((error) => this.handleError(error)));
   }
 

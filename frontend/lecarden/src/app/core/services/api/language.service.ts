@@ -9,7 +9,7 @@ import { TokenService } from '../security/token.service';
   providedIn: 'root',
 })
 export class LanguageService {
-  private readonly url = `${EnvironmentService.getUrl()}/word-service/user-id/`;
+  private readonly url = `${EnvironmentService.getUrl()}/words/languages`;
 
   constructor(
     private readonly tokenService: TokenService,
@@ -17,6 +17,6 @@ export class LanguageService {
   ) {}
 
   getAllLanguages(): Observable<Language[]> {
-    return this.httpClient.get<Language[]>(`${this.url}${this.tokenService.getUserId()}/languages`);
+    return this.httpClient.get<Language[]>(this.url);
   }
 }

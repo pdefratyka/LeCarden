@@ -18,7 +18,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (req.url.includes('user-service')) {
+    if (req.url.includes('auth')) {
       return next.handle(req);
     }
     const tokenizedRequest = req.clone({

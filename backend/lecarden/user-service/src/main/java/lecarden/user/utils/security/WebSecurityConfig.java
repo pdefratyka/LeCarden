@@ -1,5 +1,5 @@
 package lecarden.user.utils.security;
-
+/*
 import lecarden.user.service.impl.MyUserDetailsService;
 import lecarden.user.utils.security.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().and().authorizeRequests()
                 .antMatchers("/users/**").permitAll()
-                .anyRequest().authenticated()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .anyRequest().authenticated();
+                //.and().sessionManagement()
+                //.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -50,3 +50,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+*/
