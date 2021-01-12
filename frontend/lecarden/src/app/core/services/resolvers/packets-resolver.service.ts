@@ -11,6 +11,7 @@ export class PacketsResolverService implements Resolve<Packet[]> {
   constructor(private readonly packetService: PacketService) {}
 
   resolve(): Observable<Packet[]> {
+    console.log('Packet Resolver');
     return this.packetService.getAllPacketsForUser();
   }
 }

@@ -5,14 +5,16 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FilteredPacketResolverService implements Resolve<Packet> {
-  constructor(
-    private readonly packetService: PacketService
-  ) {}
+  constructor(private readonly packetService: PacketService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Packet> {
-    return this.packetService.getFilteredPacket(route.paramMap.get('id'), route.paramMap.get('result-id'));
+    console.log('Packet resolver');
+    return this.packetService.getFilteredPacket(
+      route.paramMap.get('id'),
+      route.paramMap.get('result-id')
+    );
   }
 }

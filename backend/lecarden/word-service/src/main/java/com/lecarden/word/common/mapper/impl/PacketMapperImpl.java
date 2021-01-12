@@ -34,11 +34,12 @@ public class PacketMapperImpl implements PacketMapper {
                     .languageId(packet.getLanguageId())
                     .languageTO(languageMapper.mapToLanguageTO(packet.getLanguage()))
                     .build();
-            if (packet.getWords() != null) {
+            /*if (packet.getWords() != null) {
                 packetTO.setWordsNumber((long) packet.getWords().size());
             } else {
                 packetTO.setWordsNumber(0L);
-            }
+            }*/
+
             return packetTO;
         }
 

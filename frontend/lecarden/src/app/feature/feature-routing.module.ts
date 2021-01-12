@@ -26,7 +26,7 @@ const featureRoutes: Routes = [
           {
             path: '',
             component: AddWordComponent,
-            resolve: { categories: CategoriesResolverService },
+            //resolve: { categories: CategoriesResolverService },
           },
           {
             path: ':id',
@@ -37,12 +37,12 @@ const featureRoutes: Routes = [
       {
         path: 'display-word',
         component: DisplayWordComponent,
-        resolve: { words: WordsResolverService },
+        //resolve: { words: WordsResolverService },
       },
       {
         path: 'display-packet',
         component: DisplayPacketComponent,
-        resolve: { packets: PacketsResolverService },
+        //resolve: { packets: PacketsResolverService },
       },
       {
         path: 'add-packet',
@@ -50,15 +50,15 @@ const featureRoutes: Routes = [
           {
             path: '',
             component: AddPacketComponent,
-            resolve: { words: WordsResolverService },
+            //resolve: { words: WordsResolverService },
           },
           {
             path: ':id',
             component: AddPacketComponent,
-            resolve: {
+            /*resolve: {
               packet: SinglePacketResolverService,
               words: WordsResolverService,
-            },
+            },*/
           },
         ],
       },
@@ -68,12 +68,12 @@ const featureRoutes: Routes = [
           {
             path: '',
             component: LearningModeComponent,
-            resolve: { packets: PacketsResolverService },
+            //resolve: { packets: PacketsResolverService },
           },
           {
             path: 'translation/:id/result/:result-id',
             component: LearningTranslationComponent,
-            resolve: { packet: FilteredPacketResolverService },
+            //resolve: { packet: FilteredPacketResolverService },
           },
           {
             path: 'translation',

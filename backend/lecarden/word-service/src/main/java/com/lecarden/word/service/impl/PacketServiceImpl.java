@@ -2,6 +2,7 @@ package com.lecarden.word.service.impl;
 
 import com.lecarden.word.common.mapper.PacketMapper;
 import com.lecarden.word.config.EnvironmentService;
+import com.lecarden.word.persistence.entity.Packet;
 import com.lecarden.word.persistence.repository.PacketRepository;
 import com.lecarden.word.persistence.to.PacketTO;
 import com.lecarden.word.persistence.to.ResultTO;
@@ -55,7 +56,8 @@ public class PacketServiceImpl implements PacketService {
 
     @Override
     public List<PacketTO> getPacketsAccessibleForGivenUser(Long userId) {
-        return packetMapper.mapToPacketTOs(packetRepository.getPacketsAccessibleForGivenUser(userId));
+        List<Packet> packets = packetRepository.getPacketsAccessibleForGivenUser(userId);
+        return packetMapper.mapToPacketTOs(packets);
     }
 
     @Override
