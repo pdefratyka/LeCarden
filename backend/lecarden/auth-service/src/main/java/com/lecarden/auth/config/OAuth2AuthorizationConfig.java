@@ -40,9 +40,6 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-    @Autowired
-    private Environment env;
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()

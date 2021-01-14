@@ -20,7 +20,7 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
             "    SELECT max(date) date, user_id, learning_mode, packet_id\n" +
             "    FROM T_RESULT\n" +
             "    WHERE user_id=:userId\n" +
-            "    GROUP BY packet_id, learning_mode\n" +
+            "    GROUP BY packet_id, learning_mode, user_id\n" +
             ") p2\n" +
             "  ON r.user_id = p2.user_id\n" +
             "  and r.date=p2.date\n" +

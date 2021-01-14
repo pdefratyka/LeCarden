@@ -4,9 +4,6 @@ server:
   port: 6000
 
 spring:
-  zipkin:
-    sender:
-      type: web
   main:
     allow-bean-definition-overriding: true
   datasource:

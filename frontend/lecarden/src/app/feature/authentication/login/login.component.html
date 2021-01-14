@@ -13,7 +13,7 @@
     </div>
   </div>
   <ng-container *ngIf="invalidCredentials">
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-lg-12">
         <app-form-error-message
           [message]="'ERROR.WRONG_CREDENTIALS' | translate"
@@ -21,6 +21,16 @@
       </div>
     </div>
   </ng-container>
+  <!--
+  <div class="row mt-4 alert ">
+    <div class="col-lg-4 offset-lg-4 text-center alert-info">
+      <h2>Login with credentials:</h2>
+      <h4>L: test</h4>
+      <h4>P: test</h4>
+      <h5>Or click 'Register' button and use simplified form</h5>
+    </div>
+  </div>
+  -->
   <div class="row">
     <div class="col-lg-12">
       <app-loading-gif [loadGif]="loadGif"></app-loading-gif>
