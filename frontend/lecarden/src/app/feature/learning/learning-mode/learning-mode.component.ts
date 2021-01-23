@@ -9,6 +9,8 @@ import {
   PacketPageAction,
   getPackets,
   getPacketsByFilters,
+  getPacketFilterLanguage,
+  getPacketFilterSearch,
 } from '../../word/store';
 import {
   LearnPageAction,
@@ -26,6 +28,7 @@ import { map } from 'rxjs/operators';
 import { TabPageAction } from '../../store';
 import { TabName } from '../../home/models/tabName';
 import { PacketFilter } from 'src/app/shared/models/packetFilter';
+import { Language } from 'src/app/shared/models/language';
 
 @Component({
   selector: 'app-learning-mode',
@@ -39,6 +42,8 @@ export class LearningModeComponent implements OnInit {
   lastResult$: Observable<Result>;
   packets$: Observable<Packet[]>;
   baskets$: Observable<Basket[]>;
+  filterPacketName$: Observable<string>;
+  filterPacketLanguage$: Observable<Language>;
   selectedPacket: number;
   selectedLastResultId: number;
   selectedMode: LearningMode;
@@ -48,14 +53,16 @@ export class LearningModeComponent implements OnInit {
 
   constructor(private store: Store<PacketState>) {
     this.store.dispatch(TabPageAction.setCurrentTab({ tab: TabName.LEARNING }));
-    this.packets$ = this.store.select(getPackets);
     this.currentPacketId$ = this.store.select(getLearningPacketId);
+    this.filterPacketName$ = this.store.select(getPacketFilterSearch);
+    this.filterPacketLanguage$ = this.store.select(getPacketFilterLanguage);
   }
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
     this.store.dispatch(ResultPageAction.loadAllLastResultsForUser());
     this.store.dispatch(BasketPageAction.loadBasketsForUser());
+    this.packets$ = this.store.select(getPacketsByFilters);
   }
 
   assignSelectedPacket(packetId: number): void {
@@ -127,6 +134,5 @@ export class LearningModeComponent implements OnInit {
         language: filter.language,
       })
     );
-    this.packets$ = this.store.select(getPacketsByFilters);
   }
 }

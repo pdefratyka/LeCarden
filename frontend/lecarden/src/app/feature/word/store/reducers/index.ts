@@ -67,6 +67,16 @@ export const getCurrentPacketName = createSelector(
   (state) => state.currentPacket.name
 );
 
+export const getPacketFilterSearch = createSelector(
+  getPacketFeautreState,
+  (state) => state.filter.packetName
+);
+
+export const getPacketFilterLanguage = createSelector(
+  getPacketFeautreState,
+  (state) => state.filter.language
+);
+
 export const getPackets = createSelector(
   getPacketFeautreState,
   (state) => state.packets
@@ -78,7 +88,8 @@ export const getPacketsByFilters = createSelector(
     state.packets.filter(
       (p) =>
         p.name.includes(state.filter.packetName) &&
-        (!state.filter.language?.foreignLanguage || !state.filter.language?.knownLanguage ||
+        (!state.filter.language?.foreignLanguage ||
+          !state.filter.language?.knownLanguage ||
           (p.languageTO &&
             p.languageTO.foreignLanguage ===
               state.filter.language.foreignLanguage &&

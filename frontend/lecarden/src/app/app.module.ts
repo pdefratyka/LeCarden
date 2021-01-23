@@ -24,7 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     LearningModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    //environment.development ? StoreDevtoolsModule.instrument() : [],
+    environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     {
