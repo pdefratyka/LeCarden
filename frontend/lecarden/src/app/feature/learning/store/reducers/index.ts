@@ -30,6 +30,11 @@ export const getLastResultMode = createSelector(
   (state) => state.isLastResultMode
 );
 
+export const isBasketModeSlected = createSelector(
+  getLearningFeatureState,
+  (state) => state.isBasketModeSelected
+);
+
 export const getLastResult = createSelector(
   getResultFeatureState,
   getLearningPacketId,

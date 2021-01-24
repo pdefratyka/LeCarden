@@ -7,7 +7,6 @@ import { Store } from '@ngrx/store';
 import { PacketState } from '../../word/store/reducers/packets.reducer';
 import {
   PacketPageAction,
-  getPackets,
   getPacketsByFilters,
   getPacketFilterLanguage,
   getPacketFilterSearch,
@@ -22,9 +21,10 @@ import {
   getLastResult,
   getBasketByPacketId,
   getLearningPacketId,
+  isBasketModeSlected,
 } from '../store/';
 import { Basket } from 'src/app/shared/models/basket';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { TabPageAction } from '../../store';
 import { TabName } from '../../home/models/tabName';
 import { PacketFilter } from 'src/app/shared/models/packetFilter';
@@ -48,7 +48,7 @@ export class LearningModeComponent implements OnInit {
   selectedLastResultId: number;
   selectedMode: LearningMode;
   isLastResultMode = false;
-  isBasketModeSelected = false;
+  isBasketModeSelected$: Observable<boolean>;
   currentPacketId$: Observable<number>;
 
   constructor(private store: Store<PacketState>) {
@@ -56,13 +56,21 @@ export class LearningModeComponent implements OnInit {
     this.currentPacketId$ = this.store.select(getLearningPacketId);
     this.filterPacketName$ = this.store.select(getPacketFilterSearch);
     this.filterPacketLanguage$ = this.store.select(getPacketFilterLanguage);
+    this.isBasketModeSelected$ = this.store.select(isBasketModeSlected);
+    this.packets$ = this.store.select(getPacketsByFilters);
+    this.baskets$ = this.store.select(getBasketByPacketId).pipe(
+      map((b) => {
+        return b.sort((x, z) =>
+          x.number > z.number ? 1 : z.number > x.number ? -1 : 0
+        );
+      })
+    );
   }
 
   ngOnInit() {
     this.store.dispatch(PacketPageAction.loadPackets({ query: '' }));
     this.store.dispatch(ResultPageAction.loadAllLastResultsForUser());
     this.store.dispatch(BasketPageAction.loadBasketsForUser());
-    this.packets$ = this.store.select(getPacketsByFilters);
   }
 
   assignSelectedPacket(packetId: number): void {
@@ -108,7 +116,7 @@ export class LearningModeComponent implements OnInit {
   }
 
   selectBasketMode(): void {
-    this.isBasketModeSelected = !this.isBasketModeSelected;
+    this.store.dispatch(LearnPageAction.selectBasketMode());
   }
 
   resetBaskets(): void {
@@ -122,9 +130,9 @@ export class LearningModeComponent implements OnInit {
   }
 
   learn(): void {
-    this.store.dispatch(
-      PacketPageAction.loadPacketsWords({ packetId: this.selectedPacket })
-    );
+    this.currentPacketId$.pipe(take(1)).subscribe((packetId) => {
+      this.store.dispatch(PacketPageAction.loadPacketsWords({ packetId }));
+    });
   }
 
   filterPackets(filter: PacketFilter): void {

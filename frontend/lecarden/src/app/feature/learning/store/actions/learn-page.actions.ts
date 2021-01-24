@@ -19,3 +19,5 @@ export const setLastResultMode = createAction(
 export const setFinalBasketMode = createAction(
   '[Learn Page] Set FinalBasket Mode'
 );
+
+export const selectBasketMode = createAction('[Learn Page] Select Basket Mode');

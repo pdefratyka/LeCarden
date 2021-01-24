@@ -7,6 +7,7 @@ export interface LearnState {
   mode: LearningMode;
   isLastResultMode: boolean;
   finalBasketMode: boolean;
+  isBasketModeSelected: boolean;
 }
 
 export const initialState: LearnState = {
@@ -14,6 +15,7 @@ export const initialState: LearnState = {
   mode: null,
   isLastResultMode: false,
   finalBasketMode: false,
+  isBasketModeSelected: false,
 };
 
 export const learnReducer = createReducer<LearnState>(
@@ -51,6 +53,15 @@ export const learnReducer = createReducer<LearnState>(
       return {
         ...state,
         finalBasketMode: !state.finalBasketMode,
+      };
+    }
+  ),
+  on(
+    LearnPageAction.selectBasketMode,
+    (state, action): LearnState => {
+      return {
+        ...state,
+        isBasketModeSelected: !state.isBasketModeSelected,
       };
     }
   )
