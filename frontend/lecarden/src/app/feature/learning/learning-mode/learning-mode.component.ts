@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Packet } from 'src/app/shared/models/packet';
-import { LearningMode } from 'src/app/shared/models/learningMode';
 import { Result } from 'src/app/shared/models/result';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -29,6 +28,7 @@ import { TabPageAction } from '../../store';
 import { TabName } from '../../home/models/tabName';
 import { PacketFilter } from 'src/app/shared/models/packetFilter';
 import { Language } from 'src/app/shared/models/language';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 @Component({
   selector: 'app-learning-mode',
@@ -46,7 +46,7 @@ export class LearningModeComponent implements OnInit {
   filterPacketLanguage$: Observable<Language>;
   selectedPacket: number;
   selectedLastResultId: number;
-  selectedMode: LearningMode;
+  selectedMode: LanguageWayLearningMode;
   isLastResultMode = false;
   isBasketModeSelected$: Observable<boolean>;
   currentPacketId$: Observable<number>;
@@ -76,7 +76,7 @@ export class LearningModeComponent implements OnInit {
   assignSelectedPacket(packetId: number): void {
     this.store.dispatch(LearnPageAction.setLearningPacket({ packetId }));
     this.lastResult$ = this.store.select(getLastResult);
-    this.store.dispatch(setLearningMode({ learningMode: null }));
+    this.store.dispatch(setLearningMode({ languageWayLearningMode: null }));
     this.isLastResultMode = false;
     this.selectedPacket = packetId;
     this.selectedLastResultId = null;
@@ -96,9 +96,9 @@ export class LearningModeComponent implements OnInit {
     );
   }
 
-  assignSelectedMode(learningMode: LearningMode): void {
-    this.store.dispatch(setLearningMode({ learningMode }));
-    this.selectedMode = learningMode;
+  assignSelectedMode(languageWayLearningMode: LanguageWayLearningMode): void {
+    this.store.dispatch(setLearningMode({ languageWayLearningMode }));
+    this.selectedMode = languageWayLearningMode;
   }
 
   selectLastResult(resultId: number): void {

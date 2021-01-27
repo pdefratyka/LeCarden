@@ -1,10 +1,10 @@
 import { ResultState } from './results.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { LearnState } from './learn.reducer';
-import { LearningMode } from 'src/app/shared/models/learningMode';
 import { PacketState } from 'src/app/feature/word/store/reducers/packets.reducer';
 import { Packet } from 'src/app/shared/models/packet';
 import { BasketState } from './basket.reducer';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 export interface ResultsState {
   results: ResultState;
@@ -45,7 +45,7 @@ export const getLastResult = createSelector(
         r &&
         r.packetId === learningPacketId &&
         learningMode !== null &&
-        r.learningMode.toString() === LearningMode[learningMode]
+        r.learningMode.toString() === LanguageWayLearningMode[learningMode]
     )
 );
 

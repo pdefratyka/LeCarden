@@ -1,10 +1,10 @@
 import { LearnPageAction } from '../actions';
 import { createReducer, on } from '@ngrx/store';
-import { LearningMode } from 'src/app/shared/models/learningMode';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 export interface LearnState {
   packetId: number;
-  mode: LearningMode;
+  mode: LanguageWayLearningMode;
   isLastResultMode: boolean;
   finalBasketMode: boolean;
   isBasketModeSelected: boolean;
@@ -34,7 +34,7 @@ export const learnReducer = createReducer<LearnState>(
     (state, action): LearnState => {
       return {
         ...state,
-        mode: action.learningMode,
+        mode: action.languageWayLearningMode,
       };
     }
   ),

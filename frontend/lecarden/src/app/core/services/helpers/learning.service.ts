@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Packet } from 'src/app/shared/models/packet';
-import { LearningMode } from 'src/app/shared/models/learningMode';
 import { Word } from 'src/app/shared/models/word';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +9,10 @@ export class LearningService {
   isWordMatch(
     answer: string,
     currentWord: Word,
-    learningMode: LearningMode
+    learningMode: LanguageWayLearningMode
   ): boolean {
     let correct =
-      learningMode === LearningMode.KNOWN_TO_FOREIGN
+      learningMode === LanguageWayLearningMode.KNOWN_TO_FOREIGN
         ? currentWord.translation
         : currentWord.name;
     answer = answer.replace(/\s/g, '');
