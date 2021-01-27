@@ -27,6 +27,7 @@ import { BasketEffects } from './store/effects/basket.effect';
 import { BasketModeSelectorComponent } from './learning-mode/basket-mode-selector/basket-mode-selector.component';
 import { ExampleComponent } from './learning-translation/example/example.component';
 import { PacketFilterComponent } from './learning-mode/packet-filter/packet-filter.component';
+import { ImageComponent } from './learning-translation/image/image.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { PacketFilterComponent } from './learning-mode/packet-filter/packet-filt
     BasketModeSelectorComponent,
     ExampleComponent,
     PacketFilterComponent,
+    ImageComponent,
   ],
   imports: [
     CommonModule,
