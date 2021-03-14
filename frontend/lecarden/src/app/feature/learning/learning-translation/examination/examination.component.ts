@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 import { Word } from 'src/app/shared/models/word';
 
@@ -14,6 +15,7 @@ export class ExaminationComponent implements OnInit {
   learningMode: LanguageWayLearningMode;
   @Output()
   answer: EventEmitter<string> = new EventEmitter<string>();
+  keyToAdd: Subject<string>;
   wordName: string;
   emitAnswer(answer: string): void {
     this.answer.emit(answer);
@@ -24,5 +26,10 @@ export class ExaminationComponent implements OnInit {
     } else {
       this.wordName = this.word.translation;
     }
+    this.keyToAdd = new Subject<string>();
+  }
+
+  addKeyToAnswer(key: string): void {
+    this.keyToAdd.next(key);
   }
 }

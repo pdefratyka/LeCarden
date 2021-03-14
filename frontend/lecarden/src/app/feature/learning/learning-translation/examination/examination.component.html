@@ -6,7 +6,15 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <app-learning-form (answer)="emitAnswer($event)"></app-learning-form>
+      <app-learning-form
+        [keyToAdd]="keyToAdd"
+        (answer)="emitAnswer($event)"
+      ></app-learning-form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 mb-2">
+      <app-german-keys (keyToInsert)="addKeyToAnswer($event)"></app-german-keys>
     </div>
   </div>
 </div>

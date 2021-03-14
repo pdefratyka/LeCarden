@@ -1,4 +1,5 @@
 import * as LearnPageAction from './learn-page.actions';
+import * as LearnSelectionPageAction from './learn-selection-page.actions';
 import * as ResultPageAction from './result-page.actions';
 import * as ResultApiAction from './result-api.actions';
 import * as BasketPageAction from './basket-page.actions';
@@ -9,4 +10,5 @@ export {
   ResultApiAction,
   BasketPageAction,
   BasketApiAction,
+  LearnSelectionPageAction,
 };

@@ -22,12 +22,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { resultReducer } from './store/reducers/results.reducer';
 import { ResultsEffects } from './store/effects/results.effect';
 import { learnReducer } from './store/reducers/learn.reducer';
+import { learnSelectionReducer } from './store/reducers/learn-selection.reducer';
 import { basketReducer } from './store/reducers/basket.reducer';
 import { BasketEffects } from './store/effects/basket.effect';
 import { BasketModeSelectorComponent } from './learning-mode/basket-mode-selector/basket-mode-selector.component';
 import { ExampleComponent } from './learning-translation/example/example.component';
 import { PacketFilterComponent } from './learning-mode/packet-filter/packet-filter.component';
 import { ImageComponent } from './learning-translation/image/image.component';
+import { GermanKeysComponent } from './learning-translation/examination/german-keys/german-keys.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { ImageComponent } from './learning-translation/image/image.component';
     ExampleComponent,
     PacketFilterComponent,
     ImageComponent,
+    GermanKeysComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +62,7 @@ import { ImageComponent } from './learning-translation/image/image.component';
     StoreModule.forFeature('results', resultReducer),
     StoreModule.forFeature('learn', learnReducer),
     StoreModule.forFeature('basket', basketReducer),
+    StoreModule.forFeature('learn-selection', learnSelectionReducer),
     EffectsModule.forFeature([ResultsEffects, BasketEffects]),
   ],
 })

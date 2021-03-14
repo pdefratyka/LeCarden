@@ -51,7 +51,7 @@ export class LearningModeComponent implements OnInit {
   isBasketModeSelected$: Observable<boolean>;
   currentPacketId$: Observable<number>;
 
-  constructor(private store: Store<PacketState>) {
+  constructor(private store: Store<PacketState>) { // There shouldn't be PacketState, what does it even mean?
     this.store.dispatch(TabPageAction.setCurrentTab({ tab: TabName.LEARNING }));
     this.currentPacketId$ = this.store.select(getLearningPacketId);
     this.filterPacketName$ = this.store.select(getPacketFilterSearch);
