@@ -1,44 +1,46 @@
-<div class="container-fluid">
-  <table class="table" aria-describedby="show packet table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
-        <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
-        <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
-        <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
-        <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let packet of packets; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ packet.name }}</td>
-        <td>{{ packet.wordsNumber }}</td>
-        <td *ngIf="packet.languageTO">
-          {{ packet.languageTO?.foreignLanguage }} /
-          {{ packet.languageTO?.knownLanguage }}
-        </td>
-        <td *ngIf="!packet.languageTO">-</td>
-        <td>
-          <button
-            class="btn btn-success"
-            (click)="editPacket(packet.id)"
-            disabled="{{ packet.builtIn }}"
-          >
-            +
-          </button>
-        </td>
-        <td>
-          <button
-            class="btn btn-danger"
-            (click)="emitDeletePacket(packet.id)"
-            disabled="{{ packet.builtIn }}"
-          >
-            -
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="table-full-window">
+  <div class="container-fluid">
+    <table class="table" aria-describedby="show packet table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">{{ 'LABEL.NAME' | translate }}</th>
+          <th scope="col">{{ 'LABEL.WORDS' | translate }}</th>
+          <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
+          <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
+          <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let packet of packets; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ packet.name }}</td>
+          <td>{{ packet.wordsNumber }}</td>
+          <td *ngIf="packet.languageTO">
+            {{ packet.languageTO?.foreignLanguage }} /
+            {{ packet.languageTO?.knownLanguage }}
+          </td>
+          <td *ngIf="!packet.languageTO">-</td>
+          <td>
+            <button
+              class="btn btn-success"
+              (click)="editPacket(packet)"
+              disabled="{{ packet.builtIn }}"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-danger"
+              (click)="emitDeletePacket(packet)"
+              disabled="{{ packet.builtIn }}"
+            >
+              -
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
