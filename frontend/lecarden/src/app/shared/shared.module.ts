@@ -10,6 +10,9 @@ import { SynonymPipe } from './pipes/synonym-pipe';
 import { FormErrorMessageComponent } from './components/form-error-message/form-error-message.component';
 import { LoadingGifComponent } from './components/loading-gif/loading-gif.component';
 import { FormInformationMessageComponent } from './components/form-information-message/form-information-message.component';
+import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,8 +23,16 @@ import { FormInformationMessageComponent } from './components/form-information-m
     FormErrorMessageComponent,
     LoadingGifComponent,
     FormInformationMessageComponent,
+    SearchComponent,
   ],
-  imports: [CommonModule, RouterModule, CoreModule, TranslationConfigModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    //CoreModule,
+    TranslationConfigModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     MessageComponent,
     ToastMessgeComponent,
@@ -30,6 +41,7 @@ import { FormInformationMessageComponent } from './components/form-information-m
     SynonymPipe,
     LoadingGifComponent,
     FormInformationMessageComponent,
+    SearchComponent,
   ],
 })
 export class SharedModule {}

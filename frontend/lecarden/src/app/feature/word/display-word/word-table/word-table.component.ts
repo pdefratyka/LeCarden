@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/shared/models/word';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-word-table',
@@ -17,8 +16,6 @@ export class WordTableComponent {
   @Output()
   loadWords: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private readonly router: Router) {}
-  // TODO Change to store
   emitEditWord(word: Word): void {
     this.editWord.emit(word);
   }

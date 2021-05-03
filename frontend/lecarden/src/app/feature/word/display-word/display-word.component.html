@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-10 col-lg-7 col-xl-5 frame-container mx-auto filter">
+    <div class="col-md-10 col-lg-7 col-xl-5 frame-container filter">
       <app-search (filter)="filterWords($event)"></app-search>
     </div>
   </div>
-  <div class="row table-row">
-    <div class="col-md-10 col-lg-7 col-xl-9 frame-container mx-auto word-table">
+  <div class="row">
+    <div class="col-md-10 col-lg-7 col-xl-9 frame-container word-table">
       <app-word-table
         [words]="words$ | async"
         (deleteWord)="deleteWord($event)"

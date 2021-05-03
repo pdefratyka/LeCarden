@@ -1,8 +1,11 @@
-.static-row-3 {
-  height: 3rem;
-}
+@use '../../../assets/styles/variables' as v;
+
 button:disabled:hover {
   cursor: auto;
+}
+
+.container-fluid {
+  background-color: v.$background-color-primary;
 }
 
 .frame-container {
@@ -14,7 +17,10 @@ button:disabled:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-right: auto;
+  margin-left: auto;
 }
+
 .mode-table {
   th {
     text-align: center;
