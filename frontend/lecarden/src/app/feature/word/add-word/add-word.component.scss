@@ -1,6 +1,6 @@
-$background-color-primary: #e9ebee;
+@use '../../../../assets/styles/variables.scss' as v;
 
 .container-fluid {
-  background-color: $background-color-primary;
-  margin-top: 4rem;
+  background-color: v.$background-color-primary;
+  margin-top: v.$default-margin-top;
 }

@@ -19,10 +19,11 @@ describe('workspace-project App', () => {
     page.getPasswordInput().sendKeys('correctPassword');
     page.getSubmitButton().click();
     expect(
-      browser.wait(
-        protractor.ExpectedConditions.urlContains("add-word"), 5000
-      )
-        .catch(() => {return false})
+      browser
+        .wait(protractor.ExpectedConditions.urlContains('add-word'), 5000)
+        .catch(() => {
+          return false;
+        })
     ).toBeTruthy(`Url match could not succced`);
   });
 
@@ -32,10 +33,11 @@ describe('workspace-project App', () => {
     page.getPasswordInput().sendKeys('wrongPassword');
     page.getSubmitButton().click();
     expect(
-      browser.wait(
-        protractor.ExpectedConditions.urlContains("login"), 5000
-      )
-        .catch(() => {return false})
+      browser
+        .wait(protractor.ExpectedConditions.urlContains('login'), 5000)
+        .catch(() => {
+          return false;
+        })
     ).toBeTruthy(`Url match could not succced`);
   });
 
