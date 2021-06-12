@@ -92,7 +92,7 @@ export class AddWordFormComponent implements OnChanges {
         (l) => l.id === this.word.languageId
       );
 
-      this.name.setValue(this.word.name);
+      this.addWordForm.get('name').setValue(this.word.name);
       this.translation.setValue(this.word.translation);
       this.category.setValue(this.word.category);
       this.plural.setValue(this.word.plural);

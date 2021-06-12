@@ -1,15 +1,10 @@
-$background-color-primary: #e9ebee;
+@use '../../../../assets/styles/variables.scss' as v;
 
 .container-fluid {
-  background-color: $background-color-primary;
-  margin-top: 4rem;
-}
+  margin-top: v.$default-margin-top;
 
-.word-table {
-  margin-top: 1rem;
-}
-
-.filter {
-  height: 4rem;
-  padding-top: 0.7rem;
+  .filter {
+    height: 4rem;
+    padding-top: 0.7rem;
+  }
 }

@@ -24,5 +24,13 @@ form {
 
   .form-control {
     height: 34px;
+    width: 100%;
+  }
+
+  datalist {
+    width: 100%;
+    option {
+      width: 100%;
+    }
   }
 }

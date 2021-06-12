@@ -14,7 +14,6 @@ import { AddPacketButtonPanelComponent } from './add-packet/packet-menu/add-pack
 import { DisplayPacketComponent } from './display-packet/display-packet.component';
 import { PacketTableComponent } from './display-packet/packet-table/packet-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchComponent } from './search/search.component';
 import { TranslationConfigModule } from 'src/app/shared/config/translation-config.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -29,6 +28,8 @@ import { CategoriesEffects } from './store/effects/categories.effect';
 import { categoryReducer } from './store/reducers/categories.reducer';
 import { TokenInterceptorService } from 'src/app/core/services/security/token-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SearchComponent } from 'src/app/shared/components/search/search.component';
 @NgModule({
   declarations: [
     AddWordComponent,
@@ -44,10 +45,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AddPacketButtonPanelComponent,
     DisplayPacketComponent,
     PacketTableComponent,
-    SearchComponent,
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     TranslationConfigModule,

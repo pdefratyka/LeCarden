@@ -1,8 +1,11 @@
-.static-row-3 {
-  height: 3rem;
-}
+@use '../../../assets/styles/variables' as v;
+
 button:disabled:hover {
   cursor: auto;
+}
+
+.container-fluid {
+  background-color: v.$background-color-primary;
 }
 
 .frame-container {
@@ -14,7 +17,10 @@ button:disabled:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-right: auto;
+  margin-left: auto;
 }
+
 .mode-table {
   th {
     text-align: center;
@@ -27,6 +33,35 @@ button:disabled:hover {
     }
     .selected {
       background-color: lightgray;
+    }
+  }
+}
+
+.table-margin-top {
+  margin-top: 1rem;
+}
+
+.table-full-window{
+  .container-fluid {
+    max-height: 70vh;
+    background-color: white;
+    overflow-y: scroll;
+
+    .table {
+      thead {
+        th {
+          border-top: 0px;
+          border-bottom: 0px;
+        }
+      }
+      tbody {
+        td {
+          max-width: 8rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
 }

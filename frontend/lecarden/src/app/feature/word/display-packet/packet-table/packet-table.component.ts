@@ -4,7 +4,10 @@ import { Packet } from 'src/app/shared/models/packet';
 @Component({
   selector: 'app-packet-table',
   templateUrl: './packet-table.component.html',
-  styleUrls: ['./packet-table.component.scss'],
+  styleUrls: [
+    './../../../../shared/styles/global.scss',
+    './packet-table.component.scss',
+  ],
 })
 export class PacketTableComponent {
   @Input()
@@ -14,16 +17,15 @@ export class PacketTableComponent {
   @Output()
   updatePacket: EventEmitter<Packet> = new EventEmitter<Packet>();
 
-  constructor() {}
-
-  editPacket(packetId: number): void {
-    // TODO Here should be some if statement
-    this.updatePacket.emit(this.packets.filter((p) => p.id === packetId)[0]);
+  editPacket(packet: Packet): void {
+    this.updatePacket.emit(packet);
   }
 
-  emitDeletePacket(packetId: number): void {
-    if (window.confirm('Are you sure you want to delete this packet?')) {
-      this.deletePacket.emit(packetId);
+  emitDeletePacket(packet: Packet): void {
+    if (
+      window.confirm(`Are you sure you want to delete packet: ${packet.name}?`)
+    ) {
+      this.deletePacket.emit(packet.id);
     }
   }
 }

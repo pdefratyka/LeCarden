@@ -10,7 +10,6 @@ import { LearningService } from 'src/app/core/services/helpers/learning.service'
 import { Answer } from 'src/app/shared/models/answer';
 import { Statistic } from 'src/app/shared/models/statistic';
 import { AudioService } from 'src/app/core/services/helpers/audio.service';
-import { LearningMode } from 'src/app/shared/models/learningMode';
 import { Store } from '@ngrx/store';
 import {
   getLearningMode,
@@ -25,6 +24,7 @@ import { Basket } from 'src/app/shared/models/basket';
 import { BasketResult } from 'src/app/shared/models/basketResult';
 import { BasketWord } from 'src/app/shared/models/basketWord';
 import { TokenService } from 'src/app/core/services/security/token.service';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 @Component({
   selector: 'app-learning-translation',
@@ -35,11 +35,11 @@ import { TokenService } from 'src/app/core/services/security/token.service';
   ],
 })
 export class LearningTranslationComponent implements OnInit {
-  LearningMode = LearningMode;
+  LanguageWayLearningMode = LanguageWayLearningMode;
   packet: Packet;
   answer: Answer;
   statistic: Statistic;
-  selectedMode: LearningMode;
+  selectedMode: LanguageWayLearningMode;
   wordIterator = 0;
   wordResult: WordResult[] = [];
   packetSize: number;
@@ -47,7 +47,6 @@ export class LearningTranslationComponent implements OnInit {
   finalBasketMode = false;
   editWordPanel = false;
   currentWord: Word;
-
   constructor(
     private readonly scoreService: ScoreService,
     private readonly learningService: LearningService,
@@ -216,7 +215,7 @@ export class LearningTranslationComponent implements OnInit {
 
   private correctAnswerAction(answer: string): void {
     const tempCorrectAnswer =
-      this.selectedMode === LearningMode.FOREIGN_TO_KNOWN
+      this.selectedMode === LanguageWayLearningMode.FOREIGN_TO_KNOWN
         ? this.packet.words[this.wordIterator].name
         : this.packet.words[this.wordIterator].translation;
     this.answer = {
@@ -230,7 +229,7 @@ export class LearningTranslationComponent implements OnInit {
 
   private wrongAnswerAction(answer: string): void {
     const tempCorrectAnswer =
-      this.selectedMode === LearningMode.FOREIGN_TO_KNOWN
+      this.selectedMode === LanguageWayLearningMode.FOREIGN_TO_KNOWN
         ? this.packet.words[this.wordIterator].name
         : this.packet.words[this.wordIterator].translation;
     this.answer = {

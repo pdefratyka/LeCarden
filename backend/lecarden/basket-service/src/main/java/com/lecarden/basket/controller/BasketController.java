@@ -7,7 +7,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -23,12 +25,14 @@ public class BasketController {
 
 
     @GetMapping("user-id/{userId}")
+    @ResponseBody()
     public List<BasketTO> getBasketsByUser(@PathVariable Long userId) {
         return basketService.findBasketsByUserId(userId);
     }
 
     @GetMapping("user-id/{userId}/packets/{packetId}/reset")
     public void resetBasket(@PathVariable Long userId, @PathVariable Long packetId) {
+        Map<String, Integer> response=new HashMap<>();
         basketService.resetBaskets(userId, packetId);
     }
 

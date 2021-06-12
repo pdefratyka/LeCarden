@@ -1,54 +1,56 @@
-<div
-  class="container-fluid"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  [scrollWindow]="false"
-  (scrolled)="loadNextWords()"
->
-  <table class="table" aria-describedby="Word table">
-    <thead>
-      <tr>
-        <th scope="col">{{ 'LABEL.WORD' | translate }}</th>
-        <th scope="col">{{ 'LABEL.PLURAL' | translate }}</th>
-        <th scope="col">{{ 'LABEL.MEANING' | translate }}</th>
-        <th scope="col">{{ 'LABEL.CATEGORY' | translate }}</th>
-        <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
-        <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
-        <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let word of words">
-        <td>{{ word.name }}</td>
-        <td>{{ word.plural }}</td>
-        <td>{{ word.translation }}</td>
-        <td>{{ word.category }}</td>
-        <td *ngIf="word.languageTO">
-          {{ word.languageTO.foreignLanguage }}/{{
-            word.languageTO.knownLanguage
-          }}
-        </td>
-        <td *ngIf="!word.languageTO">-</td>
-        <td>
-          <button
-            class="btn btn-success"
-            (click)="emitEditWord(word)"
-            [disabled]="word.builtIn"
-          >
-            +
-          </button>
-        </td>
-        <td>
-          <button
-            class="btn btn-danger"
-            (click)="emitDeleteWord(word.id, word.name)"
-            [disabled]="word.builtIn"
-          >
-            -
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="table-full-window">
+  <div
+    class="container-fluid"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    [scrollWindow]="false"
+    (scrolled)="loadNextWords()"
+  >
+    <table class="table" aria-describedby="Word table">
+      <thead>
+        <tr>
+          <th scope="col">{{ 'LABEL.WORD' | translate }}</th>
+          <th scope="col">{{ 'LABEL.PLURAL' | translate }}</th>
+          <th scope="col">{{ 'LABEL.MEANING' | translate }}</th>
+          <th scope="col">{{ 'LABEL.CATEGORY' | translate }}</th>
+          <th scope="col">{{ 'LABEL.LANGUAGE' | translate }}</th>
+          <th scope="col">{{ 'LABEL.EDIT' | translate }}</th>
+          <th scope="col">{{ 'LABEL.REMOVE' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let word of words">
+          <td>{{ word.name }}</td>
+          <td>{{ word.plural }}</td>
+          <td>{{ word.translation }}</td>
+          <td>{{ word.category }}</td>
+          <td *ngIf="word.languageTO">
+            {{ word.languageTO.foreignLanguage }}/{{
+              word.languageTO.knownLanguage
+            }}
+          </td>
+          <td *ngIf="!word.languageTO">-</td>
+          <td>
+            <button
+              class="btn btn-success"
+              (click)="emitEditWord(word)"
+              [disabled]="word.builtIn"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-danger"
+              (click)="emitDeleteWord(word.id, word.name)"
+              [disabled]="word.builtIn"
+            >
+              -
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

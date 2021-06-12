@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { LearningMode } from 'src/app/shared/models/learningMode';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 @Component({
   selector: 'app-learning-mode-selector',
@@ -10,20 +10,20 @@ import { LearningMode } from 'src/app/shared/models/learningMode';
   ],
 })
 export class LearningModeSelectorComponent {
-  LearningMode = LearningMode;
+  LanguageWayLearningMode = LanguageWayLearningMode;
   @Input()
-  selectedMode: LearningMode;
+  selectedMode: LanguageWayLearningMode;
   @Output()
-  selectMode: EventEmitter<LearningMode> = new EventEmitter<LearningMode>();
+  selectMode: EventEmitter<LanguageWayLearningMode> = new EventEmitter<LanguageWayLearningMode>();
 
-  emitSelectMode(mode: LearningMode): void {
+  emitSelectMode(mode: LanguageWayLearningMode): void {
     if (mode === this.selectedMode) {
       mode = null;
     }
     this.selectMode.emit(mode);
   }
 
-  isModeSelected(mode: LearningMode): boolean {
+  isModeSelected(mode: LanguageWayLearningMode): boolean {
     return this.selectedMode === mode;
   }
 }

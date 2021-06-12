@@ -8,9 +8,9 @@
       </thead>
       <tbody>
         <tr
-          (click)="emitSelectMode(LearningMode.FOREIGN_TO_KNOWN)"
+          (click)="emitSelectMode(LanguageWayLearningMode.FOREIGN_TO_KNOWN)"
           [ngClass]="{
-            selected: isModeSelected(LearningMode.FOREIGN_TO_KNOWN)
+            selected: isModeSelected(LanguageWayLearningMode.FOREIGN_TO_KNOWN)
           }"
         >
           <td>
@@ -19,14 +19,16 @@
           <td>
             <input
               type="checkbox"
-              [checked]="isModeSelected(LearningMode.FOREIGN_TO_KNOWN)"
+              [checked]="
+                isModeSelected(LanguageWayLearningMode.FOREIGN_TO_KNOWN)
+              "
             />
           </td>
         </tr>
         <tr
-          (click)="emitSelectMode(LearningMode.KNOWN_TO_FOREIGN)"
+          (click)="emitSelectMode(LanguageWayLearningMode.KNOWN_TO_FOREIGN)"
           [ngClass]="{
-            selected: isModeSelected(LearningMode.KNOWN_TO_FOREIGN)
+            selected: isModeSelected(LanguageWayLearningMode.KNOWN_TO_FOREIGN)
           }"
         >
           <td>
@@ -35,7 +37,7 @@
           <td>
             <input
               type="checkbox"
-              [checked]="isModeSelected(LearningMode.KNOWN_TO_FOREIGN)"
+              [checked]="isModeSelected(LanguageWayLearningMode.KNOWN_TO_FOREIGN)"
             />
           </td>
         </tr>

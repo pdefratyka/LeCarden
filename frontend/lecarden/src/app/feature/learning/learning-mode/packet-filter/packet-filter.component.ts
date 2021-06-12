@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { merge, of, Subject, zip } from 'rxjs';
 import {
@@ -20,6 +20,10 @@ import { PacketFilter } from 'src/app/shared/models/packetFilter';
   ],
 })
 export class PacketFilterComponent implements OnInit {
+  @Input()
+  packetFilterSearch: string;
+  @Input()
+  packetFilterLanguage: Language;
   @Output()
   filter: EventEmitter<PacketFilter> = new EventEmitter<PacketFilter>();
   searchForm: FormGroup;
@@ -32,6 +36,16 @@ export class PacketFilterComponent implements OnInit {
       language: [''],
     });
 
+    if (this.packetFilterSearch) {
+      this.searchForm.get('query').setValue(this.packetFilterSearch);
+    }
+    if (this.packetFilterLanguage) {
+      this.searchForm
+        .get('language')
+        .setValue(
+          `${this.packetFilterLanguage.foreignLanguage}/${this.packetFilterLanguage.knownLanguage}`
+        );
+    }
     merge(
       this.searchForm.controls.query.valueChanges,
       this.searchForm.controls.language.valueChanges

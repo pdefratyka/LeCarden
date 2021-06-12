@@ -1,12 +1,13 @@
 import { LearnPageAction } from '../actions';
 import { createReducer, on } from '@ngrx/store';
-import { LearningMode } from 'src/app/shared/models/learningMode';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 export interface LearnState {
   packetId: number;
-  mode: LearningMode;
+  mode: LanguageWayLearningMode;
   isLastResultMode: boolean;
   finalBasketMode: boolean;
+  isBasketModeSelected: boolean;
 }
 
 export const initialState: LearnState = {
@@ -14,6 +15,7 @@ export const initialState: LearnState = {
   mode: null,
   isLastResultMode: false,
   finalBasketMode: false,
+  isBasketModeSelected: false,
 };
 
 export const learnReducer = createReducer<LearnState>(
@@ -32,7 +34,7 @@ export const learnReducer = createReducer<LearnState>(
     (state, action): LearnState => {
       return {
         ...state,
-        mode: action.learningMode,
+        mode: action.languageWayLearningMode,
       };
     }
   ),
@@ -51,6 +53,15 @@ export const learnReducer = createReducer<LearnState>(
       return {
         ...state,
         finalBasketMode: !state.finalBasketMode,
+      };
+    }
+  ),
+  on(
+    LearnPageAction.selectBasketMode,
+    (state, action): LearnState => {
+      return {
+        ...state,
+        isBasketModeSelected: !state.isBasketModeSelected,
       };
     }
   )

@@ -12,8 +12,8 @@ import { Store } from '@ngrx/store';
 import { WordPageAction } from '../store';
 import { Observable } from 'rxjs';
 import { Language } from 'src/app/shared/models/language';
-import { TabPageAction } from '../../store';
 import { TabName } from '../../home/models/tabName';
+import { TabSerivce } from 'src/app/core/services/helpers/tab.service';
 
 @Component({
   selector: 'app-add-word',
@@ -28,8 +28,11 @@ export class AddWordComponent implements OnInit {
   word$: Observable<Word>;
   languages$: Observable<Language[]>;
 
-  constructor(private readonly store: Store<WordsState>) {
-    this.store.dispatch(TabPageAction.setCurrentTab({ tab: TabName.ADD_WORD }));
+  constructor(
+    private readonly store: Store<WordsState>,
+    private readonly tabService: TabSerivce
+  ) {
+    this.tabService.setCurrentTab(TabName.ADD_WORD);
   }
 
   ngOnInit(): void {

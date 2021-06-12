@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3" *ngFor="let key of keys">
+      <input
+        type="button"
+        class="btn btn-primary"
+        value="{{ key }}"
+        (click)="insertKey(key)"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <input
+      class="btn btn-secondary"
+      type="button"
+      value="Change case size"
+      (click)="changeLettersSize()"
+    />
+  </div>
+</div>

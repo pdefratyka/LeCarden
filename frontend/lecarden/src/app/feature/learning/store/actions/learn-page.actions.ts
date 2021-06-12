@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LearningMode } from 'src/app/shared/models/learningMode';
+import { LanguageWayLearningMode } from 'src/app/shared/models/languageWayLearningMode';
 
 export const setLearningPacket = createAction(
   '[Learn Page] Set Packet',
@@ -8,7 +8,7 @@ export const setLearningPacket = createAction(
 
 export const setLearningMode = createAction(
   '[Learn Page] Set Learning Mode',
-  props<{ learningMode: LearningMode }>()
+  props<{ languageWayLearningMode: LanguageWayLearningMode }>()
 );
 
 export const setLastResultMode = createAction(
@@ -19,3 +19,5 @@ export const setLastResultMode = createAction(
 export const setFinalBasketMode = createAction(
   '[Learn Page] Set FinalBasket Mode'
 );
+
+export const selectBasketMode = createAction('[Learn Page] Select Basket Mode');
