@@ -84,6 +84,7 @@
     <input
       type="text"
       list="category"
+      id="category-input"
       class="form-control"
       formControlName="category"
       placeholder="{{ 'LABEL.CATEGORY' | translate }}"
@@ -176,7 +177,7 @@
 
   <div class="row">
     <div class="offset-md-3 col-md-3">
-      <button type="button" class="btn btn-danger" (click)="emitClearWord()">
+      <button type="button" id="cancel-button" class="btn btn-danger" (click)="emitClearWord()">
         {{ 'LABEL.CLEAR' | translate }}
       </button>
     </div>
