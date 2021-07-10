@@ -8,25 +8,26 @@
       ></app-packet-name>
     </div>
   </div>
-  <div class="row frame-container word-table">
-    <div class="row">
-      <div class="col-md-12">
-        <app-words-list
-          (removeWord)="emitRemoveWord($event)"
-          [wordsInPacket]="wordsInPacket"
-        ></app-words-list>
+  <div class="row word-table">
+    <div class="col-md-12 frame-container">
+      <div class="row">
+        <div class="col-md-12">
+          <app-words-list
+            (removeWord)="emitRemoveWord($event)"
+            [wordsInPacket]="wordsInPacket"
+          ></app-words-list>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <hr />
+          <app-add-packet-button-panel
+            (clearForm)="clearForm()"
+            (savePacket)="emitSavePacket($event)"
+            [addPacketForm]="addPacketForm"
+          ></app-add-packet-button-panel>
+        </div>
       </div>
     </div>
-    <div class="row button-panel">
-      <div class="col-md-12">
-        <hr />
-        <app-add-packet-button-panel
-          (clearForm)="clearForm()"
-          (savePacket)="emitSavePacket($event)"
-          [addPacketForm]="addPacketForm"
-        ></app-add-packet-button-panel>
-      </div>
-    </div>
-    <div class="row"></div>
   </div>
 </div>
