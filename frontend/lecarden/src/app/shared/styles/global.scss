@@ -65,3 +65,10 @@ button:disabled:hover {
     }
   }
 }
+
+input[required]:not(.is-invalid){
+  background-image: url('../../../assets/other/star.png');
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-size: 1em 0.65em;
+}

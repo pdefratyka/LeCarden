@@ -13,7 +13,10 @@ import { LanguageHelperService } from 'src/app/core/services/helpers/language-he
 @Component({
   selector: 'app-add-word-form',
   templateUrl: './add-word-form.component.html',
-  styleUrls: ['./add-word-form.component.scss'],
+  styleUrls: [
+    './../../../../shared/styles/global.scss',
+    './add-word-form.component.scss',
+  ],
 })
 export class AddWordFormComponent implements OnChanges {
   @Input()

@@ -14,7 +14,6 @@ describe('add-word panel', () => {
   });
 
   it('should display add word form', () => {
-
     expect(wordSelector.getAddWordForm().isPresent()).toBeTruthy();
   });
 
@@ -27,6 +26,9 @@ describe('add-word panel', () => {
     expect(wordSelector.getImageInput().isPresent()).toBeTruthy();
     expect(wordSelector.getAudioInput().isPresent()).toBeTruthy();
     expect(wordSelector.getExampleInput().isPresent()).toBeTruthy();
+    expect(
+      wordSelector.getToggleAdditionalOptionsButton().isPresent()
+    ).toBeTruthy();
     expect(wordSelector.getClearButton().isPresent()).toBeTruthy();
     expect(wordSelector.getSubmitButton().isPresent()).toBeTruthy();
   });
@@ -39,6 +41,7 @@ describe('add-word panel', () => {
   });
 
   it('should word input be invalid after clicking it', () => {
+    wordSelector.getToggleAdditionalOptionsButton().click();
     wordSelector.getWordInput().click();
     wordSelector.getPluralInput().click();
     expect(wordSelector.getWordInput().getAttribute('class')).toContain(
@@ -50,6 +53,8 @@ describe('add-word panel', () => {
   });
 
   it('should plural input be valid all the time', () => {
+    wordSelector.getToggleAdditionalOptionsButton().click();
+    browser.wait(wordSelector.getPluralInput().isEnabled(), 1000);
     wordSelector.getPluralInput().click();
     wordSelector.getWordInput().click();
     expect(wordSelector.getPluralInput().getAttribute('class')).toContain(
@@ -64,6 +69,8 @@ describe('add-word panel', () => {
   });
 
   it('should clear inputs after clicking clear button', () => {
+    wordSelector.getToggleAdditionalOptionsButton().click();
+    browser.wait(wordSelector.getPluralInput().isEnabled(), 1000);
     wordSelector.getWordInput().sendKeys('word');
     wordSelector.getClearButton().click();
     expect(wordSelector.getPluralInput().getAttribute('class')).toContain(

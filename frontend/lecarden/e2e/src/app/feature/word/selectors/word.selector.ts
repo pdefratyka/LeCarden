@@ -48,4 +48,8 @@ export class WordSelector {
   getDangerAlert(): ElementFinder {
     return element(by.css('.alert-danger'));
   }
+
+  getToggleAdditionalOptionsButton(): ElementFinder {
+    return element(by.css('#additionalOptionsButton'));
+  }
 }
