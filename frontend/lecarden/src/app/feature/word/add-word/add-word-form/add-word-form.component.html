@@ -29,27 +29,6 @@
   </div>
 
   <div class="form-group">
-    <label for="plural-input">{{ 'LABEL.PLURAL' | translate }}</label>
-    <input
-      type="text"
-      class="form-control"
-      id="plural-input"
-      placeholder="{{ 'LABEL.PLURAL' | translate }}"
-      formControlName="plural"
-      [ngClass]="{ 'is-invalid': plural.invalid && plural.touched }"
-    />
-    <div
-      *ngIf="plural.invalid && (plural.dirty || formInvalidSubmitted)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="plural.errors.maxlength">
-        {{ 'LABEL.PLURAL' | translate }}
-        {{ 'ERROR.CANNOT_BE_LONGER_THAN_45_CHARACTERS' | translate }}
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group">
     <label for="meaning-input">{{ 'LABEL.MEANING' | translate }}*</label>
     <input
       type="text"
@@ -79,105 +58,145 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="category-input">{{ 'LABEL.CATEGORY' | translate }}</label>
-    <input
-      type="text"
-      list="category"
-      id="category-input"
-      class="form-control"
-      formControlName="category"
-      placeholder="{{ 'LABEL.CATEGORY' | translate }}"
-    />
-    <datalist id="category">
-      <option *ngFor="let category of categories">{{ category }}</option>
-    </datalist>
-    <div
-      *ngIf="category.invalid && (category.dirty || formInvalidSubmitted)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="category.errors.maxlength">
-        {{ 'LABEL.CATEGORY' | translate }}
-        {{ 'ERROR.CANNOT_BE_LONGER_THAN_45_CHARACTERS' | translate }}
+  <div id="additionalOptions" class="collapse">
+    <div class="form-group">
+      <label for="plural-input">{{ 'LABEL.PLURAL' | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="plural-input"
+        placeholder="{{ 'LABEL.PLURAL' | translate }}"
+        formControlName="plural"
+        [ngClass]="{ 'is-invalid': plural.invalid && plural.touched }"
+      />
+      <div
+        *ngIf="plural.invalid && (plural.dirty || formInvalidSubmitted)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="plural.errors.maxlength">
+          {{ 'LABEL.PLURAL' | translate }}
+          {{ 'ERROR.CANNOT_BE_LONGER_THAN_45_CHARACTERS' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="category-input">{{ 'LABEL.CATEGORY' | translate }}</label>
+      <input
+        type="text"
+        list="category"
+        id="category-input"
+        class="form-control"
+        formControlName="category"
+        placeholder="{{ 'LABEL.CATEGORY' | translate }}"
+      />
+      <datalist id="category">
+        <option *ngFor="let category of categories">{{ category }}</option>
+      </datalist>
+      <div
+        *ngIf="category.invalid && (category.dirty || formInvalidSubmitted)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="category.errors.maxlength">
+          {{ 'LABEL.CATEGORY' | translate }}
+          {{ 'ERROR.CANNOT_BE_LONGER_THAN_45_CHARACTERS' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="category-input">{{ 'LABEL.LANGUAGE' | translate }}</label>
+      <select class="form-control" id="language" formControlName="language">
+        <option></option>
+        <option *ngFor="let language of languages">
+          {{ language.foreignLanguage }}/{{ language.knownLanguage }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl-input">{{ 'LABEL.IMAGE_URL' | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imageUrl-input"
+        placeholder="{{ 'LABEL.IMAGE_URL' | translate }}"
+        formControlName="imageUrl"
+        [ngClass]="{ 'is-invalid': imageUrl.invalid && imageUrl.touched }"
+      />
+      <div
+        *ngIf="imageUrl.invalid && (imageUrl.dirty || formInvalidSubmitted)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="imageUrl.errors.maxlength">
+          {{ 'LABEL.IMAGE_URL' | translate }}
+          {{ 'ERROR.CANNOT_BE_LONGER_THAN_240_CHARACTERS' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="audioUrl-input">{{ 'LABEL.AUDIO_URL' | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="audioUrl-input"
+        placeholder="{{ 'LABEL.AUDIO_URL' | translate }}"
+        formControlName="audioUrl"
+        [ngClass]="{ 'is-invalid': audioUrl.invalid && audioUrl.touched }"
+      />
+      <div
+        *ngIf="audioUrl.invalid && (audioUrl.dirty || formInvalidSubmitted)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="audioUrl.errors.maxlength">
+          {{ 'LABEL.AUDIO_URL' | translate }}
+          {{ 'ERROR.CANNOT_BE_LONGER_THAN_240_CHARACTERS' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="example-input">{{ 'LABEL.EXAMPLE' | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="example-input"
+        placeholder="{{ 'LABEL.EXAMPLE' | translate }}"
+        formControlName="example"
+        [ngClass]="{ 'is-invalid': example.invalid && example.touched }"
+      />
+      <div
+        *ngIf="example.invalid && (example.dirty || formInvalidSubmitted)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="example.errors.maxlength">
+          {{ 'LABEL.EXAMPLE' | translate }}
+          {{ 'ERROR.CANNOT_BE_LONGER_THAN_240_CHARACTERS' | translate }}
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="category-input">{{ 'LABEL.LANGUAGE' | translate }}</label>
-    <select class="form-control" id="language" formControlName="language">
-      <option></option>
-      <option *ngFor="let language of languages">
-        {{ language.foreignLanguage }}/{{ language.knownLanguage }}
-      </option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="imageUrl-input">{{ 'LABEL.IMAGE_URL' | translate }}</label>
-    <input
-      type="text"
-      class="form-control"
-      id="imageUrl-input"
-      placeholder="{{ 'LABEL.IMAGE_URL' | translate }}"
-      formControlName="imageUrl"
-      [ngClass]="{ 'is-invalid': imageUrl.invalid && imageUrl.touched }"
-    />
-    <div
-      *ngIf="imageUrl.invalid && (imageUrl.dirty || formInvalidSubmitted)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="imageUrl.errors.maxlength">
-        {{ 'LABEL.IMAGE_URL' | translate }}
-        {{ 'ERROR.CANNOT_BE_LONGER_THAN_240_CHARACTERS' | translate }}
-      </div>
+  <div class="row">
+    <div class="col-6 col-md-4 mx-auto">
+      <input
+        class="btn btn-secondary"
+        data-toggle="collapse"
+        data-target="#additionalOptions"
+        type="button"
+        aria-expanded="false"
+        aria-controls="additionalOptions"
+        value="{{ 'LABEL.ADDITIONAL_OPTIONS' | translate }}"
+      />
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="audioUrl-input">{{ 'LABEL.AUDIO_URL' | translate }}</label>
-    <input
-      type="text"
-      class="form-control"
-      id="audioUrl-input"
-      placeholder="{{ 'LABEL.AUDIO_URL' | translate }}"
-      formControlName="audioUrl"
-      [ngClass]="{ 'is-invalid': audioUrl.invalid && audioUrl.touched }"
-    />
-    <div
-      *ngIf="audioUrl.invalid && (audioUrl.dirty || formInvalidSubmitted)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="audioUrl.errors.maxlength">
-        {{ 'LABEL.AUDIO_URL' | translate }}
-        {{ 'ERROR.CANNOT_BE_LONGER_THAN_240_CHARACTERS' | translate }}
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="example-input">{{ 'LABEL.EXAMPLE' | translate }}</label>
-    <input
-      type="text"
-      class="form-control"
-      id="example-input"
-      placeholder="{{ 'LABEL.EXAMPLE' | translate }}"
-      formControlName="example"
-      [ngClass]="{ 'is-invalid': example.invalid && example.touched }"
-    />
-    <div
-      *ngIf="example.invalid && (example.dirty || formInvalidSubmitted)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="example.errors.maxlength">
-        {{ 'LABEL.EXAMPLE' | translate }}
-        {{ 'ERROR.CANNOT_BE_LONGER_THAN_240_CHARACTERS' | translate }}
-      </div>
-    </div>
-  </div>
-
   <div class="row">
     <div class="offset-md-3 col-md-3">
-      <button type="button" id="cancel-button" class="btn btn-danger" (click)="emitClearWord()">
+      <button
+        type="button"
+        id="cancel-button"
+        class="btn btn-danger"
+        (click)="emitClearWord()"
+      >
         {{ 'LABEL.CLEAR' | translate }}
       </button>
     </div>

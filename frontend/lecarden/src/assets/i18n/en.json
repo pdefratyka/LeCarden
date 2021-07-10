@@ -67,6 +67,7 @@
     "LANGUAGE":"Language",
     "IMAGE_URL":"Image url",
     "AUDIO_URL":"Audio url",
-    "EXAMPLE":"Example"
+    "EXAMPLE":"Example",
+    "ADDITIONAL_OPTIONS":"Additional options"
   }
 }

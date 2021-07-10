@@ -1,22 +1,20 @@
 import { browser, logging } from 'protractor';
-import { WordTestHelper } from '../helpers/word-test.helper';
 import { WordSelector } from '../selectors/word.selector';
 import { AuthenticationTestHelper } from '../../authentication/helpers/authentication-test.helper';
 import { properties } from '../../../properties/properties';
 
 describe('add-word panel', () => {
   let wordSelector: WordSelector;
-  let wordTestHelper: WordTestHelper;
   let authenticationHelper: AuthenticationTestHelper;
 
   beforeEach(() => {
     wordSelector = new WordSelector();
-    wordTestHelper = new WordTestHelper();
     authenticationHelper = new AuthenticationTestHelper();
     authenticationHelper.login();
   });
 
   it('should display add word form', () => {
+
     expect(wordSelector.getAddWordForm().isPresent()).toBeTruthy();
   });
 
