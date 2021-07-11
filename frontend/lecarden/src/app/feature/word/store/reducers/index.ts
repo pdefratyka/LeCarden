@@ -23,12 +23,10 @@ export interface CategoriesState {
 
 const getWordFeatureState = createFeatureSelector<WordState>('words');
 const getPacketFeautreState = createFeatureSelector<PacketState>('packets');
-const getLanguagesFeatureState = createFeatureSelector<LanguageState>(
-  'languages'
-);
-const getCategoriesFeatureState = createFeatureSelector<CategoryState>(
-  'categories'
-);
+const getLanguagesFeatureState =
+  createFeatureSelector<LanguageState>('languages');
+const getCategoriesFeatureState =
+  createFeatureSelector<CategoryState>('categories');
 
 export const getWords = createSelector(
   getWordFeatureState,
@@ -44,6 +42,13 @@ export const getWordsFromCurrentPacket = createSelector(
   getPacketFeautreState,
   (state) => {
     return state.currentPacket.words;
+  }
+);
+
+export const getCurrentPacketLanguage = createSelector(
+  getPacketFeautreState,
+  (state) => {
+    return state.currentPacket.languageTO;
   }
 );
 

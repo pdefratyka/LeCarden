@@ -12,6 +12,7 @@ import {
   getCurrentPacketName,
   getLanguages,
   LanguagePageAction,
+  getCurrentPacketLanguage,
 } from '../store';
 import { Observable } from 'rxjs';
 import { Language } from 'src/app/shared/models/language';
@@ -29,6 +30,7 @@ import { TabName } from '../../home/models/tabName';
 export class AddPacketComponent implements OnInit {
   wordsInPacket$: Observable<Word[]>;
   packetName$: Observable<string>;
+  currentLanguage$: Observable<Language>;
   addedWordsIndex$: Observable<number[]>;
   words$: Observable<Word[]>;
   languages$: Observable<Language[]>;
@@ -39,6 +41,7 @@ export class AddPacketComponent implements OnInit {
     this.words$ = this.store.select(getWords);
     this.wordsInPacket$ = this.store.select(getWordsFromCurrentPacket);
     this.packetName$ = this.store.select(getCurrentPacketName);
+    this.currentLanguage$ = this.store.select(getCurrentPacketLanguage);
     this.languages$ = this.store.select(getLanguages);
     this.getAddedWordsIndexes();
     this.addedWordsIndex$ = this.getAddedWordsIndexes();

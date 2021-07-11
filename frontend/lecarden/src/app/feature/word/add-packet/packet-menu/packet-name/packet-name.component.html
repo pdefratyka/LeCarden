@@ -21,7 +21,8 @@
           formControlName="language"
         >
           <option></option>
-          <option *ngFor="let language of languages">
+          <option *ngFor="let language of languages"
+            [attr.selected]="language?.id === currentLanguage?.id ? true : null">
             {{ language.foreignLanguage }}/{{ language.knownLanguage }}
           </option>
         </select>

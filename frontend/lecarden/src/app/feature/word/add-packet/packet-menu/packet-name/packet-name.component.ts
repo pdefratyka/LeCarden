@@ -14,6 +14,8 @@ export class PacketNameComponent implements OnInit {
   packetName: string;
   @Input()
   languages: Language[];
+  @Input()
+  currentLanguage: Language;
 
   ngOnInit(): void {
     this.name.get('packetName').setValue(this.packetName);

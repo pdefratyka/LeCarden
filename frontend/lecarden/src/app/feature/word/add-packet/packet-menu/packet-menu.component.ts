@@ -27,6 +27,8 @@ export class PacketMenuComponent implements OnInit, OnDestroy {
   packetName: string;
   @Input()
   languages: Language[];
+  @Input()
+  currentLanguage: Language;
   @Output()
   removeWord: EventEmitter<Word> = new EventEmitter<Word>();
   @Output()
