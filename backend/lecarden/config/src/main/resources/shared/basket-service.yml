@@ -4,12 +4,15 @@ server:
   port: 6004
 
 spring:
+  zipkin:
+    sender:
+      type: web
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${BASKET_DB_URL}
-    username: ${BASKET_DB_USERNAME}
-    password: ${BASKET_DB_PASSWORD}
+    url: jdbc:mysql://host.docker.internal:3306/lecarden_basket?autoReconnect=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
   jpa:
     properties:
       hibernate:
@@ -22,7 +25,7 @@ security:
   oauth2:
     client:
       clientId: basket-service
-      clientSecret: ${BASKET_SERVICE_PASSWORD}
-      accessTokenUri: http://localhost:5000/uaa/oauth/token
+      clientSecret: password
+      accessTokenUri: http://auth-service:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server

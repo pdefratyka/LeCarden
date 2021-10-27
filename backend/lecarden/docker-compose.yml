@@ -3,7 +3,7 @@ services:
   config:
     environment:
       CONFIG_PASSWORD: ${CONFIG_PASSWORD}
-    image: lecarden/config
+    build: ./config
     restart: always
     logging:
       options:
@@ -11,38 +11,152 @@ services:
         max-file: "10"
     ports:
       - 8888:8888
-
+    healthcheck:
+      test: curl --fail -s http://localhost:8888/actuator/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - app-network
   registry:
     environment:
       CONFIG_PASSWORD: ${CONFIG_PASSWORD}
-    image: lecarden/registry
+    build: ./registry
     restart: always
+    depends_on:
+      config:
+        condition: service_healthy
     ports:
       - 8761:8761
+    healthcheck:
+      test: curl --fail -s http://localhost:8761 || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 5
     logging:
       options:
         max-size: "10m"
         max-file: "10"
-
+    networks:
+      - app-network
   gateway:
     environment:
       CONFIG_PASSWORD: ${CONFIG_PASSWORD}
-    image: lecarden/gateway
+    build: ./gateway
     restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
     ports:
       - 4000:4000
+    healthcheck:
+      test: curl --fail -s http://localhost:4000/actuator/health || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 5
     logging:
       options:
         max-size: "10m"
         max-file: "10"
+    networks:
+      - app-network
+  auth-service:
+    environment:
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+    build: ./auth-service
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    ports:
+      - 5000:5000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - app-network
 
   word-service:
     environment:
       CONFIG_PASSWORD: ${CONFIG_PASSWORD}
-    image: lecarden/word-service
+    build: ./word-service
     restart: always
     depends_on:
       config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    ports:
+      - 6002:6002
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - app-network
+
+  result-service:
+    environment:
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+    build: ./result-service
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    ports:
+      - 6006:6006
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - app-network
+
+  basket-service:
+    environment:
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+    build: ./basket-service
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    ports:
+      - 6004:6004
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - app-network
+
+  user-service:
+    environment:
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+    build: ./user-service
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
+      gateway:
         condition: service_healthy
     ports:
       - 6000:6000
@@ -50,3 +164,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge

@@ -2,11 +2,15 @@ server:
   servlet:
     context-path: /uaa
   port: 5000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka
 spring:
   datasource:
-    url: ${USER_DB_URL}
-    username: ${USER_DB_USERNAME}
-    password: ${USER_DB_PASSWORD}
+    url: jdbc:mysql://host.docker.internal:3306/lecarden?autoReconnect=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
   jpa:
     properties:
       hibernate:

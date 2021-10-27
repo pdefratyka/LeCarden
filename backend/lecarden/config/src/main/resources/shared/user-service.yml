@@ -4,23 +4,27 @@ server:
   port: 6000
 
 spring:
+  zipkin:
+    sender:
+      type: web
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${USER_DB_URL}
-    username: ${USER_DB_USERNAME}
-    password: ${USER_DB_PASSWORD}
+    url: jdbc:mysql://host.docker.internal:3306/lecarden?autoReconnect=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-
+    hibernate:
+      ddl-auto: update
 feign:
   hystrix:
     enabled: true
 
 email:
   register-confirmation:
-    url: ${EMAIL_REGISTER_CONFIRMATION_URL}
+    url: http://email-service/register-confirmation
   forgot-password:
-    url: ${EMAIL_FORGOT_PASSWORD_URL}
+    url: http://email-service/forgot-password-token
