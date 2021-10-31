@@ -1,9 +1,48 @@
-spring:
-  application:
-    name: gateway
-  cloud:
-    config:
-      uri: http://config:8888
-      fail-fast: true
-      password: password
-      username: user
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+
+  routes:
+    auth-service:
+      path: /uaa/**
+      serviceId: auth-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    word-service:
+      path: /words/**
+      serviceId: word-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    basket-service:
+      path: /baskets/**
+      serviceId: basket-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    result-service:
+      path: /results/**
+      serviceId: result-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    user-service:
+      path: /users/**
+      serviceId: user-service
+      stripPrefix: false
+      sensitiveHeaders:

@@ -66,7 +66,7 @@ public class PacketServiceImpl implements PacketService {
     }
 
     private ResultTO getResultById(Long resultId) {
-        String resultServiceUrl = environmentService.getResultUrl() + resultId;
+        String resultServiceUrl = environmentService.getResultUrl() +"/"+ resultId;
         try {
             URI uri = new URI(resultServiceUrl);
             ResponseEntity<ResultTO> resultResponseEntity = restTemplate.getForEntity(uri, ResultTO.class);

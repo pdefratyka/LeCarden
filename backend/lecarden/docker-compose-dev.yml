@@ -1,0 +1,137 @@
+version: '2.1'
+services:
+  registry:
+    #build: ./registry
+    image: lecarden_registry:latest
+    ports:
+      - 8761:8761
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+    healthcheck:
+      test: "true"
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-network
+  gateway:
+    #build: ./gateway
+    image: lecarden_gateway:latest
+    depends_on:
+      registry:
+        condition: service_healthy
+    ports:
+      - 4000:4000
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+    healthcheck:
+      test: "true"
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-network
+
+  auth-service:
+    #build: ./auth-service
+    image: lecarden_auth-service:latest
+    depends_on:
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    ports:
+      - 5000:5000
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+      - DB_USERNAME=${AUTH_SERVICE_DB_USERNAME}
+      - DB_PASSWORD=${AUTH_SERVICE_DB_PASSWORD}
+    healthcheck:
+      test: "true"
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-network
+
+
+  word-service:
+    #build: ./word-service
+    image: lecarden_word-service:latest
+    depends_on:
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    ports:
+      - 6002:6002
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+      - DB_USERNAME=${WORD_SERVICE_DB_USERNAME}
+      - DB_PASSWORD=${WORD_SERVICE_DB_PASSWORD}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+    networks:
+      - app-network
+
+  result-service:
+    #build: ./result-service
+    image: lecarden_result-service:latest
+    depends_on:
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    ports:
+      - 6006:6006
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+      - DB_USERNAME=${RESULT_SERVICE_DB_USERNAME}
+      - DB_PASSWORD=${RESULT_SERVICE_DB_PASSWORD}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+    networks:
+      - app-network
+
+  basket-service:
+    #build: ./basket-service
+    image: lecarden_basket-service:latest
+    depends_on:
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    ports:
+      - 6004:6004
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+      - DB_USERNAME=${BASKET_SERVICE_DB_USERNAME}
+      - DB_PASSWORD=${BASKET_SERVICE_DB_PASSWORD}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+    networks:
+      - app-network
+
+  user-service:
+    #build: ./user-service
+    image: lecarden_user-service:latest
+    depends_on:
+      registry:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    ports:
+      - 6000:6000
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+      - DB_USERNAME=${USER_SERVICE_DB_USERNAME}
+      - DB_PASSWORD=${USER_SERVICE_DB_PASSWORD}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
