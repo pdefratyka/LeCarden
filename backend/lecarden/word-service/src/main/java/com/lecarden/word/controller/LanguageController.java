@@ -2,22 +2,20 @@ package com.lecarden.word.controller;
 
 import com.lecarden.word.persistence.to.LanguageTO;
 import com.lecarden.word.service.LanguageService;
-import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
 
-@Log4j2
 @RestController
 @RequestMapping("languages")
+@Slf4j
 public class LanguageController {
-    private Logger logger = LoggerFactory.getLogger(LanguageController.class);
     private LanguageService languageService;
 
     @Autowired
@@ -26,7 +24,8 @@ public class LanguageController {
     }
 
     @GetMapping
-    public List<LanguageTO> getAllLanguages() {
-        return languageService.getAllLanguages();
+    public ResponseEntity<List<LanguageTO>> getAllLanguages() {
+        log.info("Get all languages");
+        return new ResponseEntity<>(languageService.getAllLanguages(), HttpStatus.OK);
     }
 }

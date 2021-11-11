@@ -2,6 +2,7 @@ package com.lecarden.word.persistence.to;
 
 import lombok.*;
 
+@ToString
 @Getter
 @Setter
 @Builder
