@@ -25,4 +25,12 @@ public class EnvironmentService {
     public String getTokenSecretKey(){
         return environment.getProperty("token.secret-key");
     }
+
+    String getKafkaServerAddress(){
+        return environment.getProperty("kafka.producer.server");
+    }
+
+    public String getKafkaTopicName(){
+        return environment.getProperty("kafka.producer.topic");
+    }
 }
