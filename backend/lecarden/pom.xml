@@ -42,9 +42,8 @@
 		<module>user-service</module>
 		<module>result-service</module>
 		<module>basket-service</module>
-        <!--<module>email</module>
-		<module>result</module>
-		<module>filemanager</module>-->
+        <module>email-service</module>
+		<!--<module>filemanager</module>-->
 	</modules>
 
 </project>

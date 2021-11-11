@@ -6,6 +6,7 @@ import lecarden.user.common.mapper.UserMapper;
 import lecarden.user.common.validator.UserValidator;
 import lecarden.user.config.EnvironmentService;
 import lecarden.user.persistence.entity.ConfirmationToken;
+import lecarden.user.persistence.entity.EmailInformation;
 import lecarden.user.persistence.entity.PasswordResetToken;
 import lecarden.user.persistence.entity.User;
 import lecarden.user.persistence.repository.UserRepository;
@@ -21,6 +22,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +46,8 @@ public class UserServiceImpl implements UserService {
     private ConfirmationTokenService confirmationTokenService;
     private PasswordResetService passwordResetService;
     private EnvironmentService environmentService;
+    @Autowired
+    private KafkaTemplate<String, EmailInformation> kafkaTemplate;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,
@@ -69,6 +76,7 @@ public class UserServiceImpl implements UserService {
 
         /*sendToken(environmentService.getEmailRegisterConfirmationUrl(),
                 savedUser.getLogin(), savedUser.getEmail(), token.getToken());*/
+        sendMessage(userTO.getLogin(), userTO.getEmail(), "qwe");
         return savedUser;
     }
 
@@ -159,5 +167,14 @@ public class UserServiceImpl implements UserService {
         emailInformation.put("userEmail", email);
         emailInformation.put("token", token);
         return emailInformation.toString();
+    }
+
+    private void sendMessage(String login, String email, String token) {
+        EmailInformation emailInformation = new EmailInformation(login, email, token);
+        Message<EmailInformation> message = MessageBuilder
+                .withPayload(emailInformation)
+                .setHeader(KafkaHeaders.TOPIC, environmentService.getKafkaTopicName())
+                .build();
+        kafkaTemplate.send(message);
     }
 }

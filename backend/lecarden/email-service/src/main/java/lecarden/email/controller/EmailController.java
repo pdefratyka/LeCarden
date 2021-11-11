@@ -26,4 +26,6 @@ public class EmailController {
     public void sendPasswordToken(@RequestBody EmailInformation emailInformation) {
         emailService.sendPasswordToken(emailInformation);
     }
+
+
 }

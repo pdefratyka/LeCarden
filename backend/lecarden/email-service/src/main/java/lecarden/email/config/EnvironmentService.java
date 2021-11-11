@@ -21,4 +21,12 @@ public class EnvironmentService {
     public String getFrontendChangePassword() {
         return environment.getProperty("frontend.change-password.url");
     }
+
+    String getKafkaAddress() {
+        return environment.getProperty("kafka.consumer.server");
+    }
+
+    String getKafkaGroupId() {
+        return environment.getProperty("kafka.consumer.group-id");
+    }
 }
