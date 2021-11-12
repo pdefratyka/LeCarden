@@ -1,10 +1,10 @@
 package com.lecarden.word.common.mapper.impl;
 
+import com.lecarden.word.common.mapper.LanguageMapper;
 import com.lecarden.word.common.mapper.PacketMapper;
 import com.lecarden.word.common.mapper.WordMapper;
 import com.lecarden.word.persistence.entity.Packet;
 import com.lecarden.word.persistence.to.PacketTO;
-import com.lecarden.word.common.mapper.LanguageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,10 +40,8 @@ public class PacketMapperImpl implements PacketMapper {
             } else {
                 packetTO.setWordsNumber(0L);
             }
-
             return packetTO;
         }
-
         return null;
     }
 
@@ -51,7 +49,6 @@ public class PacketMapperImpl implements PacketMapper {
     public List<PacketTO> mapToPacketTOs(List<Packet> packets) {
         List<PacketTO> packetTOs = new ArrayList<>();
         packets.forEach(p -> packetTOs.add(mapToPacketTO(p)));
-
         return packetTOs;
     }
 
@@ -68,7 +65,6 @@ public class PacketMapperImpl implements PacketMapper {
                     .languageId(packetTO.getLanguageId())
                     .build();
         }
-
         return null;
     }
 }

@@ -1,9 +1,9 @@
 package com.lecarden.word.common.mapper.impl;
 
+import com.lecarden.word.common.mapper.LanguageMapper;
 import com.lecarden.word.common.mapper.WordMapper;
 import com.lecarden.word.persistence.entity.Word;
 import com.lecarden.word.persistence.to.WordTO;
-import com.lecarden.word.common.mapper.LanguageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,6 @@ public class WordMapperImpl implements WordMapper {
                     .language(languageMapper.mapToLanguage(wordTO.getLanguageTO()))
                     .build();
         }
-
         return null;
     }
 
@@ -60,7 +59,6 @@ public class WordMapperImpl implements WordMapper {
                     .languageTO(languageMapper.mapToLanguageTO(word.getLanguage()))
                     .build();
         }
-
         return null;
     }
 
@@ -68,7 +66,6 @@ public class WordMapperImpl implements WordMapper {
     public List<WordTO> mapToWordTOs(List<Word> words) {
         List<WordTO> wordTOs = new ArrayList<>();
         words.forEach(w -> wordTOs.add(mapToWordTO(w)));
-
         return wordTOs;
     }
 
@@ -76,7 +73,6 @@ public class WordMapperImpl implements WordMapper {
     public List<Word> mapToWords(List<WordTO> wordTOs) {
         List<Word> words = new ArrayList<>();
         wordTOs.forEach(w -> words.add(mapToWord(w)));
-
         return words;
     }
 }

@@ -1,8 +1,8 @@
 package com.lecarden.word.common.mapper.impl;
 
-import com.lecarden.word.persistence.to.LanguageTO;
 import com.lecarden.word.common.mapper.LanguageMapper;
 import com.lecarden.word.persistence.entity.Language;
+import com.lecarden.word.persistence.to.LanguageTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,16 +22,12 @@ public class LanguageMapperImpl implements LanguageMapper {
         } else {
             return null;
         }
-
     }
 
     @Override
     public List<LanguageTO> mapToLanguagesTOs(List<Language> languages) {
         List<LanguageTO> languagesTOs = new ArrayList<>();
-
-        languages.forEach(l -> {
-            languagesTOs.add(mapToLanguageTO(l));
-        });
+        languages.forEach(l -> languagesTOs.add(mapToLanguageTO(l)));
 
         return languagesTOs;
     }
