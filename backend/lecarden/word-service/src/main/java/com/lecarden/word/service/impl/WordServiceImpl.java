@@ -1,5 +1,6 @@
 package com.lecarden.word.service.impl;
 
+import com.lecarden.word.common.exception.PageNumberException;
 import com.lecarden.word.common.mapper.WordMapper;
 import com.lecarden.word.persistence.entity.Word;
 import com.lecarden.word.persistence.repository.PacketRepository;
@@ -63,7 +64,11 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public List<WordTO> getWordsAccessibleForGivenUser(Long userId, String query, int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo - 1, PAGE_SIZE);
+        if (pageNo < 1) {
+            throw new PageNumberException();
+        }
+        Pageable pageable = PageRequest.of(pageNo - 1, PAGE_SIZE); // TODO PAGE_SIZE should be placed in properties
+        // TODO Id should be combined with token, so i cannot take words assigned to another user
         Page<Word> words = wordRepository.getWordsAccessibleForGivenUser(userId, query, pageable);
         return wordMapper.mapToWordTOs(words.getContent());
     }
